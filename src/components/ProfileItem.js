@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import AccountCircle from '../icons/IconAccount';
 import IconButton from 'material-ui/IconButton';
 import CustomItem from './CustomItem';
 
@@ -47,7 +47,7 @@ class ProfileItem extends Component {
                         <div className="row">
                             <div className="col-md-3" >
                                 <IconButton>
-                                    <AccountCircle color="white"/>
+                                    <AccountCircle color="white" width="32" height="32"/>
                                 </IconButton>
                             </div>
                         
