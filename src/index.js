@@ -11,6 +11,10 @@ import {persistStore, autoRehydrate} from 'redux-persist';
 import reduxReset from 'redux-reset';
 import allReducers from './reducers';
 
+import HomePage from './components/HomePage';
+//import AuthorizedRoute from './components/AuthorizedRoute';
+//import UnAuthorizedRoute from './components/UnAuthorizedRoute';
+
 import {MuiThemeProvider,createMuiTheme} from 'material-ui/styles';
 
 const enHanceCreateStore = compose(
@@ -29,7 +33,7 @@ persistStore(store, {}, () => {
         <Provider store = {store}>
             <MuiThemeProvider theme={theme}>
                 <BrowserRouter>
-                    <App />
+                    <HomePage />
                 </BrowserRouter>
             </MuiThemeProvider>
         </Provider>

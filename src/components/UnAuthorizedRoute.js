@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
 import * as API from '../api/api';
-import {changeUserState} from '../actions/action.js';
+import {changeUserState} from '../actions';
 
 class UnAuthorizedRoute extends Component {
 
