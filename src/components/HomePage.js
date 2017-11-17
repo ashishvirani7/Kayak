@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { Navbar,Nav,NavItem } from 'react-bootstrap';
+import CustomNavbar from './CustomNavbar';
 
 const Background = "https://a1.r9cdn.net/dimg/phoenix-images/v1/phoenix-flights-bg.jpg";
 class HomePage extends Component {
@@ -8,7 +9,8 @@ class HomePage extends Component {
             <div className="App">
                 <div className="row"  style={{width:'fit',height:'80vh',clip:'1200px 500px 1200px 500px',backgroundImage:'url('+Background+')'}}>
                     <div className="col-md-12">
-                        <div className="row" style={{backgroundColor:'none!important'}}>
+                        <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
+                        <CustomNavbar />
                         {/* <Navbar  collapseOnSelect>
                             <Navbar.Header>
                                 <Navbar.Brand>

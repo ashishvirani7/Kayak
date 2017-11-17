@@ -15,7 +15,7 @@ import HomePage from './components/HomePage';
 //import AuthorizedRoute from './components/AuthorizedRoute';
 //import UnAuthorizedRoute from './components/UnAuthorizedRoute';
 
-import {MuiThemeProvider,createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider} from 'material-ui/styles';
 
 const enHanceCreateStore = compose(
     reduxReset(),
@@ -26,12 +26,11 @@ const enHanceCreateStore = compose(
 const store = enHanceCreateStore(allReducers)
 
 //persistStore(store);
-const theme = createMuiTheme();
 
 persistStore(store, {}, () => {
     ReactDOM.render(    
         <Provider store = {store}>
-            <MuiThemeProvider theme={theme}>
+            <MuiThemeProvider>
                 <BrowserRouter>
                     <HomePage />
                 </BrowserRouter>
