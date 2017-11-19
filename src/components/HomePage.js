@@ -1,14 +1,25 @@
 import React,{Component} from 'react';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+
 import CustomNavbar from './CustomNavbar';
 import IconHotel from '../icons/IconHotel';
 import IconFlight from '../icons/IconFlight';
 import IconCar from '../icons/IconCar';
+
+
 
 const Background = "https://a1.r9cdn.net/dimg/phoenix-images/v1/phoenix-flights-bg.jpg";
 class HomePage extends Component {
     render() {
         return (
             <div className="App">
+                {this.props.loginModal.isOpen && <LoginModal/>}
+                {this.props.signupModal.isOpen && <SignupModal/>}
                 <div className="row"  style={divStyle}>
                     <div className="col-md-12">
                         <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
@@ -49,4 +60,23 @@ const slogan={
     fontSize: '28px',
     marginBottom: '0'
 }
-export default HomePage;
+
+function mapStateToProps(state){
+    return{
+        loginModal:state.loginModal,
+        signupModal:state.signupModal,
+
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            
+
+        }
+        ,dispatch);
+  }
+  
+export default connect(mapStateToProps,matchDispatchToProps)(HomePage);
+
