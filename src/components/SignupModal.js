@@ -55,14 +55,14 @@ class signupModal extends React.Component {
     
     return (
       <div>
-        <RaisedButton label="Dialog" onClick={this.handleOpen} />
         <Dialog
           
           modal={false}
           open={this.props.signupModal.isOpen}
           onRequestClose={this.handleClose}
           style={{width:"600px", marginLeft:"400px",marginTop:"-50px"}}
-          
+          autoDetectWindowHeight={true}
+          autoScrollBodyContent={true}
         >
         
         <div style={socialStyle}>

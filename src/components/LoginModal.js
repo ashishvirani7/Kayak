@@ -53,14 +53,14 @@ class LoginModal extends React.Component {
     
     return (
       <div>
-        <RaisedButton label="Dialog" onClick={this.handleOpen} />
         <Dialog
           
           modal={false}
           open={this.props.loginModal.isOpen}
           onRequestClose={this.handleClose}
-          style={{width:"600px", marginLeft:"400px",marginTop:"-50px"}}
-          
+          style={{width:"600px", marginLeft:"400px",marginTop:"-50px",maxHeight:'none'}}
+          autoDetectWindowHeight={true}
+          autoScrollBodyContent={true}
         >
         
         <div style={socialStyle}>
@@ -199,7 +199,8 @@ const signUpTextStyle = {
 }
 
 const footerStyle={
-    padding: "10px 20px",
+    marginTop:'-50px',
+    padding: "10px 0px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -208,13 +209,12 @@ const footerStyle={
 }
 
 const forgotPasswordStyle = {
-    marginBottom: "0",
     textAlign: "right",
     fontSize: "12px",
     marginTop: "8px",
     display: "block",
     color: "#999",
-    margin: "15px auto"
+    margin: "15px 0px"
 }
 
 const buttonStyle = {
