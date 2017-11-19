@@ -1,4 +1,11 @@
 import React,{Component} from 'react';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+
 import CustomNavbar from './CustomNavbar';
 
 import NavTable from './NavTable';
@@ -16,6 +23,7 @@ import HomeFooter from './HomeFooter';
 const Background1 = "./images/hotels.jpg";
 const Background2 = "./images/flights.jpg";
 const Background3 = "./images/cars.jpg"
+
 class HomePage extends Component {
 
     state = {
@@ -25,7 +33,10 @@ class HomePage extends Component {
     render() {
         return (
             <div style={{width:'100vw'}}>
+                {this.props.loginModal.isOpen && <LoginModal/>}
+                {this.props.signupModal.isOpen && <SignupModal/>}
                 <div className="row App"  style={divStyle}>
+
                     <div className="col-md-12">
                         <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
                             <CustomNavbar />
@@ -156,4 +167,22 @@ const dslider={
     marginLeft:'110px',
     marginRight:'110px'
 }
-export default HomePage;
+
+function mapStateToProps(state){
+    return{
+        loginModal:state.loginModal,
+        signupModal:state.signupModal,
+
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            
+
+        }
+        ,dispatch);
+  }
+  
+export default connect(mapStateToProps,matchDispatchToProps)(HomePage);
