@@ -11,8 +11,8 @@ class IconAccount extends Component{
                 aria-labelledby={this.props.icontitle}>
             <title id={this.props.icontitle}></title>
                 <circle class="colorable svg-white-default" stroke={this.props.color} fill="none" cx="12" cy="10" r="3.5"></circle>
-                <path fill={this.props.color} class="colorable svg-white-default" stroke={this.props.color} fill="none" d="M12,14c-4,0-7.21,2.67-7.47,6.05a11,11,0,0,0,14.95,0C19.21,16.67,16,14,12,14Z"></path>
-                <path fill={this.props.color} class="colorable svg-white-default" stroke={this.props.color} fill="none" d="M23,12A11,11,0,1,0,4.53,20.05C4.79,16.67,8,14,12,14s7.21,2.67,7.47,6.05A11,11,0,0,0,23,12Z"></path>
+                <path class="colorable svg-white-default" stroke={this.props.color} fill="none" d="M12,14c-4,0-7.21,2.67-7.47,6.05a11,11,0,0,0,14.95,0C19.21,16.67,16,14,12,14Z"></path>
+                <path class="colorable svg-white-default" stroke={this.props.color} fill="none" d="M23,12A11,11,0,1,0,4.53,20.05C4.79,16.67,8,14,12,14s7.21,2.67,7.47,6.05A11,11,0,0,0,23,12Z"></path>
             </svg>
         )
     }

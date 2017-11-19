@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import logo from '../images/kayaklogo.png';
+import logo from '../images/kayak.svg';
 import ProfileItem from './ProfileItem';
 import CustomItem from './CustomItem';
 class CustomNavbar extends Component

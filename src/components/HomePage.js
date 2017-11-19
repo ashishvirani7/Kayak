@@ -1,15 +1,31 @@
 import React,{Component} from 'react';
 import CustomNavbar from './CustomNavbar';
-import IconHotel from '../icons/IconHotel';
-import IconFlight from '../icons/IconFlight';
-import IconCar from '../icons/IconCar';
 
-const Background = "https://a1.r9cdn.net/dimg/phoenix-images/v1/phoenix-flights-bg.jpg";
+import NavTable from './NavTable';
+
+import HotelSearch from './HotelSearch';
+import FlightSearch from './FlightSearch';
+import CarSearch from './CarSearch';
+
+import CustomSlider from './CustomSlider';
+import CityList from './CityList';
+
+import ImageList from './ImageList';
+import HomeFooter from './HomeFooter';
+
+const Background1 = "./images/hotels.jpg";
+const Background2 = "./images/flights.jpg";
+const Background3 = "./images/cars.jpg"
 class HomePage extends Component {
+
+    state = {
+        page:'1',
+    }
+
     render() {
         return (
-            <div className="App">
-                <div className="row"  style={divStyle}>
+            <div style={{width:'100vw'}}>
+                <div className="row App"  style={divStyle}>
                     <div className="col-md-12">
                         <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
                             <CustomNavbar />
@@ -17,12 +33,43 @@ class HomePage extends Component {
                         <div className="row" style={slogan}>
                             Search hundreds of travel sites at once.
                         </div>
-                        <div className="row" >
-                            <IconHotel width="32" height="32" color="white"/>
-                            <IconFlight width="32" height="32" color="white"/>
-                            <IconCar width="32" height="32" color="white"/>
+                        <div className="row" style={table}>
+                            <NavTable />
+                        </div>
+                        <div className="row" style={tablec}>
+                            {(this.state.page==="1")?<HotelSearch/>:<div></div>}
+                            {(this.state.page==="2")?<FlightSearch/>:<div></div>}
+                            {(this.state.page==="3")?<CarSearch/>:<div></div>}
                         </div>
                     </div>
+                </div>
+
+                <div className="row" style={ctitle}>
+                    Popular Destinations For You
+                </div>
+                <div className="row" style={cslider}>
+                     <CustomSlider />       
+                </div>
+
+                <div className="row" style={dtitle}>
+                    Start your travel planning here
+                </div>
+                <div className="row" style={etitle}>
+                    Find Car Rentals       
+                </div>
+                <div className="row" style={cslider}>
+                    <CityList />      
+                </div>
+
+                <div className="row" style={ftitle}>
+                    Use our smart tools to make your search easier
+                </div>
+                <div className="row" style={dslider}>
+                    <ImageList />      
+                </div>
+                
+                <div className="row">
+                    <HomeFooter />
                 </div>
             </div>
         );
@@ -32,21 +79,81 @@ class HomePage extends Component {
 const divStyle={
     width:'fit',
     height:'75vh',
-    backgroundImage:'url('+Background+')',
+    backgroundImage:'url('+Background1+')',
     backgroundPositionX:'center',
-    backgroundPositionY:'-40px'
+    backgroundPositionY:'-30px'
 }
 
 const slogan={
     width: '100%',
     top: '50%',
     left: '0',
-    marginTop: '40px',
+    marginTop: '15px',
     color:'white',
     textAlign: 'center',
     fontFamily: '"HelveticaNeue-Bold",Helvetica,Arial,sans-serif',
     fontWeight: '600',
     fontSize: '28px',
     marginBottom: '0'
+}
+
+const table={
+    marginTop:'40px',
+    marginLeft:'150px',
+    marginRight:'150px'
+}
+
+const tablec={
+    marginTop:'-10px',
+    marginLeft:'150px',
+    marginRight:'150px',
+    backgroundColor:'#e4e5ea',
+    height:'150px'
+}
+
+const ctitle={
+    margin:'50px 184px 10px 184px',
+    fontSize:'20px',
+    fontWeight:'600',
+    fontFamily:'"HelveticaNeue-Bold", Helvetica, Arial, sans-serif',
+    color:'#0f0f0f'
+}
+
+const dtitle={
+    marginTop:'200px',
+    fontSize:'36px',
+    fontWeight:'300',
+    fontFamily:'"HelveticaNeue", Helvetica, Arial, sans-serif',
+    color:'#212121',
+    textAlign:'center'
+}
+
+const etitle={
+    marginTop:'8px',
+    fontSize:'22px',
+    fontWeight:'400',
+    fontFamily:'"HelveticaNeue", Helvetica, Arial, sans-serif',
+    color:'#8b8b8e',
+    textAlign:'center'
+}
+
+const ftitle={
+    marginTop:'150px',
+    fontSize:'2.1em',
+    fontWeight:'200',
+    lineHeight: 'normal',
+    fontFamily:'"HelveticaNeue", Helvetica, Arial, sans-serif',
+    color:'#0f0f0f',
+    textAlign:'center'
+}
+
+const cslider={
+    marginLeft:'150px',
+    marginRight:'150px'
+}
+
+const dslider={
+    marginLeft:'110px',
+    marginRight:'110px'
 }
 export default HomePage;

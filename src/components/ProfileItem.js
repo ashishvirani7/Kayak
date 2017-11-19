@@ -1,10 +1,8 @@
 import React,{Component} from 'react';
-import { Navbar,Nav,NavItem } from 'react-bootstrap';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
