@@ -67,7 +67,7 @@ class HomeFooter extends Component{
                             United States
                         </div>
                         <div className="row" style={rstyle}>
-                            {"$    USD"}   
+                        <div style={flag}>{"$    USD"}</div>   
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,8 @@ const flag={
     backgroundPosition:"0 0",
     width:'18px',
     height:'14px',
-    backgroundRepeat:'no-repeat'
+    backgroundRepeat:'no-repeat',
+    margin:'4px'
 }
 const divstyle={
     backgroundColor:'#0f0f0f',
