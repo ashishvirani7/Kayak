@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+import HomePage from './components/HomePage';
+
+
+const  App = () => {
+    return(
+      <div>
+        <Route exact path="/" component={HomePage}/>
+        <Route exact path="/hotels" component={HomePage}/>
+        <Route exact path="/cars" component={HomePage}/>
+        <Route exact path="/flights" component={HomePage}/>
+        
+      </div>);
 }
 
 export default App;
+

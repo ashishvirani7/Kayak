@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "cryptojs": "^2.5.3",
+    "history": "^4.7.2",
     "js-file-download": "^0.4.1",
     "material-ui": "0.19.4",
     "material-ui-icons": "^1.0.0-beta.17",
@@ -15,6 +16,7 @@
     "react-modal": "^3.1.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "react-scripts": "1.0.17",
     "react-slick": "^0.15.4",
     "redux": "^3.7.2",

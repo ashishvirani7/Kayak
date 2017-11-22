@@ -31,11 +31,21 @@ class HomePage extends Component {
     }
 
     render() {
+        var myStyle;
+        if(this.props.activeItem==="hotels"){
+            myStyle = divStyle1;
+        }
+        else if(this.props.activeItem==="flights"){
+            myStyle = divStyle2;
+        } 
+        else if(this.props.activeItem==="cars"){
+            myStyle = divStyle3;
+        }
         return (
             <div style={{width:'100vw'}}>
                 {this.props.loginModal.isOpen && <LoginModal/>}
                 {this.props.signupModal.isOpen && <SignupModal/>}
-                <div className="row App"  style={divStyle}>
+                <div className="row App" style={myStyle}>
 
                     <div className="col-md-12">
                         <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
@@ -48,9 +58,9 @@ class HomePage extends Component {
                             <NavTable />
                         </div>
                         <div className="row" style={tablec}>
-                            {(this.state.page==="1")?<HotelSearch/>:<div></div>}
-                            {(this.state.page==="2")?<FlightSearch/>:<div></div>}
-                            {(this.state.page==="3")?<CarSearch/>:<div></div>}
+                            {(this.props.activeItem==="hotels") && <HotelSearch/>}
+                            {(this.props.activeItem==="flights") && <FlightSearch/>}
+                            {(this.props.activeItem==="cars") && <CarSearch/>}
                         </div>
                     </div>
                 </div>
@@ -87,10 +97,24 @@ class HomePage extends Component {
     }
 }
 
-const divStyle={
+const divStyle1={
     width:'fit',
     height:'75vh',
     backgroundImage:'url('+Background1+')',
+    backgroundPositionX:'center',
+    backgroundPositionY:'-30px'
+}
+const divStyle2={
+    width:'fit',
+    height:'75vh',
+    backgroundImage:'url('+Background2+')',
+    backgroundPositionX:'center',
+    backgroundPositionY:'-30px'
+}
+const divStyle3={
+    width:'fit',
+    height:'75vh',
+    backgroundImage:'url('+Background3+')',
     backgroundPositionX:'center',
     backgroundPositionY:'-30px'
 }
@@ -172,6 +196,7 @@ function mapStateToProps(state){
     return{
         loginModal:state.loginModal,
         signupModal:state.signupModal,
+        activeItem:state.activeItem,
 
     };
 }
