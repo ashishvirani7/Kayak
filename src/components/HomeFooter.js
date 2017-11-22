@@ -67,7 +67,7 @@ class HomeFooter extends Component{
                             United States
                         </div>
                         <div className="row" style={rstyle}>
-                        <div style={flag}>{"$    USD"}</div>   
+                        <div style={flag1}>{"$    USD"}</div>   
                         </div>
                     </div>
                 </div>
@@ -84,6 +84,14 @@ const flag={
     width:'18px',
     height:'14px',
     backgroundRepeat:'no-repeat',
+    margin:'4px',
+    display:'inline-flex'
+}
+const flag1={
+    
+    width:'18px',
+    height:'14px',
+    display:"inline",
     margin:'4px'
 }
 const divstyle={
@@ -99,7 +107,7 @@ const rstyle={
     width:'100%',
     lineHeight:'21px',
     verticalAlign: 'middle',
-    display:'inline-flex',
+    //display:'inline-flex',
     padding:'5px'
 }
 const rowstyle={

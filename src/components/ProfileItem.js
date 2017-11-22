@@ -61,13 +61,13 @@ class ProfileItem extends Component {
                     <div className="col-md-4"></div>
                     <div className="col-md-8" onClick={this.handleTouchTap}>
                         <div className="row">
-                            <div className="col-md-3" >
+                            <div className="col-md-4" >
                                 <IconButton>
                                     <AccountCircle color="white" width="32" height="32"/>
                                 </IconButton>
                             </div>
                         
-                            <div className="col-md-9">
+                            <div className="col-md-8">
                                 <CustomItem name="My Account" />
                             </div>
                         </div>
