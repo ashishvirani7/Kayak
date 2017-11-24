@@ -1,0 +1,77 @@
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+
+kafka-server-start.bat ..\..\config\server.properties
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic login
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic signup_topic
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic login_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic response_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic list_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic register_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic directory1_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic directory_topic
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic signup_topic
+
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic list_topic
+
+
+
+delete.topic.enable=true
+
+kafka-topics.bat --list --zookeeper localhost:2181
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic test
+kafka-console-producer.bat --broker-list localhost:9092 --topic login_topic
+kafka-console-producer.bat --broker-list localhost:9092 --topic response_topic
+
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic login --from-beginning
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic login --from-beginning
+
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic response --from-beginning
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic login_topic --from-beginning
+
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic topic_login --from-beginning
+
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic login_topic --from-beginning
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic response_topic --from-beginning
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic list_topic --from-beginning
+
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic my-replicated-topic
+
+
+kafka-topics.bat --describe --zookeeper localhost:2181 --topic my-replicated-topic
+
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic DummyTopic
+
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic test
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic topic_login
+
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic login_topic
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic response_topic
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic list_topic
+
+
+
+
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+kafka-server-start.bat ..\..\config\server.properties
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic login_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic response_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic list_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic register_topic
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic directory1_topic
+
+
+
