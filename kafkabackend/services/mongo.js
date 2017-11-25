@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var connected = false;
-var mongoURL = "mongodb://localhost:27017/kayak";
+var mongoURL = "mongodb://54.67.27.46:27017/kayak";
 var db;
 /**
  * Connects to the MongoDB Database with the provided URL
