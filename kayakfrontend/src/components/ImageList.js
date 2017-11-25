@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import img1 from '../images/h3.png';
 import img2 from '../images/h2.png';
 import img3 from '../images/h1.png';
+
 import '../index.css';
 
 class ImageList extends Component{

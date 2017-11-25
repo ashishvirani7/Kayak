@@ -1,7 +1,7 @@
 var mongo = require("./mongo");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
-var mongoURL = "mongodb://localhost:27017/kayak";
+var mongoURL = "mongodb://54.67.27.46:27017/kayak";
 
 function handle_request(msg, callback){
 
@@ -17,6 +17,7 @@ function handle_request(msg, callback){
         var response={};
         var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
         password = bytes.toString(CryptoJS.enc.Utf8);
+        console.log("password is: "+password);
 
         loginCollection.findOne({"email":email}, function(err, loginData){
 
