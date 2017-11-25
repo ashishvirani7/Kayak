@@ -17,6 +17,7 @@ function handle_request(msg, callback){
         var response={};
         var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
         password = bytes.toString(CryptoJS.enc.Utf8);
+        console.log("password is: "+password);
 
         loginCollection.findOne({"email":email}, function(err, loginData){
 
