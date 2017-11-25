@@ -17,11 +17,12 @@ import HomePage from './components/HomePage';
 
 import {MuiThemeProvider} from 'material-ui/styles';
 import App from './App';
+
 const enHanceCreateStore = compose(
     reduxReset(),
     autoRehydrate(),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && 
-    window.__REDUX_DEVTOOLS_EXTENSION__(),
+    // window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    // window.__REDUX_DEVTOOLS_EXTENSION__(),
   )(createStore)
 const store = enHanceCreateStore(allReducers)
 
