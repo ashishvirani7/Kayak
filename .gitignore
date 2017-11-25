@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/kayakfrontend/node_modules
+/kayakbackend/node_modules
+/kafkabackend/node_modules
 
 # testing
 /coverage
