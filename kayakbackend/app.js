@@ -10,7 +10,7 @@ require('./routes/passport')(passport);
 const fileUpload = require('express-fileupload');
 
 var routes = require('./routes/index');
-var mongoSessionURL = "mongodb://54.67.27.46:27017/sessions";
+var mongoSessionURL = "mongodb://localhost:27017/sessions";
 var expressSessions = require("express-session");
 var mongoStore = require("connect-mongo/es5")(expressSessions);
 

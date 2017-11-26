@@ -1,8 +1,6 @@
 var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
-//var mongoURL = "mongodb://localhost:27017/kayak";
-//var mongoURL = "mongodb://54.67.27.46:27017/kayak";
 mongoose.connect('54.67.27.46:27017/kayak');
 var Users = require('../models/Users');
 
