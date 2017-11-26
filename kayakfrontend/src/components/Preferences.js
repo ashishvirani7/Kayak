@@ -20,7 +20,7 @@ class Preferences extends Component
                     <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>       
                 </div>
                 <div className="row" style={itemstyle}>
-                    <div className="col-md-3" style={labelstyle}>
+                    <div className="col-md-2" style={labelstyle}>
                         First Name
                     </div>
                     <div className="col-md-9">
@@ -37,7 +37,7 @@ class Preferences extends Component
                     <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>       
                 </div>
                 <div className="row" style={itemstyle}>
-                    <div className="col-md-3" style={labelstyle}>
+                    <div className="col-md-2" style={labelstyle}>
                         Middle Name
                     </div>
                     <div className="col-md-9">
@@ -54,7 +54,7 @@ class Preferences extends Component
                     <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>       
                 </div>
                 <div className="row" style={itemstyle}>
-                    <div className="col-md-3" style={labelstyle}>
+                    <div className="col-md-2" style={labelstyle}>
                         Last Name
                     </div>
                     <div className="col-md-9">
@@ -65,6 +65,85 @@ class Preferences extends Component
                                 type="text" 
                                 name="FirstName" 
                                 defaultValue="last"
+                            />
+                        }
+                    </div>
+                    <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>       
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        Address
+                    </div>       
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        Street
+                    </div>
+                    <div className="col-md-9">
+                    {!this.state.edit
+                            ?<div>Hello</div>
+                            :<input 
+                                id="street"
+                                type="text" 
+                                name="Street" 
+                                defaultValue="street"
+                            />
+                        }
+                    </div>
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        City
+                    </div>
+                    <div className="col-md-9">
+                    {!this.state.edit
+                            ?<div>Hello</div>
+                            :<input 
+                                id="city"
+                                type="text" 
+                                name="City" 
+                                defaultValue="city"
+                            />
+                        }
+                    </div>  
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        State
+                    </div>
+                    <div className="col-md-9">
+                    {!this.state.edit
+                            ?<div>Hello</div>
+                            :<input 
+                                id="state"
+                                type="text" 
+                                name="State" 
+                                defaultValue="state"
+                            />
+                        }
+                    </div>
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        Country
+                    </div>
+                    <div className="col-md-9">
+                    <div>USA</div>
+                    </div>
+                    <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>       
+                </div>
+                <div className="row" style={itemstyle}>
+                    <div className="col-md-2" style={labelstyle}>
+                        Phone
+                    </div>
+                    <div className="col-md-9">
+                    {!this.state.edit
+                            ?<div>Phone</div>
+                            :<input 
+                                id="phone"
+                                type="text" 
+                                name="Phone" 
+                                defaultValue="phone"
                             />
                         }
                     </div>
@@ -81,9 +160,13 @@ class Preferences extends Component
                             var last_name = document.getElementById('lastName').value;
                             var middle_name = document.getElementById('middleName').value;
                             var data = {
-                                first_name,
-                                last_name,
-                                middle_name
+                                first_name: document.getElementById('firstName').value,
+                                last_name:  document.getElementById('lastName').value,
+                                middle_name:document.getElementById('middleName').value,
+                                street:    document.getElementById('street').value,
+                                city:       document.getElementById('city').value,
+                                state:      document.getElementById('state').value,
+                                phone:      document.getElementById('phone').value
                             }
                             console.log(data);
                             API.updateUserInfo(data)
@@ -91,17 +174,31 @@ class Preferences extends Component
                                 if(data.status===201)
                                 {
                                     console.log("info changed");
+                                    this.setState({edit:false});
                                 }
                                 else{
 
                                 }
                             });
-                            this.setState({edit:false});
+                            
                         }
                     }}>
                         {this.state.edit?"Update":"Edit"}
                     </RaisedButton>
                     {this.state.edit && <FlatButton label="Cancel" primary={true} onClick={()=>{this.setState({edit:false});}}/>}
+                </div>
+                <div className="row" style={{marginTop:'20px'}}>
+                <FlatButton primary={true} backgroundColor="white" hoverColor="white" onClick={()=>{
+                    API.deleteAccount()
+                    .then((data)=>{
+                        if(data.status===201){
+                            console.log('user deleted successfully');
+                        }
+                        else{
+                            console.log('error');
+                        }
+                    });
+                }}>Delete Account</FlatButton>
                 </div>
             </div>
         )

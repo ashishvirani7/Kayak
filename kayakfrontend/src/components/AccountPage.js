@@ -7,6 +7,7 @@ import Preferences from './Preferences';
 import HistoryPage from './HistoryPage';
 import PaymentPage from './PaymentPage'
 
+import HomeFooter from './HomeFooter';
 class AccountPage extends Component
 {
     render(){
@@ -38,6 +39,9 @@ class AccountPage extends Component
                             <Route exact path="/history" component={HistoryPage}/>
                             <Route exact path="/payment-methods" component={PaymentPage}/>
                     </div>
+                </div>
+                <div className="row">
+                    <HomeFooter />
                 </div>
             </div>
         )

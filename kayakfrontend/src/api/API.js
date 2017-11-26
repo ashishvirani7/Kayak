@@ -74,3 +74,20 @@ fetch(`${api}/updateUserInfo`, {
         console.log("This is error");
         return error;
 });
+
+export const deleteAccount = (payload) =>
+fetch(`${api}/deleteAccount`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
