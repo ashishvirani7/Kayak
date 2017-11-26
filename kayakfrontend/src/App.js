@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import HomePage from './components/HomePage';
+import AccountPage from './components/AccountPage';
+
 import AdminLogin from './components/AdminLogin';
 import AdminHome from './components/AdminHome';
 
@@ -14,6 +16,10 @@ const  App = () => {
         <Route exact path="/hotels" component={HomePage}/>
         <Route exact path="/cars" component={HomePage}/>
         <Route exact path="/flights" component={HomePage}/>
+        <Route exact path="/adminLogin" component={HomePage}/>
+        <Route exact path="/account" component={AccountPage}/>
+        <Route exact path="/history" component={AccountPage}/>
+        <Route exact path="/payment-methods" component={AccountPage}/>
         <Route exact path="/adminLogin" component={AdminLogin}/>
         <Route exact path="/adminHome" component={AdminHome}/>
         <Route exact path="/adminHotels" component={AdminHome}/>

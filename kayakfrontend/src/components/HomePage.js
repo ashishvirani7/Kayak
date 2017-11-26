@@ -50,6 +50,9 @@ class HomePage extends Component {
                     <div className="col-md-12">
                         <div className="row" style={{marginLeft:'200px',marginRight:'200px'}}>
                             <CustomNavbar />
+                            <div className="row" style={{marginTop:'-25px'}}>
+                                <hr style={{borderTop:'2px solid rgba(255,255,255,0.3)',width:'100%'}}/>
+                            </div>
                         </div>
                         <div className="row" style={slogan}>
                             Search hundreds of travel sites at once.

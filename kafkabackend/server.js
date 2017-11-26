@@ -1,5 +1,6 @@
 var connection =  new require('./kafka/Connection');
 var login = require('./services/login');
+var updateUserInfo = require('./services/updateUserInfo');
 var signup = require('./services/signup');
 var create_folder = require('./services/createFolder');
 var delete_folder = require('./services/deleteFolder');
@@ -16,6 +17,7 @@ var get_activity = require('./services/getActivity');
 var share = require('./services/share');
 var get_shared_files = require('./services/getSharedFiles');
 
+var updateUserInfo_topic_name = 'updateUserInfo_topic';
 var login_topic_name = 'login_topic';
 var signup_topic_name = "signup_topic";
 var create_folder_topic_name = "create_folder_topic";
@@ -42,7 +44,7 @@ producer.on('ready', function () {
         upload_file_topic_name, delete_file_topic_name, download_file_topic_name, get_files_topic_name,
         get_folders_topic_name, response_topic_name, star_file_topic_name, unstar_file_topic_name,
         star_folder_topic_name, unstar_folder_topic_name, get_activity_topic_name, share_topic_name,
-        get_shared_files_topic_name,
+        get_shared_files_topic_name,updateUserInfo_topic_name,
 
 
 
@@ -50,6 +52,7 @@ producer.on('ready', function () {
         false, function (err, data) {
     }); 
     var login_consumer = connection.getConsumer(login_topic_name);
+    var updateUserInfo_consumer = connection.getConsumer(updateUserInfo_topic_name);
     var signup_consumer = connection.getConsumer(signup_topic_name);
     var create_folder_consumer = connection.getConsumer(create_folder_topic_name);
     var delete_folder_consumer = connection.getConsumer(delete_folder_topic_name);
@@ -88,7 +91,30 @@ producer.on('ready', function () {
             return;
         });
     });
-    
+
+    console.log('updateUserInfo server is running');
+    updateUserInfo_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        updateUserInfo.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
     console.log('signup server is running');
     signup_consumer.on('message', function (message) {
         console.log('message received');

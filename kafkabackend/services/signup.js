@@ -79,7 +79,7 @@ function handle_request(msg, callback){
     });
 
     // Without Connection Pooling
-    try {
+ /*   try {
         mongo.connect(mongoURL, function(db){
             console.log('Connected to mongo at: ' + mongoURL);
             const loginCollectionName = 'login';
@@ -119,6 +119,6 @@ function handle_request(msg, callback){
     }
     catch (e){
         console.log("error in insertion");
-    }
+    }*/
 }
 exports.handle_request = handle_request;
