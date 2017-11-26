@@ -10,12 +10,14 @@ require('./routes/passport')(passport);
 const fileUpload = require('express-fileupload');
 
 var routes = require('./routes/index');
-var mongoSessionURL = "mongodb://localhost:27017/sessions";
+var mongoSessionURL = "mongodb://54.67.27.46:27017/sessions";
 var expressSessions = require("express-session");
 var mongoStore = require("connect-mongo/es5")(expressSessions);
 
 var signup = require('./routes/signup');
 var login = require('./routes/login');
+var loginAdmin = require('./routes/loginAdmin');
+var addHotelAdmin = require('./routes/addHotelAdmin');
 var sessioncheck = require('./routes/sessioncheck');
 var logout = require('./routes/logout');
 var getFiles = require('./routes/getFiles');
@@ -71,6 +73,8 @@ app.use(passport.initialize());
 app.use('/', routes);
 
 app.use('/login', login);
+app.use('/loginAdmin', loginAdmin);
+app.use('/addHotelAdmin', addHotelAdmin);
 app.use('/signup',signup);
 app.use('/sessioncheck',sessioncheck);
 app.use('/logout', logout);

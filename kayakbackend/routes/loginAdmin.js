@@ -10,7 +10,6 @@ router.post('/', (req,res,next)=>{
         if(err) {
             res.status(500).send();
         }
-
         if(!user) {
             res.status(401).send();
         }
