@@ -2,12 +2,15 @@ var express = require('express');
 var autoIncrement = require("mongodb-autoincrement");
 var router = express.Router();
 var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/kayak";
+//var mongoURL = "mongodb://localhost:27017/kayak";
+var mongoURL = "mongodb://54.67.27.46:27017/kayak";
+
 var kafka = require('./kafka/client');
 
 var topic_name = "signup_topic";
 
 router.post('/', (req,res,next)=>{
+
     var email=req.body.email;
     var password=req.body.password;
 

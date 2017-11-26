@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var connected = false;
-var mongoURL = "mongodb://54.67.27.46:27017/kayak";
+var mongoURL = "mongodb://localhost:27017/kayak";
 var db;
 /**
  * Connects to the MongoDB Database with the provided URL
@@ -20,7 +20,7 @@ exports.connect = function(url, callback){
 
 //With Connection Pool
 function getConnection() {
-	var db = require('monk')('54.67.27.46:27017/kayak')
+	var db = require('monk')('localhost/dropbox')
 	return db;
 }
 

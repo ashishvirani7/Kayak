@@ -1,40 +1,39 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var mongo = require("./mongo");
+//var mongoURL = "mongodb://localhost:27017/kayak";
 var mongoURL = "mongodb://54.67.27.46:27017/kayak";
 var kafka = require('./kafka/client');
 
 var topic_name = "login_topic";
 
 module.exports = function(passport) {
-    passport.use('login', new LocalStrategy(
-        {
+    passport.use('login', new LocalStrategy({
             usernameField: 'email',
             passwordField: 'password'
         },
-        
         function(email,password, done) {
-        //console.log("email",email,password);
-        console.log("email is:" +email);
-        kafka.make_request(topic_name,{email,password}, function(err,results){
-            console.log('in result');
-            console.log(results);
-            if(err){
-                done(err,{});
-            }
-            else
-            {
-                if(results.code == 201){
-                    done(null,results.data);
+            console.log("email",email,password);
+
+            kafka.make_request(topic_name,{email,password}, function(err,results){
+                console.log('in result');
+                console.log(results);
+                if(err){
+                    done(err,{});
                 }
-                else {
-                    done(null,false);
+                else
+                {
+                    if(results.code == 201){
+                        done(null,results.data);
+                    }
+                    else {
+                        done(null,false);
+                    }
                 }
-            }
-        });
+            });
 
 
-    }));
+        }));
 };
 
 /* Without Connection Pool */
