@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "cryptojs": "^2.5.3",
     "history": "^4.7.2",
     "js-file-download": "^0.4.1",
