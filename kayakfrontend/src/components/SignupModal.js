@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import CryptoJS from 'crypto-js';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -30,7 +31,16 @@ class signupModal extends React.Component {
   }
 
   handleSignup = (signupData) => {
-    API.doSignup(signupData)
+
+    var cipherVal=CryptoJS.AES.encrypt(signupData.password,"kayak");
+    
+    var signupDetails={
+        email:signupData.email,
+        password:cipherVal.toString(),
+    }
+
+
+    API.doSignup(signupDetails)
     .then((res) => {
         if (res.status === 201) {
             console.log("Success");

@@ -22,6 +22,25 @@ export const doLogin = (payload) =>
             return error;
 });
 
+export const doAdminLogin = (payload) =>
+fetch(`${api}/adminLogin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    console.log(res);
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+
 export const doSignup = (payload) =>
 fetch(`${api}/signup`, {
     method: 'POST',

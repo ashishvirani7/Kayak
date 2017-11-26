@@ -9,16 +9,18 @@ function handle_request(msg, callback){
     console.log("In handle request:"+ JSON.stringify(msg));
 
     mongo.connect(mongoURL,(db)=>{
-        const loginCollectionName = 'login';
+        const loginCollectionName = 'users';
         const loginCollection = db.collection(loginCollectionName);
         const email=msg.email;
         var password=msg.password;
         var userid;
         var response={};
-        var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
-        password = bytes.toString(CryptoJS.enc.Utf8);
         console.log("password is: "+password);
-
+        var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
+        
+        password = bytes.toString(CryptoJS.enc.Utf8);
+        console.log("password is here: "+password);
+        console.log("email is: "+email);
         loginCollection.findOne({"email":email}, function(err, loginData){
 
             if(loginData){
