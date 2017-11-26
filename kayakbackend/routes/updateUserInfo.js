@@ -11,11 +11,12 @@ var topic_name = "updateUserInfo_topic";
 
 router.post('/', (req,res,next)=>{
 
+    var email=req.body.email;
     var first_name=req.body.first_name;
     var middle_name=req.body.middle_name;
 
 
-kafka.make_request(topic_name, {first_name, middle_name}, function(err,results){
+kafka.make_request(topic_name, {email,first_name, middle_name}, function(err,results){
     console.log('in result');
     console.log(results);
     if(err){
