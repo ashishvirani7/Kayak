@@ -33,7 +33,7 @@ function handle_request(msg, callback) {
                 bcrypt.compare(password, loginData.password).then(function(result) {
                     if(result){
 
-                        message = "User validated: "+loginData.email;
+                        message = "Admin User validated: "+loginData.email;
                         console.log(message);
                         res.code="201";
                         res.data={
@@ -42,7 +42,7 @@ function handle_request(msg, callback) {
                         callback(null, res);
                     }
                     else {
-                        message = "User validation failed";
+                        message = "Admin User validation failed";
                         console.log(message);
                         res.code="401";
                         res.data=message;
