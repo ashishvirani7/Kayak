@@ -32,6 +32,7 @@ var unStarFolder =require('./routes/unStarFolder');
 var getActivity = require('./routes/getActivity');
 var share = require('./routes/share');
 var getSharedFiles = require('./routes/getSharedFiles');
+var updateUserInfo = require('./routes/updateUserInfo');
 
 var app = express();
 
@@ -87,5 +88,6 @@ app.use('/unStarFolder',unStarFolder);
 app.use('/getActivity',getActivity);
 app.use('/share',share);
 app.use('/getSharedFiles',getSharedFiles);
+app.use('/updateUserInfo',updateUserInfo);
 
 module.exports = app;

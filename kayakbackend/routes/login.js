@@ -5,6 +5,7 @@ require('./passport')(passport);
 
 router.post('/', (req,res,next)=>{
     console.log("request: " +req.body.email);
+    console.log("request: " +JSON.stringify(req.body));
     passport.authenticate('login', function(err, user) {
         if(err) {
             res.status(500).send();

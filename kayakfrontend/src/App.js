@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import HomePage from './components/HomePage';
 import AccountPage from './components/AccountPage';
 
+import AdminLogin from './components/AdminLogin';
+import AdminHome from './components/AdminHome';
 
 const  App = () => {
     return(
@@ -18,6 +20,11 @@ const  App = () => {
         <Route exact path="/account" component={AccountPage}/>
         <Route exact path="/history" component={AccountPage}/>
         <Route exact path="/payment-methods" component={AccountPage}/>
+        <Route exact path="/adminLogin" component={AdminLogin}/>
+        <Route exact path="/adminHome" component={AdminHome}/>
+        <Route exact path="/adminHotels" component={AdminHome}/>
+        <Route exact path="/adminFlights" component={AdminHome}/>
+        <Route exact path="/adminCars" component={AdminHome}/>
       </div>);
 }
 

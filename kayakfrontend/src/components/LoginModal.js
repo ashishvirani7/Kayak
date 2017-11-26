@@ -2,9 +2,11 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import CryptoJS from 'crypto-js';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+
 
 import {loginModalOpen} from '../actions/loginModalAction';
 import {loginModalDone} from '../actions/loginModalAction';
@@ -30,7 +32,14 @@ class LoginModal extends React.Component {
   }
   
   handleLogin = (loginData) => {
-    API.doLogin(loginData)
+
+    var cipherVal=CryptoJS.AES.encrypt(loginData.password,"kayak");
+    
+    var loginDetails={
+        email:loginData.email,
+        password:cipherVal.toString(),
+    }
+    API.doLogin(loginDetails)
     .then((res) => {
         if (res.status === 201) {
             console.log("Success");
