@@ -3,7 +3,7 @@ var autoIncrement = require("mongodb-autoincrement");
 var router = express.Router();
 var mongo = require("./mongo");
 //var mongoURL = "mongodb://localhost:27017/kayak";
-var mongoURL = "mongodb://54.67.27.46:27017/kayak";
+var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 
 var kafka = require('./kafka/client');
 
@@ -17,7 +17,7 @@ router.post('/', (req,res,next)=>{
 
 
 kafka.make_request(topic_name, {email,first_name, middle_name}, function(err,results){
-    console.log('in result');
+    console.log('in update make request: ',email,first_name,middle_name);
     console.log(results);
     if(err){
         done(err,{});
