@@ -1,12 +1,8 @@
-var mongo = require("./mongo");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
-
-
 var mongoose = require('mongoose');
 mongoose.connect('54.67.27.46:27017/kayak');
 var Users = require('../models/Users');
-
 
 function handle_request(msg, callback){
 
@@ -57,6 +53,4 @@ function handle_request(msg, callback){
         }
     });
 }
-
-
 exports.handle_request = handle_request;
