@@ -1,14 +1,14 @@
 var MongoClient = require('mongodb').MongoClient;
 var connected = false;
-var mongoURL = "mongodb://localhost:27017/kayak";
+var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 var db;
 /**
  * Connects to the MongoDB Database with the provided URL
  */
 
 //Without Connection Pool
-exports.connect = function(url, callback){
-    MongoClient.connect(url,
+exports.connect = function( callback){
+    MongoClient.connect(mongoURL,
       function(err, _db){
       if (err) { throw new Error('Could not connect: '+err); }
       db = _db;

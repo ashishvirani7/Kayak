@@ -2,7 +2,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var mongo = require("./mongo");
 //var mongoURL = "mongodb://localhost:27017/kayak";
-var mongoURL = "mongodb://54.67.27.46:27017/kayak";
+var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 var kafka = require('./kafka/client');
 
 var topic_name = "login_topic";

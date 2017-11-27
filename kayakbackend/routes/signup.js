@@ -2,7 +2,7 @@ var express = require('express');
 var autoIncrement = require("mongodb-autoincrement");
 var router = express.Router();
 var mongo = require("./mongo");
-var mongoURL = "mongodb://54.67.27.46:27017/kayak";
+var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 
 var kafka = require('./kafka/client');
 
