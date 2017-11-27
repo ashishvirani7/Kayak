@@ -2,10 +2,10 @@ import React,{Component} from 'react';
 import Divider from 'material-ui/Divider'
 import CryptoJS from 'crypto-js';
 
-
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
+import SelectField from 'material-ui/SelectField';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -13,64 +13,456 @@ import {connect} from 'react-redux';
 import {changeValueAdmin} from '../actions/adminLoginAction';
 
 import {withRouter} from 'react-router-dom';
+import MenuItem from 'material-ui/MenuItem';
 
 import * as API from '../api/API';
 
+const US_States = [
+    {
+        "name": "Alabama",
+        "abbreviation": "AL"
+    },
+    {
+        "name": "Alaska",
+        "abbreviation": "AK"
+    },
+    {
+        "name": "American Samoa",
+        "abbreviation": "AS"
+    },
+    {
+        "name": "Arizona",
+        "abbreviation": "AZ"
+    },
+    {
+        "name": "Arkansas",
+        "abbreviation": "AR"
+    },
+    {
+        "name": "California",
+        "abbreviation": "CA"
+    },
+    {
+        "name": "Colorado",
+        "abbreviation": "CO"
+    },
+    {
+        "name": "Connecticut",
+        "abbreviation": "CT"
+    },
+    {
+        "name": "Delaware",
+        "abbreviation": "DE"
+    },
+    {
+        "name": "District Of Columbia",
+        "abbreviation": "DC"
+    },
+    {
+        "name": "Federated States Of Micronesia",
+        "abbreviation": "FM"
+    },
+    {
+        "name": "Florida",
+        "abbreviation": "FL"
+    },
+    {
+        "name": "Georgia",
+        "abbreviation": "GA"
+    },
+    {
+        "name": "Guam",
+        "abbreviation": "GU"
+    },
+    {
+        "name": "Hawaii",
+        "abbreviation": "HI"
+    },
+    {
+        "name": "Idaho",
+        "abbreviation": "ID"
+    },
+    {
+        "name": "Illinois",
+        "abbreviation": "IL"
+    },
+    {
+        "name": "Indiana",
+        "abbreviation": "IN"
+    },
+    {
+        "name": "Iowa",
+        "abbreviation": "IA"
+    },
+    {
+        "name": "Kansas",
+        "abbreviation": "KS"
+    },
+    {
+        "name": "Kentucky",
+        "abbreviation": "KY"
+    },
+    {
+        "name": "Louisiana",
+        "abbreviation": "LA"
+    },
+    {
+        "name": "Maine",
+        "abbreviation": "ME"
+    },
+    {
+        "name": "Marshall Islands",
+        "abbreviation": "MH"
+    },
+    {
+        "name": "Maryland",
+        "abbreviation": "MD"
+    },
+    {
+        "name": "Massachusetts",
+        "abbreviation": "MA"
+    },
+    {
+        "name": "Michigan",
+        "abbreviation": "MI"
+    },
+    {
+        "name": "Minnesota",
+        "abbreviation": "MN"
+    },
+    {
+        "name": "Mississippi",
+        "abbreviation": "MS"
+    },
+    {
+        "name": "Missouri",
+        "abbreviation": "MO"
+    },
+    {
+        "name": "Montana",
+        "abbreviation": "MT"
+    },
+    {
+        "name": "Nebraska",
+        "abbreviation": "NE"
+    },
+    {
+        "name": "Nevada",
+        "abbreviation": "NV"
+    },
+    {
+        "name": "New Hampshire",
+        "abbreviation": "NH"
+    },
+    {
+        "name": "New Jersey",
+        "abbreviation": "NJ"
+    },
+    {
+        "name": "New Mexico",
+        "abbreviation": "NM"
+    },
+    {
+        "name": "New York",
+        "abbreviation": "NY"
+    },
+    {
+        "name": "North Carolina",
+        "abbreviation": "NC"
+    },
+    {
+        "name": "North Dakota",
+        "abbreviation": "ND"
+    },
+    {
+        "name": "Northern Mariana Islands",
+        "abbreviation": "MP"
+    },
+    {
+        "name": "Ohio",
+        "abbreviation": "OH"
+    },
+    {
+        "name": "Oklahoma",
+        "abbreviation": "OK"
+    },
+    {
+        "name": "Oregon",
+        "abbreviation": "OR"
+    },
+    {
+        "name": "Palau",
+        "abbreviation": "PW"
+    },
+    {
+        "name": "Pennsylvania",
+        "abbreviation": "PA"
+    },
+    {
+        "name": "Puerto Rico",
+        "abbreviation": "PR"
+    },
+    {
+        "name": "Rhode Island",
+        "abbreviation": "RI"
+    },
+    {
+        "name": "South Carolina",
+        "abbreviation": "SC"
+    },
+    {
+        "name": "South Dakota",
+        "abbreviation": "SD"
+    },
+    {
+        "name": "Tennessee",
+        "abbreviation": "TN"
+    },
+    {
+        "name": "Texas",
+        "abbreviation": "TX"
+    },
+    {
+        "name": "Utah",
+        "abbreviation": "UT"
+    },
+    {
+        "name": "Vermont",
+        "abbreviation": "VT"
+    },
+    {
+        "name": "Virgin Islands",
+        "abbreviation": "VI"
+    },
+    {
+        "name": "Virginia",
+        "abbreviation": "VA"
+    },
+    {
+        "name": "Washington",
+        "abbreviation": "WA"
+    },
+    {
+        "name": "West Virginia",
+        "abbreviation": "WV"
+    },
+    {
+        "name": "Wisconsin",
+        "abbreviation": "WI"
+    },
+    {
+        "name": "Wyoming",
+        "abbreviation": "WY"
+    }
+];
+
+const Room_Types=[
+    {
+        "name":"Standard"
+    },
+    {
+        "name":"Suite"
+    },
+    {
+        "name":"Delux"
+    }
+];
+
+const stateItems = [];
+const roomTypes = [];
+
+US_States.map(state =>{
+    stateItems.push(<MenuItem value={state.abbreviation} key={state.abbreviation} primaryText={state.abbreviation} />);
+});
+
+Room_Types.map(type=>{
+    roomTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
+})
+
 class AdminHotels extends Component{
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            hotelName:"",
+            hotelStreet:"",
+            stateValue: "CA",
+            
+            roomTypeValue1:"Standard",
+            roomTypeValue2:"Standard",
+            roomTypeValue3:"Standard",
+            roomPriceValue1:0,
+            roomPriceValue2:0,
+            roomPriceValue3:0,
+
+        };
+      }
+
+      handleStateChange = (event, index, value) => {
+        this.setState({...this.state,stateValue:value});
+      };
+      handleTypeChange1 = (event, index, value) => {
+        this.setState({...this.state,roomTypeValue1:value});
+      };
+      handleTypeChange2 = (event, index, value) => {
+        this.setState({...this.state,roomTypeValue2:value});
+      };
+      handleTypeChange3 = (event, index, value) => {
+        this.setState({...this.state,roomTypeValue3:value});
+      };
+      handleNameChange = (event, index, value) => {
+        this.setState({...this.state,hotelName:event.target.value});
+      };
+      handleStreetChange = (event, index, value) => {
+        this.setState({...this.state,hotelStreet:event.target.value});
+      };
+      handlePriceChange1 = (event, index, value) => {
+        this.setState({...this.state,roomPriceValue1:event.target.value});
+      };
+      handlePriceChange2 = (event, index, value) => {
+        this.setState({...this.state,roomPriceValue2:event.target.value});
+      };
+      handlePriceChange3 = (event, index, value) => {
+        this.setState({...this.state,roomPriceValue3:event.target.value});
+      };
+
+      submitHotel(){
+          console.log(this.state);
+        // API.doAddHotelAdmin(this.state)
+        // .then((res) => {
+        //     if (res.status === 201) {
+        //         console.log("Success");
+        //         res.json().then(user => {
+        //             // this.props.loginSuccess(user);
+        //             // this.props.setPath("/home");
+        //             // NotificationManager.success("Welcome", "Login Successful", 2500, true);
+        //             // this.props.history.push("/logs");
+        //         });
+        
+        //     } else if (res.status === 401) {
+        //         // console.log("Fail");
+        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+        //         // this.props.history.push("/");
+        //     } 
+        // });
+      }
 
     render(){
         return(
             <div>
+                
                 <h1 style={{color:"skyblue"}}>Hotels Live Here </h1>
-                <div className="col-md-12">
-                    <div className="row" style={rstyle}>
-                        <div className="col-md-2" >
-                            <div className="row" style={divstyle}>
-                                <TextField style={istyle}
-                                    id="destination"
-                                    hintText="From Where?"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-2" >
-                            <div className="row" style={divstyle}>
-                                <TextField style={istyle}
-                                    id="destination"
-                                    hintText="To Where?"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="row" style={divstyle}>
-                                <DatePicker style={istyle} hintText="To" container="inline" />
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="row" style={divstyle}>
-                                <DatePicker style={istyle} hintText="From" container="inline"/>
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="row" style={divstyle}>
-                                <TextField style={istyle}
-                                    id="destination"
-                                    hintText="Where"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="row" style={divstyle}>
-                                <button style={btnstyle}
-                                    id="destbtn"
-                                    hintText="Submit"
-                                >
-                                 Submit
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                
+                <div className="row" style={divstyle}>
+                    <TextField style={istyle}
+                        id="hotel_name"
+                        hintText="Hotel Name"
+                        onChange={this.handleNameChange}
+                    />
                 </div>
+                <div className="row" style={divstyle}>
+                    <TextField style={istyle}
+                        id="destination"
+                        hintText="Street"
+                        onChange={this.handleStreetChange}
+                    />
+                </div>
+                <div className="row" style={divstyle}>
+                    <SelectField
+                        value={this.state.stateValue}
+                        onChange={this.handleStateChange}
+                        floatingLabelText="State"
+                        maxHeight={200}  
+                    >
+                        {stateItems}
+                    </SelectField>
+                </div>
+                {/* <div className="row" style={divstyle}>
+                    <h4>Room Information</h4>
+                </div> */}
+            
+                <div className="row">
+                    <div className="col-md-4">
+
+                        <SelectField
+                            value={this.state.roomTypeValue1}
+                            onChange={this.handleTypeChange1}
+                            floatingLabelText="Room Type"
+                            maxHeight={200}  
+                            
+                        >
+                            {roomTypes}
+                        </SelectField>
+                    </div>
+                    <div className="col-md-4">
+                        <TextField style={roomStyle}
+                            id="room_price"
+                            hintText="Room Price"
+                            onChange={this.handlePriceChange1}
+                        />
+                    </div>
+                    
+
+                </div>
+                
+                <div className="row">
+                    <div className="col-md-4">
+
+                        <SelectField
+                            value={this.state.roomTypeValue2}
+                            onChange={this.handleTypeChange2}
+                            floatingLabelText="Room Type"
+                            maxHeight={200}  
+                            
+                        >
+                            {roomTypes}
+                        </SelectField>
+                    </div>
+                    <div className="col-md-4">
+                        <TextField style={roomStyle}
+                            id="room_price"
+                            hintText="Room Price"
+                            onChange={this.handlePriceChange2}
+                        />
+                    </div>
+                    
+
+                </div>
+                <div className="row">
+                    <div className="col-md-4">
+
+                        <SelectField
+                            value={this.state.roomTypeValue3}
+                            onChange={this.handleTypeChange3}
+                            floatingLabelText="Room Type"
+                            maxHeight={200}  
+                            
+                        >
+                            {roomTypes}
+                        </SelectField>
+                    </div>
+                    <div className="col-md-4">
+                        <TextField style={roomStyle}
+                            id="room_price"
+                            hintText="Room Price"
+                            onChange={this.handlePriceChange3}
+                        />
+                    </div>
+                    
+
+                </div>
+
+
+                <div className="row" style={divstyle}>
+                    <button style={btnstyle}
+                        id="destbtn"
+                        hintText="Submit"
+                        onClick={()=>{this.submitHotel()}}
+                    >
+                    Submit
+                    </button>
+                </div>
+                
             </div>
         )
     }
@@ -87,11 +479,21 @@ const istyle={
     height:'50px',
     width:'100%',
     backgroundColor:'white',
-    marginLeft:'5px',
     marginRight:'5px',
     barderSize:'1px',
     borderColor:'black',
     
+}
+
+const roomStyle={
+    fontSize:'16px',
+    height:'50px',
+    width:'100%',
+    backgroundColor:'white',
+    marginRight:'5px',
+    barderSize:'1px',
+    borderColor:'black',
+    marginTop:"20px"
 }
 
 const btnstyle={
@@ -105,8 +507,9 @@ const btnstyle={
     marginRight:'5px'
 }
 const divstyle={
-    marginLeft:'-20px',
-    marginRight:'-2px'
+    marginLeft:'7px',
+    marginRight:'-2px',
+    width:"300px"
 }
 
 function mapStateToProps(state){

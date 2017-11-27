@@ -1,13 +1,8 @@
 var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
-
-//var mongoURL = "mongodb://localhost:27017/kayak";
-//var mongoURL = "mongodb://54.67.27.46:27017/kayak";
-mongoose.connect('54.183.101.173:27017/kayak');
-
+mongoose.connect('54.67.27.46:27017/kayak');
 var Users = require('../models/Users');
-
 
 function handle_request(msg, callback) {
 
@@ -35,7 +30,7 @@ function handle_request(msg, callback) {
                 bcrypt.compare(password, loginData.password).then(function(result) {
                     if(result){
 
-                        message = "User validated: "+loginData.email;
+                        message = "Admin User validated: "+loginData.email;
                         console.log(message);
                         res.code="201";
                         res.data={
@@ -44,7 +39,7 @@ function handle_request(msg, callback) {
                         callback(null, res);
                     }
                     else {
-                        message = "User validation failed";
+                        message = "Admin User validation failed";
                         console.log(message);
                         res.code="401";
                         res.data=message;
