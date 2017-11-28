@@ -3,9 +3,8 @@ var router = express.Router();
 
 router.post('/', (req,res,next)=>{
 
-    var username= req.body.username;
-    console.log("User is here: "+req.session.username + "  and : "+req.body.username);
-    if(req.session.cookie && req.session.username && req.session.username===username){
+    //console.log("User is here: "+req.session.username + "  and : "+req.body.username);
+    if(req.session.cookie && req.session.email ){
         return res.status(201).send();
     }
     else{

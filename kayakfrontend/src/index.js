@@ -10,13 +10,12 @@ import {compose, applyMiddleware, createStore} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import reduxReset from 'redux-reset';
 import allReducers from './reducers';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HomePage from './components/HomePage';
-//import AuthorizedRoute from './components/AuthorizedRoute';
-//import UnAuthorizedRoute from './components/UnAuthorizedRoute';
 
 import {MuiThemeProvider} from 'material-ui/styles';
 import App from './App';
+import 'react-notifications/lib/notifications.css';
 
 const enHanceCreateStore = compose(
     reduxReset(),
@@ -34,7 +33,6 @@ persistStore(store, {}, () => {
             <MuiThemeProvider>
                 <BrowserRouter> 
                     <App />
-                    
                 </BrowserRouter>
             </MuiThemeProvider>
         

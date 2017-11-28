@@ -191,8 +191,8 @@ class Preferences extends Component
                             }
                             console.log(data);
                             API.updateUserInfo(data)
-                            .then((data)=>{
-                                if(data.status===201)
+                            .then((res)=>{
+                                if(res.status===201)
                                 {
                                     console.log("info changed");
                                     this.setState({edit:false});

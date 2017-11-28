@@ -5,8 +5,13 @@ import loginData from './loginReducer';
 import signupData from './signupReducer';
 import activeItem from './activeItemReducer';
 import adminLoginData from './adminLoginReducer';
+import userData from './userDataReducer';
 import adminCurrentItem from './adminCurrentItem';
 import adminActivePage from './adminActivePage';
+import userState from './userStateReducer';
+import adminHotels from './adminAllHotels';
+import adminFlights from './adminAllFlights';
+import adminCars from './adminAllCars';
 
 const allReducers = combineReducers({
     loginModal,
@@ -15,9 +20,14 @@ const allReducers = combineReducers({
     signupData,
     activeItem,
     adminLoginData,
+    userData,
     adminCurrentItem,
     adminActivePage,
-    
+    userState,
+    adminCars,
+    adminFlights,
+    adminHotels,
+
  });
  
  export default allReducers;

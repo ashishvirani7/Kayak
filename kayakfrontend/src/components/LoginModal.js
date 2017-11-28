@@ -13,8 +13,11 @@ import {loginModalDone} from '../actions/loginModalAction';
 import {signupModalOpen} from '../actions/signupModalAction';
 import {signupModalDone} from '../actions/signupModalAction';
 import {changeValue} from '../actions/loginAction.js';
+import {changeUserData} from '../actions/userDataAction.js';
 
 import * as API from '../api/API';
+
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class LoginModal extends React.Component {
 
@@ -43,16 +46,19 @@ class LoginModal extends React.Component {
     .then((res) => {
         if (res.status === 201) {
             console.log("Success");
+            console.log(res);
             res.json().then(user => {
+                console.log(user.loginData);
+                this.props.changeUserData(user.loginData);
                 // this.props.loginSuccess(user);
                 // this.props.setPath("/home");
-                // NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                // this.props.history.push("/logs");
+                NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                this.props.loginModalDone();
             });
     
         } else if (res.status === 401) {
-            // console.log("Fail");
-            // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+            console.log("Fail");
+            NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
             // this.props.history.push("/");
         } 
     });
@@ -69,7 +75,7 @@ class LoginModal extends React.Component {
           onRequestClose={this.handleClose}
           style={{width:"600px", marginLeft:"400px",marginTop:"-50px",maxHeight:'none'}}
           autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent={false}
         >
         
         <div style={socialStyle}>
@@ -128,6 +134,7 @@ class LoginModal extends React.Component {
 
 
         </Dialog>
+        
       </div>
     );
   }
@@ -155,7 +162,8 @@ const fbStyle = {
     textAlign: "center",
     color: "#fff",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
+    marginLeft:'10px'
 }
 
 const googleIconStyle = {
@@ -166,7 +174,7 @@ const googleIconStyle = {
     width: "38px",
     height: "38px",
     margin: "2px",
-    position: "absolute",
+    position: "relative",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "10px center"
 }
@@ -176,7 +184,7 @@ const googleStyle = {
     height: "42px",
     backgroundColor: "#4285f4",
     marginBottom: "18px",
-    
+    display:'flex',
 }
 
 const gStyle = {
@@ -184,7 +192,8 @@ const gStyle = {
     textAlign: "center",
     color: "#fff",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
+    marginLeft:'10px'
 }
 
 const signupButtonStyle = {
@@ -271,6 +280,7 @@ function mapStateToProps(state){
     return{
         loginModal:state.loginModal,
         loginData:state.loginData,
+        userData:state.userData,
     };
 }
 
@@ -282,6 +292,7 @@ function matchDispatchToProps(dispatch){
             signupModalOpen,
             signupModalDone,
             changeValue,
+            changeUserData,
         }
         ,dispatch);
   }

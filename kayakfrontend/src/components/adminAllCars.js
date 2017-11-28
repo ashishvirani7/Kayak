@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
+import {adminAllCars} from '../actions/adminAllCars';
 
 import {withRouter} from 'react-router-dom';
 import {adminSetCurrentItem} from '../actions/adminSetCurrent';
@@ -16,23 +17,46 @@ import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 
+class AdminAllCars extends Component{
+    
+    getAllCars(){
+        // API.adminShowAllCars()
+        // .then((res) => {
+        //     if (res.status === 201) {
+        //         console.log("Success");
+        //         res.json().then(data => {
+        //             this.props.adminAllCars(data.cars)
+        //             //NotificationManager.success("Success", data.message, 2500, true);
+        //             // this.props.history.push("/logs");
+        //         });
+        
+        //     } else if (res.status === 401) {
+        //         // console.log("Fail");
+        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+        //         // this.props.history.push("/");
+        //     } 
+        // });
+        this.props.adminAllCars([{"name":"tesla"}])
+    }
 
-
-
-class AdminCars extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            
-        };
-      }
-
-      
+    componentWillMount(){
+        this.getAllCars();
+    }
+    createCarsList(){
+        return this.props.adminCars.map((car) => {
+            return(
+                <div>
+                    <h2> {car.name} </h2>
+                </div>
+            )
+        });
+    }
 
     render(){
         return(
             <div>
                 <h1 style={{color:"skyblue"}}> All Cars </h1>
+                {this.createCarsList()}
                 
             </div>
         )
@@ -43,7 +67,8 @@ class AdminCars extends Component{
 
 function mapStateToProps(state){
     return{
-        adminLoginData:state.adminLoginData
+        adminLoginData:state.adminLoginData,
+        adminCars:state.adminCars
     };
 }
 
@@ -52,9 +77,10 @@ function matchDispatchToProps(dispatch){
         {
             changeValueAdmin,
             adminSetCurrentItem,
-            
+            adminAllCars,
+
         }
         ,dispatch);
   }
   
-export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminCars));
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminAllCars));

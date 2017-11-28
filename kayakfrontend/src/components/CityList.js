@@ -29,21 +29,21 @@ class CityList extends Component{
         return(
             <div>
                 <div className="col-md-4">
-                    <div class="row" style={dstyle}>
+                    <div className="row" style={dstyle}>
                         <div className="col-md-12">
                             {this.addCards()}
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <div class="row" style={dstyle}>
+                    <div className="row" style={dstyle}>
                         <div className="col-md-12">
                             {this.addCards()}   
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <div class="row" style={dstyle}>
+                    <div className="row" style={dstyle}>
                         <div className="col-md-12">
                             {this.addCards()}
                         </div>
