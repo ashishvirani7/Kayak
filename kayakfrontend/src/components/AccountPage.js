@@ -20,7 +20,7 @@ class AccountPage extends Component
                         </div>
                     </div>
                 </div>
-                <div className="row" style={{marginTop:'55px'}}>
+                <div className="row" style={{marginTop:'55px',minHeight:'600px'}}>
                     <div className="col-md-2 col-md-offset-1" style={{marginTop:'15px'}}>
                         <div className="row" style ={linkStyle}>
                             <NavLink to="/account" style={lstyle} activeStyle={linkactive}>Preferences</NavLink>
