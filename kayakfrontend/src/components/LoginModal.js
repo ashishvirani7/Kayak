@@ -13,6 +13,7 @@ import {loginModalDone} from '../actions/loginModalAction';
 import {signupModalOpen} from '../actions/signupModalAction';
 import {signupModalDone} from '../actions/signupModalAction';
 import {changeValue} from '../actions/loginAction.js';
+import {changeUserData} from '../actions/userDataAction.js';
 
 import * as API from '../api/API';
 
@@ -43,7 +44,10 @@ class LoginModal extends React.Component {
     .then((res) => {
         if (res.status === 201) {
             console.log("Success");
+            console.log(res);
             res.json().then(user => {
+                console.log(user.loginData);
+                this.props.changeUserData(user.loginData);
                 // this.props.loginSuccess(user);
                 // this.props.setPath("/home");
                 // NotificationManager.success("Welcome", "Login Successful", 2500, true);
@@ -271,6 +275,7 @@ function mapStateToProps(state){
     return{
         loginModal:state.loginModal,
         loginData:state.loginData,
+        userData:state.userData,
     };
 }
 
@@ -282,6 +287,7 @@ function matchDispatchToProps(dispatch){
             signupModalOpen,
             signupModalDone,
             changeValue,
+            changeUserData,
         }
         ,dispatch);
   }

@@ -70,7 +70,7 @@ class signupModal extends React.Component {
           modal={false}
           open={this.props.signupModal.isOpen}
           onRequestClose={this.handleClose}
-          style={{width:"600px", marginLeft:"400px",marginTop:"-50px"}}
+          style={{width:"600px", marginLeft:"400px",marginTop:"-50px",height:'fit-content'}}
           autoDetectWindowHeight={true}
           autoScrollBodyContent={true}
         >
