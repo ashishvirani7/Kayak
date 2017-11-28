@@ -17,6 +17,8 @@ import {changeUserData} from '../actions/userDataAction.js';
 
 import * as API from '../api/API';
 
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 class LoginModal extends React.Component {
 
   handleOpen = () => {
@@ -50,13 +52,13 @@ class LoginModal extends React.Component {
                 this.props.changeUserData(user.loginData);
                 // this.props.loginSuccess(user);
                 // this.props.setPath("/home");
-                // NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                // this.props.history.push("/logs");
+                NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                this.props.loginModalDone();
             });
     
         } else if (res.status === 401) {
-            // console.log("Fail");
-            // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+            console.log("Fail");
+            NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
             // this.props.history.push("/");
         } 
     });
@@ -132,6 +134,7 @@ class LoginModal extends React.Component {
 
 
         </Dialog>
+        
       </div>
     );
   }

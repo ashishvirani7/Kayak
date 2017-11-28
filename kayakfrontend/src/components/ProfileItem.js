@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import {loginModalOpen} from '../actions/loginModalAction';
 import {signupModalOpen} from '../actions/signupModalAction';
+import {logout} from '../actions/logoutAction';
 
 import {withRouter} from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -59,8 +60,11 @@ class ProfileItem extends Component {
     
       onSignoutClick = () => {
           API.doSignOut()
-          .then((data)=>{
-
+          .then((res)=>{
+            if(res.status === 201){
+                this.props.logout();
+                this.handleRequestClose();
+            }
           });
       }
     render() {
@@ -81,7 +85,7 @@ class ProfileItem extends Component {
                             </div>
                         </div>
                     </div>
-                    
+                    {!(this.props.userData.loggedIn)?
                     <Popover
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
@@ -111,30 +115,30 @@ class ProfileItem extends Component {
                         </div>
                     </Menu>
                     </Popover>
-
-                    {/* <Popover
+                    :
+                    <Popover
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
                     anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
                     onRequestClose={this.handleRequestClose}
                     >
-                    <Menu style  ={{ width:"230px",padding: "5px 15px 0px 15px"}}>
+                    <Menu style  ={{ width:"250px",padding: "5px 15px 0px 15px"}}>
                 
                         <div className="row" style={{marginTop:"0px", cursor:"pointer", lineHeight: "76px"}}>
                             <ListItem style={{height:"76px"}}  onClick={()=>{
                                 this.props.history.push('/account');
                             }}>
-                                <div className="col-md-2">
+                                <div className="col-md-2" style={{marginLeft:'-15px',marginTop:'7px'}}>
                                     <IconPreferences width="32" height="32" color="black" style={{verticalAlign:"middle",align:'center'}}/>
                                 </div>
                                 
-                                <div className="col-md-9 col-md-offset-1" style={{marginTop:"-4px"}}>
-                                    <div className="row">
+                                <div className="col-md-10" style={{marginTop:"0px",marginLeft:'10px',fontWeight:'400px',fontSize:'15px'}}>
+                                    <div className="row" style={{color:'black'}}>
                                     Account Preferences
                                     </div>
-                                    <div className="row" style={{marginTop:'10px'}}>
-                                    Email
+                                    <div className="row" style={{marginTop:'10px',color:'#8b8b8e',textOverflow:'ellipsis'}}>
+                                    {this.props.userData.data.email}
                                     </div>
                                 </div>
                             </ListItem>
@@ -143,7 +147,8 @@ class ProfileItem extends Component {
                         onClick={()=> this.onSignoutClick()}
                         >Sign out</button>
                     </Menu>
-                    </Popover> */}
+                    </Popover>
+                    }
             </div>
         );
     }
@@ -229,7 +234,7 @@ const SignOutStyle = {
 
 function mapStateToProps(state){
     return{
-        
+        userData:state.userData
     };
 }
 
@@ -238,7 +243,7 @@ function matchDispatchToProps(dispatch){
         {
             loginModalOpen,
             signupModalOpen,
-
+            logout
         }
         ,dispatch);
   }

@@ -1,6 +1,7 @@
 import {REHYDRATE} from 'redux-persist/constants';
 
 const initialState={
+    loggedIn: false
 }
 
 export default function(state=initialState,action){
@@ -10,13 +11,14 @@ export default function(state=initialState,action){
         {
             return{
                 ...state,
+                loggedIn: true,
                 data: action.data
             };
         }
 
         case "persist/REHYDRATE":
         {
-            var incoming = action.payload.loginData
+            var incoming = action.payload.userData
             if (incoming) return incoming
             return state
         }
