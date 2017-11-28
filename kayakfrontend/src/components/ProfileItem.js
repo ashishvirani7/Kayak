@@ -5,8 +5,9 @@ import {connect} from 'react-redux';
 
 import {loginModalOpen} from '../actions/loginModalAction';
 import {signupModalOpen} from '../actions/signupModalAction';
+import {logout} from '../actions/logoutAction';
 
-
+import {withRouter} from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import Popover from 'material-ui/Popover';
@@ -17,7 +18,10 @@ import IconButton from 'material-ui/IconButton';
 import CustomItem from './CustomItem';
 
 import IconTrips from '../icons/IconTrips';
+import IconPreferences from '../icons/IconPreferences';
 import ListItem from 'material-ui/List/ListItem';
+
+import * as API from '../api/API';
 
 class ProfileItem extends Component {
     
@@ -54,6 +58,15 @@ class ProfileItem extends Component {
         this.props.loginModalOpen();
       }
     
+      onSignoutClick = () => {
+          API.doSignOut()
+          .then((res)=>{
+            if(res.status === 201){
+                this.props.logout();
+                this.handleRequestClose();
+            }
+          });
+      }
     render() {
 
         return (
@@ -72,7 +85,7 @@ class ProfileItem extends Component {
                             </div>
                         </div>
                     </div>
-                    
+                    {!(this.props.userData.loggedIn)?
                     <Popover
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
@@ -102,6 +115,40 @@ class ProfileItem extends Component {
                         </div>
                     </Menu>
                     </Popover>
+                    :
+                    <Popover
+                    open={this.state.open}
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                    onRequestClose={this.handleRequestClose}
+                    >
+                    <Menu style  ={{ width:"250px",padding: "5px 15px 0px 15px"}}>
+                
+                        <div className="row" style={{marginTop:"0px", cursor:"pointer", lineHeight: "76px"}}>
+                            <ListItem style={{height:"76px"}}  onClick={()=>{
+                                this.props.history.push('/account');
+                            }}>
+                                <div className="col-md-2" style={{marginLeft:'-15px',marginTop:'7px'}}>
+                                    <IconPreferences width="32" height="32" color="black" style={{verticalAlign:"middle",align:'center'}}/>
+                                </div>
+                                
+                                <div className="col-md-10" style={{marginTop:"0px",marginLeft:'10px',fontWeight:'400px',fontSize:'15px'}}>
+                                    <div className="row" style={{color:'black'}}>
+                                    Account Preferences
+                                    </div>
+                                    <div className="row" style={{marginTop:'10px',color:'#8b8b8e',textOverflow:'ellipsis'}}>
+                                    {this.props.userData.data.email}
+                                    </div>
+                                </div>
+                            </ListItem>
+                        </div>
+                        <button style={SignOutStyle}
+                        onClick={()=> this.onSignoutClick()}
+                        >Sign out</button>
+                    </Menu>
+                    </Popover>
+                    }
             </div>
         );
     }
@@ -158,9 +205,36 @@ const SignInStyle = {
     marginRight:"0px"
 }
 
+const SignOutStyle = {
+    width: "100%",
+    lineHeight: "30px",
+    margin: "auto",
+    fontSize: "14px",
+    fontWeight: 400,
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderRadius: "1px",
+    boxShadow: "none",
+    fontFamily: "sans-serif",
+    
+    color: "#000000",
+    background: " #fff",
+    fontWeight: 600,
+    padding: "0.4em",
+    //border: "none",
+    borderColor:"#000000",
+    outline: "none",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    marginTop:"10px",
+    marginLeft:"0px",
+    marginRight:"0px"
+}
+
 function mapStateToProps(state){
     return{
-        
+        userData:state.userData
     };
 }
 
@@ -169,9 +243,9 @@ function matchDispatchToProps(dispatch){
         {
             loginModalOpen,
             signupModalOpen,
-
+            logout
         }
         ,dispatch);
   }
   
-  export default connect(mapStateToProps,matchDispatchToProps)(ProfileItem);
+  export default withRouter(connect(mapStateToProps,matchDispatchToProps)(ProfileItem));

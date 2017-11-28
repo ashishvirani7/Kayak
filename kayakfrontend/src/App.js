@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import HomePage from './components/HomePage';
 import AccountPage from './components/AccountPage';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
 import AdminLogin from './components/AdminLogin';
 import AdminHome from './components/AdminHome';
 

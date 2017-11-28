@@ -38,7 +38,6 @@ const hlstyle={
     fontSize: '14px',
     lineHeight: '16px',
     color: 'blue',
-    display: 'block',
     msFlex: '1',
     textDecoration: 'none',
     marginLeft:'0px',

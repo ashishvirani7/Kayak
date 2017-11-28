@@ -109,6 +109,22 @@ fetch(`${api}/deleteAccount`, {
         return error;
 });
 
+export const doSignOut = (payload) =>
+fetch(`${api}/logout`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
 export const addHotelAdmin = (payload) =>
 fetch(`${api}/addHotelAdmin`, {
     method: 'POST',

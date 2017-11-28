@@ -10,7 +10,7 @@ import {compose, applyMiddleware, createStore} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import reduxReset from 'redux-reset';
 import allReducers from './reducers';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HomePage from './components/HomePage';
 //import AuthorizedRoute from './components/AuthorizedRoute';
 //import UnAuthorizedRoute from './components/UnAuthorizedRoute';

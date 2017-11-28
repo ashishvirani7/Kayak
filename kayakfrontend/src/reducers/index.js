@@ -5,6 +5,7 @@ import loginData from './loginReducer';
 import signupData from './signupReducer';
 import activeItem from './activeItemReducer';
 import adminLoginData from './adminLoginReducer';
+import userData from './userDataReducer';
 import adminCurrentItem from './adminCurrentItem';
 import adminActivePage from './adminActivePage';
 import adminHotels from './adminAllHotels';
@@ -18,6 +19,7 @@ const allReducers = combineReducers({
     signupData,
     activeItem,
     adminLoginData,
+    userData,
     adminCurrentItem,
     adminActivePage,
     adminCars,

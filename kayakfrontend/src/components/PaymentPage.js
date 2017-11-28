@@ -188,7 +188,7 @@ class PaymentPage extends Component
                                 street:         document.getElementById('street').value,
                                 city:           document.getElementById('city').value,
                                 postalcode:     document.getElementById('postalcode').value,
-                                state:      document.getElementById('state').value,
+                                state:          document.getElementById('state').value,
                             }
                             console.log(data);
                             API.updateUserBilling(data)
