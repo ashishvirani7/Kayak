@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
-
+import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 import {withRouter} from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import * as API from '../api/API';
@@ -82,7 +82,7 @@ class AdminFlights extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue"}}>Flights Live Here </h1>
+                <h1 style={{color:"skyblue"}}>Add Flight</h1>
 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -219,7 +219,9 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            changeValueAdmin
+            changeValueAdmin,
+            adminSetCurrentItem,
+
         }
         ,dispatch);
   }
