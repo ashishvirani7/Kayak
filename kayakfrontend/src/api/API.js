@@ -142,3 +142,35 @@ fetch(`${api}/showHotels`, {
         return error;
 });
 
+export const adminShowAllFlights = () =>
+fetch(`${api}/showFlights`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const adminShowAllCars = () =>
+fetch(`${api}/showCars`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+

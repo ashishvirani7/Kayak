@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
+import {adminAllHotels} from '../actions/adminAllHotels';
 
 import {withRouter} from 'react-router-dom';
 import {adminSetCurrentItem} from '../actions/adminSetCurrent';
@@ -17,26 +18,38 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 
 
-
-
-class AdminCars extends Component{
+class AdminAllHotels extends Component{
     
     getAllHotels(){
-        API.adminShowAllHotels()
-        .then((res) => {
-            if (res.status === 201) {
-                console.log("Success");
-                res.json().then(data => {
-
-                    //NotificationManager.success("Success", data.message, 2500, true);
-                    // this.props.history.push("/logs");
-                });
+        // API.adminShowAllHotels()
+        // .then((res) => {
+        //     if (res.status === 201) {
+        //         console.log("Success");
+        //         res.json().then(data => {
+        //             this.props.adminAllHotels(data.hotels)
+        //             //NotificationManager.success("Success", data.message, 2500, true);
+        //             // this.props.history.push("/logs");
+        //         });
         
-            } else if (res.status === 401) {
-                // console.log("Fail");
-                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-                // this.props.history.push("/");
-            } 
+        //     } else if (res.status === 401) {
+        //         // console.log("Fail");
+        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+        //         // this.props.history.push("/");
+        //     } 
+        // });
+        this.props.adminAllHotels([{"name":"Taj"},{"name":"av"}])
+    }
+
+    componentWillMount(){
+        this.getAllHotels();
+    }
+    createHotelsList(){
+        return this.props.adminHotels.map((hotel) => {
+            return(
+                <div>
+                    <h2> {hotel.name} </h2>
+                </div>
+            )
         });
     }
 
@@ -44,7 +57,7 @@ class AdminCars extends Component{
         return(
             <div>
                 <h1 style={{color:"skyblue"}}> All Hotels </h1>
-                
+                {this.createHotelsList()}
             </div>
         )
     }
@@ -54,7 +67,8 @@ class AdminCars extends Component{
 
 function mapStateToProps(state){
     return{
-        adminLoginData:state.adminLoginData
+        adminLoginData:state.adminLoginData,
+        adminHotels:state.adminHotels
     };
 }
 
@@ -63,9 +77,10 @@ function matchDispatchToProps(dispatch){
         {
             changeValueAdmin,
             adminSetCurrentItem,
-            
+            adminAllHotels,
+
         }
         ,dispatch);
   }
   
-export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminCars));
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminAllHotels));

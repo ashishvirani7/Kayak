@@ -6,6 +6,8 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -329,6 +331,7 @@ class AdminHotels extends Component{
       };
 
       submitHotel(){
+        //NotificationManager.success("Success", "lol", 2500, true);
         console.log(this.state);
         API.addHotelAdmin(this.state)
         .then((res) => {
@@ -462,7 +465,7 @@ class AdminHotels extends Component{
                     Submit
                     </button>
                 </div>
-                
+                <NotificationContainer/>
             </div>
         )
     }

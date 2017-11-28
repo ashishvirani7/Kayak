@@ -10,6 +10,8 @@ import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 import {adminSetActivePage} from '../actions/adminActivePage';
 import {withRouter} from 'react-router-dom';
 import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 import AdminFlights from './AdminFlights';
 import AdminHotels from './AdminHotels';
@@ -93,18 +95,19 @@ class AdminHome extends Component{
                     <Route exact path="/showCars" component={AdminAllCars}/>
                 </div>
                 <div className="col-md-3">
+
                 
                     {   this.props.adminActivePage=="add" &&
-                        <button id="cPwX-submit"  type="submit" style={buttonStyle} onClick={()=> this.showAll()}>
-                                <span className
-                                ="">Show {this.props.adminCurrentItem}</span>
-                        </button>
+
+                        <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.showAll()}}>
+                            Show {this.props.adminCurrentItem}
+                        </RaisedButton>
                     }
                     {   this.props.adminActivePage=="all" &&
-                        <button id="cPwX-submit"  type="submit" style={buttonStyle} onClick={()=> this.addItem()}>
-                                <span className
-                                ="">Add {this.props.adminCurrentItem}</span>
-                        </button>
+
+                        <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.addItem()}}>
+                        Add {this.props.adminCurrentItem}
+                        </RaisedButton>
                     }
                 </div>
                 
