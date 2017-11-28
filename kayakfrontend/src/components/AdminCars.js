@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {changeValueAdmin} from '../actions/adminLoginAction';
 
 import {withRouter} from 'react-router-dom';
-
+import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 import * as API from '../api/API';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -76,7 +76,7 @@ class AdminCars extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue"}}>Cars Live Here </h1>
+                <h1 style={{color:"skyblue"}}>Add Car </h1>
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
@@ -176,7 +176,9 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            changeValueAdmin
+            changeValueAdmin,
+            adminSetCurrentItem,
+
         }
         ,dispatch);
   }

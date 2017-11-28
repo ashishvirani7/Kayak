@@ -5,6 +5,8 @@ import loginData from './loginReducer';
 import signupData from './signupReducer';
 import activeItem from './activeItemReducer';
 import adminLoginData from './adminLoginReducer';
+import adminCurrentItem from './adminCurrentItem';
+import adminActivePage from './adminActivePage';
 
 const allReducers = combineReducers({
     loginModal,
@@ -13,6 +15,8 @@ const allReducers = combineReducers({
     signupData,
     activeItem,
     adminLoginData,
+    adminCurrentItem,
+    adminActivePage,
     
  });
  
