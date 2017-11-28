@@ -18,6 +18,10 @@ var get_activity = require('./services/getActivity');
 var share = require('./services/share');
 var get_shared_files = require('./services/getSharedFiles');
 
+var hotels = require('./services/hotels');
+var flights = require('./services/flights');
+var cars = require('./services/cars');
+
 var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
 
 var login_topic_name = 'login_topic';
@@ -38,6 +42,10 @@ var get_activity_topic_name = "get_activity_topic";
 var share_topic_name = "share_topic";
 var get_shared_files_topic_name = "get_shared_files_topic";
 
+var hotels_topic = "hotels_topic";
+var flights_topic = "flights_topic";
+var cars_topic = "cars_topic";
+
 var response_topic_name = "response_topic";
 
 var producer = connection.getProducer();
@@ -47,7 +55,7 @@ producer.on('ready', function () {
         upload_file_topic_name, delete_file_topic_name, download_file_topic_name, get_files_topic_name,
         get_folders_topic_name, response_topic_name, star_file_topic_name, unstar_file_topic_name,
         star_folder_topic_name, unstar_folder_topic_name, get_activity_topic_name, share_topic_name,
-        get_shared_files_topic_name, add_hotel_admin_topic_name, updateUserInfo_topic_name,
+        get_shared_files_topic_name, add_hotel_admin_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
     ], 
         false, function (err, data) {
     }); 
@@ -69,6 +77,10 @@ producer.on('ready', function () {
     var get_activity_consumer = connection.getConsumer(get_activity_topic_name);
     var share_consumer = connection.getConsumer(share_topic_name);
     var get_shared_files_consumer = connection.getConsumer(get_shared_files_topic_name);
+    var hotels_topic_consumer = connection.getConsumer(hotels_topic);
+    //var hotels_topic_consumer = connection.getConsumer(hotels_topic);
+    var flights_topic_consumer = connection.getConsumer(flights_topic);
+    var cars_topic_consumer = connection.getConsumer(cars_topic);
 
     console.log('login server is running');
     login_consumer.on('message', function (message) {
@@ -484,4 +496,73 @@ producer.on('ready', function () {
             return;
         });
     });
+
+console.log('hotels server is running');
+    hotels_topic_consumer.on('message', function (message) {
+    console.log('message received');
+    console.log(JSON.stringify(message.value));
+    var data = JSON.parse(message.value);
+    hotels.handle_request(data.data, function(err,res){
+        console.log('after handle'+res);
+        var payloads = [
+            { topic: data.replyTo,
+                messages:JSON.stringify({
+                    correlationId:data.correlationId,
+                    data : res
+                }),
+                partition : 0
+            }
+        ];
+        producer.send(payloads, function(err, data){
+            console.log(data);
+        });
+        return;
+    });
+});
+
+console.log('flights server is running');
+flights_topic_consumer.on('message', function (message) {
+    console.log('message received');
+    console.log(JSON.stringify(message.value));
+    var data = JSON.parse(message.value);
+    flights.handle_request(data.data, function(err,res){
+        console.log('after handle'+res);
+        var payloads = [
+            { topic: data.replyTo,
+                messages:JSON.stringify({
+                    correlationId:data.correlationId,
+                    data : res
+                }),
+                partition : 0
+            }
+        ];
+        producer.send(payloads, function(err, data){
+            console.log(data);
+        });
+        return;
+    });
+});
+
+console.log('cars server is running');
+cars_topic_consumer.on('message', function (message) {
+    console.log('message received');
+    console.log(JSON.stringify(message.value));
+    var data = JSON.parse(message.value);
+    cars.handle_request(data.data, function(err,res){
+        console.log('after handle'+res);
+        var payloads = [
+            { topic: data.replyTo,
+                messages:JSON.stringify({
+                    correlationId:data.correlationId,
+                    data : res
+                }),
+                partition : 0
+            }
+        ];
+        producer.send(payloads, function(err, data){
+            console.log(data);
+        });
+        return;
+    });
+});
 });

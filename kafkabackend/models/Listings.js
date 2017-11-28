@@ -63,6 +63,7 @@ var Listings = new Schema({
 		car_name : String,
 		car_type : String,
 		model_name : String,
+        city : String,
 		specification :
 		{
 			color: String,

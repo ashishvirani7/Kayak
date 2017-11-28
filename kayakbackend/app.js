@@ -35,6 +35,9 @@ var getActivity = require('./routes/getActivity');
 var share = require('./routes/share');
 var getSharedFiles = require('./routes/getSharedFiles');
 var updateUserInfo = require('./routes/updateUserInfo');
+var hotels = require('./routes/hotels');
+var flights = require('./routes/flights');
+var cars = require('./routes/cars');
 
 var app = express();
 
@@ -93,5 +96,8 @@ app.use('/getActivity',getActivity);
 app.use('/share',share);
 app.use('/getSharedFiles',getSharedFiles);
 app.use('/updateUserInfo',updateUserInfo);
+app.use('/hotels', hotels);
+app.use('/flights', flights);
+app.use('/cars', cars);
 
 module.exports = app;
