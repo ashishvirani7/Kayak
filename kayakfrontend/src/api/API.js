@@ -222,3 +222,35 @@ fetch(`${api}/doHotelSearch`, {
         return error;
 });
 
+export const doFlightSearch = () =>
+fetch(`${api}/doFlightSearch`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const doCarSearch = () =>
+fetch(`${api}/doCarSearch`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+

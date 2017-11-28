@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
-
+import * as API from '../api/API';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 class CarSearch extends Component{
     render() {
         return(
@@ -11,19 +12,19 @@ class CarSearch extends Component{
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
                             <TextField style={istyle}
-                                id="destination"
+                                id="city"
                                 hintText="Where"
                             />
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -31,6 +32,26 @@ class CarSearch extends Component{
                             <button style={btnstyle}
                                 id="destbtn"
                                 hintText="Where"
+                                onClick={()=>{
+                                    var data ={
+                                        city:     document.getElementById('city').value,
+                                        toDate:     document.getElementById('toDate').value,
+                                        fromDate:   document.getElementById('fromDate').value,
+                                    }
+                                    if(data.city && data.toDate && data.fromDate){
+                                        console.log(data);
+                                        API.doCarSearch(data)
+                                        .then((res)=>{
+                                            if(res.status===201){
+
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+                                    }
+                                    
+                                }}
                             >
                             <IconArrow color="white" style={arrowStyle}/> 
                             </button>
@@ -54,6 +75,7 @@ const arrowStyle={
 
 const istyle={
     fontSize:'16px',
+    fontWeight:'600',
     height:'50px',
     width:'100%',
     backgroundColor:'white',

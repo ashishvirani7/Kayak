@@ -14,8 +14,8 @@ class HotelSearch extends Component{
         valueGuest:1,
     }
 
-    handleChangeRoom = (event, index, valueRoom) => this.setState({valueRoom});
-    handleChangeGuest = (event, index, valueGuest) => this.setState({valueGuest});
+    handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom});
+    handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest});
 
     render() {
         return(
@@ -84,13 +84,13 @@ class HotelSearch extends Component{
                                 type="submit"
                                 onClick={()=>{
                                     var data ={
-                                        destination:document.getElementById('destination').value,
-                                        toDate:     document.getElementById('destination').value,
-                                        fromDate:   document.getElementById('fromDate').value,
+                                        city:document.getElementById('destination').value,
+                                        checkIn:     document.getElementById('toDate').value,
+                                        checkOut:   document.getElementById('fromDate').value,
                                         noOfRoom:   this.state.valueRoom,
                                         noOfGuest:  this.state.valueGuest,
                                     }
-                                    if(data.destination && data.toDate && data.fromDate){
+                                    if(data.city && data.checkIn && data.checkOut){
                                         console.log(data);
                                         API.doHotelSearch(data)
                                         .then((res)=>{
