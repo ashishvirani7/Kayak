@@ -10,27 +10,57 @@ function handle_request(msg, callback) {
     var checkin = msg.checkin;
     var checkout = msg.checkout;
     var guest = msg.guest;
+    var noOfRoom = msg.noOfRoom;
+    var noOfGuest = msg.noOfRoom;
+    var order = msg.order;
+    var filter_prop = msg.filter_prop;
 
     console.log("In handle request:"+ JSON.stringify(msg));
+    if(order == "price_desc"){
+        Listings.find({
+            "hotel.address.street":city,
+            "hotel.rooms.room_type":"Suite",
+            "hotel.avg_rating":{$gt:filter_prop.ratings}
+        }, function(err, hotels){
+            if(err){
+                message="error"
+                res.code = "202"
+                res.data = message;
+                callback(null, res)
+            }
+            else
+            {
+                message=hotels;
+                res.code = "201"
+                res.data = message;
+                console.log("hotels:",hotels)
+                callback(null, res);
 
-    Listings.find({"hotel.address.street":city, "hotel.rooms.room_type":"Suite"}, function(err, hotels){
-        if(err){
-            message="error"
-            res.code = "202"
-            res.data = message;
-            callback(null, res)
-        }
-        else
-        {
-            message=hotels;
-            res.code = "201"
-            res.data = message;
-            console.log("hotels:",hotels)
-            callback(null, res);
+            }
 
-        }
+        }).sort([['hotel.rooms.room_price',-1]])
+    }
+    else{
+        Listings.find({"hotel.address.street":city, "hotel.rooms.room_type":"Suite"}, function(err, hotels){
+            if(err){
+                message="error"
+                res.code = "202"
+                res.data = message;
+                callback(null, res)
+            }
+            else
+            {
+                message=hotels;
+                res.code = "201"
+                res.data = message;
+                console.log("hotels:",hotels)
+                callback(null, res);
 
-    })
+            }
+
+        }).sort([['hotel.rooms.room_price',1]])
+    }
+
 }
 
 // function handle_request1(msg, callback){
