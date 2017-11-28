@@ -158,3 +158,34 @@ fetch(`${api}/showHotels`, {
         return error;
 });
 
+export const checkSession = () =>
+fetch(`${api}/sessioncheck`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    console.log(res);
+    return res;
+}).catch(error => {
+        console.log(error);
+        return error;
+});
+
+export const doHotelSearch = () =>
+fetch(`${api}/doHotelSearch`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    console.log(res);
+    return res;
+}).catch(error => {
+        console.log(error);
+        return error;
+});

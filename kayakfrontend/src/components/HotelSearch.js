@@ -2,36 +2,78 @@ import React,{Component} from 'react';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import * as API from '../api/API';
 class HotelSearch extends Component{
+
+    state = {
+        valueRoom:1,
+        valueGuest:1,
+    }
+
+    handleChangeRoom = (event, index, valueRoom) => this.setState({valueRoom});
+    handleChangeGuest = (event, index, valueGuest) => this.setState({valueGuest});
+
     render() {
         return(
             <div className="col-md-12">
                 <div className="row" style={rstyle}>
-                    <div className="col-md-4" >
+                    <div className="col-md-3" >
                         <div className="row" style={divstyle}>
                             <TextField style={istyle}
                                 id="destination"
                                 hintText="Where"
+                                required="required"
                             />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="To" container="inline" />
+                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="From" container="inline"/>
+                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="destination"
-                                hintText="Where"
-                            />
+                            <SelectField
+                                value={this.state.valueRoom}
+                                onChange={this.handleChangeRoom}
+                                style={istyle}
+                                >
+                                <MenuItem value={1} primaryText="1 Room" />
+                                <MenuItem value={2} primaryText="2 Rooms" />
+                                <MenuItem value={3} primaryText="3 Rooms" />
+                                <MenuItem value={4} primaryText="4 Rooms" />
+                                <MenuItem value={5} primaryText="5 Rooms" />
+                                <MenuItem value={6} primaryText="6 Rooms" />
+                            </SelectField>
+                        </div>
+                    </div>
+                    <div className="col-md-2">
+                        <div className="row" style={divstyle}>
+                            <SelectField
+                                value={this.state.valueGuest}
+                                onChange={this.handleChangeGuest}
+                                style={istyle}
+                                >
+                                <MenuItem value={1} primaryText="1 guest" />
+                                <MenuItem value={2} primaryText="2 guests" />
+                                <MenuItem value={3} primaryText="3 guests" />
+                                <MenuItem value={2} primaryText="4 guests" />
+                                <MenuItem value={3} primaryText="5 guests" />
+                                <MenuItem value={2} primaryText="6 guests" />
+                                <MenuItem value={3} primaryText="7 guests" />
+                                <MenuItem value={2} primaryText="8 guests" />
+                                <MenuItem value={3} primaryText="9 guests" />
+                                <MenuItem value={2} primaryText="10 guests" />
+                            </SelectField>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -39,6 +81,29 @@ class HotelSearch extends Component{
                             <button style={btnstyle}
                                 id="destbtn"
                                 hintText="Where"
+                                type="submit"
+                                onClick={()=>{
+                                    var data ={
+                                        destination:document.getElementById('destination').value,
+                                        toDate:     document.getElementById('destination').value,
+                                        fromDate:   document.getElementById('fromDate').value,
+                                        noOfRoom:   this.state.valueRoom,
+                                        noOfGuest:  this.state.valueGuest,
+                                    }
+                                    if(data.destination && data.toDate && data.fromDate){
+                                        console.log(data);
+                                        API.doHotelSearch(data)
+                                        .then((res)=>{
+                                            if(res.status===201){
+
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+                                    }
+                                    
+                                }}
                             >
                             <IconArrow color="white"/> 
                             </button>
@@ -58,26 +123,29 @@ const rstyle={
 
 const istyle={
     fontSize:'16px',
+    fontWeight:'600',
     height:'50px',
     width:'100%',
     backgroundColor:'white',
     marginLeft:'5px',
     marginRight:'5px',
     barderSize:'1px',
-    borderColor:'black'
+    borderColor:'black',
+    textAlign:'center',
 }
 
 const btnstyle={
     border:'none',
     fontSize:'16px',
     height:'50px',
-    width:'100%',
-    backgroundColor:'#ff5929',
+    width:'80%',
     marginLeft:'5px',
-    marginRight:'5px'
+    marginRight:'5px',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
 }
+
 const divstyle={
     marginLeft:'-20px',
-    marginRight:'-2px'
+    marginRight:'-2px',
 }
 export default HotelSearch;

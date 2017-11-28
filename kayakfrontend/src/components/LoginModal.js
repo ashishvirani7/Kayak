@@ -75,7 +75,7 @@ class LoginModal extends React.Component {
           onRequestClose={this.handleClose}
           style={{width:"600px", marginLeft:"400px",marginTop:"-50px",maxHeight:'none'}}
           autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent={false}
         >
         
         <div style={socialStyle}>
@@ -162,7 +162,8 @@ const fbStyle = {
     textAlign: "center",
     color: "#fff",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
+    marginLeft:'10px'
 }
 
 const googleIconStyle = {
@@ -173,7 +174,7 @@ const googleIconStyle = {
     width: "38px",
     height: "38px",
     margin: "2px",
-    position: "absolute",
+    position: "relative",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "10px center"
 }
@@ -183,7 +184,7 @@ const googleStyle = {
     height: "42px",
     backgroundColor: "#4285f4",
     marginBottom: "18px",
-    
+    display:'flex',
 }
 
 const gStyle = {
@@ -191,7 +192,8 @@ const gStyle = {
     textAlign: "center",
     color: "#fff",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
+    marginLeft:'10px'
 }
 
 const signupButtonStyle = {

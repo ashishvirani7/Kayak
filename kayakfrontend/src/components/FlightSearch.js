@@ -26,12 +26,12 @@ class FlightSearch extends Component{
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="To" container="inline" />
+                            <DatePicker style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="From" container="inline"/>
+                            <DatePicker style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
@@ -79,10 +79,10 @@ const btnstyle={
     border:'none',
     fontSize:'16px',
     height:'50px',
-    width:'100%',
-    backgroundColor:'#ff5929',
+    width:'80%',
     marginLeft:'5px',
-    marginRight:'5px'
+    marginRight:'5px',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
 }
 const divstyle={
     marginLeft:'-20px',

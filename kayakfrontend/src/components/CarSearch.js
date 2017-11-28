@@ -18,12 +18,12 @@ class CarSearch extends Component{
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="To" container="inline" />
+                            <DatePicker style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker style={istyle} hintText="From" container="inline"/>
+                            <DatePicker style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -32,7 +32,7 @@ class CarSearch extends Component{
                                 id="destbtn"
                                 hintText="Where"
                             >
-                            <IconArrow color="white"/> 
+                            <IconArrow color="white" style={arrowStyle}/> 
                             </button>
                         </div>
                     </div>
@@ -46,6 +46,10 @@ const rstyle={
     marginTop:'50px',
     marginRight:'15px',
     marginLeft:'15px'
+}
+
+const arrowStyle={
+    marginLeft:'-5px'
 }
 
 const istyle={
@@ -63,10 +67,10 @@ const btnstyle={
     border:'none',
     fontSize:'16px',
     height:'50px',
-    width:'100%',
-    backgroundColor:'#ff5929',
+    width:'80%',
     marginLeft:'5px',
-    marginRight:'5px'
+    marginRight:'5px',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
 }
 const divstyle={
     marginLeft:'-20px',

@@ -9,6 +9,9 @@ import {NotificationContainer} from 'react-notifications';
 import AdminLogin from './components/AdminLogin';
 import AdminHome from './components/AdminHome';
 
+import AuthorizedRoute from './components/AuthorizedRoute';
+import UnAuthorizedRoute from './components/UnAuthorizedRoute';
+
 const  App = () => {
     return(
       <div>
