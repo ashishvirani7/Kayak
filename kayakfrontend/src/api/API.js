@@ -158,34 +158,67 @@ fetch(`${api}/showHotels`, {
         return error;
 });
 
-export const checkSession = () =>
-fetch(`${api}/sessioncheck`, {
-    method: 'POST',
+export const adminShowAllFlights = () =>
+fetch(`${api}/showFlights`, {
+    method: 'GET',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
     },
     credentials:'include'
 }).then(res => {
-    console.log(res);
     return res;
-}).catch(error => {
-        console.log(error);
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const checkSession = () =>
+fetch(`${api}/sessioncheck`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const adminShowAllCars = () =>
+fetch(`${api}/showCars`, {
+    method: 'GET',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
         return error;
 });
 
 export const doHotelSearch = () =>
 fetch(`${api}/doHotelSearch`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
     },
     credentials:'include'
 }).then(res => {
-    console.log(res);
     return res;
-}).catch(error => {
-        console.log(error);
+})
+    .catch(error => {
+        console.log("This is error");
         return error;
 });
+

@@ -15,6 +15,7 @@ import HomePage from './components/HomePage';
 
 import {MuiThemeProvider} from 'material-ui/styles';
 import App from './App';
+import 'react-notifications/lib/notifications.css';
 
 const enHanceCreateStore = compose(
     reduxReset(),
@@ -32,7 +33,6 @@ persistStore(store, {}, () => {
             <MuiThemeProvider>
                 <BrowserRouter> 
                     <App />
-                    
                 </BrowserRouter>
             </MuiThemeProvider>
         
