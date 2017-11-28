@@ -11,9 +11,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
+import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 
 import {withRouter} from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import * as API from '../api/API';
 
@@ -327,31 +329,29 @@ class AdminHotels extends Component{
       };
 
       submitHotel(){
-          console.log(this.state);
-        // API.doAddHotelAdmin(this.state)
-        // .then((res) => {
-        //     if (res.status === 201) {
-        //         console.log("Success");
-        //         res.json().then(user => {
-        //             // this.props.loginSuccess(user);
-        //             // this.props.setPath("/home");
-        //             // NotificationManager.success("Welcome", "Login Successful", 2500, true);
-        //             // this.props.history.push("/logs");
-        //         });
+        console.log(this.state);
+        API.addHotelAdmin(this.state)
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
         
-        //     } else if (res.status === 401) {
-        //         // console.log("Fail");
-        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-        //         // this.props.history.push("/");
-        //     } 
-        // });
+            } else if (res.status === 401) {
+                // console.log("Fail");
+                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
       }
 
     render(){
         return(
             <div>
                 
-                <h1 style={{color:"skyblue"}}>Hotels Live Here </h1>
+                <h1 style={{color:"skyblue"}}>Add Hotel</h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -521,7 +521,9 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            changeValueAdmin
+            changeValueAdmin,
+            adminSetCurrentItem,
+            
         }
         ,dispatch);
   }
