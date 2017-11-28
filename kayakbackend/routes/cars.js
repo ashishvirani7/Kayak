@@ -11,9 +11,10 @@ router.post('/', (req, res, next)=>{
     var city = req.body.city;
 var pickuptime = req.body.pickuptime;
 var dropofftime = req.body.dropofftime;
+var order = req.body.order;
+var filter_prop = req.body.filter_prop;
 
-
-kafka.make_request(topic_name, {city, pickuptime, dropofftime}, function(err, results){
+kafka.make_request(topic_name, {city, pickuptime, dropofftime, order, filter_prop}, function(err, results){
     if(err){
         done(err,{});
     }

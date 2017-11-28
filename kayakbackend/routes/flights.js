@@ -15,9 +15,11 @@ router.post('/', (req, res, next)=>{
     var arrival_date = req.body.arrival_date;
     //traveler_info may contain number of adult/children and class(business or economy)
     var traveler_info = req.body.traveler_info;
-
-
-    kafka.make_request(topic_name, {origin, destination, departure_date, arrival_date, traveler_info}, function(err, results){
+    var order = req.body.order;
+    var filter_prop = req.body.filter_prop;
+    var flight_class = req.body.class;
+    var no_of_traveler = req.body.no_of_traveler;
+    kafka.make_request(topic_name, {origin, destination, departure_date, arrival_date, traveler_info, order, filter_prop, flight_class, no_of_traveler}, function(err, results){
         if(err){
             done(err,{});
         }
@@ -34,5 +36,6 @@ router.post('/', (req, res, next)=>{
         }
     })
 })
+
 
 module.exports = router;

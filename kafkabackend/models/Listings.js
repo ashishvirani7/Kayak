@@ -48,6 +48,8 @@ var Listings = new Schema({
 		arrival_date: Date,
 		origin: String,
 		destination: String,
+		duration: Number,
+		stops: Number,
 		classes:
 		[{
 			class_type: String,
