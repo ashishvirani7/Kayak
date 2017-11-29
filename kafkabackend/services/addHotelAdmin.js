@@ -17,6 +17,8 @@ function handle_request(msg, callback) {
         address : {
             street: msg.street,
             state : msg.state,
+            zip_code : msg.zip_code,
+            city : msg.city,
             country: "US"
         },
         rooms : [

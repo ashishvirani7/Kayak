@@ -13,7 +13,7 @@ class ImageList extends Component{
                 <div className="col-md-4">
                     <div className="row" style={dstyle}>
                         <div className="col-md-12">
-                            <img className="imagelist" src={img1} style={{boxShadow:'0 3px 12px 1px rgba(0,0,0,0.26)',cursor:'pointer'}}/>  
+                            <img src={img1} style={{boxShadow:'0 3px 12px 1px rgba(0,0,0,0.26)',cursor:'pointer'}}/>  
                         </div>
                     </div>
                 </div>
