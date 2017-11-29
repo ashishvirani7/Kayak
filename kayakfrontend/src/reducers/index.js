@@ -12,6 +12,7 @@ import userState from './userStateReducer';
 import adminHotels from './adminAllHotels';
 import adminFlights from './adminAllFlights';
 import adminCars from './adminAllCars';
+import adminUpdateCurrentData from './adminUpdateCurrentReducer';
 
 const allReducers = combineReducers({
     loginModal,
@@ -27,7 +28,8 @@ const allReducers = combineReducers({
     adminCars,
     adminFlights,
     adminHotels,
-
+    adminUpdateCurrentData,
+    
  });
  
  export default allReducers;

@@ -97,7 +97,7 @@ const flag1={
 const divstyle={
     backgroundColor:'#0f0f0f',
     height:'547px',
-    marginTop:'100px'
+    marginTop:'0px'
 }
 const rstyle={
     border:'1px solid #717585',
