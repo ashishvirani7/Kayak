@@ -17,14 +17,14 @@ class CarResults extends Component
 {
     state = {
         sort:0,
-        small:false,
-        Medium:false,
-        Large:false,
-        SUV:false,
-        Luxury:false,
-        PickupTruck:false,
-        Van:false,
-        Commercial:false,
+        Small:true,
+        Medium:true,
+        Large:true,
+        SUV:true,
+        Luxury:true,
+        PickupTruck:true,
+        Van:true,
+        Commercial:true,
     }
     render(){
         return(
@@ -102,7 +102,14 @@ class CarResults extends Component
                                     <span style={{float:'left'}}>Car Type</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
-                                        this.setState({...this.state,valueStar:0});
+                                        this.setState({...this.state,Small:true,
+                                            Medium:true,
+                                            Large:true,
+                                            SUV:true,
+                                            Luxury:true,
+                                            PickupTruck:true,
+                                            Van:true,
+                                            Commercial:true,});
                                     }}>RESET</span>
                                 </div>
                                 <div class="row" >

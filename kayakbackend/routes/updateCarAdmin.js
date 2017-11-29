@@ -4,7 +4,7 @@ var kafka = require('./kafka/client');
 var topic_name = "update_car_admin_topic";
 
 router.post('/', (req,res,next)=>{
-
+    var message="";
     var carObject = {
         _id : req.body._id,
         car_name : req.body.car_name,
@@ -23,13 +23,15 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Car Updated Successfully");
+                message="Car Updated Successfully";
+                console.log(message);
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":message});
             }
             else {
-                console.log("Car updation Failed");
-                res.status(202).send({"message":results});
+                message="Car updation Failed";
+                console.log(message);
+                res.status(202).send({"message":message});
             }
 
         }
