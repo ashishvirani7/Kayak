@@ -18,6 +18,14 @@ var signup = require('./routes/signup');
 var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
 var addHotelAdmin = require('./routes/addHotelAdmin');
+var updateHotelAdmin = require('./routes/updateHotelAdmin');
+
+var addHotelAdmin = require('./routes/addFlightAdmin');
+var addHotelAdmin = require('./routes/updateFlightAdmin');
+
+var addHotelAdmin = require('./routes/addHotelAdmin');
+var addHotelAdmin = require('./routes/addHotelAdmin');
+
 var sessioncheck = require('./routes/sessioncheck');
 var logout = require('./routes/logout');
 var getFiles = require('./routes/getFiles');
