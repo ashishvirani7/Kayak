@@ -4,10 +4,10 @@ var kafka = require('./kafka/client');
 var topic_name = "add_hotel_admin_topic";
 
 router.post('/', (req,res,next)=>{
-
+    var message="";
     var hotelObject = {
         hotel_name : req.body.hotel_name,
-        hotel_street : req.body.hotel_street,
+        street : req.body.street,
         room_price_value1 : req.body.room_price_value1,
         room_price_value2 : req.body.room_price_value2,
         room_price_value3 : req.body.room_price_value3,
@@ -29,13 +29,15 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Hotel Added Successfully");
+                message="Hotel Added Successfully";
+                console.log(message);
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":message});
             }
             else {
-                console.log("Hotel addition Failed");
-                res.status(202).send({"message":results});
+                message="Hotel addition Failed";
+                console.log(message);
+                res.status(202).send({"message":message});
             }
 
         }
