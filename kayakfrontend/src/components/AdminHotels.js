@@ -370,7 +370,7 @@ class AdminHotels extends Component{
         return(
             <div>
                 
-                <h1 style={{color:"skyblue"}}>Add Hotel</h1>
+                <h1>Add Hotel</h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -395,7 +395,7 @@ class AdminHotels extends Component{
                 </div>
                 <div className="row" style={divstyle}>
                     <SelectField
-                        value={this.state.stateValue}
+                        value={this.state.state}
                         onChange={this.handleStateChange}
                         floatingLabelText="State"
                         maxHeight={200}  
@@ -420,7 +420,7 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.roomTypeValue1}
+                            value={this.state.room_type_value1}
                             onChange={this.handleTypeChange1}
                             floatingLabelText="Room Type"
                             maxHeight={200}  
@@ -444,7 +444,7 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.roomTypeValue2}
+                            value={this.state.room_type_value2}
                             onChange={this.handleTypeChange2}
                             floatingLabelText="Room Type"
                             maxHeight={200}  
@@ -467,7 +467,7 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.roomTypeValue3}
+                            value={this.state.room_type_value3}
                             onChange={this.handleTypeChange3}
                             floatingLabelText="Room Type"
                             maxHeight={200}  

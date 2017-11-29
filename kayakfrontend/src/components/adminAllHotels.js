@@ -79,9 +79,9 @@ class AdminAllHotels extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue"}}> All Hotels </h1>
-                <ListItem disabled={true} style={{height:"20px"}}>
-                    <div className="row" style={{"color":"white","backgroundColor":"#ec7132"}}>
+                <h1 > All Hotels </h1>
+                <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
+                    <div className="row" style={{"color":"white",fontSize:"20px"}}> 
                         <div className="col-md-3">
                             Hotel Name
                         </div>

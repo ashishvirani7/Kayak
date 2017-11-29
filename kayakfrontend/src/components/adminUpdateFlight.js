@@ -13,20 +13,23 @@ import * as API from '../api/API';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-class AdminFlights extends Component{
 
+class AdminUpdateFlight extends Component{
+    
     constructor(props) {
+        
         super(props);
+        
         this.state = {
-            flight_name:"",
-            flight_operator_name:"",
-            departure_date: "",
-            arrival_date:"",
-            origin:"",
-            destination:"",
-            business_class_price:"",
-            economy_class_price:"",
-            first_class_price:""
+            flight_name:this.props.adminUpdateCurrentData.flight_name,
+            flight_operator_name:this.props.adminUpdateCurrentData.flight_operator_name,
+            departure_date: new Date(this.props.adminUpdateCurrentData.departure_date),
+            arrival_date:new Date(this.props.adminUpdateCurrentData.arrival_date),
+            origin:this.props.adminUpdateCurrentData.origin,
+            destination:this.props.adminUpdateCurrentData.destination,
+            business_class_price:this.props.adminUpdateCurrentData.classes[0].class_price,
+            economy_class_price:this.props.adminUpdateCurrentData.classes[1].class_price,
+            first_class_price:this.props.adminUpdateCurrentData.classes[2].class_price
         };
       }
       
@@ -37,7 +40,6 @@ class AdminFlights extends Component{
         this.setState({...this.state,flight_operator_name:event.target.value});
       };
       handleDepartureDateChange = (event, date) => {
-          console.log();
         this.setState({...this.state,departure_date:date});
       };
       handleDepartureTimeChange = (event, time) => {
@@ -80,14 +82,14 @@ class AdminFlights extends Component{
       };
 
 
-      submitFlight() {
+      updateFlight() {
           console.log(this.state);
-          API.addFlightAdmin(this.state)
+          API.updateFlightAdmin(this.state)
           .then((res) => {
               if (res.status === 201) {
                   console.log("Success");
                   res.json().then(data => {
-                      NotificationManager.success("Success", "Flight Added Successfully", 2500, true);
+                      NotificationManager.success("Success", "Flight Updated Successfully", 2500, true);
                       // this.props.history.push("/logs");
                   });
           
@@ -101,13 +103,14 @@ class AdminFlights extends Component{
     render(){
         return(
             <div>
-                <h1 >Add Flight</h1>
+                <h1>Update Flight</h1>
 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="flight_name"
                         hintText="Flight Name"
                         onChange={this.handleNameChange}
+                        value={this.state.flight_name}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -115,12 +118,15 @@ class AdminFlights extends Component{
                         id="operator_name"
                         hintText="Flight Operator Name"
                         onChange={this.handleOperatorChange}
+                        value={this.state.flight_operator_name}
                     />
                 </div>
                 <div className="row">
                     <div className="col-md-4">
                         <DatePicker style={istyle} hintText="Departure Date" container="inline" autoOk={true}
-                            onChange={this.handleDepartureDateChange} />
+                            onChange={this.handleDepartureDateChange} 
+                            defaultDate={this.state.departure_date}
+                            />
                     </div>
                     <div className="col-md-4">
                         <TimePicker
@@ -134,7 +140,10 @@ class AdminFlights extends Component{
                 <div className="row">
                     <div className="col-md-4">
                         <DatePicker style={istyle} hintText="Arrival Date" container="inline" autoOk={true}
-                            onChange={this.handleArrivalDateChange}/>
+                            onChange={this.handleArrivalDateChange}
+                            defaultDate={this.state.arrival_date}
+
+                            />
                     </div>
                     <div className="col-md-4">
                         <TimePicker
@@ -150,6 +159,7 @@ class AdminFlights extends Component{
                         id="origin"
                         hintText="Origin"
                         onChange={this.handleOriginChange}
+                        value={this.state.origin}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -157,6 +167,7 @@ class AdminFlights extends Component{
                         id="destination"
                         hintText="Destination"
                         onChange={this.handleDestinationChange}
+                        value={this.state.destination}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -164,6 +175,7 @@ class AdminFlights extends Component{
                         id="business_price"
                         hintText="Business Class Price"
                         onChange={this.handleBusinessClassPriceChange}
+                        value={this.state.business_class_price}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -171,6 +183,7 @@ class AdminFlights extends Component{
                         id="economy_class"
                         hintText="Economy Class Price"
                         onChange={this.handleEconomyClassPriceChange}
+                        value={this.state.economy_class_price}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -178,14 +191,15 @@ class AdminFlights extends Component{
                         id="first_class"
                         hintText="First Class Price"
                         onChange={this.handleFirstClassPriceChange}
+                        value={this.state.first_class_price}
                     />
                 </div>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
-                        onClick={()=>{this.submitFlight()}}
+                        onClick={()=>{this.updateFlight()}}
                     >
-                    Submit
+                    Update
                     </button>
                 </div>
             </div>
@@ -238,7 +252,8 @@ const divstyle={
 
 function mapStateToProps(state){
     return{
-        adminLoginData:state.adminLoginData
+        adminLoginData:state.adminLoginData,
+        adminUpdateCurrentData:state.adminUpdateCurrentData
     };
 }
 
@@ -252,4 +267,4 @@ function matchDispatchToProps(dispatch){
         ,dispatch);
   }
   
-export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminFlights));
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminUpdateFlight));

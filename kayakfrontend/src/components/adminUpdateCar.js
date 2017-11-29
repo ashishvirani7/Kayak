@@ -46,14 +46,14 @@ Car_Types.map(type=>{
     carTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
 })
 
-class AdminCars extends Component{
+class AdminUpdateCar extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            car_name:"",
-            car_type:"",
-            model_name:"",
-            car_rental_price:""
+            car_name:this.props.adminUpdateCurrentData.car_name,
+            car_type:this.props.adminUpdateCurrentData.car_type,
+            model_name:this.props.adminUpdateCurrentData.model_name,
+            car_rental_price:this.props.adminUpdateCurrentData.car_rental_price
         };
       }
 
@@ -69,14 +69,15 @@ class AdminCars extends Component{
       handleRentalPriceChange = (event, index, value) => {
         this.setState({...this.state,car_rental_price:event.target.value});
       };
-      submitCar(){
+
+      updateCar(){
         console.log(this.state);
-        API.addCarAdmin(this.state)
+        API.updateCarAdmin(this.state)
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
-                    NotificationManager.success("Success", "Flight Added Successfully", 2500, true);
+                    NotificationManager.success("Success", "Car Updated Successfully", 2500, true);
                     // this.props.history.push("/logs");
                 });
         
@@ -87,7 +88,6 @@ class AdminCars extends Component{
             } 
         });
       }
-
     render(){
         return(
             <div>
@@ -97,6 +97,7 @@ class AdminCars extends Component{
                         id="car_name"
                         hintText="Car Name"
                         onChange={this.handleNameChange}
+                        value={this.state.car_name}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -114,6 +115,7 @@ class AdminCars extends Component{
                         id="model_name"
                         hintText="Model Name"
                         onChange={this.handleModalNameChange}
+                        value={this.state.model_name}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -121,15 +123,16 @@ class AdminCars extends Component{
                         id="rental_price"
                         hintText="CarRental Price"
                         onChange={this.handleRentalPriceChange}
+                        value={this.state.car_rental_price}
                     />
                 </div>
                 <br/>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
-                        onClick={()=>{this.submitCar()}}
+                        onClick={()=>{this.updateCar()}}
                     >
-                    Submit
+                    Update
                     </button>
                 </div>
             </div>
@@ -184,7 +187,8 @@ const divstyle={
 
 function mapStateToProps(state){
     return{
-        adminLoginData:state.adminLoginData
+        adminLoginData:state.adminLoginData,
+        adminUpdateCurrentData:state.adminUpdateCurrentData
     };
 }
 
@@ -198,4 +202,4 @@ function matchDispatchToProps(dispatch){
         ,dispatch);
   }
   
-export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminCars));
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminUpdateCar));

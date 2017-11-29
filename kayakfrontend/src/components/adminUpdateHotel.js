@@ -339,15 +339,15 @@ class AdminUpdateHotel extends Component{
         this.setState({...this.state,room_price_value3:event.target.value});
       };
       
-      submitHotel(){
+      updateHotel(){
         //NotificationManager.success("Success", "lol", 2500, true);
-        const zip = this.state.zipcode;
+        const zip = this.state.zip_code;
         if(!(zip.match(zipregex))){
             NotificationManager.error("Invalid Zip code", "Zip error", 2500, true);
         }
         else{
             console.log(this.state);
-            API.addHotelAdmin(this.state)
+            API.updateHotelAdmin(this.state)
             .then((res) => {
                 if (res.status === 201) {
                     console.log("Success");
@@ -370,7 +370,7 @@ class AdminUpdateHotel extends Component{
         return(
             <div>
                 
-                <h1 style={{color:"skyblue"}}>Update Hotel</h1>
+                <h1>Update Hotel</h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -501,7 +501,7 @@ class AdminUpdateHotel extends Component{
                     <button style={btnstyle}
                         id="destbtn"
                         hintText="Submit"
-                        onClick={()=>{this.submitHotel()}}
+                        onClick={()=>{this.updateHotel()}}
                     >
                     Update
                     </button>

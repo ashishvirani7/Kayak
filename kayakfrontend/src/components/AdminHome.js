@@ -21,6 +21,8 @@ import AdminAllHotels from './adminAllHotels';
 import AdminAllFlights from './adminAllFlights';
 import AdminAllCars from './adminAllCars';
 import AdminUpdateHotel from './adminUpdateHotel';
+import AdminUpdateFlight from './adminUpdateFlight';
+import AdminUpdateCar from './adminUpdateCar';
 
 import * as API from '../api/API';
 
@@ -92,11 +94,11 @@ class AdminHome extends Component{
                     <Route exact path='/adminFlights' component={AdminFlights}/>
                     <Route exact path='/adminCars' component={AdminCars}/>
                     <Route exact path="/adminShowHotels" component={AdminAllHotels}/>
-                    <Route exact path="/aminShowFlights" component={AdminAllFlights}/>
+                    <Route exact path="/adminShowFlights" component={AdminAllFlights}/>
                     <Route exact path="/adminShowCars" component={AdminAllCars}/>
                     <Route exact path="/adminUpdateHotel" component={AdminUpdateHotel}/>
-                    <Route exact path="/adminUpdateFlight" component={AdminHome}/>
-                    <Route exact path="/adminUpdateCar" component={AdminHome}/>
+                    <Route exact path="/adminUpdateFlight" component={AdminUpdateFlight}/>
+                    <Route exact path="/adminUpdateCar" component={AdminUpdateCar}/>
                 </div>
                 <div className="col-md-3">
 
