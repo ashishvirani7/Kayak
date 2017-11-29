@@ -59,6 +59,7 @@ var Users = new Schema({
 	user_type : String,
 	user_status : String,
 	avg_rating : Number,
+	active : Boolean,
 	reviews :
 	[{
 		ratings : Number,

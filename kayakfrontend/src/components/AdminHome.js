@@ -20,6 +20,7 @@ import AdminCars from './AdminCars';
 import AdminAllHotels from './adminAllHotels';
 import AdminAllFlights from './adminAllFlights';
 import AdminAllCars from './adminAllCars';
+import AdminUpdateHotel from './adminUpdateHotel';
 
 import * as API from '../api/API';
 
@@ -64,9 +65,9 @@ class AdminHome extends Component{
     showAll(){
         
         this.props.adminSetActivePage("all");
-        {this.props.adminCurrentItem=="Hotels" && this.props.history.push("/showHotels")};
-        {this.props.adminCurrentItem=="Flights" && this.props.history.push("/showFlights")};
-        {this.props.adminCurrentItem=="Cars" && this.props.history.push("/showCars")};
+        {this.props.adminCurrentItem=="Hotels" && this.props.history.push("/adminshowHotels")};
+        {this.props.adminCurrentItem=="Flights" && this.props.history.push("/adminShowFlights")};
+        {this.props.adminCurrentItem=="Cars" && this.props.history.push("/adminShowCars")};
         
 
     }
@@ -90,9 +91,12 @@ class AdminHome extends Component{
                     <Route exact path='/adminHotels' component={AdminHotels}/>
                     <Route exact path='/adminFlights' component={AdminFlights}/>
                     <Route exact path='/adminCars' component={AdminCars}/>
-                    <Route exact path="/showHotels" component={AdminAllHotels}/>
-                    <Route exact path="/showFlights" component={AdminAllFlights}/>
-                    <Route exact path="/showCars" component={AdminAllCars}/>
+                    <Route exact path="/adminShowHotels" component={AdminAllHotels}/>
+                    <Route exact path="/aminShowFlights" component={AdminAllFlights}/>
+                    <Route exact path="/adminShowCars" component={AdminAllCars}/>
+                    <Route exact path="/adminUpdateHotel" component={AdminUpdateHotel}/>
+                    <Route exact path="/adminUpdateFlight" component={AdminHome}/>
+                    <Route exact path="/adminUpdateCar" component={AdminHome}/>
                 </div>
                 <div className="col-md-3">
 

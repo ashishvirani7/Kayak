@@ -1,3 +1,15 @@
+1) Start Zookeeper
+
+/home/niralkk/Downloads/kafka_2.11-1.0.0/bin/zookeeper-server-start.sh /home/niralkk/Downloads/kafka_2.11-1.0.0/config/zookeeper.properties
+
+2) Start Kafka
+
+/home/niralkk/Downloads/kafka_2.11-1.0.0/bin/kafka-server-start.sh /home/niralkk/Downloads/kafka_2.11-1.0.0/config/server.properties
+
+
+
+
+
 zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
 
@@ -19,6 +31,14 @@ kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --pa
 
 kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic list_topic
 
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic hotels_topic
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic flights_topic
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic cars_topic
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic delete_user_topic
 
 
 delete.topic.enable=true

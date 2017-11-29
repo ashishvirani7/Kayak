@@ -8,6 +8,7 @@ import HistoryPage from './HistoryPage';
 import PaymentPage from './PaymentPage'
 
 import HomeFooter from './HomeFooter';
+
 class AccountPage extends Component
 {
     render(){
