@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
 //mongoose.connect('localhost:27017/kayak');
 mongoose.connect('54.183.101.173:27017/kayak');
-var hotelListings = require('../models/Listings');
+var flightListings = require('../models/Listings');
 
 
 function handle_request(msg, callback) {
@@ -12,48 +12,50 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    var hotelListingObject = {
-        hotel_name : msg.hotelName,
-        address : {
-            street: msg.hotelStreet,
-            state : msg.stateValue,
-            country: "US"
-        },
-        rooms : [
+    var flightListingObject = {
+        _id : msg._id,
+        flight_name : msg.flight_name,
+        flight_operator_name : msg.flight_operator_name,
+        departure_date : msg.departure_date,
+        arrival_date : msg.arrival_date,
+        origin : msg.origin,
+        destination : msg.destination,
+        classes :[
             {
-                room_type: msg.roomTypeValue1,
-                room_price: msg.roomPriceValue1
+                class_type : "Business",
+                class_price : msg.business_class_price
+
             },
             {
-                room_type: msg.roomTypeValue2,
-                room_price: msg.roomPriceValue2
+                class_type : "Economy",
+                class_price : msg.economy_class_price
             },
             {
-                room_type: msg.roomTypeValue3,
-                room_price: msg.roomPriceValue3
+                class_type : "First Class",
+                class_price : msg.first_class_price
             }
         ]
     };
 
 
     var listingObj = {
-        listing_type: "Hotel",
-        hotel:hotelListingObject
+        listing_type: "Flight",
+        flight : flightListingObject
     };
 
-    var hotelInstance = new hotelListings(listingObj);
-    hotelInstance.save(function (err, hotelDocument, numAffected) {
+    var flightInstance = new flightListings(listingObj);
+    flightInstance.save(function (err, flightDocument, numAffected) {
         if (err) {
-            console.log("Some Error Happened while Inserting Hotel Data");
+            console.log("Some Error Happened while updating Flight Data");
             res.code = "500";
-            res.data = message;
+            res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows added into Hotel Listing\n" + hotelDocument;
+            message = numAffected + " rows inserted in Flight Listing\n" + flightDocument;
             console.log(message);
             res.code = "201";
-            res.data = "Hotel added successfully";
+            res.data = flightDocument;
             callback(null, res);
         }
     });

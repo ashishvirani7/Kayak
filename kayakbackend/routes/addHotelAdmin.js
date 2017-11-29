@@ -6,15 +6,15 @@ var topic_name = "add_hotel_admin_topic";
 router.post('/', (req,res,next)=>{
 
     var hotelObject = {
-        hotelName : req.body.hotelName,
-        hotelStreet : req.body.hotelStreet,
-        roomPriceValue1 : req.body.roomPriceValue1,
-        roomPriceValue2 : req.body.roomPriceValue2,
-        roomPriceValue3 : req.body.roomPriceValue3,
-        roomTypeValue1 : req.body.roomTypeValue1,
-        roomTypeValue2 : req.body.roomTypeValue2,
-        roomTypeValue3 : req.body.roomTypeValue3,
-        stateValue : req.body.stateValue
+        hotel_name : req.body.hotel_name,
+        hotel_street : req.body.hotel_street,
+        room_price_value1 : req.body.room_price_value1,
+        room_price_value2 : req.body.room_price_value2,
+        room_price_value3 : req.body.room_price_value3,
+        room_type_value1 : req.body.room_type_value1,
+        room_type_value2 : req.body.room_type_value2,
+        room_type_value3 : req.body.room_type_value3,
+        state_value : req.body.state_value
     };
 
     kafka.make_request(topic_name, hotelObject, function(err,results){
@@ -28,12 +28,14 @@ router.post('/', (req,res,next)=>{
         {
             if(results.code == 201){
                 console.log("Hotel Added Successfully");
-                return res.status(201).send({"message":"Hotel Added Successfully"});
+                console.log("ID--"+results.data._id);
+                return res.status(201).send({"message":results});
             }
             else {
                 console.log("Hotel addition Failed");
-                res.status(202).send({"message":"Hotel addition Failed"});
+                res.status(202).send({"message":results});
             }
+
         }
     });
 });

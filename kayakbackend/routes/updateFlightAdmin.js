@@ -1,25 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('./kafka/client');
-var topic_name = "add_hotel_admin_topic";
+var topic_name = "update_flight_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
-    var hotelObject = {
-        hotelName : req.body.hotelName,
-        hotelStreet : req.body.hotelStreet,
-        roomPriceValue1 : req.body.roomPriceValue1,
-        roomPriceValue2 : req.body.roomPriceValue2,
-        roomPriceValue3 : req.body.roomPriceValue3,
-        roomTypeValue1 : req.body.roomTypeValue1,
-        roomTypeValue2 : req.body.roomTypeValue2,
-        roomTypeValue3 : req.body.roomTypeValue3,
-        stateValue : req.body.stateValue
+    var flightObject = {
+        _id : req.body._id,
+        flight_name : req.body.flight_name,
+        flight_operator_name : req.body.flight_operator_name,
+        departure_date : req.body.departure_date,
+        arrival_date : req.body.arrival_date,
+        origin : req.body.origin,
+        destination : req.body.destination,
+        business_class_price : req.body.business_class_price,
+        economy_class_price : req.body.economy_class_price,
+        first_class_price : req.body.first_class_price
     };
 
-    kafka.make_request(topic_name, hotelObject, function(err,results){
+    kafka.make_request(topic_name, flightObject, function(err,results){
         console.log('in result');
-        console.log(hotelObject);
+        console.log(flightObject);
         console.log(results);
         if(err){
             done(err,{});
@@ -27,12 +28,13 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Hotel Added Successfully");
-                return res.status(201).send({"message":"Hotel Added Successfully"});
+                console.log("Flight Updated Successfully");
+                console.log("ID--"+results.data._id);
+                return res.status(201).send({"message":results});
             }
             else {
-                console.log("Hotel addition Failed");
-                res.status(202).send({"message":"Hotel addition Failed"});
+                console.log("Flight updation Failed");
+                res.status(202).send({"message":results});
             }
         }
     });

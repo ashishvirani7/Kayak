@@ -13,24 +13,24 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
 
     var hotelListingObject = {
-        hotel_name : msg.hotelName,
+        hotel_name : msg.hotel_name,
         address : {
-            street: msg.hotelStreet,
-            state : msg.stateValue,
+            street: msg.street,
+            state : msg.state,
             country: "US"
         },
         rooms : [
             {
-                room_type: msg.roomTypeValue1,
-                room_price: msg.roomPriceValue1
+                room_type: msg.room_type_value1,
+                room_price: msg.room_price_value1
             },
             {
-                room_type: msg.roomTypeValue2,
-                room_price: msg.roomPriceValue2
+                room_type: msg.room_type_value2,
+                room_price: msg.room_price_value2
             },
             {
-                room_type: msg.roomTypeValue3,
-                room_price: msg.roomPriceValue3
+                room_type: msg.room_type_value3,
+                room_price: msg.room_price_value3
             }
         ]
     };
@@ -46,14 +46,14 @@ function handle_request(msg, callback) {
         if (err) {
             console.log("Some Error Happened while Inserting Hotel Data");
             res.code = "500";
-            res.data = message;
+            res.data = err;
             callback(null, res);
         }
         else {
             message = numAffected + " rows added into Hotel Listing\n" + hotelDocument;
             console.log(message);
             res.code = "201";
-            res.data = "Hotel added successfully";
+            res.data = hotelDocument;
             callback(null, res);
         }
     });
