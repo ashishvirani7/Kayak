@@ -17,14 +17,15 @@ var mongoStore = require("connect-mongo/es5")(expressSessions);
 var signup = require('./routes/signup');
 var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
+
 var addHotelAdmin = require('./routes/addHotelAdmin');
 var updateHotelAdmin = require('./routes/updateHotelAdmin');
 
-var addHotelAdmin = require('./routes/addFlightAdmin');
-var addHotelAdmin = require('./routes/updateFlightAdmin');
+var addFlightAdmin = require('./routes/addFlightAdmin');
+var updateFlightAdmin = require('./routes/updateFlightAdmin');
 
-var addHotelAdmin = require('./routes/addHotelAdmin');
-var addHotelAdmin = require('./routes/addHotelAdmin');
+var addCarAdmin = require('./routes/addCarAdmin');
+var updateCarAdmin = require('./routes/updateCarAdmin');
 
 var sessioncheck = require('./routes/sessioncheck');
 var logout = require('./routes/logout');
@@ -87,6 +88,15 @@ app.use('/', routes);
 app.use('/login', login);
 app.use('/loginAdmin', loginAdmin);
 app.use('/addHotelAdmin', addHotelAdmin);
+app.use('/updateHotelAdmin', updateHotelAdmin);
+
+
+app.use('/addFlightAdmin', addFlightAdmin);
+app.use('/updateFlightAdmin', updateFlightAdmin);
+
+app.use('/addCarAdmin', addCarAdmin);
+app.use('/updateCarAdmin', updateCarAdmin);
+
 app.use('/signup',signup);
 app.use('/sessioncheck',sessioncheck);
 app.use('/logout', logout);
