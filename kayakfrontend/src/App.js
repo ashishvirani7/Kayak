@@ -8,6 +8,7 @@ import AccountPage from './components/AccountPage';
 import {NotificationContainer} from 'react-notifications';
 import AdminLogin from './components/AdminLogin';
 import AdminHome from './components/AdminHome';
+import SearchResults from './components/SearchResults';
 
 import AuthorizedRoute from './components/AuthorizedRoute';
 import UnAuthorizedRoute from './components/UnAuthorizedRoute';
@@ -30,6 +31,9 @@ const  App = () => {
         <Route exact path="/showHotels" component={AdminHome}/>
         <Route exact path="/showFLights" component={AdminHome}/>
         <Route exact path="/showCars" component={AdminHome}/>
+        <Route exact path="/hotelResults" component={SearchResults}/>
+        <Route exact path="/flightResults" component={SearchResults}/>
+        <Route exact path="/carResults" component={SearchResults}/>
         <NotificationContainer/>
       </div>);
 }

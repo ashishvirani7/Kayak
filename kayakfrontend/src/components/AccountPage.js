@@ -40,7 +40,7 @@ class AccountPage extends Component
                             <Route exact path="/payment-methods" component={PaymentPage}/>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row" style={{marginTop:'60px'}}>
                     <HomeFooter />
                 </div>
             </div>
