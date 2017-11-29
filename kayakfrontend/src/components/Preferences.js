@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 import * as API from '../api/API';
-
+const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 class Preferences extends Component
 {
     state={
@@ -189,19 +191,23 @@ class Preferences extends Component
                                 country:    'USA',
                                 phone:      document.getElementById('phone').value
                             }
-                            console.log(data);
-                            API.updateUserInfo(data)
-                            .then((data)=>{
-                                if(data.status===201)
-                                {
-                                    console.log("info changed");
-                                    this.setState({edit:false});
-                                }
-                                else{
-
-                                }
-                            });
-                            
+                            if(!(data.postalcode.match(zipregex))){
+                                NotificationManager.error("Invalid Zip code", "Zip error", 2500, true);
+                            }
+                            else{
+                                console.log(data);
+                                API.updateUserInfo(data)
+                                .then((data)=>{
+                                    if(data.status===201)
+                                    {
+                                        console.log("info changed");
+                                        this.setState({edit:false});
+                                    }
+                                    else{
+    
+                                    }
+                                });
+                            }
                         }
                     }}>
                         {this.state.edit?"Update":"Edit"}

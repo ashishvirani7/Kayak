@@ -8,6 +8,8 @@ import HistoryPage from './HistoryPage';
 import PaymentPage from './PaymentPage'
 
 import HomeFooter from './HomeFooter';
+
+const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 class AccountPage extends Component
 {
     render(){

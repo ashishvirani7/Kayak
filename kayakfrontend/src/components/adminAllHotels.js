@@ -16,7 +16,9 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
+import { ListItem } from 'material-ui/List';
 
+import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
 
 class AdminAllHotels extends Component{
     
@@ -37,17 +39,38 @@ class AdminAllHotels extends Component{
         //         // this.props.history.push("/");
         //     } 
         // });
-        this.props.adminAllHotels([{"name":"Taj"},{"name":"av"}])
+        this.props.adminAllHotels([{"hotel_id":"1","hotel_name":"Taj","address":{"street":"201 S 4th","city":"San Jose","zip_code":"95112",
+            "state":"CA","country":"US"},"stars":5,"rooms":[{"room_id":"1","room_type":"Standard","room_price":1000}],"avg_rating":4,
+          "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
     }
 
     componentWillMount(){
         this.getAllHotels();
     }
+    onHotelClick(hotel){
+        this.props.adminCurrentUpdate(hotel);
+        this.props.history.push("/adminUpdateHotel");
+    }
     createHotelsList(){
         return this.props.adminHotels.map((hotel) => {
             return(
                 <div>
-                    <h2> {hotel.name} </h2>
+                    <ListItem onClick={()=>{this.onHotelClick(hotel)}}>
+                    <div className="row">
+                        <div className="col-md-3">
+                            {hotel.hotel_name}
+                        </div>
+                        <div className="col-md-3">
+                            {hotel.address.city}
+                        </div>
+                        <div className="col-md-3">
+                            {hotel.address.state}
+                        </div>
+                        <div className="col-md-3">
+                        </div>
+                    </div>
+                    </ListItem>
+                   <Divider/>
                 </div>
             )
         });
@@ -57,6 +80,23 @@ class AdminAllHotels extends Component{
         return(
             <div>
                 <h1 style={{color:"skyblue"}}> All Hotels </h1>
+                <ListItem disabled={true} style={{height:"20px"}}>
+                    <div className="row" style={{"color":"white","backgroundColor":"#ec7132"}}>
+                        <div className="col-md-3">
+                            Hotel Name
+                        </div>
+                        <div className="col-md-3">
+                            City
+                        </div>
+                        <div className="col-md-3">
+                            State
+                        </div>
+                        <div className="col-md-3">
+                        </div>
+                    </div>
+                </ListItem>
+                <Divider/>
+                <Divider/>
                 {this.createHotelsList()}
             </div>
         )
@@ -78,7 +118,8 @@ function matchDispatchToProps(dispatch){
             changeValueAdmin,
             adminSetCurrentItem,
             adminAllHotels,
-
+            adminCurrentUpdate,
+            
         }
         ,dispatch);
   }

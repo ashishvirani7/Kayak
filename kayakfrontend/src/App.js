@@ -24,9 +24,13 @@ const  App = () => {
         <Route exact path="/adminHotels" component={AdminHome}/>
         <Route exact path="/adminFlights" component={AdminHome}/>
         <Route exact path="/adminCars" component={AdminHome}/>
-        <Route exact path="/showHotels" component={AdminHome}/>
-        <Route exact path="/showFLights" component={AdminHome}/>
-        <Route exact path="/showCars" component={AdminHome}/>
+        <Route exact path="/adminShowHotels" component={AdminHome}/>
+        <Route exact path="/adminShowFlights" component={AdminHome}/>
+        <Route exact path="/adminShowCars" component={AdminHome}/>
+        <Route exact path="/adminUpdateHotel" component={AdminHome}/>
+        <Route exact path="/adminUpdateFlight" component={AdminHome}/>
+        <Route exact path="/adminUpdateCar" component={AdminHome}/>
+
         <NotificationContainer/>
       </div>);
 }
