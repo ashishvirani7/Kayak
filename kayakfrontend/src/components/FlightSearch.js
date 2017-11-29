@@ -116,6 +116,7 @@ class FlightSearch extends Component{
                         </div>
                     </div>
                 </div>
+                
             </div>
         )
     }

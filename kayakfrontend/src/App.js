@@ -28,14 +28,12 @@ const  App = () => {
         <Route exact path="/adminHotels" component={AdminHome}/>
         <Route exact path="/adminFlights" component={AdminHome}/>
         <Route exact path="/adminCars" component={AdminHome}/>
-<<<<<<< HEAD
         <Route exact path="/showHotels" component={AdminHome}/>
         <Route exact path="/showFLights" component={AdminHome}/>
         <Route exact path="/showCars" component={AdminHome}/>
         <Route exact path="/hotelResults" component={SearchResults}/>
         <Route exact path="/flightResults" component={SearchResults}/>
         <Route exact path="/carResults" component={SearchResults}/>
-=======
         <Route exact path="/adminShowHotels" component={AdminHome}/>
         <Route exact path="/adminShowFlights" component={AdminHome}/>
         <Route exact path="/adminShowCars" component={AdminHome}/>
@@ -43,7 +41,6 @@ const  App = () => {
         <Route exact path="/adminUpdateFlight" component={AdminHome}/>
         <Route exact path="/adminUpdateCar" component={AdminHome}/>
 
->>>>>>> 1a7219062b00110efcf5f27991e847af07c2dd13
         <NotificationContainer/>
       </div>);
 }

@@ -19,7 +19,7 @@ class HotelResults extends Component
         valueRoom:1,
         valueGuest:1,
         valueStar:5,
-        priceFilter:false
+        sort:0
     }
 
     handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom});
@@ -127,7 +127,7 @@ class HotelResults extends Component
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,valueStar:0});
-                                    }}>Reset</span>
+                                    }}>RESET</span>
                                 </div>
                                 <div class="row" >
                                     <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'83%',marginTop:'0px',marginLeft:'15px'}}/>
@@ -174,14 +174,16 @@ class HotelResults extends Component
                             <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
                                 <div class="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
-                                        this.setState({...this.state,sort:!this.state.sort});
+                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
                                     }}>
-                                    <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px'}}>PRICE</span>
+                                    <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
-                                        this.setState({...this.state,sort:!this.state.sort});
+                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
                                     }}>
+                                    {(this.state.type==='price') &&
                                     <IconSort width="24" height="24" color="#80abec" sort={this.state.sort}/>
+                                    }
                                     </span>
                                 </div>
                             </div>
