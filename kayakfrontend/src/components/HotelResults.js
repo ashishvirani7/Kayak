@@ -13,6 +13,9 @@ import IconButton from 'material-ui/IconButton';
 
 import * as API from '../api/API';
 
+import img1 from '../images/price-alert_ad_white.png';
+import img2 from '../images/price-alert_ad_v1.jpg';
+import img3 from '../images/explore_ad_white.png';
 class HotelResults extends Component
 {
     state = {
@@ -118,7 +121,7 @@ class HotelResults extends Component
                         </div>
                     </div>
                 </div>
-                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px'}}>
+                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px',paddingBottom:'50px'}}>
                     <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12" style={{margin:'10px',backgroundColor:'white'}}>
@@ -197,7 +200,21 @@ class HotelResults extends Component
                         </div>
                     </div>
                     <div className="col-md-3">
-
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img1} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img2} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img3} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
