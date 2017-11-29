@@ -13,6 +13,7 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
 
     var hotelListingObject = {
+        _id : msg._id,
         hotel_name : msg.hotel_name,
         address : {
             street: msg.street,
@@ -44,20 +45,23 @@ function handle_request(msg, callback) {
     };
 
     var hotelInstance = new hotelListings(listingObj);
-    hotelInstance.save(function (err, hotelDocument, numAffected) {
+
+    console.log("Hotel--in"+hotelInstance);
+    hotelListings.findByIdAndUpdate(msg._id, {$set: listingObj}, function(err, hotelDocument, numAffected) {
         if (err) {
-            console.log("Some Error Happened while Inserting Hotel Data");
+            console.log("Some Error Happened while updating Hotel Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows added into Hotel Listing\n" + hotelDocument;
+            message = numAffected + " rows updated in Hotel Listing\n" + hotelDocument;
             console.log(message);
             res.code = "201";
             res.data = hotelDocument;
             callback(null, res);
         }
     });
+
 }
 exports.handle_request = handle_request;

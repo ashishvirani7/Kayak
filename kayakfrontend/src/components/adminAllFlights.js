@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
 import {adminAllFlights} from '../actions/adminAllFlights';
+import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
 
 import {withRouter} from 'react-router-dom';
 import {adminSetCurrentItem} from '../actions/adminSetCurrent';
@@ -16,7 +17,7 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
-
+import { ListItem } from 'material-ui/List';
 
 class AdminAllFlights extends Component{
     
@@ -37,26 +38,96 @@ class AdminAllFlights extends Component{
         //         // this.props.history.push("/");
         //     } 
         // });
-        this.props.adminAllFlights([{"name":"AI114"},{"name":"AI7"}])
+        this.props.adminAllFlights([{
+            flight_name : "AI114",
+            flight_operator_name : "Air India",
+            departure_date : "Thu Nov 30 2017 11:05:00 GMT-0800 (PST)",
+            arrival_date : "Dec 02 2017 1:50:00 GMT-0800 (PST)",
+            origin : "san jose",
+            destination : "amd",
+            classes :[
+                {
+                    class_type : "Business",
+                    class_price : 1000
+    
+                },
+                {
+                    class_type : "Economy",
+                    class_price : 2000
+                },
+                {
+                    class_type : "First Class",
+                    class_price : 3000
+                }
+            ]
+        }])
     }
 
     componentWillMount(){
         this.getAllFlights();
     }
+
+    onFlightClick(flight){
+        this.props.adminCurrentUpdate(flight);
+        this.props.history.push("/adminUpdateFlight");
+    }
+    
     createFlightsList(){
         return this.props.adminFlights.map((flight) => {
             return(
                 <div>
-                    <h2> {flight.name} </h2>
+                    <ListItem onClick={()=>{this.onFlightClick(flight)}}>
+                    <div className="row">
+                        <div className="col-md-2">
+                            {flight.flight_name}
+                        </div>
+                        <div className="col-md-2">
+                            {flight.origin}
+                        </div>
+                        <div className="col-md-2">
+                            {flight.destination}
+                        </div>
+                        <div className="col-md-3">
+                            {flight.departure_date}
+                        </div>
+                        <div className="col-md-3">
+                            {flight.arrival_date}
+                        </div>
+                    </div>
+                    </ListItem>
+                    <Divider/>
                 </div>
             )
         });
     }
+    
 
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue"}}> All Flights </h1>
+                <h1 > All Flights </h1>
+                
+                    <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
+                    <div className="row" style={{"color":"white",fontSize:"20px"}}>
+                        <div className="col-md-2">
+                            Name
+                        </div>
+                        <div className="col-md-2">
+                            Origin
+                        </div>
+                        <div className="col-md-2">
+                            Destination
+                        </div>
+                        <div className="col-md-3">
+                            Departure Date
+                        </div>
+                        <div className="col-md-3">
+                            Arrival Date
+                        </div>
+                    </div>
+                    </ListItem>
+                    <Divider/>
+                    <Divider/>
                 {this.createFlightsList()}
             </div>
         )
@@ -78,6 +149,7 @@ function matchDispatchToProps(dispatch){
             changeValueAdmin,
             adminSetCurrentItem,
             adminAllFlights,
+            adminCurrentUpdate,
 
         }
         ,dispatch);

@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('./kafka/client');
-var topic_name = "add_hotel_admin_topic";
+var topic_name = "update_hotel_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
     var hotelObject = {
+        _id : req.body._id,
         hotel_name : req.body.hotel_name,
         hotel_street : req.body.hotel_street,
         room_price_value1 : req.body.room_price_value1,
@@ -29,12 +30,12 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Hotel Added Successfully");
+                console.log("Hotel Updated Successfully");
                 console.log("ID--"+results.data._id);
                 return res.status(201).send({"message":results});
             }
             else {
-                console.log("Hotel addition Failed");
+                console.log("Hotel updation Failed");
                 res.status(202).send({"message":results});
             }
 

@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
 import {adminAllCars} from '../actions/adminAllCars';
+import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
 
 import {withRouter} from 'react-router-dom';
 import {adminSetCurrentItem} from '../actions/adminSetCurrent';
@@ -16,7 +17,7 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
-
+import { ListItem } from 'material-ui/List';
 class AdminAllCars extends Component{
     
     getAllCars(){
@@ -36,17 +37,45 @@ class AdminAllCars extends Component{
         //         // this.props.history.push("/");
         //     } 
         // });
-        this.props.adminAllCars([{"name":"tesla"}])
+        this.props.adminAllCars([{
+            car_name : "tesla",
+            car_type : "SUV",
+            model_name : "Lx",
+            
+            car_rental_price : 1000
+        }])
     }
 
     componentWillMount(){
         this.getAllCars();
     }
+
+    onCarClick(car){
+        this.props.adminCurrentUpdate(car);
+        this.props.history.push("/adminUpdateCar");
+    }
+
     createCarsList(){
         return this.props.adminCars.map((car) => {
             return(
                 <div>
-                    <h2> {car.name} </h2>
+                    <ListItem onClick={()=>{this.onCarClick(car)}}>
+                    <div className="row">
+                        <div className="col-md-3">
+                            {car.car_name}
+                        </div>
+                        <div className="col-md-3">
+                            {car.car_type}
+                        </div>
+                        <div className="col-md-3">
+                            {car.model_name}
+                        </div>
+                        <div className="col-md-3">
+                            {car.car_rental_price}
+                        </div>
+                    </div>
+                </ListItem>
+                <Divider/>
                 </div>
             )
         });
@@ -55,9 +84,26 @@ class AdminAllCars extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue"}}> All Cars </h1>
+                <h1 > All Cars </h1>
+                <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
+                    <div className="row" style={{"color":"white",fontSize:"20px"}}> 
+                        <div className="col-md-3">
+                            Car Name
+                        </div>
+                        <div className="col-md-3">
+                            Car Type
+                        </div>
+                        <div className="col-md-3">
+                            Model Name
+                        </div>
+                        <div className="col-md-3">
+                            Rental Price
+                        </div>
+                    </div>
+                </ListItem>
+                <Divider/>
+                <Divider/>
                 {this.createCarsList()}
-                
             </div>
         )
     }
@@ -68,7 +114,7 @@ class AdminAllCars extends Component{
 function mapStateToProps(state){
     return{
         adminLoginData:state.adminLoginData,
-        adminCars:state.adminCars
+        adminCars:state.adminCars,
     };
 }
 
@@ -78,6 +124,7 @@ function matchDispatchToProps(dispatch){
             changeValueAdmin,
             adminSetCurrentItem,
             adminAllCars,
+            adminCurrentUpdate,
 
         }
         ,dispatch);

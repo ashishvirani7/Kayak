@@ -1,3 +1,15 @@
+1) Start Zookeeper
+
+/home/niralkk/Downloads/kafka_2.11-1.0.0/bin/zookeeper-server-start.sh /home/niralkk/Downloads/kafka_2.11-1.0.0/config/zookeeper.properties
+
+2) Start Kafka
+
+/home/niralkk/Downloads/kafka_2.11-1.0.0/bin/kafka-server-start.sh /home/niralkk/Downloads/kafka_2.11-1.0.0/config/server.properties
+
+
+
+
+
 zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
 

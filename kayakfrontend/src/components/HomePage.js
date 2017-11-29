@@ -92,7 +92,7 @@ class HomePage extends Component {
                     <ImageList />      
                 </div>
                 
-                <div className="row">
+                <div className="row" style={{marginTop:'100px'}}>
                     <HomeFooter />
                 </div>
             </div>

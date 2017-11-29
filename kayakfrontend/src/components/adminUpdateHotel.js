@@ -284,24 +284,25 @@ Room_Types.map(type=>{
 })
 //const zipregex = "^\d{5}(?:[-\s]\d{4})?$";
 const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
-class AdminHotels extends Component{
+class AdminUpdateHotel extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            hotel_name:"",
-            street:"",
-            city:"",
-            state: "CA",
-            zipcode:"",
-            room_type_value1:"Standard",
-            room_type_value2:"Standard",
-            room_type_value3:"Standard",
-            room_price_value1:0,
-            room_price_value2:0,
-            room_price_value3:0,
+            
+            hotel_name:this.props.adminUpdateCurrentData.hotel_name,
+            street:this.props.adminUpdateCurrentData.address.street,
+            city:this.props.adminUpdateCurrentData.address.city,
+            state: this.props.adminUpdateCurrentData.address.state,
+            zip_code:this.props.adminUpdateCurrentData.address.zip_code,
+            room_type_value1:this.props.adminUpdateCurrentData.rooms[0].room_type,
+            room_type_value2:this.props.adminUpdateCurrentData.rooms[0].room_type,
+            room_type_value3:this.props.adminUpdateCurrentData.rooms[0].room_type,
+            room_price_value1:this.props.adminUpdateCurrentData.rooms[0].room_price,
+            room_price_value2:this.props.adminUpdateCurrentData.rooms[0].room_price,
+            room_price_value3:this.props.adminUpdateCurrentData.rooms[0].room_price,
 
-        };
+        }
       }
 
       handleNameChange = (event, index, value) => {
@@ -338,16 +339,15 @@ class AdminHotels extends Component{
         this.setState({...this.state,room_price_value3:event.target.value});
       };
       
-
-      submitHotel(){
+      updateHotel(){
         //NotificationManager.success("Success", "lol", 2500, true);
-        const zip = this.state.zipcode;
+        const zip = this.state.zip_code;
         if(!(zip.match(zipregex))){
             NotificationManager.error("Invalid Zip code", "Zip error", 2500, true);
         }
         else{
             console.log(this.state);
-            API.addHotelAdmin(this.state)
+            API.updateHotelAdmin(this.state)
             .then((res) => {
                 if (res.status === 201) {
                     console.log("Success");
@@ -370,13 +370,14 @@ class AdminHotels extends Component{
         return(
             <div>
                 
-                <h1>Add Hotel</h1>
+                <h1>Update Hotel</h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="hotel_name"
                         hintText="Hotel Name"
                         onChange={this.handleNameChange}
+                        value={this.state.hotel_name}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -384,6 +385,7 @@ class AdminHotels extends Component{
                         id="destination"
                         hintText="Street"
                         onChange={this.handleStreetChange}
+                        value={this.state.street}
                     />
                 </div>
                 <div className="row" style={divstyle}>
@@ -391,14 +393,16 @@ class AdminHotels extends Component{
                         id="city"
                         hintText="City"
                         onChange={this.handleCityChange}
+                        value={this.state.city}
                     />
                 </div>
                 <div className="row" style={divstyle}>
                     <SelectField
-                        value={this.state.state}
+                        
                         onChange={this.handleStateChange}
                         floatingLabelText="State"
                         maxHeight={200}  
+                        value={this.state.state}
                     >
                         {stateItems}
                     </SelectField>
@@ -409,6 +413,7 @@ class AdminHotels extends Component{
                         id="zipcode"
                         hintText="Zip Code"
                         onChange={this.handleZipChange}
+                        value={this.state.zip_code}
                     />
                 </div>
 
@@ -420,11 +425,11 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.room_type_value1}
+                            
                             onChange={this.handleTypeChange1}
                             floatingLabelText="Room Type"
                             maxHeight={200}  
-                            
+                            value={this.state.room_type_value1}
                         >
                             {roomTypes}
                         </SelectField>
@@ -434,6 +439,7 @@ class AdminHotels extends Component{
                             id="room_price"
                             hintText="Room Price"
                             onChange={this.handlePriceChange1}
+                            value={this.state.room_price_value1}
                         />
                     </div>
                     
@@ -444,11 +450,11 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.room_type_value2}
+                            
                             onChange={this.handleTypeChange2}
                             floatingLabelText="Room Type"
                             maxHeight={200}  
-                            
+                            value={this.state.room_type_value2}
                         >
                             {roomTypes}
                         </SelectField>
@@ -458,6 +464,7 @@ class AdminHotels extends Component{
                             id="room_price"
                             hintText="Room Price"
                             onChange={this.handlePriceChange2}
+                            value={this.state.room_price_value2}
                         />
                     </div>
                     
@@ -467,10 +474,11 @@ class AdminHotels extends Component{
                     <div className="col-md-4">
 
                         <SelectField
-                            value={this.state.room_type_value3}
+                            
                             onChange={this.handleTypeChange3}
                             floatingLabelText="Room Type"
                             maxHeight={200}  
+                            value={this.state.room_type_value3}
                             
                         >
                             {roomTypes}
@@ -481,20 +489,21 @@ class AdminHotels extends Component{
                             id="room_price"
                             hintText="Room Price"
                             onChange={this.handlePriceChange3}
+                            value={this.state.room_price_value3}
                         />
                     </div>
                     
 
                 </div>
-
+                <br/>
 
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
                         hintText="Submit"
-                        onClick={()=>{this.submitHotel()}}
+                        onClick={()=>{this.updateHotel()}}
                     >
-                    Submit
+                    Update
                     </button>
                 </div>
                 <NotificationContainer/>
@@ -549,7 +558,8 @@ const divstyle={
 
 function mapStateToProps(state){
     return{
-        adminLoginData:state.adminLoginData
+        adminLoginData:state.adminLoginData,
+        adminUpdateCurrentData:state.adminUpdateCurrentData
     };
 }
 
@@ -563,4 +573,4 @@ function matchDispatchToProps(dispatch){
         ,dispatch);
   }
   
-export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminHotels));
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(AdminUpdateHotel));
