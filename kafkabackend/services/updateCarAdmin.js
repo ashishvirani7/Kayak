@@ -23,11 +23,11 @@ function handle_request(msg, callback) {
 
     var listingObj = {
         listing_type: "Car",
-        hotel:carListingObject
+        car:carListingObject
     };
 
     var carInstance = new carListings(listingObj);
-    carInstance.save(function (err, carDocument, numAffected) {
+    carInstance.findByIdAndUpdate(msg._id, {$set: carInstance}, function (err, carDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while updating Car Data");
             res.code = "500";

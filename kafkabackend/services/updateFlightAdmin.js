@@ -43,8 +43,9 @@ function handle_request(msg, callback) {
         flight : flightListingObject
     };
 
+
     var flightInstance = new flightListings(listingObj);
-    flightInstance.save(function (err, flightDocument, numAffected) {
+    flightInstance.findByIdAndUpdate(msg._id, {$set: flightInstance}, function (err, flightDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while updating Flight Data");
             res.code = "500";

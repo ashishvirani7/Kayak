@@ -43,7 +43,9 @@ function handle_request(msg, callback) {
     };
 
     var hotelInstance = new hotelListings(listingObj);
-    hotelInstance.save(function (err, hotelDocument, numAffected) {
+
+    console.log("Hotel--in"+hotelInstance);
+    hotelListings.findByIdAndUpdate(msg._id, {$set: listingObj}, function(err, hotelDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while updating Hotel Data");
             res.code = "500";
@@ -58,5 +60,6 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
     });
+
 }
 exports.handle_request = handle_request;
