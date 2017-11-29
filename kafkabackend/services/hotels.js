@@ -18,7 +18,7 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
     if(order == "price_desc"){
         Listings.find({
-            "hotel.address.street":city,
+            "hotel.address.city":city,
             "hotel.rooms.room_type":"Suite",
             "hotel.avg_rating":{$gt:filter_prop.ratings}
         }, function(err, hotels){
