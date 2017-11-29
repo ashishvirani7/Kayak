@@ -12,8 +12,6 @@ import reduxReset from 'redux-reset';
 import allReducers from './reducers';
 //import {NotificationContainer, NotificationManager} from 'react-notifications';
 import HomePage from './components/HomePage';
-//import AuthorizedRoute from './components/AuthorizedRoute';
-//import UnAuthorizedRoute from './components/UnAuthorizedRoute';
 
 import {MuiThemeProvider} from 'material-ui/styles';
 import App from './App';

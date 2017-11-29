@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
-import * as API from '../api/api';
-import {changeUserState} from '../actions';
+import * as API from '../api/API';
+import {changeUserState} from '../actions/changeUserStateAction';
 
 class AuthorizedRoute extends Component {
 
   componentWillMount(){
     this.props.changeUserState(true,false);
     API.checkSession()
-    .then((data)=>{
-      console.log(data);  
-      if(data.status==='201'){
+    .then((res)=>{
+      console.log(res.status);  
+      if(res.status===201){
+        console.log(res.status);
         this.props.changeUserState(false,true);
       }
       else{
+        console.log(res.status);
         this.props.changeUserState(false,false);
       }
     });
@@ -24,11 +26,11 @@ class AuthorizedRoute extends Component {
         const { component: Component, ...rest } = this.props
         return (
             <Route {...rest} render={props => {
-                if (this.props.userstate.pending===undefined || this.props.userstate.pending===true) return <div>...Loading...</div>
-                console.log(this.props.userstate.logged);
-                return this.props.userstate.logged
+                if (this.props.userState.pending===undefined || this.props.userState.pending===true) return <div>...Loading...</div>
+                console.log(this.props.userState.logged);
+                return this.props.userState.logged
                 ? <Component {...this.props} />
-                : <Redirect to="/login" />
+                : <Redirect to="/" />
             }} />
           )
         }
@@ -36,8 +38,7 @@ class AuthorizedRoute extends Component {
   
   const mapStateToProps= state =>{
     return{
-        afterAuth:state.afterAuth,
-        userstate: state.userstate
+        userState: state.userState
     };
   }
 

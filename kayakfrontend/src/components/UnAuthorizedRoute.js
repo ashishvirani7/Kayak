@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
-import * as API from '../api/api';
-import {changeUserState} from '../actions';
+import * as API from '../api/API';
+import {changeUserState} from '../actions/changeUserStateAction';
 
 class UnAuthorizedRoute extends Component {
 
   componentWillMount(){
     this.props.changeUserState(true,false);
     API.checkSession()
-    .then((data)=>{
-      if(data.status==='201'){
+    .then((res)=>{
+      if(res.status===201){
         this.props.changeUserState(false,true);
       }
       else{
@@ -23,8 +23,8 @@ class UnAuthorizedRoute extends Component {
       const { component: Component, ...rest } = this.props
       return (
         <Route {...rest} render={props => {
-          if (this.props.userstate.pending===undefined || this.props.userstate.pending===true) return <div>...Loading...</div>
-          return !(this.props.userstate.logged)
+          if (this.props.userState.pending===undefined || this.props.userState.pending===true) return <div>...Loading...</div>
+          return !(this.props.userState.logged)
             ? <Component {...this.props} />
             : <Redirect to="/" />
         }} />
@@ -34,8 +34,7 @@ class UnAuthorizedRoute extends Component {
   
   const mapStateToProps= state =>{
     return{
-        afterAuth:state.afterAuth,
-        userstate: state.userstate
+        userState: state.userState
     };
   }
 

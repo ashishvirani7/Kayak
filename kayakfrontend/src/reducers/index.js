@@ -8,6 +8,7 @@ import adminLoginData from './adminLoginReducer';
 import userData from './userDataReducer';
 import adminCurrentItem from './adminCurrentItem';
 import adminActivePage from './adminActivePage';
+import userState from './userStateReducer';
 import adminHotels from './adminAllHotels';
 import adminFlights from './adminAllFlights';
 import adminCars from './adminAllCars';
@@ -23,6 +24,7 @@ const allReducers = combineReducers({
     userData,
     adminCurrentItem,
     adminActivePage,
+    userState,
     adminCars,
     adminFlights,
     adminHotels,

@@ -3,7 +3,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-
 import * as API from '../api/API';
 const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 class Preferences extends Component

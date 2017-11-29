@@ -19,7 +19,9 @@ class CustomNavbar extends Component
             <div>
                 <div className="row">
                     <div className="col-md-2">
-                        <img src={logo} style={imgStyle}/>
+                        <img src={logo} style={imgStyle} onClick={()=>{
+                            this.props.history.push('/');
+                        }}/>
                     </div>
                     <div className="col-md-1" onClick={()=>this.onClickItem("hotels")}>
                         <CustomItem name="Hotels" />
@@ -47,7 +49,8 @@ const imgStyle={
     width:'130px',
     marginTop:'10px',
     marginBottom:'10px',
-    background:'transparent'
+    background:'transparent',
+    cursor:'pointer'
 }
 
 function mapStateToProps(state){

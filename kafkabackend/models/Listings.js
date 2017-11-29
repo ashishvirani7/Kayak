@@ -48,6 +48,8 @@ var Listings = new Schema({
 		arrival_date: Date,
 		origin: String,
 		destination: String,
+		duration: Number,
+		stops: Number,
 		classes:
 		[{
 			class_type: String,
@@ -63,6 +65,7 @@ var Listings = new Schema({
 		car_name : String,
 		car_type : String,
 		model_name : String,
+        city : String,
 		specification :
 		{
 			color: String,
