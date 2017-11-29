@@ -5,6 +5,7 @@ var topic_name = "add_car_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
+    var message = "";
     var carObject = {
         car_name : req.body.car_name,
         car_type : req.body.car_type,
@@ -22,13 +23,15 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Car Added Successfully");
+                message = "Car Added Successfully";
+                console.log(message);
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":message});
             }
             else {
-                console.log("Car addition Failed");
-                res.status(202).send({"message":results});
+                message = "Car addition Failed";
+                console.log(message);
+                res.status(202).send({"message":message});
             }
 
         }

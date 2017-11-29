@@ -3,6 +3,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 import * as API from '../api/API';
 const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 class Preferences extends Component
@@ -180,6 +183,7 @@ class Preferences extends Component
                             var last_name = document.getElementById('lastName').value;
                             var middle_name = document.getElementById('middleName').value;
                             var data = {
+                                email:      this.props.userData.data.email,
                                 first_name: document.getElementById('firstName').value,
                                 last_name:  document.getElementById('lastName').value,
                                 middle_name:document.getElementById('middleName').value,
@@ -256,4 +260,19 @@ const inputstyle={
     height: '32px',
     marginTop:'-10px'
 }
-export default Preferences;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            
+        }
+    ,dispatch);
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(Preferences);
