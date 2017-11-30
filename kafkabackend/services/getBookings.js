@@ -26,28 +26,94 @@ function handle_request(msg, callback) {
                 var bk = [];
                 j=0;
                 bookings.forEach(eachBooking =>{
-                    if(eachBooking.bill_date < new Date()){
-                        var eb = JSON.stringify(eachBooking);
-                        var obj = {time : "past"};
-                        var retriveObj = eb;
-                        var newData = JSON.parse(retriveObj);
-                        Object.assign(newData, obj)
-                        eb.time = "past";
-                        console.log("cool", newData);
-                        bk.push(newData);
+                    if(eachBooking.bill_type == "flight"){
+                        if(eachBooking.flights[0].flight_start_date < new Date()){
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "past"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("cool", newData);
+                            bk.push(newData);
+                        }
+                        else
+                        {
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "future"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("uncool", newData);
+                            bk.push(newData);
+                            console.log("uncool");
+                        }
                     }
-                    else
-                    {
-                        var eb = JSON.stringify(eachBooking);
-                        var obj = {time : "future"};
-                        var retriveObj = eb;
-                        var newData = JSON.parse(retriveObj);
-                        Object.assign(newData, obj)
-                        eb.time = "past";
-                        console.log("uncool", newData);
-                        bk.push(newData);
-                        console.log("uncool");
+                    else if(eachBooking.bill_type == "hotel"){
+                        if(eachBooking.hotels.booking_start_date < new Date()){
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "past"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("cool", newData);
+                            bk.push(newData);
+                        }
+                        else
+                        {
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "future"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("uncool", newData);
+                            bk.push(newData);
+                            console.log("uncool");
+                        }
                     }
+                    else if(eachBooking.bill_type == "car"){
+                        if(eachBooking.cars.booking_start_date < new Date()){
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "past"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("cool", newData);
+                            bk.push(newData);
+                        }
+                        else
+                        {
+                            var eb = JSON.stringify(eachBooking);
+                            var obj = {time : "future"};
+                            var retriveObj = eb;
+                            var newData = JSON.parse(retriveObj);
+                            Object.assign(newData, obj)
+                            eb.time = "past";
+                            console.log("uncool", newData);
+                            bk.push(newData);
+                            console.log("uncool");
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     j++;
                     if(j == len){
                         message=bk;
