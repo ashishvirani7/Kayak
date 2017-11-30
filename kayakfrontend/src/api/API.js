@@ -300,15 +300,22 @@ fetch(`${api}/sessioncheck`, {
         return error;
 });
 
+<<<<<<< HEAD
 
 export const doHotelSearch = () =>
 fetch(`${api}/doHotelSearch`, {
     method: 'GET',
+=======
+export const doHotelSearch = (payload) =>
+fetch(`${api}/hotels`, {
+    method: 'POST',
+>>>>>>> 86871e8b11b1973b8d515917cc594e7928c74354
     headers: {
         ...headers,
         'Content-Type': 'application/json'
     },
-    credentials:'include'
+    credentials:'include',
+    body: JSON.stringify(payload)
 }).then(res => {
     return res;
 })
@@ -317,14 +324,15 @@ fetch(`${api}/doHotelSearch`, {
         return error;
 });
 
-export const doFlightSearch = () =>
-fetch(`${api}/doFlightSearch`, {
-    method: 'GET',
+export const doFlightSearch = (payload) =>
+fetch(`${api}/flights`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
     },
-    credentials:'include'
+    credentials:'include',
+    body: JSON.stringify(payload)
 }).then(res => {
     return res;
 })
@@ -333,14 +341,32 @@ fetch(`${api}/doFlightSearch`, {
         return error;
 });
 
-export const doCarSearch = () =>
-fetch(`${api}/doCarSearch`, {
-    method: 'GET',
+export const doCarSearch = (payload) =>
+fetch(`${api}/cars`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
     },
-    credentials:'include'
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const getUserDetails = (payload) =>
+fetch(`${api}/getUserDetails`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
 }).then(res => {
     return res;
 })

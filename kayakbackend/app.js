@@ -21,12 +21,15 @@ var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
 
 var addHotelAdmin = require('./routes/addHotelAdmin');
+var getAllHotel = require('./routes/getAllHotel');
 var updateHotelAdmin = require('./routes/updateHotelAdmin');
 
 var addFlightAdmin = require('./routes/addFlightAdmin');
+var getAllFlight = require('./routes/getAllFlight');
 var updateFlightAdmin = require('./routes/updateFlightAdmin');
 
 var addCarAdmin = require('./routes/addCarAdmin');
+var getAllCar = require('./routes/getAllCar');
 var updateCarAdmin = require('./routes/updateCarAdmin');
 
 var sessioncheck = require('./routes/sessioncheck');
@@ -46,6 +49,7 @@ var getActivity = require('./routes/getActivity');
 var share = require('./routes/share');
 var getSharedFiles = require('./routes/getSharedFiles');
 var updateUserInfo = require('./routes/updateUserInfo');
+var getUserDetails = require('./routes/getUserDetails');
 var hotels = require('./routes/hotels');
 var flights = require('./routes/flights');
 var cars = require('./routes/cars');
@@ -91,13 +95,16 @@ app.use('/login', login);
 app.use('/loginAdmin', loginAdmin);
 
 app.use('/addHotelAdmin', addHotelAdmin);
+app.use('/getAllHotel', getAllHotel);
 app.use('/updateHotelAdmin', updateHotelAdmin);
 
 
 app.use('/addFlightAdmin', addFlightAdmin);
+app.use('/getAllFlight', getAllFlight);
 app.use('/updateFlightAdmin', updateFlightAdmin);
 
 app.use('/addCarAdmin', addCarAdmin);
+app.use('/getAllCar', getAllCar);
 app.use('/updateCarAdmin', updateCarAdmin);
 
 app.use('/signup',signup);
@@ -120,6 +127,7 @@ app.use('/getActivity',getActivity);
 app.use('/share',share);
 app.use('/getSharedFiles',getSharedFiles);
 app.use('/updateUserInfo',updateUserInfo);
+app.use('/getUserDetails',getUserDetails);
 app.use('/hotels', hotels);
 app.use('/flights', flights);
 app.use('/cars', cars);
