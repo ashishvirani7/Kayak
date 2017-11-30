@@ -7,6 +7,7 @@ router.post('/', (req,res,next)=>{
     var message="";
     var hotelObject = {
         hotel_name : req.body.hotel_name,
+        stars: req.body.stars,
         street : req.body.street,
         room_price_value1 : req.body.room_price_value1,
         room_price_value2 : req.body.room_price_value2,

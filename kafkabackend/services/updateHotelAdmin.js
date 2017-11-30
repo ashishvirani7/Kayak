@@ -22,6 +22,7 @@ function handle_request(msg, callback) {
             city : msg.city,
             country: "US"
         },
+        stars: msg.stars,
         rooms : [
             {
                 room_type: msg.room_type_value1,
