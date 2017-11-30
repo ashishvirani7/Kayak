@@ -385,6 +385,22 @@ fetch(`${api}/searchCarAdmin`, {
         return error;
 });
 
+export const adminGetAllUsers = () =>
+fetch(`${api}/getAllUser`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
     method: 'GET',

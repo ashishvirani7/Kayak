@@ -31,6 +31,7 @@ const  App = () => {
         <Route exact path="/showHotels" component={AdminHome}/>
         <Route exact path="/showFLights" component={AdminHome}/>
         <Route exact path="/showCars" component={AdminHome}/>
+        
         <Route exact path="/hotelResults" component={SearchResults}/>
         <Route exact path="/flightResults" component={SearchResults}/>
         <Route exact path="/carResults" component={SearchResults}/>
@@ -41,6 +42,8 @@ const  App = () => {
         <Route exact path="/adminUpdateFlight" component={AdminHome}/>
         <Route exact path="/adminUpdateCar" component={AdminHome}/>
         <Route exact path="/adminAccount" component={AdminAccount}/>
+
+        <Route exact path="/adminShowUsers" component={AdminHome}/>
 
         <NotificationContainer/>
       </div>);
