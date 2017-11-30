@@ -28,7 +28,7 @@ router.post('/', (req,res,next)=>{
 
 
 kafka.make_request(topic_name, userInfoObject, function(err,results){
-    console.log('in update make request: ',email);
+    console.log('in update make request: ',req.body.email);
     console.log(results);
     if(err){
         done(err,{});
