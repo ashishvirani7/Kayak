@@ -3,10 +3,37 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 import * as API from '../api/API';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {changeBillingData} from '../actions/billingDataAction.js';
+
 class PaymentPage extends Component
 {
     state={
         edit : false
+    }
+
+    componentDidMount(){
+        this.getBillingDetails();
+    }
+
+    getBillingDetails = () => {
+        console.log('hello');
+        API.getBillingDetails({email:this.props.userData.data.email})
+        .then((res)=>{
+            if (res.status === 201) {
+                console.log("Success");
+                console.log(res);
+                res.json().then(user => {
+                    console.log(user);
+                    this.props.changeBillingData(user.userObj);
+                });
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+            }
+        })
     }
     render(){
         var color = (this.state.edit)?'#ff690f':'#00bcd4';
@@ -253,4 +280,18 @@ const datestyle={
     height: '32px',
     marginRight: '20px'
 }
-export default PaymentPage;
+function mapStateToProps(state){
+    return{
+        userData:state.userData
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeBillingData,
+        }
+    ,dispatch);
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(PaymentPage);
