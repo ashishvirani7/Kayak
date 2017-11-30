@@ -15,6 +15,8 @@ var expressSessions = require("express-session");
 var mongoStore = require("connect-mongo/es5")(expressSessions);
 
 var signup = require('./routes/signup');
+var signupAdmin = require('./routes/signupAdmin');
+
 var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
 
@@ -87,6 +89,7 @@ app.use('/', routes);
 
 app.use('/login', login);
 app.use('/loginAdmin', loginAdmin);
+
 app.use('/addHotelAdmin', addHotelAdmin);
 app.use('/updateHotelAdmin', updateHotelAdmin);
 
@@ -98,6 +101,8 @@ app.use('/addCarAdmin', addCarAdmin);
 app.use('/updateCarAdmin', updateCarAdmin);
 
 app.use('/signup',signup);
+app.use('/signupAdmin',signupAdmin);
+
 app.use('/sessioncheck',sessioncheck);
 app.use('/logout', logout);
 app.use('/getFiles',getFiles);

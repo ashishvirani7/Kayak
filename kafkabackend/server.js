@@ -1,5 +1,10 @@
 var connection =  new require('./kafka/Connection');
 var login = require('./services/login');
+var signup = require('./services/signup');
+
+var loginAdmin = require('./services/loginAdmin');
+var signupAdmin = require('./services/signupAdmin');
+
 
 var addHotelAdmin = require('./services/addHotelAdmin');
 var updateHotelAdmin = require('./services/updateHotelAdmin');
@@ -12,7 +17,7 @@ var updateCarAdmin = require('./services/updateCarAdmin');
 
 
 var updateUserInfo = require('./services/updateUserInfo');
-var signup = require('./services/signup');
+
 var create_folder = require('./services/createFolder');
 var delete_folder = require('./services/deleteFolder');
 var upload_file = require('./services/uploadFile');
@@ -44,6 +49,11 @@ var update_car_admin_topic_name = 'update_car_admin_topic';
 
 var login_topic_name = 'login_topic';
 var signup_topic_name = "signup_topic";
+
+var login_admin_topic_name = 'login_admin_topic';
+var signup_admin_topic_name = "signup_admin_topic";
+
+
 var updateUserInfo_topic_name = 'updateUserInfo_topic';
 var create_folder_topic_name = "create_folder_topic";
 var delete_folder_topic_name = "delete_folder_topic";
@@ -77,11 +87,13 @@ producer.on('ready', function () {
             get_shared_files_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
             delete_user_topic_name, add_hotel_admin_topic_name, update_hotel_admin_topic_name,
             add_flight_admin_topic_name, update_flight_admin_topic_name, add_car_admin_topic_name,
-            update_car_admin_topic_name
+            update_car_admin_topic_name, login_admin_topic_name, signup_admin_topic_name
         ],
         false, function (err, data) {
         });
     var login_consumer = connection.getConsumer(login_topic_name);
+    var login_admin_consumer = connection.getConsumer(login_admin_topic_name);
+
     var updateUserInfo_consumer = connection.getConsumer(updateUserInfo_topic_name);
 
     var add_hotel_admin_consumer = connection.getConsumer(add_hotel_admin_topic_name);
@@ -96,6 +108,8 @@ producer.on('ready', function () {
 
 
     var signup_consumer = connection.getConsumer(signup_topic_name);
+    var signup_admin_consumer = connection.getConsumer(signup_admin_topic_name);
+
     var create_folder_consumer = connection.getConsumer(create_folder_topic_name);
     var delete_folder_consumer = connection.getConsumer(delete_folder_topic_name);
     var upload_file_consumer =  connection.getConsumer(upload_file_topic_name);
@@ -138,12 +152,59 @@ producer.on('ready', function () {
         });
     });
 
+    console.log('login admin server is running');
+    login_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        loginAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
     console.log('signup server is running');
     signup_consumer.on('message', function (message) {
         console.log('message received');
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         signup.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('signup admin server is running');
+    signup_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        signupAdmin.handle_request(data.data, function(err,res){
             console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,

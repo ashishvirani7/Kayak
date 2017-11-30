@@ -6,19 +6,19 @@ require('./passport')(passport);
 router.post('/', (req,res,next)=>{
     console.log("request: " +req.body.email);
     console.log("request: " +JSON.stringify(req.body));
-    passport.authenticate('login', function(err, user) {
+    passport.authenticate('loginAdmin', function(err, admin) {
         if(err) {
             res.status(500).send();
         }
-        if(!user) {
+        if(!admin) {
             res.status(401).send();
         }
         else{
-            req.session.email = user.loginData.email;
+            req.session.email = admin.loginData.email;
             req.session.cookie.maxAge = 30 * 60 * 1000;
 
-            console.log("session initilized");
-            return res.status(201).send(JSON.stringify(user));
+            console.log("Admin Session Started");
+            return res.status(201).send(admin);
         }
     })(req, res);
 });

@@ -19,7 +19,7 @@ router.post('/', (req,res,next)=>{
             req.session.cookie.maxAge = 30 * 60 * 1000;
 
             console.log("session initilized");
-            return res.status(201).send(JSON.stringify(user));
+            return res.status(201).send(user);
         }
     })(req, res);
 });
