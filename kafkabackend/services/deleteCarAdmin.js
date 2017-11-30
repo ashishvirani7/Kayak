@@ -14,13 +14,13 @@ function handle_request(msg, callback) {
 
     carListings.findByIdAndRemove(msg._id, function(err, result) {
         if (err) {
-            console.log("Some Error Happened while deleting Hotel Data");
+            console.log("Some Error Happened while deleting Car Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            console.log("Deleted Hotel Data");
+            console.log("Deleted Car Data");
             res.code = "201";
             res.data = result;
             callback(null, res);

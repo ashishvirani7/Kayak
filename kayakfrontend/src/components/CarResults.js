@@ -9,6 +9,14 @@ import Checkbox from 'material-ui/Checkbox';
 import * as API from '../api/API';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import {withRouter} from 'react-router-dom';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeCarListing} from '../actions/carListingAction';
+import {changeCarSearch} from '../actions/carSearchAction';
+
 import img1 from '../images/price-alert_ad_white.png';
 import img3 from '../images/explore_ad_white.png';
 import img2 from '../images/kayak-app_ad_v1.jpg';
@@ -26,6 +34,46 @@ class CarResults extends Component
         Van:true,
         Commercial:true,
     }
+
+    componentDidMount(){
+        this.getCars();
+    }
+    getCars = () => {
+        var type = [];
+        if(this.state.Small){type.push('Small');}
+        if(this.state.Medium){type.push('Medium');}
+        if(this.state.Large){type.push('Large');}
+        if(this.state.Luxury){type.push('Luxury');}
+        if(this.state.SUV){type.push('SUV');}
+        if(this.state.PickupTruck){type.push('PickupTruck');}
+        if(this.state.Van){type.push('Van');}
+        if(this.state.Commercial){type.push('Commercial');}
+        var data ={
+            city:     document.getElementById('city').value,
+            toDate:     document.getElementById('toDate').value,
+            fromDate:   document.getElementById('fromDate').value,
+            pickuptime: '',
+            dropofftime: '',
+            order:this.state.sort?'price_desc':'price_asc',
+            filter_prop :{type:type}
+        }
+        if(data.city && data.toDate && data.fromDate){
+            console.log(data);
+            this.props.changeCarSearch(data);
+            API.doCarSearch(data)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        this.props.changeCarListing(items.data);    
+                    });
+                }
+            });
+        }
+        else{
+            NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+        }
+    }
     render(){
         return(
             <div>
@@ -35,17 +83,18 @@ class CarResults extends Component
                             <TextField style={istyle}
                                 id="city"
                                 hintText="Where"
+                                defaultValue={this.props.userData.carSearch.city}
                             />
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate)} style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate)} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -54,24 +103,7 @@ class CarResults extends Component
                                 id="destbtn"
                                 hintText="Where"
                                 onClick={()=>{
-                                    var data ={
-                                        city:     document.getElementById('city').value,
-                                        toDate:     document.getElementById('toDate').value,
-                                        fromDate:   document.getElementById('fromDate').value,
-                                    }
-                                    if(data.city && data.toDate && data.fromDate){
-                                        console.log(data);
-                                        API.doCarSearch(data)
-                                        .then((res)=>{
-                                            if(res.status===201){
-
-                                            }
-                                        });
-                                    }
-                                    else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
-                                    }
-                                    
+                                    this.getCars();
                                 }}
                             >
                             <IconArrow color="white" style={arrowStyle}/> 
@@ -86,6 +118,7 @@ class CarResults extends Component
                                 <div class="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                        this.getCars();
                                     }}>
                                     <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" >
@@ -110,6 +143,7 @@ class CarResults extends Component
                                             PickupTruck:true,
                                             Van:true,
                                             Commercial:true,});
+                                        this.getCars();
                                     }}>RESET</span>
                                 </div>
                                 <div class="row" >
@@ -119,56 +153,56 @@ class CarResults extends Component
                                     <Checkbox
                                         label="Small"
                                         checked={this.state.Small}
-                                        onCheck={()=>{this.setState({...this.state,Small:!this.state.Small});}}
+                                        onCheck={()=>{this.setState({...this.state,Small:!this.state.Small});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Medium"
                                         checked={this.state.Medium}
-                                        onCheck={()=>{this.setState({...this.state,Medium:!this.state.Medium});}}
+                                        onCheck={()=>{this.setState({...this.state,Medium:!this.state.Medium});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Large"
                                         checked={this.state.Large}
-                                        onCheck={()=>{this.setState({...this.state,Large:!this.state.Large});}}
+                                        onCheck={()=>{this.setState({...this.state,Large:!this.state.Large});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="SUV"
                                         checked={this.state.SUV}
-                                        onCheck={()=>{this.setState({...this.state,SUV:!this.state.SUV});}}
+                                        onCheck={()=>{this.setState({...this.state,SUV:!this.state.SUV});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Luxury"
                                         checked={this.state.Luxury}
-                                        onCheck={()=>{this.setState({...this.state,Luxury:!this.state.Luxury});}}
+                                        onCheck={()=>{this.setState({...this.state,Luxury:!this.state.Luxury});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Pickup Truck"
                                         checked={this.state.PickupTruck}
-                                        onCheck={()=>{this.setState({...this.state,PickupTruck:!this.state.PickupTruck});}}
+                                        onCheck={()=>{this.setState({...this.state,PickupTruck:!this.state.PickupTruck});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Van"
                                         checked={this.state.Van}
-                                        onCheck={()=>{this.setState({...this.state,Van:!this.state.Van});}}
+                                        onCheck={()=>{this.setState({...this.state,Van:!this.state.Van});this.getCars();}}
                                     />
                                 </div>
                                 <div className="row" style={{fontSize:'13.5px',fontWeight:'100',marginLeft:'0px'}}>
                                     <Checkbox
                                         label="Commercial"
                                         checked={this.state.Commercial}
-                                        onCheck={()=>{this.setState({...this.state,Commercial:!this.state.Commercial});}}
+                                        onCheck={()=>{this.setState({...this.state,Commercial:!this.state.Commercial});this.getCars();}}
                                     />
                                 </div>
                             </div>
@@ -250,4 +284,20 @@ const starttitle={
     cursor:'pointer',
     marginLeft:'0px'
 }
-export default CarResults;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeCarListing,
+            changeCarSearch,
+        }
+        ,dispatch);
+  }
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(CarResults));

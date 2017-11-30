@@ -29,6 +29,14 @@ import {
   
   } from 'material-ui/styles/colors';
 class AdminAllCars extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            car_name:""
+        }
+       this.carNameChange = this.carNameChange.bind(this);
+    }
     
     getAllCars(){
         API.adminGetAllCars()
@@ -108,11 +116,47 @@ class AdminAllCars extends Component{
             )
         });
     }
+    carNameChange(event){
+        this.setState({car_name:event.target.value});
+    }
 
+    searchCar(){
+        console.log(this.state.car_name);
+        API.searchCarAdmin(this.state.car_name)
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    this.props.adminAllCars(data.message.data)
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        
+    }
     render(){
         return(
             <div>
                 <h1 ><u> All Cars</u> </h1>
+                <div className="row" style={{marginLeft:"600px"}}>
+                        <div class="input-group">
+                        <input type="text" class="form-control"
+                            placeholder="Search" id="inputGroup"
+                            onChange={this.carNameChange}
+                            />
+                        <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchCar()}>
+                            🔎
+                        </span>
+                    </div>
+                </div>
+                <br/>
+                    
                 <div>
                     <ListItem disabled={true} style={{height:"45px","backgroundColor":"#ec7132"}}>
                         <div className="row" style={{"color":"white",fontSize:"20px"}}> 

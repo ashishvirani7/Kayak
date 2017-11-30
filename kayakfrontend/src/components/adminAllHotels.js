@@ -31,6 +31,14 @@ import {
   
   } from 'material-ui/styles/colors';
 class AdminAllHotels extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            hotel_name:""
+        };
+        this.hotelNameChange=this.hotelNameChange.bind(this);
+    }
     
     getAllHotels(){
         API.adminGetAllHotels()
@@ -133,10 +141,47 @@ class AdminAllHotels extends Component{
         });
     }
 
+    hotelNameChange(event){
+        this.setState({hotel_name:event.target.value});
+    }
+
+    searchHotel(){
+        console.log(this.state.hotel_name);
+        API.searchHotelAdmin(this.state.hotel_name)
+        .then((res) => {
+            if (res.status === 201) {
+                res.json().then(data => {
+                    console.log(JSON.stringify(data))
+                    this.props.adminAllHotels(data.message.data);
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
+                
+            } else if (res.status === 401) {
+                console.log("Fail");
+                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        
+    }
+
     render(){
         return(
             <div>
                 <h1 ><u> All Hotels</u> </h1>
+                <div className="row" style={{marginLeft:"600px"}}>
+                        <div class="input-group">
+                        <input type="text" class="form-control"
+                            placeholder="Search" id="inputGroup"
+                            onChange={this.hotelNameChange}
+                            />
+                        <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchHotel()}>
+                            🔎
+                        </span>
+                        </div>
+                </div>
+                <br/>
                 <ListItem disabled={true} style={{height:"45px","backgroundColor":"#ec7132"}}>
                     <div className="row" style={{"color":"white",fontSize:"20px"}}> 
                         <div className="col-md-11">
