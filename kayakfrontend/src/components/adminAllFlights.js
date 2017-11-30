@@ -21,6 +21,7 @@ import { ListItem } from 'material-ui/List';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import Cancel from 'material-ui/svg-icons/navigation/cancel';
+import Search from 'material-ui/svg-icons/action/search'; 
 import IconButton from 'material-ui/IconButton';
 import {
     
@@ -29,6 +30,14 @@ import {
   
 } from 'material-ui/styles/colors';
 class AdminAllFlights extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            flight_name:""
+        };
+        this.flightNameChange=this.flightNameChange.bind(this);
+    }
     
     getAllFlights(){
         API.adminGetAllFlights()
@@ -47,29 +56,7 @@ class AdminAllFlights extends Component{
                 // this.props.history.push("/");
             } 
         });
-        // this.props.adminAllFlights([{
-        //     flight_name : "AI114",
-        //     flight_operator_name : "Air India",
-        //     departure_date : "Thu Nov 30 2017 11:05:00 GMT-0800 (PST)",
-        //     arrival_date : "Dec 02 2017 1:50:00 GMT-0800 (PST)",
-        //     origin : "san jose",
-        //     destination : "amd",
-        //     classes :[
-        //         {
-        //             class_type : "Business",
-        //             class_price : 1000
-    
-        //         },
-        //         {
-        //             class_type : "Economy",
-        //             class_price : 2000
-        //         },
-        //         {
-        //             class_type : "First Class",
-        //             class_price : 3000
-        //         }
-        //     ]
-        // }])
+       
     }
 
     componentWillMount(){
@@ -136,12 +123,48 @@ class AdminAllFlights extends Component{
         });
     }
     
+    flightNameChange(event){
+        this.setState({flight_name:event.target.value});
+    }
+
+    searchFlight(){
+        console.log(this.state.flight_name);
+        API.searchFlightAdmin(this.state.flight_name)
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    this.props.adminAllFlights(data.message.data);
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        
+    }
 
     render(){
         return(
             <div>
                 <h1><u> All Flights </u></h1>
-                
+                    <div className="row" style={{marginLeft:"600px"}}>
+                        <div class="input-group">
+                        <input type="text" class="form-control"
+                            placeholder="Search" id="inputGroup"
+                            onChange={this.flightNameChange}
+                            />
+                        <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchFlight()}>
+                            🔎
+                        </span>
+                        </div>
+                    </div>
+                    <br/>
+                    
                     <ListItem disabled={true} style={{height:"45px","backgroundColor":"#ec7132"}}>
                         <div className="row" style={{"color":"white",fontSize:"20px"}}>
                             <div className="col-md-11">
@@ -179,6 +202,19 @@ const small={
     height: 20,
 }
 
+
+
+const emailStyle = {
+    marginBottom: "15px",
+    width: "100%",
+    height: "2.4em",
+    padding: ".3333333em .3333333em .3333333em .6em",
+    border: "1px solid #c2c2c6",
+    borderRadius: ".0666667em",
+    fontFamily: "sans-serif",
+    fontSize: "100%",
+    lineHeight: "1.15",
+}
 
 function mapStateToProps(state){
     return{
