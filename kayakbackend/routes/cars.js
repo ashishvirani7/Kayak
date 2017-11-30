@@ -13,8 +13,8 @@ var pickuptime = req.body.pickuptime;
 var dropofftime = req.body.dropofftime;
 var order = req.body.order;
 var filter_prop = req.body.filter_prop;
-
-kafka.make_request(topic_name, {city, pickuptime, dropofftime, order, filter_prop}, function(err, results){
+var key = "search";
+kafka.make_request(topic_name, {key, city, pickuptime, dropofftime, order, filter_prop}, function(err, results){
     if(err){
         done(err,{});
     }

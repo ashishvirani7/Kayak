@@ -32,6 +32,7 @@ var delete_user = require('./services/deleteUser')
 var hotels = require('./services/hotels');
 var flights = require('./services/flights');
 var cars = require('./services/cars');
+var getBookings = require('./services/getBookings');
 
 var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
 var update_hotel_admin_topic_name = 'update_hotel_admin_topic';
@@ -64,7 +65,7 @@ var delete_user_topic_name = "delete_user_topic";
 var hotels_topic = "hotels_topic";
 var flights_topic = "flights_topic";
 var cars_topic = "cars_topic";
-
+var get_bookings_topic = "get_bookings_topic";
 var response_topic_name = "response_topic";
 
 var producer = connection.getProducer();
@@ -77,7 +78,7 @@ producer.on('ready', function () {
             get_shared_files_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
             delete_user_topic_name, add_hotel_admin_topic_name, update_hotel_admin_topic_name,
             add_flight_admin_topic_name, update_flight_admin_topic_name, add_car_admin_topic_name,
-            update_car_admin_topic_name
+            update_car_admin_topic_name, get_bookings_topic,
         ],
         false, function (err, data) {
         });
@@ -114,6 +115,7 @@ producer.on('ready', function () {
     var flights_topic_consumer = connection.getConsumer(flights_topic);
     var cars_topic_consumer = connection.getConsumer(cars_topic);
     var delete_user_topic_consumer = connection.getConsumer(delete_user_topic_name);
+    var get_bookings_topic_consumer = connection.getConsumer(get_bookings_topic);
 
     console.log('login server is running');
     login_consumer.on('message', function (message) {
@@ -788,6 +790,29 @@ producer.on('ready', function () {
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         delete_user.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('get booking server is running');
+    get_bookings_topic_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        getBookings.handle_request(data.data, function(err,res){
             console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,

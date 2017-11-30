@@ -47,7 +47,8 @@ var updateUserInfo = require('./routes/updateUserInfo');
 var hotels = require('./routes/hotels');
 var flights = require('./routes/flights');
 var cars = require('./routes/cars');
-var deleteAccount = require('./routes/deleteAccount')
+var deleteAccount = require('./routes/deleteAccount');
+var bookings = require('./routes/getBookings');
 
 var app = express();
 
@@ -118,6 +119,7 @@ app.use('/updateUserInfo',updateUserInfo);
 app.use('/hotels', hotels);
 app.use('/flights', flights);
 app.use('/cars', cars);
+app.use('/getbookings', bookings);
 app.use('/deleteAccount', deleteAccount);
 
 module.exports = app;

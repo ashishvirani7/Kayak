@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/kayak');
+mongoose.connect('54.183.101.173:27017/kayak');
 var Listings = require('../models/Listings');
 var Bill = require('../models/Bill');
 
