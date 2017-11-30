@@ -652,22 +652,43 @@ producer.on('ready', function () {
         console.log('message received');
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
-        hotels.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
+        if(data.data.key == "search"){
+            hotels.handle_request(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
             });
-            return;
-        });
+        }
+        else if(data.data.key == "book"){
+            hotels.handle_booking(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+
     });
 
     console.log('flights server is running');
@@ -675,22 +696,46 @@ producer.on('ready', function () {
         console.log('message received');
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
-        flights.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
+        if(data.data.key == "search"){
+            flights.handle_request(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
             });
-            return;
-        });
+        }
+
+        else if(data.data.key == "book"){
+            flights.handle_booking(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+
+
+
     });
 
     console.log('cars server is running');

@@ -7,6 +7,7 @@ var Bill = new Schema({
 	bill_date:Date,
 	from_date:Date,
 	to_date:Date,
+	bill_type:String,
 	user_id : String,
 	flights :
 	[{
