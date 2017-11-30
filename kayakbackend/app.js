@@ -18,20 +18,6 @@ var signup = require('./routes/signup');
 var signupAdmin = require('./routes/signupAdmin');
 
 
-searchHotelAdmin
-searchFlightAdmin
-searchCarAdmin
-
-deleteHotelAdmin
-deleteFlightAdmin
-deleteCarAdmin
-
-getAllUserDataAdmin
-searchUserDataAdmin
-updateUserDataAdmin
-deleteUserDataAdmin
-
-
 var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
 
