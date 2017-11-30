@@ -91,7 +91,7 @@ class AdminUpdateCar extends Component{
     render(){
         return(
             <div>
-                <h1 >Add Car </h1>
+                <h1 ><u>Update Car</u> </h1>
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
@@ -174,7 +174,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }

@@ -31,7 +31,7 @@ router.post('/', (req,res,next)=>{
             if(results.code == 201){
                 console.log("Hotel Added Successfully");
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":"Hotel Added Successfully"});
             }
             else {
                 console.log("Hotel addition Failed");

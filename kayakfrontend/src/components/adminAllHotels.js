@@ -79,7 +79,7 @@ class AdminAllHotels extends Component{
     render(){
         return(
             <div>
-                <h1 > All Hotels </h1>
+                <h1 ><u> All Hotels</u> </h1>
                 <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
                     <div className="row" style={{"color":"white",fontSize:"20px"}}> 
                         <div className="col-md-3">

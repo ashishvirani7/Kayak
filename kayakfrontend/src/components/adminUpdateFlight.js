@@ -103,7 +103,7 @@ class AdminUpdateFlight extends Component{
     render(){
         return(
             <div>
-                <h1>Update Flight</h1>
+                <h1><u>Update Flight</u></h1>
 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -194,6 +194,7 @@ class AdminUpdateFlight extends Component{
                         value={this.state.first_class_price}
                     />
                 </div>
+                <br/>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
@@ -240,7 +241,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }
