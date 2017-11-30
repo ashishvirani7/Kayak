@@ -20,13 +20,31 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
         else {
+
+            var flightFrontEnd = [];
+            flightDocuments.map(flight=>{
+                var ob = {};
+                ob = {_id:flight._id,
+                    flight_name : flight.flight.flight_name,
+                    flight_operator_name : flight.flight.flight_operator_name,
+                    departure_date : flight.flight.departure_date,
+                    arrival_date : flight.flight.arrival_date,
+                    origin : flight.flight.origin,
+                    destination : flight.flight.destination,
+                    business_class_price : flight.flight.classes[0].class_price,
+                    economy_class_price : flight.flight.classes[1].class_price,
+                    first_class_price : flight.flight.classes[2].class_price
+                };
+                flightFrontEnd.push(ob);
+            });
+
+            console.log("Temp"+JSON.stringify(flightFrontEnd));
             message = " Flight Listing\n" + flightDocuments;
-            console.log(message);
+            //console.log(message);
             res.code = "201";
-            res.data = flightDocuments;
+            res.data = flightFrontEnd;
             callback(null, res);
         }
     });
-
 }
 exports.handle_request = handle_request;

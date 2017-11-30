@@ -24,6 +24,7 @@ function handle_request(msg, callback) {
             var hotelFrontEnd = [];
             hotelDocuments.map(hotel=>{
                 var ob = {};
+
                 ob = {_id:hotel._id,
                     hotel_name:hotel.hotel.hotel_name,
                     stars:hotel.hotel.stars,

@@ -12,7 +12,7 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    flightListings.find({"listing_type" : "Car"} , {car : 1} , function(err, carDocuments) {
+    carListings.find({"listing_type" : "Car"} , {car : 1} , function(err, carDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Car Data");
             res.code = "500";
@@ -20,10 +20,24 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
         else {
+
+            var carFrontEnd = [];
+            carDocuments.map(car=>{
+                var ob = {};
+                ob = {_id:car._id,
+                    car_name : car.car.car_name,
+                    car_type : car.car.car_type,
+                    model_name : car.car.model_name,
+                    car_rental_price : car.car.car_rental_price
+                };
+                carFrontEnd.push(ob);
+            });
+
+            console.log("Temp"+JSON.stringify(carFrontEnd));
             message = " Car Listing\n" + carDocuments;
-            console.log(message);
+            //console.log(message);
             res.code = "201";
-            res.data = carDocuments;
+            res.data = carFrontEnd;
             callback(null, res);
         }
     });
