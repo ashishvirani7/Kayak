@@ -31,7 +31,7 @@ var addFlightAdmin = require('./routes/addFlightAdmin');
 var getAllFlight = require('./routes/getAllFlight');
 var updateFlightAdmin = require('./routes/updateFlightAdmin');
 var searchFlightAdmin = require('./routes/searchFlightAdmin');
-var deleteFlightAdmin = require('./routes/deleteFiightAdmin');
+var deleteFlightAdmin = require('./routes/deleteFlightAdmin');
 
 
 var addCarAdmin = require('./routes/addCarAdmin');
