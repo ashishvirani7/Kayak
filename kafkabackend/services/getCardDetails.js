@@ -42,7 +42,8 @@ function handle_request(msg, callback){
                             carddetails : {
                                 credit_card_number: result.carddetails.credit_card_number,
                                 card_name: result.carddetails.card_name,
-                                expiry_date: result.carddetails.expiry_date,
+                                expiry_month: result.carddetails.expiry_month,
+                                expiry_year: result.carddetails.expiry_year,
                                 street: result.carddetails.street,
                                 city: result.carddetails.city,
                                 state: result.carddetails.state,
