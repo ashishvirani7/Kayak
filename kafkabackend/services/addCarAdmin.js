@@ -22,7 +22,7 @@ function handle_request(msg, callback) {
 
     var listingObj = {
         listing_type: "Car",
-        hotel:carListingObject
+        car:carListingObject
     };
 
     var carInstance = new carListings(listingObj);
