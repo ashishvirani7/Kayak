@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c854b08f-fa6d-4d90-b605-1d76e7ad79d2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kafkabackend/services/addHotelAdmin.js" afterPath="$PROJECT_DIR$/kafkabackend/services/addHotelAdmin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kafkabackend/services/updateHotelAdmin.js" afterPath="$PROJECT_DIR$/kafkabackend/services/updateHotelAdmin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js" afterPath="$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js" afterPath="$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js" />
     </list>
@@ -33,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/kafkabackend/services/loginAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+              <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -43,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/kafkabackend/services/signupAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="227">
-              <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="56" selection-end-column="42" />
+              <caret line="45" column="28" lean-forward="false" selection-start-line="45" selection-start-column="28" selection-end-line="56" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -53,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/kayakbackend/routes/signupAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="551">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -63,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/kayakbackend/routes/loginAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+              <caret line="16" column="54" lean-forward="false" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -82,24 +81,24 @@
       <file leaf-file-name="addHotelAdmin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="288">
+              <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="updateHotelAdmin.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="updateHotelAdmin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+            <state relative-caret-position="324">
+              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addHotelAdmin.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="addHotelAdmin.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kafkabackend/services/addHotelAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
@@ -175,8 +174,8 @@
         <option value="$PROJECT_DIR$/kafkabackend/services/updateHotelAdmin.js" />
         <option value="$PROJECT_DIR$/kafkabackend/services/addHotelAdmin.js" />
         <option value="$PROJECT_DIR$/kafkabackend/models/Listings.js" />
-        <option value="$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js" />
         <option value="$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js" />
+        <option value="$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js" />
       </list>
     </option>
   </component>
@@ -319,12 +318,12 @@
       <option name="presentableId" value="Default" />
       <updated>1511827292231</updated>
       <workItem from="1511827295263" duration="27817000" />
-      <workItem from="1511914139351" duration="27548000" />
+      <workItem from="1511914139351" duration="27969000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55365000" />
+    <option name="totallyTimeSpent" value="55786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -477,103 +476,103 @@
         <state relative-caret-position="392">
           <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
           <folding>
-            <marker date="1511992426711" expanded="true" signature="7:822" ph="..." />
-            <marker date="1511992426711" expanded="false" signature="842:5062" ph="[...]" />
-            <marker date="1511992426711" expanded="true" signature="848:911" ph="{&quot;name&quot;: &quot;Alabama&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="917:979" ph="{&quot;name&quot;: &quot;Alaska&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="985:1055" ph="{&quot;name&quot;: &quot;American Samoa&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1061:1124" ph="{&quot;name&quot;: &quot;Arizona&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1130:1194" ph="{&quot;name&quot;: &quot;Arkansas&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1200:1266" ph="{&quot;name&quot;: &quot;California&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1272:1336" ph="{&quot;name&quot;: &quot;Colorado&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1342:1409" ph="{&quot;name&quot;: &quot;Connecticut&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1415:1479" ph="{&quot;name&quot;: &quot;Delaware&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1485:1561" ph="{&quot;name&quot;: &quot;District Of Columbia&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1567:1653" ph="{&quot;name&quot;: &quot;Federated States Of Micronesia&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1659:1722" ph="{&quot;name&quot;: &quot;Florida&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1728:1791" ph="{&quot;name&quot;: &quot;Georgia&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1797:1857" ph="{&quot;name&quot;: &quot;Guam&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1863:1925" ph="{&quot;name&quot;: &quot;Hawaii&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1931:1992" ph="{&quot;name&quot;: &quot;Idaho&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="1998:2062" ph="{&quot;name&quot;: &quot;Illinois&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2068:2131" ph="{&quot;name&quot;: &quot;Indiana&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2137:2197" ph="{&quot;name&quot;: &quot;Iowa&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2203:2265" ph="{&quot;name&quot;: &quot;Kansas&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2271:2335" ph="{&quot;name&quot;: &quot;Kentucky&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2341:2406" ph="{&quot;name&quot;: &quot;Louisiana&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2412:2473" ph="{&quot;name&quot;: &quot;Maine&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2479:2551" ph="{&quot;name&quot;: &quot;Marshall Islands&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2557:2621" ph="{&quot;name&quot;: &quot;Maryland&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2627:2696" ph="{&quot;name&quot;: &quot;Massachusetts&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2702:2766" ph="{&quot;name&quot;: &quot;Michigan&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2772:2837" ph="{&quot;name&quot;: &quot;Minnesota&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2843:2910" ph="{&quot;name&quot;: &quot;Mississippi&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2916:2980" ph="{&quot;name&quot;: &quot;Missouri&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="2986:3049" ph="{&quot;name&quot;: &quot;Montana&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3055:3119" ph="{&quot;name&quot;: &quot;Nebraska&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3125:3187" ph="{&quot;name&quot;: &quot;Nevada&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3193:3262" ph="{&quot;name&quot;: &quot;New Hampshire&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3268:3334" ph="{&quot;name&quot;: &quot;New Jersey&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3340:3406" ph="{&quot;name&quot;: &quot;New Mexico&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3412:3476" ph="{&quot;name&quot;: &quot;New York&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3482:3552" ph="{&quot;name&quot;: &quot;North Carolina&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3558:3626" ph="{&quot;name&quot;: &quot;North Dakota&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3632:3712" ph="{&quot;name&quot;: &quot;Northern Mariana Islands&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3718:3778" ph="{&quot;name&quot;: &quot;Ohio&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3784:3848" ph="{&quot;name&quot;: &quot;Oklahoma&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3854:3916" ph="{&quot;name&quot;: &quot;Oregon&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3922:3983" ph="{&quot;name&quot;: &quot;Palau&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="3989:4057" ph="{&quot;name&quot;: &quot;Pennsylvania&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4063:4130" ph="{&quot;name&quot;: &quot;Puerto Rico&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4136:4204" ph="{&quot;name&quot;: &quot;Rhode Island&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4210:4280" ph="{&quot;name&quot;: &quot;South Carolina&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4286:4354" ph="{&quot;name&quot;: &quot;South Dakota&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4360:4425" ph="{&quot;name&quot;: &quot;Tennessee&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4431:4492" ph="{&quot;name&quot;: &quot;Texas&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4498:4558" ph="{&quot;name&quot;: &quot;Utah&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4564:4627" ph="{&quot;name&quot;: &quot;Vermont&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4633:4703" ph="{&quot;name&quot;: &quot;Virgin Islands&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4709:4773" ph="{&quot;name&quot;: &quot;Virginia&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4779:4845" ph="{&quot;name&quot;: &quot;Washington&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4851:4920" ph="{&quot;name&quot;: &quot;West Virginia&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4926:4991" ph="{&quot;name&quot;: &quot;Wisconsin&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="4997:5060" ph="{&quot;name&quot;: &quot;Wyoming&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="5082:5195" ph="[...]" />
-            <marker date="1511992426711" expanded="true" signature="5088:5121" ph="{&quot;name&quot;: &quot;Standard&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="5127:5157" ph="{&quot;name&quot;: &quot;Suite&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="5163:5193" ph="{&quot;name&quot;: &quot;Delux&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="5266:5389" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="5414:5509" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="12272:13381" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="5573:5946" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="5618:5937" ph="{&quot;hotelName&quot;: &quot;&quot;...}" />
-            <marker date="1511992426711" expanded="true" signature="5999:6065" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6118:6188" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6241:6311" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6364:6434" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6486:6564" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6618:6698" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6752:6836" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="6890:6974" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7028:7112" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7134:7868" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7299:7858" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7337:7606" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7419:7581" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7636:7847" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="7654:7833" ph="//..." />
-            <marker date="1511992426711" expanded="true" signature="12272:13379" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="10237:10352" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="10238:10351" ph="/*...*/" />
-            <marker date="1511992426711" expanded="true" signature="13396:13467" ph="{&quot;marginTop&quot;: '50px'...}" />
-            <marker date="1511992426711" expanded="true" signature="13482:13647" ph="{&quot;fontSize&quot;: '16px'...}" />
-            <marker date="1511992426711" expanded="true" signature="13665:13846" ph="{&quot;fontSize&quot;: '16px'...}" />
-            <marker date="1511992426711" expanded="true" signature="13863:14035" ph="{&quot;border&quot;: 'none'...}" />
-            <marker date="1511992426711" expanded="true" signature="14051:14118" ph="{&quot;marginLeft&quot;: '7px'...}" />
-            <marker date="1511992426711" expanded="true" signature="14151:14217" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="14163:14214" ph="{&quot;adminLoginData&quot;: state.adminLoginData...}" />
-            <marker date="1511992426711" expanded="true" signature="14258:14410" ph="{...}" />
-            <marker date="1511992426711" expanded="true" signature="14299:14386" ph="{&quot;changeValueAdmin&quot;: changeValueAdmin...}" />
+            <marker date="1512003762514" expanded="true" signature="7:795" ph="..." />
+            <marker date="1512003762514" expanded="false" signature="842:5062" ph="[...]" />
+            <marker date="1512003762514" expanded="true" signature="848:911" ph="{&quot;name&quot;: &quot;Alabama&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="917:979" ph="{&quot;name&quot;: &quot;Alaska&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="985:1055" ph="{&quot;name&quot;: &quot;American Samoa&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1061:1124" ph="{&quot;name&quot;: &quot;Arizona&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1130:1194" ph="{&quot;name&quot;: &quot;Arkansas&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1200:1266" ph="{&quot;name&quot;: &quot;California&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1272:1336" ph="{&quot;name&quot;: &quot;Colorado&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1342:1409" ph="{&quot;name&quot;: &quot;Connecticut&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1415:1479" ph="{&quot;name&quot;: &quot;Delaware&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1485:1561" ph="{&quot;name&quot;: &quot;District Of Columbia&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1567:1653" ph="{&quot;name&quot;: &quot;Federated States Of Micronesia&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1659:1722" ph="{&quot;name&quot;: &quot;Florida&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1728:1791" ph="{&quot;name&quot;: &quot;Georgia&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1797:1857" ph="{&quot;name&quot;: &quot;Guam&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1863:1925" ph="{&quot;name&quot;: &quot;Hawaii&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1931:1992" ph="{&quot;name&quot;: &quot;Idaho&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="1998:2062" ph="{&quot;name&quot;: &quot;Illinois&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2068:2131" ph="{&quot;name&quot;: &quot;Indiana&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2137:2197" ph="{&quot;name&quot;: &quot;Iowa&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2203:2265" ph="{&quot;name&quot;: &quot;Kansas&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2271:2335" ph="{&quot;name&quot;: &quot;Kentucky&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2341:2406" ph="{&quot;name&quot;: &quot;Louisiana&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2412:2473" ph="{&quot;name&quot;: &quot;Maine&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2479:2551" ph="{&quot;name&quot;: &quot;Marshall Islands&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2557:2621" ph="{&quot;name&quot;: &quot;Maryland&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2627:2696" ph="{&quot;name&quot;: &quot;Massachusetts&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2702:2766" ph="{&quot;name&quot;: &quot;Michigan&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2772:2837" ph="{&quot;name&quot;: &quot;Minnesota&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2843:2910" ph="{&quot;name&quot;: &quot;Mississippi&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2916:2980" ph="{&quot;name&quot;: &quot;Missouri&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="2986:3049" ph="{&quot;name&quot;: &quot;Montana&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3055:3119" ph="{&quot;name&quot;: &quot;Nebraska&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3125:3187" ph="{&quot;name&quot;: &quot;Nevada&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3193:3262" ph="{&quot;name&quot;: &quot;New Hampshire&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3268:3334" ph="{&quot;name&quot;: &quot;New Jersey&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3340:3406" ph="{&quot;name&quot;: &quot;New Mexico&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3412:3476" ph="{&quot;name&quot;: &quot;New York&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3482:3552" ph="{&quot;name&quot;: &quot;North Carolina&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3558:3626" ph="{&quot;name&quot;: &quot;North Dakota&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3632:3712" ph="{&quot;name&quot;: &quot;Northern Mariana Islands&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3718:3778" ph="{&quot;name&quot;: &quot;Ohio&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3784:3848" ph="{&quot;name&quot;: &quot;Oklahoma&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3854:3916" ph="{&quot;name&quot;: &quot;Oregon&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3922:3983" ph="{&quot;name&quot;: &quot;Palau&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="3989:4057" ph="{&quot;name&quot;: &quot;Pennsylvania&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4063:4130" ph="{&quot;name&quot;: &quot;Puerto Rico&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4136:4204" ph="{&quot;name&quot;: &quot;Rhode Island&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4210:4280" ph="{&quot;name&quot;: &quot;South Carolina&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4286:4354" ph="{&quot;name&quot;: &quot;South Dakota&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4360:4425" ph="{&quot;name&quot;: &quot;Tennessee&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4431:4492" ph="{&quot;name&quot;: &quot;Texas&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4498:4558" ph="{&quot;name&quot;: &quot;Utah&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4564:4627" ph="{&quot;name&quot;: &quot;Vermont&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4633:4703" ph="{&quot;name&quot;: &quot;Virgin Islands&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4709:4773" ph="{&quot;name&quot;: &quot;Virginia&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4779:4845" ph="{&quot;name&quot;: &quot;Washington&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4851:4920" ph="{&quot;name&quot;: &quot;West Virginia&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4926:4991" ph="{&quot;name&quot;: &quot;Wisconsin&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="4997:5060" ph="{&quot;name&quot;: &quot;Wyoming&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="5082:5195" ph="[...]" />
+            <marker date="1512003762514" expanded="true" signature="5088:5121" ph="{&quot;name&quot;: &quot;Standard&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="5127:5157" ph="{&quot;name&quot;: &quot;Suite&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="5163:5193" ph="{&quot;name&quot;: &quot;Delux&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="5266:5389" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="5414:5509" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="12272:13381" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="5573:5946" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="5618:5937" ph="{&quot;hotelName&quot;: &quot;&quot;...}" />
+            <marker date="1512003762514" expanded="true" signature="5999:6065" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6118:6188" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6241:6311" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6364:6434" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6486:6564" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6618:6698" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6752:6836" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="6890:6974" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7028:7112" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7134:7868" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7299:7858" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7337:7606" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7419:7581" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7636:7847" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="7654:7833" ph="//..." />
+            <marker date="1512003762514" expanded="true" signature="12272:13379" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="10237:10352" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="10238:10351" ph="/*...*/" />
+            <marker date="1512003762514" expanded="true" signature="13396:13467" ph="{&quot;marginTop&quot;: '50px'...}" />
+            <marker date="1512003762514" expanded="true" signature="13482:13647" ph="{&quot;fontSize&quot;: '16px'...}" />
+            <marker date="1512003762514" expanded="true" signature="13665:13846" ph="{&quot;fontSize&quot;: '16px'...}" />
+            <marker date="1512003762514" expanded="true" signature="14778:14826" ph="{&quot;border&quot;: 'none'...}" />
+            <marker date="1512003762514" expanded="true" signature="14842:14909" ph="{&quot;marginLeft&quot;: '7px'...}" />
+            <marker date="1512003762514" expanded="true" signature="14942:15008" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="14954:15005" ph="{&quot;adminLoginData&quot;: state.adminLoginData...}" />
+            <marker date="1512003762514" expanded="true" signature="15049:15201" ph="{...}" />
+            <marker date="1512003762514" expanded="true" signature="15090:15177" ph="{&quot;changeValueAdmin&quot;: changeValueAdmin...}" />
           </folding>
         </state>
       </provider>
@@ -797,7 +796,7 @@
     <entry file="file://$PROJECT_DIR$/kafkabackend/services/loginAdmin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -813,7 +812,7 @@
     <entry file="file://$PROJECT_DIR$/kafkabackend/services/signupAdmin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
-          <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="56" selection-end-column="42" />
+          <caret line="45" column="28" lean-forward="false" selection-start-line="45" selection-start-column="28" selection-end-line="56" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -821,7 +820,7 @@
     <entry file="file://$PROJECT_DIR$/kayakbackend/routes/signupAdmin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -829,7 +828,31 @@
     <entry file="file://$PROJECT_DIR$/kayakbackend/routes/loginAdmin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <caret line="16" column="54" lean-forward="false" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafkabackend/models/Listings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -846,30 +869,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kafkabackend/models/Listings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kayakbackend/routes/addHotelAdmin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kayakbackend/routes/updateHotelAdmin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding />
         </state>
       </provider>
