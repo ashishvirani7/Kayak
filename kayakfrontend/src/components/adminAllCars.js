@@ -18,32 +18,33 @@ import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import { ListItem } from 'material-ui/List';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 class AdminAllCars extends Component{
     
     getAllCars(){
-        // API.adminShowAllCars()
-        // .then((res) => {
-        //     if (res.status === 201) {
-        //         console.log("Success");
-        //         res.json().then(data => {
-        //             this.props.adminAllCars(data.cars)
-        //             //NotificationManager.success("Success", data.message, 2500, true);
-        //             // this.props.history.push("/logs");
-        //         });
+        API.adminGetAllCars()
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    this.props.adminAllCars(data.message.data)
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
         
-        //     } else if (res.status === 401) {
-        //         // console.log("Fail");
-        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-        //         // this.props.history.push("/");
-        //     } 
-        // });
-        this.props.adminAllCars([{
-            car_name : "tesla",
-            car_type : "SUV",
-            model_name : "Lx",
+            } else if (res.status === 401) {
+                console.log("Fail");
+                NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        // this.props.adminAllCars([{
+        //     car_name : "tesla",
+        //     car_type : "SUV",
+        //     model_name : "Lx",
             
-            car_rental_price : 1000
-        }])
+        //     car_rental_price : 1000
+        // }])
     }
 
     componentWillMount(){

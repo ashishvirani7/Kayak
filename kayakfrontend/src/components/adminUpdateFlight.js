@@ -21,6 +21,7 @@ class AdminUpdateFlight extends Component{
         super(props);
         
         this.state = {
+            _id:this.props.adminUpdateCurrentData._id,
             flight_name:this.props.adminUpdateCurrentData.flight_name,
             flight_operator_name:this.props.adminUpdateCurrentData.flight_operator_name,
             departure_date: new Date(this.props.adminUpdateCurrentData.departure_date),
