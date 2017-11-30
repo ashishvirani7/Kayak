@@ -20,7 +20,7 @@ import CustomItem from './CustomItem';
 import IconTrips from '../icons/IconTrips';
 import IconPreferences from '../icons/IconPreferences';
 import ListItem from 'material-ui/List/ListItem';
-
+import { NotificationManager } from 'react-notifications';
 import * as API from '../api/API';
 
 class ProfileItem extends Component {
@@ -64,6 +64,7 @@ class ProfileItem extends Component {
             if(res.status === 201){
                 this.handleRequestClose();
                 this.props.logout();
+                NotificationManager.success("Bye","Logout Successful",2500,true);
                 this.props.history.push('/');
             }
           });

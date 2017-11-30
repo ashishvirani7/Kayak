@@ -22,6 +22,7 @@ import IconPreferences from '../icons/IconPreferences';
 import ListItem from 'material-ui/List/ListItem';
 
 import * as API from '../api/API';
+import { NotificationManager } from 'react-notifications';
 
 class ProfileItem extends Component {
     
@@ -52,6 +53,7 @@ class ProfileItem extends Component {
       onSignoutClick = () => {
           this.props.logout();
           this.props.history.push("/adminLogin");
+          NotificationManager.success("Bye","Logout Successful",2500,true);
       }
     render() {
 
