@@ -22,6 +22,8 @@ var updateCarAdmin = require('./services/updateCarAdmin');
 var updateUserInfo = require('./services/updateUserInfo');
 
 var getUserDetails = require('./services/getUserDetails');
+var getCardDetails = require('./services/getCardDetails');
+var updateCardDetails = require('./services/updateCardDetails');
 
 var signup = require('./services/signup');
 
@@ -66,6 +68,8 @@ var signup_admin_topic_name = "signup_admin_topic";
 
 var updateUserInfo_topic_name = 'updateUserInfo_topic';
 var getUserDetails_topic_name = 'getUserDetails_topic';
+var updateCardDetails_topic_name = 'updateCardDetails_topic';
+var getCardDetails_topic_name = 'getCardDetails_topic';
 var create_folder_topic_name = "create_folder_topic";
 var delete_folder_topic_name = "delete_folder_topic";
 var upload_file_topic_name = "upload_file_topic";
@@ -98,9 +102,9 @@ producer.on('ready', function () {
             get_shared_files_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
             delete_user_topic_name, add_hotel_admin_topic_name, update_hotel_admin_topic_name,
             add_flight_admin_topic_name, update_flight_admin_topic_name, add_car_admin_topic_name,
-
             update_car_admin_topic_name, login_admin_topic_name, signup_admin_topic_name,
             get_all_hotel_topic_name, get_all_flight_topic_name, get_all_car_topic_name, getUserDetails_topic_name,
+            getCardDetails_topic_name,updateCardDetails_topic_name,
 
         ],
         false, function (err, data) {
@@ -112,6 +116,8 @@ producer.on('ready', function () {
 
     var updateUserInfo_consumer = connection.getConsumer(updateUserInfo_topic_name);
     var getUserDetails_consumer = connection.getConsumer(getUserDetails_topic_name);
+    var getCardDetails_consumer = connection.getConsumer(getCardDetails_topic_name);
+    var updateCardDetails_consumer = connection.getConsumer(updateCardDetails_topic_name);
 
     var add_hotel_admin_consumer = connection.getConsumer(add_hotel_admin_topic_name);
     var get_all_hotel_consumer = connection.getConsumer(get_all_hotel_topic_name);
@@ -272,6 +278,54 @@ producer.on('ready', function () {
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         getUserDetails.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('updateCardDetails server is running');
+    updateCardDetails_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        updateCardDetails.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('getCardDetails server is running');
+    getCardDetails_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        getCardDetails.handle_request(data.data, function(err,res){
             console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,
