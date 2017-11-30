@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
 //mongoose.connect('localhost:27017/kayak');
 mongoose.connect('54.183.101.173:27017/kayak');
-var hotelListings = require('../models/Listings');
+var Users = require('../models/Users');
 
 
 function handle_request(msg, callback) {
@@ -12,57 +12,38 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    var hotelListingObject = {
-        _id : msg._id,
-        hotel_name : msg.hotel_name,
-        address : {
-            street: msg.street,
-            state : msg.state,
-            zip_code : msg.zip_code,
-            city : msg.city,
-            country: "US"
-        },
-        stars: msg.stars,
-        rooms : [
-            {
-                room_type: msg.room_type_value1,
-                room_price: msg.room_price_value1
-            },
-            {
-                room_type: msg.room_type_value2,
-                room_price: msg.room_price_value2
-            },
-            {
-                room_type: msg.room_type_value3,
-                room_price: msg.room_price_value3
-            }
-        ]
+    var userObject = {
+        email : msg.email,
+        first_name : msg.first_name,
+        middle_name : msg.middle_name,
+        last_name : msg.last_name,
+        street : msg.street,
+        city : msg.city,
+        state : msg.state,
+        zip_code : msg.zip_code,
+        country : msg.country,
+        phone : msg.phone
     };
 
-
-    var listingObj = {
-        listing_type: "Hotel",
-        hotel:hotelListingObject
+    var condition = {
+        email: email
     };
+    var updateCol = {$set: userObject};
 
-    var hotelInstance = new hotelListings(listingObj);
-
-    console.log("Hotel--in"+hotelInstance);
-    hotelListings.findByIdAndUpdate(msg._id, {$set: listingObj}, function(err, hotelDocument, numAffected) {
+    Users.update(condition, updateCol, function(err, userDocument, numAffected) {
         if (err) {
-            console.log("Some Error Happened while updating Hotel Data");
+            console.log("Some Error Happened while updating user Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows updated in Hotel Listing\n" + hotelDocument;
+            message = numAffected + " rows updated in user Listing\n" + userDocument;
             console.log(message);
             res.code = "201";
-            res.data = hotelDocument;
+            res.data = userDocument;
             callback(null, res);
         }
     });
-
 }
 exports.handle_request = handle_request;

@@ -1,43 +1,39 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('./kafka/client');
-var topic_name = "update_hotel_admin_topic";
+var topic_name = "update_user_data_admin_topic";
 
 router.post('/', (req,res,next)=>{
+
     var message="";
-    var hotelObject = {
-        _id : req.body._id,
-        hotel_name : req.body.hotel_name,
-        stars : req.body.stars,
+    var userObject = {
+        email : req.body.email,
+        first_name : req.body.first_name,
+        middle_name : req.body.middle_name,
+        last_name : req.body.last_name,
         street : req.body.street,
-        room_price_value1 : req.body.room_price_value1,
-        room_price_value2 : req.body.room_price_value2,
-        room_price_value3 : req.body.room_price_value3,
-        room_type_value1 : req.body.room_type_value1,
-        room_type_value2 : req.body.room_type_value2,
-        room_type_value3 : req.body.room_type_value3,
+        city : req.body.city,
         state : req.body.state,
         zip_code : req.body.zip_code,
-        city : req.body.city
+        country : req.body.country,
+        phone : req.body.phone,
     };
 
-    kafka.make_request(topic_name, hotelObject, function(err,results){
+    kafka.make_request(topic_name, userObject, function(err,results){
         console.log('in result');
-        console.log(hotelObject);
-        console.log(results);
         if(err){
             done(err,{});
         }
         else
         {
             if(results.code == 201){
-                message="Hotel Updated Successfully";
+                message="User Updated Successfully (Admin)";
                 console.log(message);
                 console.log("ID--"+results.data._id);
                 return res.status(201).send({"message":message});
             }
             else {
-                message="Hotel updation Failed";
+                message="User updation Failed (Admin)";
                 console.log(message);
                 res.status(202).send({"message":message});
             }

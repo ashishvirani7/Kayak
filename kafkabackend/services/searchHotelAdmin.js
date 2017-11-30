@@ -11,8 +11,9 @@ function handle_request(msg, callback) {
     var res = {};
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
+    var cond = {$and : [ { "hotel.hotel_name": msg.hotel_name}, {"listing_type" : "Hotel"}]};
 
-    hotelListings.find({"listing_type" : "Hotel"} , {hotel : 1} , function(err, hotelDocuments) {
+    hotelListings.find(cond , {hotel : 1} , function(err, hotelDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Hotel Data");
             res.code = "500";
