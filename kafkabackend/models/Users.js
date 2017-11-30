@@ -54,8 +54,8 @@ var Users = new Schema({
         city:String,
         zip_code:String,
         country:String,
-		expiry_month : Number,
-		expiry_year : Number
+		expiry_month : String,
+		expiry_year : String
 	},
 	profile_pic :  String,
 	video :  String,
