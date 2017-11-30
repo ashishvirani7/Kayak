@@ -9,18 +9,29 @@ var signupAdmin = require('./services/signupAdmin');
 var addHotelAdmin = require('./services/addHotelAdmin');
 var getAllHotel = require('./services/getAllHotel');
 var updateHotelAdmin = require('./services/updateHotelAdmin');
+var searchHotelAdmin = require('./services/searchHotelAdmin');
+var deleteHotelAdmin = require('./services/deleteHotelAdmin');
 
 var addFlightAdmin = require('./services/addFlightAdmin');
 var getAllFlight = require('./services/getAllFlight');
 var updateFlightAdmin = require('./services/updateFlightAdmin');
+var searchFlightAdmin = require('./services/searchFlightAdmin');
+var deleteFlightAdmin = require('./services/deleteFlightAdmin');
+
 
 var addCarAdmin = require('./services/addCarAdmin');
 var getAllCar = require('./services/getAllCar');
 var updateCarAdmin = require('./services/updateCarAdmin');
+var searchCarAdmin = require('./services/searchCarAdmin');
+var deleteCarAdmin = require('./services/deleteCarAdmin');
+
+var getAllUserDataAdmin = require('./services/getAllUserDataAdmin');
+var searchUserDataAdmin = require('./services/searchUserDataAdmin');
+var updateUserDataAdmin = require('./services/updateUserDataAdmin');
+var deleteUserDataAdmin = require('./services/deleteUserDataAdmin');
 
 
 var updateUserInfo = require('./services/updateUserInfo');
-
 var getUserDetails = require('./services/getUserDetails');
 var getCardDetails = require('./services/getCardDetails');
 var updateCardDetails = require('./services/updateCardDetails');
@@ -50,14 +61,29 @@ var cars = require('./services/cars');
 var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
 var get_all_hotel_topic_name = 'get_all_hotel_topic';
 var update_hotel_admin_topic_name = 'update_hotel_admin_topic';
+var search_hotel_admin_topic_name = 'search_hotel_admin_topic';
+var delete_hotel_admin_topic_name = 'delete_hotel_admin_topic';
+
 
 var add_flight_admin_topic_name = 'add_flight_admin_topic';
 var get_all_flight_topic_name = 'get_all_flight_topic';
 var update_flight_admin_topic_name = 'update_flight_admin_topic';
+var search_flight_admin_topic_name = 'search_flight_admin_topic';
+var delete_flight_admin_topic_name = 'delete_flight_admin_topic';
+
 
 var add_car_admin_topic_name = 'add_car_admin_topic';
 var get_all_car_topic_name = 'get_all_car_topic';
 var update_car_admin_topic_name = 'update_car_admin_topic';
+var search_car_admin_topic_name = 'search_car_admin_topic';
+var delete_car_admin_topic_name = 'delete_car_admin_topic';
+
+
+var get_all_user_data_topic_name = 'get_all_user_data_topic';
+var search_user_data_admin_topic_name = 'search_user_data_admin_topic';
+var update_user_data_admin_topic_name = 'update_user_data_admin_topic';
+var delete_user_data_admin_topic_name = 'delete_user_data_admin_topic';
+
 
 var login_topic_name = 'login_topic';
 var signup_topic_name = "signup_topic";
@@ -104,7 +130,10 @@ producer.on('ready', function () {
             add_flight_admin_topic_name, update_flight_admin_topic_name, add_car_admin_topic_name,
             update_car_admin_topic_name, login_admin_topic_name, signup_admin_topic_name,
             get_all_hotel_topic_name, get_all_flight_topic_name, get_all_car_topic_name, getUserDetails_topic_name,
-            getCardDetails_topic_name,updateCardDetails_topic_name,
+            getCardDetails_topic_name, updateCardDetails_topic_name, search_hotel_admin_topic_name, search_flight_admin_topic_name,
+            search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
+            get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
+            delete_user_data_admin_topic_name,
 
         ],
         false, function (err, data) {
@@ -122,15 +151,27 @@ producer.on('ready', function () {
     var add_hotel_admin_consumer = connection.getConsumer(add_hotel_admin_topic_name);
     var get_all_hotel_consumer = connection.getConsumer(get_all_hotel_topic_name);
     var update_hotel_admin_consumer = connection.getConsumer(update_hotel_admin_topic_name);
+    var search_hotel_admin_consumer = connection.getConsumer(search_hotel_admin_topic_name);
+    var delete_hotel_admin_consumer = connection.getConsumer(delete_hotel_admin_topic_name);
 
     var add_flight_admin_consumer = connection.getConsumer(add_flight_admin_topic_name);
     var get_all_flight_consumer = connection.getConsumer(get_all_flight_topic_name);
     var update_flight_admin_consumer = connection.getConsumer(update_flight_admin_topic_name);
+    var search_flight_admin_consumer = connection.getConsumer(search_flight_admin_topic_name);
+    var delete_flight_admin_consumer = connection.getConsumer(delete_flight_admin_topic_name);
+
 
     var add_car_admin_consumer = connection.getConsumer(add_car_admin_topic_name);
     var get_all_car_consumer = connection.getConsumer(get_all_car_topic_name);
     var update_car_admin_consumer = connection.getConsumer(update_car_admin_topic_name);
+    var search_car_admin_consumer = connection.getConsumer(search_car_admin_topic_name);
+    var delete_car_admin_consumer = connection.getConsumer(delete_car_admin_topic_name);
 
+
+    var get_all_user_data_consumer = connection.getConsumer(get_all_user_data_topic_name);
+    var update_user_data_admin_consumer = connection.getConsumer(update_user_data_admin_topic_name);
+    var search_user_data_admin_consumer = connection.getConsumer(search_user_data_admin_topic_name);
+    var delete_user_data_admin_consumer = connection.getConsumer(delete_user_data_admin_topic_name);
 
 
     var signup_consumer = connection.getConsumer(signup_topic_name);
@@ -154,6 +195,7 @@ producer.on('ready', function () {
     var flights_topic_consumer = connection.getConsumer(flights_topic);
     var cars_topic_consumer = connection.getConsumer(cars_topic);
     var delete_user_topic_consumer = connection.getConsumer(delete_user_topic_name);
+
 
     console.log('login server is running');
     login_consumer.on('message', function (message) {
@@ -737,6 +779,51 @@ producer.on('ready', function () {
         });
     });
 
+    console.log('Search Hotel server is running');
+    search_hotel_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchHotelAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Delete Hotel server is running');
+    delete_hotel_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        deleteHotelAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
 
     console.log('Add Flight server is running');
     add_flight_admin_consumer.on('message', function (message) {
@@ -807,6 +894,53 @@ producer.on('ready', function () {
         });
     });
 
+    console.log('Search Flight server is running');
+    search_flight_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchFlightAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Delete Flight server is running');
+    delete_flight_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        deleteFlightAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
     console.log('Add Car server is running');
     add_car_admin_consumer.on('message', function (message) {
         console.log('message received');
@@ -860,6 +994,53 @@ producer.on('ready', function () {
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         updateCarAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('Search Car server is running');
+    search_car_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchCarAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Delete Car server is running');
+    delete_car_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        deleteCarAdmin.handle_request(data.data, function(err,res){
             console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,
@@ -969,4 +1150,101 @@ producer.on('ready', function () {
             return;
         });
     });
+
+
+
+    console.log('Get all user data admin server is running');
+    get_all_user_data_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        getAllUserDataAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Search user data admin server is running');
+    search_user_data_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchUserDataAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('Update user data admin server is running');
+    update_user_data_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        updateUserDataAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('delete user data admin server is running');
+    delete_user_data_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        deleteUserDataAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
 });
