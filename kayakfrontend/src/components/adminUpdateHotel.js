@@ -18,6 +18,7 @@ import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 import {withRouter} from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import ReactStars from 'react-stars';
 
 import * as API from '../api/API';
 
@@ -289,19 +290,19 @@ class AdminUpdateHotel extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            
+            _id:this.props.adminUpdateCurrentData._id,
             hotel_name:this.props.adminUpdateCurrentData.hotel_name,
-            street:this.props.adminUpdateCurrentData.address.street,
-            city:this.props.adminUpdateCurrentData.address.city,
-            state: this.props.adminUpdateCurrentData.address.state,
-            zip_code:this.props.adminUpdateCurrentData.address.zip_code,
-            room_type_value1:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_type_value2:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_type_value3:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_price_value1:this.props.adminUpdateCurrentData.rooms[0].room_price,
-            room_price_value2:this.props.adminUpdateCurrentData.rooms[0].room_price,
-            room_price_value3:this.props.adminUpdateCurrentData.rooms[0].room_price,
-
+            street:this.props.adminUpdateCurrentData.street,
+            city:this.props.adminUpdateCurrentData.city,
+            state: this.props.adminUpdateCurrentData.state,
+            zip_code:this.props.adminUpdateCurrentData.zip_code,
+            stars:this.props.adminUpdateCurrentData.stars,
+            room_type_value1:this.props.adminUpdateCurrentData.room_type_value1,
+            room_type_value2:this.props.adminUpdateCurrentData.room_type_value2,
+            room_type_value3:this.props.adminUpdateCurrentData.room_type_value3,
+            room_price_value1:this.props.adminUpdateCurrentData.room_price_value1,
+            room_price_value2:this.props.adminUpdateCurrentData.room_price_value2,
+            room_price_value3:this.props.adminUpdateCurrentData.room_price_value3
         }
       }
 
@@ -337,6 +338,9 @@ class AdminUpdateHotel extends Component{
       };
       handlePriceChange3 = (event, index, value) => {
         this.setState({...this.state,room_price_value3:event.target.value});
+      };
+      handleRatingChange = (value) => {
+        this.setState({...this.state,stars:value});
       };
       
       updateHotel(){
@@ -415,6 +419,22 @@ class AdminUpdateHotel extends Component{
                         onChange={this.handleZipChange}
                         value={this.state.zip_code}
                     />
+                </div>
+
+                <div className="row" >
+                    <div className="col-md-1">
+                        <h4>Stars: </h4>
+                    </div>
+                    <div className="col-md-8">
+                        <ReactStars
+                            count={7}
+                            onChange={this.handleRatingChange}
+                            size={24}
+                            color2={'#ffd700'} 
+                            value={this.state.stars}
+                        />
+                    </div>
+                    
                 </div>
 
                 {/* <div className="row" style={divstyle}>

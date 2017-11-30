@@ -16,6 +16,54 @@ export default function(state=initialState,action){
             };
         }
 
+        case "CHANGE_HOTEL_LISTING":
+        {
+            return{
+                ...state,
+                hotels: action.hotels
+            };
+        }
+
+        case "CHANGE_HOTEL_SEARCH":
+        {
+            return{
+                ...state,
+                hotelSearch: action.hotelSearch
+            };
+        }
+
+        case "CHANGE_FLIGHT_LISTING":
+        {
+            return{
+                ...state,
+                flights: action.flights
+            };
+        }
+
+        case "CHANGE_FLIGHT_SEARCH":
+        {
+            return{
+                ...state,
+                flightSearch: action.flightSearch
+            };
+        }
+
+        case "CHANGE_CAR_LISTING":
+        {
+            return{
+                ...state,
+                cars: action.cars
+            };
+        }
+
+        case "CHANGE_CAR_SEARCH":
+        {
+            return{
+                ...state,
+                carSearch: action.carSearch
+            };
+        }
+
         case "persist/REHYDRATE":
         {
             var incoming = action.payload.userData
