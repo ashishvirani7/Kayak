@@ -14,6 +14,7 @@ class Preferences extends Component
         edit : false
     }
 
+
     render(){
         var color = (this.state.edit)?'#ff690f':'#00bcd4';
         return(
