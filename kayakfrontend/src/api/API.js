@@ -300,16 +300,9 @@ fetch(`${api}/sessioncheck`, {
         return error;
 });
 
-<<<<<<< HEAD
-
-export const doHotelSearch = () =>
-fetch(`${api}/doHotelSearch`, {
-    method: 'GET',
-=======
 export const doHotelSearch = (payload) =>
 fetch(`${api}/hotels`, {
     method: 'POST',
->>>>>>> 86871e8b11b1973b8d515917cc594e7928c74354
     headers: {
         ...headers,
         'Content-Type': 'application/json'
