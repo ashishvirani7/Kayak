@@ -4,6 +4,7 @@ var kafka = require('./kafka/client');
 var topic_name = "add_hotel_admin_topic";
 
 router.post('/', (req,res,next)=>{
+    console.log("id is:" +req.body._id);
     var message="";
     var hotelObject = {
         hotel_name : req.body.hotel_name,

@@ -27,7 +27,7 @@ function handle_request(msg, callback) {
     };
 
     var carInstance = new carListings(listingObj);
-    carInstance.findByIdAndUpdate(msg._id, {$set: carInstance}, function (err, carDocument, numAffected) {
+    carListings.findByIdAndUpdate(msg._id, {$set: listingObj}, function (err, carDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while updating Car Data");
             res.code = "500";
