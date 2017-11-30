@@ -28,7 +28,7 @@ class AdminAllHotels extends Component{
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
-                    this.props.adminAllHotels(data)
+                    this.props.adminAllHotels(data.message.data);
                     //NotificationManager.success("Success", data.message, 2500, true);
                     // this.props.history.push("/logs");
                 });
