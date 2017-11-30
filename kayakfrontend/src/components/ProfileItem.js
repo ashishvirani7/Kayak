@@ -62,8 +62,8 @@ class ProfileItem extends Component {
           API.doSignOut()
           .then((res)=>{
             if(res.status === 201){
-                this.props.logout();
                 this.handleRequestClose();
+                this.props.logout();
                 this.props.history.push('/');
             }
           });
