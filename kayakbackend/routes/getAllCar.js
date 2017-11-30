@@ -1,21 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('./kafka/client');
-var topic_name = "add_car_admin_topic";
+var topic_name = "get_all_car_topic";
 
 router.post('/', (req,res,next)=>{
 
-    var message = "";
-    var carObject = {
-        car_name : req.body.car_name,
-        car_type : req.body.car_type,
-        model_name : req.body.model_name,
-        car_rental_price : req.body.car_rental_price
-    };
-
-    kafka.make_request(topic_name, carObject, function(err,results){
+    var message="";
+    kafka.make_request(topic_name, {}, function(err,results){
         console.log('in result');
-        console.log(carObject);
         console.log(results);
         if(err){
             done(err,{});
@@ -23,17 +15,16 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                message = "Car Added Successfully";
+                message="Get All Cars executed Successfully";
                 console.log(message);
-                console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":message});
+                console.log("Result"+results);
+                return res.status(201).send({"message":results});
             }
             else {
-                message = "Car addition Failed";
+                message="Failed to get All Cars";
                 console.log(message);
-                res.status(202).send({"message":message});
+                res.status(202).send({"message":err});
             }
-
         }
     });
 });

@@ -12,7 +12,7 @@ import SearchResults from './components/SearchResults';
 
 import AuthorizedRoute from './components/AuthorizedRoute';
 import UnAuthorizedRoute from './components/UnAuthorizedRoute';
-
+import AdminAccount from './components/adminAccountPage';
 const  App = () => {
     return(
       <div>
@@ -40,6 +40,7 @@ const  App = () => {
         <Route exact path="/adminUpdateHotel" component={AdminHome}/>
         <Route exact path="/adminUpdateFlight" component={AdminHome}/>
         <Route exact path="/adminUpdateCar" component={AdminHome}/>
+        <Route exact path="/adminAccount" component={AdminAccount}/>
 
         <NotificationContainer/>
       </div>);
