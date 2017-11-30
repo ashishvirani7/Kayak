@@ -231,6 +231,22 @@ export const updateCarAdmin = (payload) =>
             return error;
         });
 
+export const updateUserAdmin = (payload) =>
+fetch(`${api}/updateUserDataAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+    });
 
 
 export const adminGetAllHotels = () =>
@@ -334,6 +350,23 @@ fetch(`${api}/deleteCarAdmin`, {
         return error;
 });
 
+export const deleteUserAdmin = (payload) =>
+fetch(`${api}/deleteUserDataAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const searchHotelAdmin = (payload) =>
 fetch(`${api}/searchHotelAdmin`, {
     method: 'POST',
@@ -385,8 +418,25 @@ fetch(`${api}/searchCarAdmin`, {
         return error;
 });
 
+export const searchUserAdmin = (payload) =>
+fetch(`${api}/searchUserDataAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const adminGetAllUsers = () =>
-fetch(`${api}/getAllUser`, {
+fetch(`${api}/getAllUserDataAdmin`, {
     method: 'POST',
     headers: {
         ...headers,

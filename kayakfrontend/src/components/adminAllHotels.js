@@ -72,12 +72,20 @@ class AdminAllHotels extends Component{
     }
 
     deleteHotel(_id){
-        API.deleteHotelAdmin(_id)
+        console.log("id is:"+_id);
+        API.deleteHotelAdmin({_id:_id})
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
                 NotificationManager.error("Hotel Deleted", "Success", 2500, true);
-                this.getAllHotels();
+                var h_name = this.state.hotel_name;
+                if(h_name != ""){
+                    this.searchHotel();
+                }
+                else{
+                    this.getAllHotels();
+                }
+                
         
             } else if (res.status === 401) {
                 console.log("Fail");
@@ -126,7 +134,7 @@ class AdminAllHotels extends Component{
                         </div>
                         <div className="col-md-1">
                             <IconButton iconStyle={smallIcon} tooltip="Delete"
-                                onClick={()=> this.deleteHotel(hotel._id)}>
+                                >
                         
                                 <Cancel backgroundColor={fullWhite} color={red300}
                                     style={small} 
@@ -147,7 +155,7 @@ class AdminAllHotels extends Component{
 
     searchHotel(){
         console.log(this.state.hotel_name);
-        API.searchHotelAdmin(this.state.hotel_name)
+        API.searchHotelAdmin({hotel_name:this.state.hotel_name})
         .then((res) => {
             if (res.status === 201) {
                 res.json().then(data => {

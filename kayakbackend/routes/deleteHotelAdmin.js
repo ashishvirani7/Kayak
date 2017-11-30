@@ -5,6 +5,7 @@ var topic_name = "delete_hotel_admin_topic";
 
 router.post('/', (req,res,next)=>{
     var message="";
+    console.log("id is: "+req.body._id);
     var hotelObject = {
         _id : req.body._id,
     };
@@ -21,7 +22,7 @@ router.post('/', (req,res,next)=>{
             if(results.code == 201){
                 message="Hotel Deleted Successfully";
                 console.log(message);
-                console.log("ID--"+results.data._id);
+                //console.log("ID--"+results.data._id);
                 return res.status(201).send({"message":message});
             }
             else {

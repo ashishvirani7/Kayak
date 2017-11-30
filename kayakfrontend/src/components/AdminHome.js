@@ -52,7 +52,7 @@ class AdminHome extends Component{
                             <NavLink to="/adminCars" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
 
                             {this.props.adminCurrentItem=="Users" &&
-                            <NavLink to="/adminUsers" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>}
+                            <NavLink to="/adminShowUsers" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>}
                             
 
                         </div>

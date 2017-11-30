@@ -12,7 +12,7 @@ export default function(state=initialState,action){
 
         case "persist/REHYDRATE":
         {
-            var incoming = action.payload.adminAllUsers
+            var incoming = action.payload.adminAllUsersData
             if (incoming) return incoming
             return state
         }
