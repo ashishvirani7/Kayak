@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
 mongoose.connect('54.67.27.46:27017/kayak');
-var Users = require('../models/Users');
+var Admin = require('../models/Admin');
 
 function handle_request(msg, callback) {
 
@@ -15,7 +15,7 @@ function handle_request(msg, callback) {
     var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
     password = bytes.toString(CryptoJS.enc.Utf8);
 
-    Users.findOne({"email":email}, function(err,loginData) {
+    Admin.findOne({"email":email}, function(err, loginData) {
         if(err)
         {
             message = "Some Error Happen";

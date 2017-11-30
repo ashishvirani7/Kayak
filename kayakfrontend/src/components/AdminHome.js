@@ -23,6 +23,8 @@ import AdminAllCars from './adminAllCars';
 import AdminUpdateHotel from './adminUpdateHotel';
 import AdminUpdateFlight from './adminUpdateFlight';
 import AdminUpdateCar from './adminUpdateCar';
+import {NavLink} from 'react-router-dom';
+import AdminCustomNavbar from './AdminCustomNavBar';
 
 import * as API from '../api/API';
 
@@ -49,21 +51,7 @@ class AdminHome extends Component{
       }
 
 
-    redirectToHotels(){
-        this.props.adminSetActivePage("add");
-        this.props.adminSetCurrentItem("Hotels");
-        this.props.history.push("/adminHotels");
-    }
-    redirectToFlights(){
-        this.props.adminSetActivePage("add");
-        this.props.adminSetCurrentItem("Flights");
-        this.props.history.push("/adminFlights");
-    }
-    redirectToCars(){
-        this.props.adminSetActivePage("add");
-        this.props.adminSetCurrentItem("Cars");
-        this.props.history.push("/adminCars");
-    }
+    
     showAll(){
         
         this.props.adminSetActivePage("all");
@@ -82,39 +70,67 @@ class AdminHome extends Component{
     render(){
         return(
             <div>
-                <div className="col-md-2">
-                    <List style={ListStyle}>
-                        <ListItem primaryText="Hotels" style={{color:"#a2a9b2",marginLeft:"35px"}} onClick={()=>{this.redirectToHotels()}}/>
-                        <ListItem primaryText="Flights" style={{color:"#a2a9b2",marginLeft:"35px"}} onClick={()=> {this.redirectToFlights()}}/>
-                        <ListItem primaryText="Cars" style={{color:"#a2a9b2",marginLeft:"35px"}} onClick={()=>{this.redirectToCars()}}/>
-                    </List>
+                <div className="row">
+                    <div className="col-md-12" style={{backgroundColor:'black',height:'46px'}}>
+                        <div className="row" style={navstyle}>
+                            <AdminCustomNavbar />
+                        </div>
+                    </div>
                 </div>
-                <div className="col-md-7">
-                    <Route exact path='/adminHotels' component={AdminHotels}/>
-                    <Route exact path='/adminFlights' component={AdminFlights}/>
-                    <Route exact path='/adminCars' component={AdminCars}/>
-                    <Route exact path="/adminShowHotels" component={AdminAllHotels}/>
-                    <Route exact path="/adminShowFlights" component={AdminAllFlights}/>
-                    <Route exact path="/adminShowCars" component={AdminAllCars}/>
-                    <Route exact path="/adminUpdateHotel" component={AdminUpdateHotel}/>
-                    <Route exact path="/adminUpdateFlight" component={AdminUpdateFlight}/>
-                    <Route exact path="/adminUpdateCar" component={AdminUpdateCar}/>
-                </div>
-                <div className="col-md-3">
+                <div className="row">
+                    <div className="col-md-2 col-md-offset-1" style={{marginTop:'50px'}}>
+                        <div className="row" style ={linkStyle}>
+                            {this.props.adminCurrentItem=="Hotels" &&
+                            <NavLink to="/adminHotels" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
+                            {this.props.adminCurrentItem=="Flights" &&
+                            <NavLink to="/adminFlights" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
+                            {this.props.adminCurrentItem=="Cars" &&
+                            <NavLink to="/adminCars" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
+                            
 
+                        </div>
+
+                        <div className="row" style ={linkStyle}>
+                            {this.props.adminCurrentItem=="Hotels" &&
+                            <NavLink to="/adminshowHotels" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>
+                            }
+                            {this.props.adminCurrentItem=="Flights" &&
+                            <NavLink to="/adminshowFlights" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>
+                            }
+                            {this.props.adminCurrentItem=="Cars" &&
+                            <NavLink to="/adminshowCars" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>
+                            }
+                        </div>
+
+                    </div>   
                 
-                    {   this.props.adminActivePage=="add" &&
+                    <div className="col-md-7 " style={{marginTop:"20px"}}>
+                        <Route exact path='/adminHotels' component={AdminHotels}/>
+                        <Route exact path='/adminFlights' component={AdminFlights}/>
+                        <Route exact path='/adminCars' component={AdminCars}/>
+                        <Route exact path="/adminShowHotels" component={AdminAllHotels}/>
+                        <Route exact path="/adminShowFlights" component={AdminAllFlights}/>
+                        <Route exact path="/adminShowCars" component={AdminAllCars}/>
+                        <Route exact path="/adminUpdateHotel" component={AdminUpdateHotel}/>
+                        <Route exact path="/adminUpdateFlight" component={AdminUpdateFlight}/>
+                        <Route exact path="/adminUpdateCar" component={AdminUpdateCar}/>
+                    </div>
+                    {/* <div className="col-md-3">
 
-                        <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.showAll()}}>
-                            Show {this.props.adminCurrentItem}
-                        </RaisedButton>
-                    }
-                    {   this.props.adminActivePage=="all" &&
+                    
+                        {   this.props.adminActivePage=="add" &&
 
-                        <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.addItem()}}>
-                        Add {this.props.adminCurrentItem}
-                        </RaisedButton>
-                    }
+                            <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.showAll()}}>
+                                Show {this.props.adminCurrentItem}
+                            </RaisedButton>
+                        }
+                        {   this.props.adminActivePage=="all" &&
+
+                            <RaisedButton backgroundColor="#03A9F4" style={{"marginTop":"30px"}} onClick={()=>{this.addItem()}}>
+                            Add {this.props.adminCurrentItem}
+                            </RaisedButton>
+                        }
+                    </div> */}
                 </div>
                 
             </div>
@@ -135,6 +151,27 @@ const buttonStyle = {
     width: "100%",
     fontSize: "16px",
     marginTop:"50px"
+}
+
+const navstyle={
+    marginLeft:'120px',
+    marginRight:'120px'
+}
+const lstyle={
+    fontSize: '15px',
+    lineHeight: '16px',
+    color: '#666666',
+    display: 'block',
+    msFlex: '1',
+    textDecoration: 'none',
+    fontWeight:'500'
+}
+const linkStyle={
+    marginBottom: "20px"
+}
+
+const linkactive={
+    color: '#000000'
 }
 
 function mapStateToProps(state){

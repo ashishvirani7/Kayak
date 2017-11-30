@@ -13,6 +13,7 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
 
     var carListingObject = {
+        _id : msg._id,
         car_name : msg.car_name,
         car_type : msg.car_type,
         model_name : msg.model_name,
@@ -26,15 +27,15 @@ function handle_request(msg, callback) {
     };
 
     var carInstance = new carListings(listingObj);
-    carInstance.save(function (err, carDocument, numAffected) {
+    carInstance.findByIdAndUpdate(msg._id, {$set: carInstance}, function (err, carDocument, numAffected) {
         if (err) {
-            console.log("Some Error Happened while Inserting Car Data");
+            console.log("Some Error Happened while updating Car Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows added into Car Listing\n" + carDocument;
+            message = numAffected + " rows update in Car Listing\n" + carDocument;
             console.log(message);
             res.code = "201";
             res.data = carDocument;
