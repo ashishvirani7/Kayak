@@ -45,14 +45,17 @@ var Users = new Schema({
 	}],
 	
 	carddetails : {
-		credit_card : Number,
-		first_name : String,
-		last_name : String,
+		credit_card_number : Number,
+		card_name : String,
 		cvv : Number,
+        expiry_date : Number,
+        street: String,
+        state: String,
+        city:String,
+        zip_code:String,
+        country:String,
 		expiry_month : Number,
-		expiry_year : Number,
-		zip_code : Number,
-		country : String
+		expiry_year : Number
 	},
 	profile_pic :  String,
 	video :  String,
