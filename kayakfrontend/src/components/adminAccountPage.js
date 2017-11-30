@@ -35,7 +35,7 @@ class AdminAccountPage extends Component
                     <div className="col-md-9">
                     <div className="row">
                     <span style={titlestyle}>
-                        Preferences
+                        Admin Account
                     </span> 
                     <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>       
                 </div>

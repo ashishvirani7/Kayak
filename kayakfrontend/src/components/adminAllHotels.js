@@ -18,8 +18,18 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import { ListItem } from 'material-ui/List';
 
+import ReactStars from 'react-stars';
+
 import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import Cancel from 'material-ui/svg-icons/navigation/cancel';
+import IconButton from 'material-ui/IconButton';
+import {
+    
+    red300,
+    fullWhite
+  
+  } from 'material-ui/styles/colors';
 class AdminAllHotels extends Component{
     
     getAllHotels(){
@@ -28,7 +38,8 @@ class AdminAllHotels extends Component{
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
-                    this.props.adminAllHotels(data)
+                    console.log(JSON.stringify(data))
+                    this.props.adminAllHotels(data.message.data);
                     //NotificationManager.success("Success", data.message, 2500, true);
                     // this.props.history.push("/logs");
                 });
@@ -51,26 +62,72 @@ class AdminAllHotels extends Component{
         this.props.adminCurrentUpdate(hotel);
         this.props.history.push("/adminUpdateHotel");
     }
+
+    deleteHotel(_id){
+        API.deleteHotelAdmin(_id)
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                NotificationManager.error("Hotel Deleted", "Success", 2500, true);
+                this.getAllHotels();
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+    }
+
     createHotelsList(){
         return this.props.adminHotels.map((hotel) => {
             return(
                 <div>
-                    <ListItem onClick={()=>{this.onHotelClick(hotel)}}>
                     <div className="row">
-                        <div className="col-md-3">
-                            {hotel.hotel_name}
+                        <div className="col-md-11">
+                            <ListItem onClick={()=>{this.onHotelClick(hotel)}} style={{height:"60px"}}>
+                                <div className="col-md-2">
+                                    {hotel.hotel_name}
+                                </div>
+                                <div className="col-md-3">
+                                    {hotel.street}
+                                </div>
+                                <div className="col-md-2">
+                                    {hotel.city}
+                                </div>
+                                <div className="col-md-1">
+                                    {hotel.state}
+                                </div>
+                                <div className="col-md-1">
+                                    {hotel.zip_code}
+                                </div>
+                                <div className="col-md-3">
+                                    <ReactStars
+                                        count={7}
+                                        edit={false}
+                                        size={24}
+                                        color2={'#ffd700'} 
+                                        value={hotel.stars}
+                                        size="30px"
+                                    />
+                                    
+                                </div>
+                                
+                            </ListItem>
+                            
                         </div>
-                        <div className="col-md-3">
-                            {hotel.address.city}
-                        </div>
-                        <div className="col-md-3">
-                            {hotel.address.state}
-                        </div>
-                        <div className="col-md-3">
+                        <div className="col-md-1">
+                            <IconButton iconStyle={smallIcon} tooltip="Delete"
+                                onClick={()=> this.deleteHotel(hotel._id)}>
+                        
+                                <Cancel backgroundColor={fullWhite} color={red300}
+                                    style={small} 
+                                    onClick={()=> this.deleteHotel(hotel._id)}/>
+                            </IconButton>
                         </div>
                     </div>
-                    </ListItem>
-                   <Divider/>
+                    
+                   
                 </div>
             )
         });
@@ -80,18 +137,27 @@ class AdminAllHotels extends Component{
         return(
             <div>
                 <h1 ><u> All Hotels</u> </h1>
-                <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
+                <ListItem disabled={true} style={{height:"45px","backgroundColor":"#ec7132"}}>
                     <div className="row" style={{"color":"white",fontSize:"20px"}}> 
-                        <div className="col-md-3">
-                            Hotel Name
-                        </div>
-                        <div className="col-md-3">
-                            City
-                        </div>
-                        <div className="col-md-3">
-                            State
-                        </div>
-                        <div className="col-md-3">
+                        <div className="col-md-11">
+                            <div className="col-md-2">
+                                Hotel
+                            </div>
+                            <div className="col-md-3">
+                                Street
+                            </div>
+                            <div className="col-md-2">
+                                City
+                            </div>
+                            <div className="col-md-1">
+                                State
+                            </div>
+                            <div className="col-md-1">
+                                Zip
+                            </div>
+                            <div className="col-md-3">
+                                Stars
+                            </div>
                         </div>
                     </div>
                 </ListItem>
@@ -102,8 +168,14 @@ class AdminAllHotels extends Component{
         )
     }
 }
-
-
+const smallIcon= {
+    width: 20,
+    height: 20,
+  }
+const small={
+    width: 20,
+    height: 20,
+}
 
 function mapStateToProps(state){
     return{
