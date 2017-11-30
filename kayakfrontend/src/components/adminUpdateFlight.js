@@ -27,9 +27,9 @@ class AdminUpdateFlight extends Component{
             arrival_date:new Date(this.props.adminUpdateCurrentData.arrival_date),
             origin:this.props.adminUpdateCurrentData.origin,
             destination:this.props.adminUpdateCurrentData.destination,
-            business_class_price:this.props.adminUpdateCurrentData.classes[0].class_price,
-            economy_class_price:this.props.adminUpdateCurrentData.classes[1].class_price,
-            first_class_price:this.props.adminUpdateCurrentData.classes[2].class_price
+            business_class_price:this.props.adminUpdateCurrentData.business_class_price,
+            economy_class_price:this.props.adminUpdateCurrentData.economy_class_price,
+            first_class_price:this.props.adminUpdateCurrentData.first_class_price
         };
       }
       

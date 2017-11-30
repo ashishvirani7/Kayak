@@ -80,7 +80,7 @@ class AdminCars extends Component{
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
-                    NotificationManager.success("Success", "Flight Added Successfully", 2500, true);
+                    NotificationManager.success("Success", "Car Added Successfully", 2500, true);
                     // this.props.history.push("/logs");
                 });
         

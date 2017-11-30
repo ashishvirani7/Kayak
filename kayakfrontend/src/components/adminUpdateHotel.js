@@ -290,20 +290,19 @@ class AdminUpdateHotel extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            
+            _id:this.props.adminUpdateCurrentData._id,
             hotel_name:this.props.adminUpdateCurrentData.hotel_name,
-            street:this.props.adminUpdateCurrentData.address.street,
-            city:this.props.adminUpdateCurrentData.address.city,
-            state: this.props.adminUpdateCurrentData.address.state,
-            zip_code:this.props.adminUpdateCurrentData.address.zip_code,
+            street:this.props.adminUpdateCurrentData.street,
+            city:this.props.adminUpdateCurrentData.city,
+            state: this.props.adminUpdateCurrentData.state,
+            zip_code:this.props.adminUpdateCurrentData.zip_code,
             stars:this.props.adminUpdateCurrentData.stars,
-            room_type_value1:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_type_value2:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_type_value3:this.props.adminUpdateCurrentData.rooms[0].room_type,
-            room_price_value1:this.props.adminUpdateCurrentData.rooms[0].room_price,
-            room_price_value2:this.props.adminUpdateCurrentData.rooms[0].room_price,
-            room_price_value3:this.props.adminUpdateCurrentData.rooms[0].room_price,
-
+            room_type_value1:this.props.adminUpdateCurrentData.room_type_value1,
+            room_type_value2:this.props.adminUpdateCurrentData.room_type_value2,
+            room_type_value3:this.props.adminUpdateCurrentData.room_type_value3,
+            room_price_value1:this.props.adminUpdateCurrentData.room_price_value1,
+            room_price_value2:this.props.adminUpdateCurrentData.room_price_value2,
+            room_price_value3:this.props.adminUpdateCurrentData.room_price_value3
         }
       }
 

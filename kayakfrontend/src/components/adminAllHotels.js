@@ -18,6 +18,8 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import { ListItem } from 'material-ui/List';
 
+import ReactStars from 'react-stars';
+
 import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 class AdminAllHotels extends Component{
@@ -28,6 +30,7 @@ class AdminAllHotels extends Component{
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
+                    console.log(JSON.stringify(data))
                     this.props.adminAllHotels(data.message.data);
                     //NotificationManager.success("Success", data.message, 2500, true);
                     // this.props.history.push("/logs");
@@ -57,16 +60,30 @@ class AdminAllHotels extends Component{
                 <div>
                     <ListItem onClick={()=>{this.onHotelClick(hotel)}}>
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             {hotel.hotel_name}
                         </div>
-                        <div className="col-md-3">
-                            {hotel.address.city}
+                        <div className="col-md-2">
+                            {hotel.street}
+                        </div>
+                        <div className="col-md-2">
+                            {hotel.city}
+                        </div>
+                        <div className="col-md-1">
+                            {hotel.state}
+                        </div>
+                        <div className="col-md-2">
+                            {hotel.zip_code}
                         </div>
                         <div className="col-md-3">
-                            {hotel.address.state}
-                        </div>
-                        <div className="col-md-3">
+                            <ReactStars
+                                count={7}
+                                edit={false}
+                                size={24}
+                                color2={'#ffd700'} 
+                                value={hotel.stars}
+                            />
+                            
                         </div>
                     </div>
                     </ListItem>
@@ -82,16 +99,23 @@ class AdminAllHotels extends Component{
                 <h1 ><u> All Hotels</u> </h1>
                 <ListItem disabled={true} style={{height:"30px","backgroundColor":"#ec7132"}}>
                     <div className="row" style={{"color":"white",fontSize:"20px"}}> 
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             Hotel Name
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-2">
+                            Street
+                        </div>
+                        <div className="col-md-2">
                             City
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-1">
                             State
                         </div>
+                        <div className="col-md-2">
+                            Zip Code
+                        </div>
                         <div className="col-md-3">
+                            Stars
                         </div>
                     </div>
                 </ListItem>

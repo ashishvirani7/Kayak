@@ -22,45 +22,45 @@ import { ListItem } from 'material-ui/List';
 class AdminAllFlights extends Component{
     
     getAllFlights(){
-        // API.adminShowAllFlights()
-        // .then((res) => {
-        //     if (res.status === 201) {
-        //         console.log("Success");
-        //         res.json().then(data => {
-        //             this.props.adminAllFlights(data.flights)
-        //             //NotificationManager.success("Success", data.message, 2500, true);
-        //             // this.props.history.push("/logs");
-        //         });
+        API.adminGetAllFlights()
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    this.props.adminAllFlights(data.message.data);
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
         
-        //     } else if (res.status === 401) {
-        //         // console.log("Fail");
-        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-        //         // this.props.history.push("/");
-        //     } 
-        // });
-        this.props.adminAllFlights([{
-            flight_name : "AI114",
-            flight_operator_name : "Air India",
-            departure_date : "Thu Nov 30 2017 11:05:00 GMT-0800 (PST)",
-            arrival_date : "Dec 02 2017 1:50:00 GMT-0800 (PST)",
-            origin : "san jose",
-            destination : "amd",
-            classes :[
-                {
-                    class_type : "Business",
-                    class_price : 1000
+            } else if (res.status === 401) {
+                // console.log("Fail");
+                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        // this.props.adminAllFlights([{
+        //     flight_name : "AI114",
+        //     flight_operator_name : "Air India",
+        //     departure_date : "Thu Nov 30 2017 11:05:00 GMT-0800 (PST)",
+        //     arrival_date : "Dec 02 2017 1:50:00 GMT-0800 (PST)",
+        //     origin : "san jose",
+        //     destination : "amd",
+        //     classes :[
+        //         {
+        //             class_type : "Business",
+        //             class_price : 1000
     
-                },
-                {
-                    class_type : "Economy",
-                    class_price : 2000
-                },
-                {
-                    class_type : "First Class",
-                    class_price : 3000
-                }
-            ]
-        }])
+        //         },
+        //         {
+        //             class_type : "Economy",
+        //             class_price : 2000
+        //         },
+        //         {
+        //             class_type : "First Class",
+        //             class_price : 3000
+        //         }
+        //     ]
+        // }])
     }
 
     componentWillMount(){
