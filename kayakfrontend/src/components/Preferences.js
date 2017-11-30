@@ -7,6 +7,9 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import * as API from '../api/API';
+import { getUserDetails } from '../api/API';
+import {changeUserData} from '../actions/userDataAction.js';
+
 const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 class Preferences extends Component
 {
@@ -14,6 +17,27 @@ class Preferences extends Component
         edit : false
     }
 
+    componentWillMount(){
+        this.getUserDetails();
+    }
+
+    getUserDetails = () => {
+        console.log('hello');
+        API.getUserDetails({email:this.props.userData.data.email})
+        .then((res)=>{
+            if (res.status === 201) {
+                console.log("Success");
+                console.log(res);
+                res.json().then(user => {
+                    console.log(user.userObj);
+                    this.props.changeUserData(user.userObj);
+                });
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+            }
+        })
+    }
 
     render(){
         var color = (this.state.edit)?'#ff690f':'#00bcd4';
@@ -31,12 +55,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                         {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.first_name}</div>
                             :<input 
                                 id="firstName"
                                 type="text" 
                                 name="FirstName" 
-                                defaultValue="first"
+                                defaultValue={this.props.userData.data.first_name}
                                 style={inputstyle}
                             />
                         }
@@ -49,12 +73,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                         {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.middle_name}</div>
                             :<input 
                                 id="middleName"
                                 type="text" 
                                 name="MiddleName" 
-                                defaultValue="middle"
+                                defaultValue={this.props.userData.data.middle_name}
                                 style={inputstyle}
                             />
                         }
@@ -67,12 +91,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.last_name}</div>
                             :<input 
                                 id="lastName"
                                 type="text" 
                                 name="FirstName" 
-                                defaultValue="last"
+                                defaultValue={this.props.userData.data.last_name}
                                 style={inputstyle}
                             />
                         }
@@ -90,12 +114,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.address.street}</div>
                             :<input 
                                 id="street"
                                 type="text" 
                                 name="Street" 
-                                defaultValue="street"
+                                defaultValue={this.props.userData.data.address.street}
                                 style={inputstyle}
                             />
                         }
@@ -107,12 +131,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.address.city}</div>
                             :<input 
                                 id="city"
                                 type="text" 
                                 name="City" 
-                                defaultValue="city"
+                                defaultValue={this.props.userData.data.address.city}
                                 style={inputstyle}
                             />
                         }
@@ -124,8 +148,8 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
-                            :<select style={inputstyle} id="state" name="billing_state" class="r9-dropdown-select" title="State/Region"><option value="" title="State/Region" class="all">State/Region</option><option value="AA">APO Americas</option><option value="AE">APO Europe</option><option value="AP">APO Pacific</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
+                            ?<div>{this.props.userData.data.address.state}</div>
+                            :<select style={inputstyle} id="state" name="billing_state" class="r9-dropdown-select" title="State/Region"><option value={this.props.userData.data.address.state} title="State/Region" class="all">State/Region</option><option value="AA">APO Americas</option><option value="AE">APO Europe</option><option value="AP">APO Pacific</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
                         }
                     </div>
                 </div>
@@ -135,12 +159,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.data.address.zip_code}</div>
                             :<input 
                                 id="postalcode"
                                 type="text" 
                                 name="postalcode" 
-                                defaultValue="postal code"
+                                defaultValue={this.props.userData.data.address.zip_code}
                                 style={inputstyle}
                             />
                         }
@@ -161,12 +185,12 @@ class Preferences extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Phone</div>
+                            ?<div>{this.props.userData.data.phone}</div>
                             :<input 
                                 id="phone"
                                 type="text" 
                                 name="Phone" 
-                                defaultValue="phone"
+                                defaultValue={this.props.userData.data.phone}
                                 style={inputstyle}
                             />
                         }
@@ -205,6 +229,7 @@ class Preferences extends Component
                                     if(data.status===201)
                                     {
                                         console.log("info changed");
+                                        this.getUserDetails();
                                         this.setState({edit:false});
                                     }
                                     else{
@@ -271,7 +296,7 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            
+            changeUserData,
         }
     ,dispatch);
 }

@@ -64,6 +64,7 @@ class ProfileItem extends Component {
             if(res.status === 201){
                 this.props.logout();
                 this.handleRequestClose();
+                this.props.history.push('/');
             }
           });
       }

@@ -20,10 +20,33 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
         else {
+
+            var hotelFrontEnd = [];
+            hotelDocuments.map(hotel=>{
+                var ob = {};
+                ob = {_id:hotel._id,
+                    hotel_name:hotel.hotel.hotel_name,
+                    stars:hotel.hotel.stars,
+                    street:hotel.hotel.address.street,
+                    state:hotel.hotel.address.state,
+                    city:hotel.hotel.address.city,
+                    zip_code:hotel.hotel.address.zip_code,
+                    room_type_value1:hotel.hotel.rooms[0].room_type,
+                    room_price_value1:hotel.hotel.rooms[0].room_price,
+                    room_type_value2:hotel.hotel.rooms[1].room_type,
+                    room_price_value2:hotel.hotel.rooms[1].room_price,
+                    room_type_value3:hotel.hotel.rooms[2].room_type,
+                    room_price_value3:hotel.hotel.rooms[2].room_price
+                };
+                hotelFrontEnd.push(ob);
+            });
+
+
+            console.log("Temp"+JSON.stringify(hotelFrontEnd));
             message = " Hotel Listing\n" + hotelDocuments;
-            console.log(message);
+            //console.log(message);
             res.code = "201";
-            res.data = hotelDocuments;
+            res.data = hotelFrontEnd;
             callback(null, res);
         }
     });
