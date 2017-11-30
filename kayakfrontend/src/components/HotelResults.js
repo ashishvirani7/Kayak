@@ -81,7 +81,7 @@ class HotelResults extends Component
                             <TextField style={istyle}
                                 id="destination"
                                 hintText="Where"
-                                value={this.props.userData.hotelSearch.city}
+                                defaultValue={this.props.userData.hotelSearch.city}
                                 required="required"
                             />
                         </div>
