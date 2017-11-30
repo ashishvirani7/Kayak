@@ -22,24 +22,42 @@ function handle_request(msg, callback) {
             else
             {
 
+                var len = bookings.length;
+                var bk = [];
+                j=0;
                 bookings.forEach(eachBooking =>{
-                    //console.log("eachbooking", eachBooking)
                     if(eachBooking.bill_date < new Date()){
-                        eachBooking.time = "past";
-                        console.log("cool", eachBooking.time);
+                        var eb = JSON.stringify(eachBooking);
+                        var obj = {time : "past"};
+                        var retriveObj = eb;
+                        var newData = JSON.parse(retriveObj);
+                        Object.assign(newData, obj)
+                        eb.time = "past";
+                        console.log("cool", newData);
+                        bk.push(newData);
                     }
                     else
                     {
+                        var eb = JSON.stringify(eachBooking);
+                        var obj = {time : "future"};
+                        var retriveObj = eb;
+                        var newData = JSON.parse(retriveObj);
+                        Object.assign(newData, obj)
+                        eb.time = "past";
+                        console.log("uncool", newData);
+                        bk.push(newData);
                         console.log("uncool");
                     }
-
+                    j++;
+                    if(j == len){
+                        message=bk;
+                        res.code = "201"
+                        res.data = message;
+                        callback(null, res);
+                    }
                 })
 
-                message=bookings;
-                res.code = "201"
-                res.data = message;
-                //console.log("hotels:",bookings)
-                callback(null, res);
+
 
             }
 
