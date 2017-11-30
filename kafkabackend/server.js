@@ -743,22 +743,43 @@ producer.on('ready', function () {
         console.log('message received');
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
-        cars.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
+        if(data.data.key == "search"){
+            cars.handle_request(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
             });
-            return;
-        });
+        }
+        else if(data.data.key == "book"){
+            cars.handle_booking(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+
     });
 
     console.log('delete user server is running');

@@ -32,4 +32,41 @@ kafka.make_request(topic_name, {city, pickuptime, dropofftime, order, filter_pro
 })
 })
 
+router.post('/book', (req, res, next)=>{
+    // var flightId = req.body.flightId;
+    var userId = req.body.userId;
+    // var amount = req.body.amount;
+    // var departure_date = req.body.departure_date;
+    // var arrival_date = req.body.arrival_date;
+    // var no_of_traveler = req.body.no_of_traveler;
+    var key = "book";
+
+    /*flights:[{
+        flight_id:flightId,
+        flight_start_date:departure_date,
+        flight_end_date:arrival_date,
+        no_of_travelers:no_of_traveler,
+        amount:amount,
+    }]*/
+
+    var cars = req.body.cars;
+
+    kafka.make_request(topic_name, {key, userId, cars}, function(err, results){
+        if(err){
+            done(err,{});
+        }
+        else
+        {
+            if(results.code == 201){
+                console.log("Cars booked")
+                return res.status(201).send(results);
+            }
+            else if(results.code == 202){
+                console.log("Booking error")
+                return res.status(202).send(results);
+            }
+        }
+    })
+})
+
 module.exports = router;
