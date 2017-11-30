@@ -7,7 +7,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import * as API from '../api/API';
-import { getUserDetails } from '../api/API';
 import {changeUserData} from '../actions/userDataAction.js';
 
 const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;

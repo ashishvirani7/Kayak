@@ -8,6 +8,14 @@ import MenuItem from 'material-ui/MenuItem';
 import * as API from '../api/API';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import {withRouter} from 'react-router-dom';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeFlightListing} from '../actions/flightListingAction';
+import {changeFlightSearch} from '../actions/flightSearchAction';
+
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/explore_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
@@ -19,6 +27,43 @@ class FlightResults extends Component
         valueTraveler: 1,
         sort:0,
         type:'arrival'
+    }
+
+    componentDidMount(){
+        this.getFlights();
+    }
+
+    getFlights = () =>{
+        var filter_prop = {
+            stops: [],
+            flight_name: []
+        }
+        var order = this.state.type+(this.state.sort?'_desc':'_asc');
+        var data ={
+            origin:     document.getElementById('source').value,
+            destination:document.getElementById('destination').value,
+            arrival_date:     document.getElementById('toDate').value,
+            departure_date:   document.getElementById('fromDate').value,
+            class:      this.state.valueClass,
+            no_of_traveler:this.state.valueTraveler,
+            order,
+            filter_prop
+        }
+        if(data.origin && data.destination && data.arrival_date && data.departure_date){
+            console.log(data);
+            API.doFlightSearch(data)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        this.props.changeFlightListing(items.data);
+                    });
+                }
+            });
+        }
+        else{
+            NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+        }
     }
 
     handleChangeClass = (event, index, valueClass) => this.setState({...this.state,valueClass});
@@ -34,6 +79,7 @@ class FlightResults extends Component
                             <TextField style={istyle}
                                 id="source"
                                 hintText="From Where?"
+                                defaultValue={this.props.userData.flightSearch.origin}
                             />
                         </div>
                     </div>
@@ -42,6 +88,7 @@ class FlightResults extends Component
                             <TextField style={istyle}
                                 id="destination"
                                 hintText="To Where?"
+                                defaultValue={this.props.userData.flightSearch.destination}
                             />
                         </div>
                     </div>
@@ -49,18 +96,18 @@ class FlightResults extends Component
                         <div className="row">
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
+                                    <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date)} style={istyle} hintText="From" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                                    <DatePicker id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date)} style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <SelectField
-                                        value={this.state.valueClass}
+                                        value={this.props.userData.flightSearch.class}
                                         onChange={this.handleChangeClass}
                                         style={istyle}
                                         >
@@ -73,20 +120,20 @@ class FlightResults extends Component
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <SelectField
-                                        value={this.state.valueTraveler}
+                                        value={this.props.userData.flightSearch.no_of_traveler}
                                         onChange={this.handleChangeTraveler}
                                         style={istyle}
                                         >
                                         <MenuItem value={1} primaryText="1 traveler" />
                                         <MenuItem value={2} primaryText="2 travelers" />
                                         <MenuItem value={3} primaryText="3 travelers" />
-                                        <MenuItem value={2} primaryText="4 travelers" />
-                                        <MenuItem value={3} primaryText="5 travelers" />
-                                        <MenuItem value={2} primaryText="6 travelers" />
-                                        <MenuItem value={3} primaryText="7 travelers" />
-                                        <MenuItem value={2} primaryText="8 travelers" />
-                                        <MenuItem value={3} primaryText="9 travelers" />
-                                        <MenuItem value={2} primaryText="10 travelers" />
+                                        <MenuItem value={4} primaryText="4 travelers" />
+                                        <MenuItem value={5} primaryText="5 travelers" />
+                                        <MenuItem value={6} primaryText="6 travelers" />
+                                        <MenuItem value={7} primaryText="7 travelers" />
+                                        <MenuItem value={8} primaryText="8 travelers" />
+                                        <MenuItem value={9} primaryText="9 travelers" />
+                                        <MenuItem value={10} primaryText="10 travelers" />
                                     </SelectField>
                                 </div>
                             </div>
@@ -98,27 +145,7 @@ class FlightResults extends Component
                                 id="destbtn"
                                 hintText="Where"
                                 onClick={()=>{
-                                    var data ={
-                                        origin:     document.getElementById('source').value,
-                                        destination:document.getElementById('destination').value,
-                                        arrival_date:     document.getElementById('toDate').value,
-                                        departure_date:   document.getElementById('fromDate').value,
-                                        class:      this.state.valueClass,
-                                        no_of_traveler:this.state.valueTraveler,
-                                    }
-                                    if(data.origin && data.destination && data.arrival_date && data.departure_date){
-                                        console.log(data);
-                                        API.doFlightSearch(data)
-                                        .then((res)=>{
-                                            if(res.status===201){
-
-                                            }
-                                        });
-                                    }
-                                    else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
-                                    }
-                                    
+                                    this.getFlights();      
                                 }}
                             >
                             <IconArrow color="white"/> 
@@ -130,9 +157,10 @@ class FlightResults extends Component
                     <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12" style={{margin:'10px',backgroundColor:'white'}}>
-                                <div class="row" style={starttitle} onClick={()=>{
+                                <div className="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                        this.getFlights();
                                     }}>
                                     <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" >
@@ -145,9 +173,10 @@ class FlightResults extends Component
                         </div>
                         <div className="row">
                             <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
-                                <div class="row" style={starttitle} onClick={()=>{
+                                <div className="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'arrival'});
+                                        this.getFlights();
                                     }}>
                                     <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='arrival')?'#80abec':'black'}}>ARRIVAL</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white">
@@ -160,9 +189,10 @@ class FlightResults extends Component
                         </div>
                         <div className="row">
                             <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
-                                <div class="row" style={starttitle} onClick={()=>{
+                                <div className="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'departure'});
+                                        this.getFlights();
                                     }}>
                                     <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='departure')?'#80abec':'black'}}>DEPARTURE</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white">
@@ -175,24 +205,24 @@ class FlightResults extends Component
                         </div>
                     </div>
                     <div className="col-md-7">
-                        <div class="row">
+                        <div className="row">
                             <div className="col-md-12" style={{margin:'10px',marginLeft:'20px',height:'100px',backgroundColor:'white'}}>
                                 
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div class="row">
+                        <div className="row">
                             <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
                                 <img src={img1} style={{width:'286px',cursor:'pointer'}}/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div className="row">
                             <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
                                 <img src={img2} style={{width:'286px',cursor:'pointer'}}/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div className="row">
                             <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
                                 <img src={img3} style={{width:'286px',cursor:'pointer'}}/>
                             </div>
@@ -249,4 +279,19 @@ const divstyle={
     marginRight:'-2px',
 }
 
-export default FlightResults;
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeFlightListing,
+            changeFlightSearch,
+        }
+    ,dispatch);
+}
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(FlightResults));

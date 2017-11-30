@@ -76,7 +76,7 @@ fetch(`${api}/updateUserInfo`, {
 });
 
 export const updateUserBilling = (payload) =>
-fetch(`${api}/updateUserBilling`, {
+fetch(`${api}/updateCardDetails`, {
     method: 'POST',
     headers: {
         ...headers,
@@ -283,6 +283,57 @@ fetch(`${api}/getAllCar`, {
         return error;
 });
 
+export const deleteHotelAdmin = (payload) =>
+fetch(`${api}/deleteHotelAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const deleteFlightAdmin = (payload) =>
+fetch(`${api}/deleteFlightAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const deleteCarAdmin = (payload) =>
+fetch(`${api}/deleteCarAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
@@ -353,6 +404,23 @@ fetch(`${api}/cars`, {
 
 export const getUserDetails = (payload) =>
 fetch(`${api}/getUserDetails`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const getBillingDetails = (payload) =>
+fetch(`${api}/getCardDetails`, {
     method: 'POST',
     headers: {
         ...headers,

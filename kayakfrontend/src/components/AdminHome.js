@@ -30,43 +30,6 @@ import * as API from '../api/API';
 
 class AdminHome extends Component{
 
-
-    handleLogin = (adminLoginData) => {
-        API.doLogin(adminLoginData)
-        .then((res) => {
-            if (res.status === 201) {
-                console.log("Success");
-                res.json().then(user => {
-                    //this.props.loginSuccess(user);
-                    //NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                    this.props.history.push("/adminHotels");
-                });
-        
-            } else if (res.status === 401) {
-                // console.log("Fail");
-                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-                // this.props.history.push("/");
-            } 
-        });
-      }
-
-
-    
-    showAll(){
-        
-        this.props.adminSetActivePage("all");
-        {this.props.adminCurrentItem=="Hotels" && this.props.history.push("/adminshowHotels")};
-        {this.props.adminCurrentItem=="Flights" && this.props.history.push("/adminShowFlights")};
-        {this.props.adminCurrentItem=="Cars" && this.props.history.push("/adminShowCars")};
-        
-
-    }
-    addItem(){
-        this.props.adminSetActivePage("add");
-        {this.props.adminCurrentItem=="Hotels" && this.props.history.push("/adminHotels")}
-        {this.props.adminCurrentItem=="Flights" && this.props.history.push("/adminFlights")}
-        {this.props.adminCurrentItem=="Cars" && this.props.history.push("/adminCars")}
-    }
     render(){
         return(
             <div>
