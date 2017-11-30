@@ -12,53 +12,21 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    var flightListingObject = {
-        _id : msg._id,
-        flight_name : msg.flight_name,
-        flight_operator_name : msg.flight_operator_name,
-        departure_date : msg.departure_date,
-        arrival_date : msg.arrival_date,
-        origin : msg.origin,
-        destination : msg.destination,
-        classes :[
-            {
-                class_type : "Business",
-                class_price : msg.business_class_price
-
-            },
-            {
-                class_type : "Economy",
-                class_price : msg.economy_class_price
-            },
-            {
-                class_type : "First Class",
-                class_price : msg.first_class_price
-            }
-        ]
-    };
-
-
-    var listingObj = {
-        listing_type: "Flight",
-        flight : flightListingObject
-    };
-
-
-    var flightInstance = new flightListings(listingObj);
-    flightInstance.findByIdAndUpdate(msg._id, {$set: flightInstance}, function (err, flightDocument, numAffected) {
+    flightListings.find({"listing_type" : "Flight"} , {flight : 1} , function(err, flightDocuments) {
         if (err) {
-            console.log("Some Error Happened while updating Flight Data");
+            console.log("Some Error Happened while getting Flight Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows inserted in Flight Listing\n" + flightDocument;
+            message = " Flight Listing\n" + flightDocuments;
             console.log(message);
             res.code = "201";
-            res.data = flightDocument;
+            res.data = flightDocuments;
             callback(null, res);
         }
     });
+
 }
 exports.handle_request = handle_request;

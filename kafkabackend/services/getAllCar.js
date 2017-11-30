@@ -12,35 +12,21 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    var carListingObject = {
-        _id : msg._id,
-        car_name : msg.car_name,
-        car_type : msg.car_type,
-        model_name : msg.model_name,
-        car_rental_price : msg.car_rental_price
-    };
-
-
-    var listingObj = {
-        listing_type: "Car",
-        car:carListingObject
-    };
-
-    var carInstance = new carListings(listingObj);
-    carInstance.findByIdAndUpdate(msg._id, {$set: carInstance}, function (err, carDocument, numAffected) {
+    flightListings.find({"listing_type" : "Car"} , {car : 1} , function(err, carDocuments) {
         if (err) {
-            console.log("Some Error Happened while updating Car Data");
+            console.log("Some Error Happened while getting Car Data");
             res.code = "500";
             res.data = err;
             callback(null, res);
         }
         else {
-            message = numAffected + " rows update in Car Listing\n" + carDocument;
+            message = " Car Listing\n" + carDocuments;
             console.log(message);
             res.code = "201";
-            res.data = carDocument;
+            res.data = carDocuments;
             callback(null, res);
         }
     });
+
 }
 exports.handle_request = handle_request;
