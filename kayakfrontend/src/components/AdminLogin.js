@@ -6,9 +6,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
+import {adminLoginSuccess} from '../actions/adminLoginAction';
 
 import {withRouter} from 'react-router-dom';
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import * as API from '../api/API';
 
 class AdminLogin extends Component{
@@ -26,9 +27,10 @@ class AdminLogin extends Component{
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
-                res.json().then(user => {
+                res.json().then(admin => {
                     //this.props.loginSuccess(user);
-                    //NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                    NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                    this.props.adminLoginSuccess(admin);
                     this.props.history.push("/adminHome");
                 });
         
@@ -105,7 +107,9 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            changeValueAdmin
+            changeValueAdmin,
+            adminLoginSuccess,
+
         }
         ,dispatch);
   }

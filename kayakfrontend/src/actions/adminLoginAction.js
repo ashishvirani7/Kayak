@@ -8,11 +8,11 @@ export const changeValueAdmin=(event) => {
 }
 
 
-export const loginSuccess=(user) => {
+export const adminLoginSuccess=(adminData) => {
     return(
     {
-        type:"LOGIN_SUCCESS",
-        data: user
+        type:"LOGIN_SUCCESS_ADMIN",
+        data: adminData
     }
     );
 }

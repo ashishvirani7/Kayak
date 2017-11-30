@@ -7,6 +7,7 @@ router.post('/', (req,res,next)=>{
     var message="";
     var hotelObject = {
         hotel_name : req.body.hotel_name,
+        stars: req.body.stars,
         street : req.body.street,
         room_price_value1 : req.body.room_price_value1,
         room_price_value2 : req.body.room_price_value2,
@@ -14,7 +15,7 @@ router.post('/', (req,res,next)=>{
         room_type_value1 : req.body.room_type_value1,
         room_type_value2 : req.body.room_type_value2,
         room_type_value3 : req.body.room_type_value3,
-        state_value : req.body.state_value,
+        state : req.body.state,
         zip_code : req.body.zip_code,
         city : req.body.city
     };

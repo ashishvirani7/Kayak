@@ -6,15 +6,27 @@ var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 
 var kafka = require('./kafka/client');
 
-var topic_name = "signup_topic";
+var topic_name = "signup_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
-    var email=req.body.email;
-    var password=req.body.password;
+    var adminObj = {
 
+        email : req.body.email,
+        password : req.body.password,
+        first_name : req.body.first_name,
+        last_name : req.body.last_name,
+        street : req.body.street,
+        city : req.body.city,
+        state : req.body.state,
+        zip_code : req.body.zip_code,
+        country : req.body.country,
+        phone : req.body.phone,
+        email : req.body.email,
+        password : req.body.password
+    };
 
-    kafka.make_request(topic_name, {email, password}, function(err,results){
+    kafka.make_request(topic_name, adminObj, function(err,results){
         console.log('in result');
         console.log(results);
         if(err){
@@ -33,8 +45,8 @@ router.post('/', (req,res,next)=>{
         }
     });
 });
-    
-    
+
+
 // // Without Connection Pooling
 // try {
 //     mongo.connect(mongoURL, function(db){
@@ -51,7 +63,7 @@ router.post('/', (req,res,next)=>{
 //         } 
 //         else {
 //             autoIncrement.getNextSequence(db, loginCollectionName, function (err, autoIndex) {
-                
+
 //                 loginCollection.insert({
 //                     userid: autoIndex+'',
 //                     username:username,
@@ -88,39 +100,39 @@ router.post('/', (req,res,next)=>{
 
 
 // try {
-    //         mongo.getConnection((connectionNumber,db)=>{
-    //         const loginCollectionName = 'login'; 
-    //         const loginCollection = db.collection(loginCollectionName);
-    //         const personalCollectionName = 'user'; 
-    //         const personalCollection = db.collection(personalCollectionName);
+//         mongo.getConnection((connectionNumber,db)=>{
+//         const loginCollectionName = 'login';
+//         const loginCollection = db.collection(loginCollectionName);
+//         const personalCollectionName = 'user';
+//         const personalCollection = db.collection(personalCollectionName);
 
-    //         loginCollection.findOne({"username":username}, function(err, user){
-    //             if (user) {
-    //                 console.log("User is: "+user);
-    //                 return res.status(202).send({"message":"User exists"});
-    //             } 
-    //             else {
-    //                 autoIncrement.getNextSequence(db, loginCollectionName, function (err, autoIndex) {
-    //                     loginCollection.insert({
-    //                         _id: autoIndex,
-    //                         username:username,
-    //                         password:password,
-    //                     });
-    //                     personalCollection.insert({
-    //                         _id: autoIndex,
-    //                         firstname,
-    //                         lastname,
-    //                     });
-                    
-    //                 });
-    //                 return res.status(201).send({"message":"Signup Successful"});
-    //             }
-    //         });
-    //     });
-    //
-    // }
-    // catch (e){
-    //     console.log("error in insertion");
-    // }
+//         loginCollection.findOne({"username":username}, function(err, user){
+//             if (user) {
+//                 console.log("User is: "+user);
+//                 return res.status(202).send({"message":"User exists"});
+//             }
+//             else {
+//                 autoIncrement.getNextSequence(db, loginCollectionName, function (err, autoIndex) {
+//                     loginCollection.insert({
+//                         _id: autoIndex,
+//                         username:username,
+//                         password:password,
+//                     });
+//                     personalCollection.insert({
+//                         _id: autoIndex,
+//                         firstname,
+//                         lastname,
+//                     });
+
+//                 });
+//                 return res.status(201).send({"message":"Signup Successful"});
+//             }
+//         });
+//     });
+//
+// }
+// catch (e){
+//     console.log("error in insertion");
+// }
 
 module.exports = router;

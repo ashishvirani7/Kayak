@@ -370,7 +370,7 @@ class AdminUpdateHotel extends Component{
         return(
             <div>
                 
-                <h1>Update Hotel</h1>
+                <h1><u>Update Hotel</u></h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -546,7 +546,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }
