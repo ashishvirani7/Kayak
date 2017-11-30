@@ -29,7 +29,6 @@ const allReducers = combineReducers({
     adminFlights,
     adminHotels,
     adminUpdateCurrentData,
-    
  });
  
  export default allReducers;

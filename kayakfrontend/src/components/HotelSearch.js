@@ -1,12 +1,19 @@
 import React,{Component} from 'react';
 import TextField from 'material-ui/TextField';
+import {withRouter} from 'react-router-dom';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeHotelListing} from '../actions/hotelListingAction';
+import {changeHotelSearch} from '../actions/hotelSearchAction';
 import * as API from '../api/API';
+
 class HotelSearch extends Component{
 
     state = {
@@ -14,8 +21,8 @@ class HotelSearch extends Component{
         valueGuest:1,
     }
 
-    handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom});
-    handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest});
+    handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom:valueRoom});
+    handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest:valueGuest});
 
     render() {
         return(
@@ -66,13 +73,13 @@ class HotelSearch extends Component{
                                 <MenuItem value={1} primaryText="1 guest" />
                                 <MenuItem value={2} primaryText="2 guests" />
                                 <MenuItem value={3} primaryText="3 guests" />
-                                <MenuItem value={2} primaryText="4 guests" />
-                                <MenuItem value={3} primaryText="5 guests" />
-                                <MenuItem value={2} primaryText="6 guests" />
-                                <MenuItem value={3} primaryText="7 guests" />
-                                <MenuItem value={2} primaryText="8 guests" />
-                                <MenuItem value={3} primaryText="9 guests" />
-                                <MenuItem value={2} primaryText="10 guests" />
+                                <MenuItem value={4} primaryText="4 guests" />
+                                <MenuItem value={5} primaryText="5 guests" />
+                                <MenuItem value={6} primaryText="6 guests" />
+                                <MenuItem value={7} primaryText="7 guests" />
+                                <MenuItem value={8} primaryText="8 guests" />
+                                <MenuItem value={9} primaryText="9 guests" />
+                                <MenuItem value={10} primaryText="10 guests" />
                             </SelectField>
                         </div>
                     </div>
@@ -83,26 +90,34 @@ class HotelSearch extends Component{
                                 hintText="Where"
                                 type="submit"
                                 onClick={()=>{
+                                    var filter_props = {
+                                        ratings: this.state.valueStar,
+                                    }
                                     var data ={
                                         city:document.getElementById('destination').value,
                                         checkIn:     document.getElementById('toDate').value,
                                         checkOut:   document.getElementById('fromDate').value,
                                         noOfRoom:   this.state.valueRoom,
                                         noOfGuest:  this.state.valueGuest,
+                                        filter_props,
+                                        order:'price_asc'
                                     }
                                     if(data.city && data.checkIn && data.checkOut){
                                         console.log(data);
+                                        this.props.changeHotelSearch(data);
                                         API.doHotelSearch(data)
                                         .then((res)=>{
                                             if(res.status===201){
-
+                                                res.json().then(items=>{
+                                                    this.props.changeHotelListing(items.data);
+                                                    this.props.history.push("/hotelResults");
+                                                });
                                             }
                                         });
                                     }
                                     else{
                                         NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
                                     }
-                                    
                                 }}
                             >
                             <IconArrow color="white"/> 
@@ -148,4 +163,21 @@ const divstyle={
     marginLeft:'-20px',
     marginRight:'-2px',
 }
-export default HotelSearch;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeHotelListing,
+            changeHotelSearch,
+        }
+        ,dispatch);
+  }
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(HotelSearch));
+//export default HotelSearch;

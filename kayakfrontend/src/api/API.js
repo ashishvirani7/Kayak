@@ -300,8 +300,8 @@ fetch(`${api}/showCars`, {
 });
 
 export const doHotelSearch = () =>
-fetch(`${api}/doHotelSearch`, {
-    method: 'GET',
+fetch(`${api}/hotels`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
@@ -316,8 +316,8 @@ fetch(`${api}/doHotelSearch`, {
 });
 
 export const doFlightSearch = () =>
-fetch(`${api}/doFlightSearch`, {
-    method: 'GET',
+fetch(`${api}/flights`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
@@ -332,8 +332,8 @@ fetch(`${api}/doFlightSearch`, {
 });
 
 export const doCarSearch = () =>
-fetch(`${api}/doCarSearch`, {
-    method: 'GET',
+fetch(`${api}/cars`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'

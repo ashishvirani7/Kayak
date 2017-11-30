@@ -10,12 +10,20 @@ import MenuItem from 'material-ui/MenuItem';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import {withRouter} from 'react-router-dom';
 
 import * as API from '../api/API';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/price-alert_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeHotelListing} from '../actions/hotelListingAction';
+import {changeHotelSearch} from '../actions/hotelSearchAction';
+
 class HotelResults extends Component
 {
     state = {
@@ -25,8 +33,44 @@ class HotelResults extends Component
         sort:0
     }
 
-    handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom});
-    handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest});
+    componentDidMount(){
+        this.getHotels();
+    }
+
+    getHotels = () =>{
+        console.log("hello");
+        var filter_props = {
+            ratings: this.state.valueStar,
+        }
+        var data ={
+            city:       document.getElementById('destination').value,
+            checkIn:    document.getElementById('toDate').value,
+            checkOut:   document.getElementById('fromDate').value,
+            noOfRoom:   this.props.userData.hotelSearch.noOfRoom,
+            noOfGuest:  this.props.userData.hotelSearch.noOfGuest,
+            filter_props,
+            order:      this.state.sort?'price_desc':'price_asc',
+        }
+        console.log(data);
+        if(data.city && data.checkIn && data.checkOut){
+            //console.log(data);
+            this.props.changeHotelSearch(data);
+            API.doHotelSearch(data)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        this.props.changeHotelListing(items.data);
+                    });
+                }
+            });
+        }
+        else{
+            //NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+        }
+    }
+
+    handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom:valueRoom});
+    handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest:valueGuest});
 
     render(){
         return(
@@ -37,24 +81,25 @@ class HotelResults extends Component
                             <TextField style={istyle}
                                 id="destination"
                                 hintText="Where"
+                                value={this.props.userData.hotelSearch.city}
                                 required="required"
                             />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk />
+                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.hotelSearch.checkIn)} style={istyle} hintText="From" container="inline" autoOk />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.hotelSearch.checkOut)} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
                             <SelectField
-                                value={this.state.valueRoom}
+                                value={this.props.userData.hotelSearch.noOfRoom}
                                 onChange={this.handleChangeRoom}
                                 style={istyle}
                                 >
@@ -70,20 +115,20 @@ class HotelResults extends Component
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
                             <SelectField
-                                value={this.state.valueGuest}
+                                value={this.props.userData.hotelSearch.noOfGuest}
                                 onChange={this.handleChangeGuest}
                                 style={istyle}
                                 >
                                 <MenuItem value={1} primaryText="1 guest" />
                                 <MenuItem value={2} primaryText="2 guests" />
                                 <MenuItem value={3} primaryText="3 guests" />
-                                <MenuItem value={2} primaryText="4 guests" />
-                                <MenuItem value={3} primaryText="5 guests" />
-                                <MenuItem value={2} primaryText="6 guests" />
-                                <MenuItem value={3} primaryText="7 guests" />
-                                <MenuItem value={2} primaryText="8 guests" />
-                                <MenuItem value={3} primaryText="9 guests" />
-                                <MenuItem value={2} primaryText="10 guests" />
+                                <MenuItem value={4} primaryText="4 guests" />
+                                <MenuItem value={5} primaryText="5 guests" />
+                                <MenuItem value={6} primaryText="6 guests" />
+                                <MenuItem value={7} primaryText="7 guests" />
+                                <MenuItem value={8} primaryText="8 guests" />
+                                <MenuItem value={9} primaryText="9 guests" />
+                                <MenuItem value={10} primaryText="10 guests" />
                             </SelectField>
                         </div>
                     </div>
@@ -94,26 +139,7 @@ class HotelResults extends Component
                                 hintText="Where"
                                 type="submit"
                                 onClick={()=>{
-                                    var data ={
-                                        city:document.getElementById('destination').value,
-                                        checkIn:     document.getElementById('toDate').value,
-                                        checkOut:   document.getElementById('fromDate').value,
-                                        noOfRoom:   this.state.valueRoom,
-                                        noOfGuest:  this.state.valueGuest,
-                                    }
-                                    if(data.city && data.checkIn && data.checkOut){
-                                        console.log(data);
-                                        API.doHotelSearch(data)
-                                        .then((res)=>{
-                                            if(res.status===201){
-
-                                            }
-                                        });
-                                    }
-                                    else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
-                                    }
-                                    
+                                    this.getHotels();
                                 }}
                             >
                             <IconArrow color="white" /> 
@@ -128,11 +154,13 @@ class HotelResults extends Component
                                 <div class="row" style={starttitle} onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                        this.getHotels();
                                     }}>
                                     <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                        this.getHotels();
                                     }}>
                                     {(this.state.type==='price') &&
                                     <IconSort width="24" height="24" color="#80abec" sort={this.state.sort}/>
@@ -148,6 +176,7 @@ class HotelResults extends Component
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
                                         this.setState({...this.state,valueStar:0});
+                                        this.getHotels();
                                     }}>RESET</span>
                                 </div>
                                 <div class="row" >
@@ -160,28 +189,28 @@ class HotelResults extends Component
                                     <div className="col-md-3">4</div>
                                 </div>
                                 <div className="row" style={{marginLeft:'-30px'}}>
-                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{this.setState({...this.state,valueStar:0});}}>
+                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{this.setState({...this.state,valueStar:0});this.getHotels();}}>
                                     <IconButton tooltip="Any Stars 0+">
                                     {(this.state.valueStar<=0)
                                     ?<IconStar width="45" height='45' />
                                     :<IconStarOut width="45" height='45' >1</IconStarOut>}
                                     </IconButton>
                                     </div>
-                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:2});}}>
+                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:2});this.getHotels();}}>
                                     <IconButton tooltip="2 and up">
                                     {(this.state.valueStar<=2)
                                     ?<IconStar width="45" height='45' />
                                     :<IconStarOut width="45" height='45' >1</IconStarOut>}
                                     </IconButton>
                                     </div>
-                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:3});}}>
+                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:3});this.getHotels();}}>
                                     <IconButton tooltip="3 and up">
                                     {(this.state.valueStar<=3)
                                     ?<IconStar width="45" height='45' />
                                     :<IconStarOut width="45" height='45' >1</IconStarOut>}
                                     </IconButton>
                                     </div>
-                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:5});}}>
+                                    <div className="col-md-3" style={{marginLeft:'-3px',marginRight:'-3px'}} onClick={()=>{console.log('click');this.setState({...this.state,valueStar:5});this.getHotels();}}>
                                     <IconButton tooltip="4 and up">
                                     {(this.state.valueStar<=5)
                                     ?<IconStar width="45" height='45' />
@@ -265,4 +294,20 @@ const divstyle={
     marginLeft:'-20px',
     marginRight:'-2px',
 }
-export default HotelResults;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeHotelListing,
+            changeHotelSearch
+        }
+    ,dispatch);
+}
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(HotelResults));

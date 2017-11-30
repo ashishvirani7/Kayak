@@ -5,6 +5,12 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import * as API from '../api/API';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeFlightListing} from '../actions/flightListingAction';
+
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class FlightSearch extends Component{
@@ -153,4 +159,19 @@ const divstyle={
     marginLeft:'-20px',
     marginRight:'-2px'
 }
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeFlightListing,
+        }
+    ,dispatch);
+}
+
 export default FlightSearch;
