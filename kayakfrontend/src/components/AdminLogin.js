@@ -45,7 +45,7 @@ class AdminLogin extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue", marginLeft:"600px"}}>Admin </h1>
+                <h1 style={{color:"skyblue", marginLeft:"650px"}}>Kayak Admin </h1>
                 <div className="loginMain" style={loginMainStyle}>    
                     <input id="cPwX-username" type="text" name="email"  placeholder="Email Address" style={emailStyle}
                         onChange={(event)=>
