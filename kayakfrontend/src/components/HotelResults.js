@@ -13,6 +13,9 @@ import IconButton from 'material-ui/IconButton';
 
 import * as API from '../api/API';
 
+import img1 from '../images/price-alert_ad_white.png';
+import img2 from '../images/price-alert_ad_v1.jpg';
+import img3 from '../images/explore_ad_white.png';
 class HotelResults extends Component
 {
     state = {
@@ -118,10 +121,28 @@ class HotelResults extends Component
                         </div>
                     </div>
                 </div>
-                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px'}}>
+                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px',paddingBottom:'50px'}}>
                     <div className="col-md-2">
                         <div className="row">
-                            <div className="col-md-12" style={{margin:'10px',backgroundColor:'white'}}>
+                            <div className="col-md-12" style={{margin:'10px',marginTop:'10px',backgroundColor:'white'}}>
+                                <div class="row" style={starttitle} onClick={()=>{
+                                        //console.log('click');
+                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                    }}>
+                                    <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
+                                    <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
+                                        //console.log('click');
+                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
+                                    }}>
+                                    {(this.state.type==='price') &&
+                                    <IconSort width="24" height="24" color="#80abec" sort={this.state.sort}/>
+                                    }
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
                                 <div class="row" style={starttitle} >
                                     <span style={{float:'left'}}>Stars</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
@@ -170,24 +191,6 @@ class HotelResults extends Component
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
-                                <div class="row" style={starttitle} onClick={()=>{
-                                        //console.log('click');
-                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
-                                    }}>
-                                    <span style={{float:'left',marginTop:'10px',fontWeight:'600',fontSize:'12px',color:(this.state.type==='price')?'#80abec':'black'}}>PRICE</span>
-                                    <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
-                                        //console.log('click');
-                                        this.setState({...this.state,sort:!this.state.sort,type:'price'});
-                                    }}>
-                                    {(this.state.type==='price') &&
-                                    <IconSort width="24" height="24" color="#80abec" sort={this.state.sort}/>
-                                    }
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div className="col-md-7">
                         <div class="row">
@@ -197,7 +200,21 @@ class HotelResults extends Component
                         </div>
                     </div>
                     <div className="col-md-3">
-
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img1} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img2} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img3} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ var kafka = require('./kafka/client');
 var topic_name = "update_flight_admin_topic";
 
 router.post('/', (req,res,next)=>{
-
+    var message="";
     var flightObject = {
         _id : req.body._id,
         flight_name : req.body.flight_name,
@@ -28,13 +28,15 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Flight Updated Successfully");
+                message="Flight Updated Successfully";
+                console.log(message);
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":message});
             }
             else {
-                console.log("Flight updation Failed");
-                res.status(202).send({"message":results});
+                message="Flight updation Failed";
+                console.log(message);
+                res.status(202).send({"message":message});
             }
         }
     });

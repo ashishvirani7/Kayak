@@ -9,18 +9,22 @@ import Checkbox from 'material-ui/Checkbox';
 import * as API from '../api/API';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import img1 from '../images/price-alert_ad_white.png';
+import img3 from '../images/explore_ad_white.png';
+import img2 from '../images/kayak-app_ad_v1.jpg';
+
 class CarResults extends Component
 {
     state = {
         sort:0,
-        small:false,
-        Medium:false,
-        Large:false,
-        SUV:false,
-        Luxury:false,
-        PickupTruck:false,
-        Van:false,
-        Commercial:false,
+        Small:true,
+        Medium:true,
+        Large:true,
+        SUV:true,
+        Luxury:true,
+        PickupTruck:true,
+        Van:true,
+        Commercial:true,
     }
     render(){
         return(
@@ -75,7 +79,7 @@ class CarResults extends Component
                         </div>
                     </div>
                 </div>
-                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px'}}>
+                <div className="row" style={{backgroundColor:'#eaebee',minHeight:'100vh',width:'100%',margin:'0px',paddingBottom:'50px'}}>
                     <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12" style={{margin:'10px',backgroundColor:'white'}}>
@@ -98,7 +102,14 @@ class CarResults extends Component
                                     <span style={{float:'left'}}>Car Type</span>
                                     <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
                                         //console.log('click');
-                                        this.setState({...this.state,valueStar:0});
+                                        this.setState({...this.state,Small:true,
+                                            Medium:true,
+                                            Large:true,
+                                            SUV:true,
+                                            Luxury:true,
+                                            PickupTruck:true,
+                                            Van:true,
+                                            Commercial:true,});
                                     }}>RESET</span>
                                 </div>
                                 <div class="row" >
@@ -171,7 +182,21 @@ class CarResults extends Component
                         </div>
                     </div>
                     <div className="col-md-3">
-
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img1} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img2} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div className="col-md-12" style={{marginTop:'10px',marginLeft:'15px',marginRight:'20px'}}>    
+                                <img src={img3} style={{width:'286px',cursor:'pointer'}}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

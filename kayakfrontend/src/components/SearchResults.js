@@ -24,7 +24,7 @@ class SearchResults extends Component{
                         <Route exact path="/carResults" component={CarResults}/>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row" >
                     <HomeFooter />
                 </div>
             </div>

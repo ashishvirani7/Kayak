@@ -7,7 +7,8 @@ var mongoURL = "mongodb://54.183.101.173:27017/kayak";
 
 var kafka = require('./kafka/client');
 
-var topic_name = "login_topic";
+var login_topic_name = "login_topic";
+var login_admin_topic_name = "login_admin_topic";
 
 module.exports = function(passport) {
     passport.use('login', new LocalStrategy({
@@ -17,7 +18,7 @@ module.exports = function(passport) {
         function(email,password, done) {
             console.log("email",email,password);
 
-            kafka.make_request(topic_name,{email,password}, function(err,results){
+            kafka.make_request(login_topic_name, {email,password}, function(err,results){
                 console.log('in result');
                 console.log(results);
                 if(err){
@@ -36,6 +37,33 @@ module.exports = function(passport) {
 
 
         }));
+
+    passport.use('loginAdmin', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        function(email,password, done) {
+            console.log("email",email,password);
+
+            kafka.make_request(login_admin_topic_name, {email,password}, function(err,results){
+                console.log('in result');
+                console.log(results);
+                if(err){
+                    done(err,{});
+                }
+                else
+                {
+                    if(results.code == 201){
+                        done(null,results.data);
+                    }
+                    else {
+                        done(null,false);
+                    }
+                }
+            });
+
+        }));
+
 };
 
 /* Without Connection Pool */

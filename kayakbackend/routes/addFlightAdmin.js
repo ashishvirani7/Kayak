@@ -5,6 +5,7 @@ var topic_name = "add_flight_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
+    var message="";
     var flightObject = {
         flight_name : req.body.flight_name,
         flight_operator_name : req.body.flight_operator_name,
@@ -27,13 +28,15 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                console.log("Flight Added Successfully");
+                message="Flight Added Successfully";
+                console.log(message);
                 console.log("ID--"+results.data._id);
-                return res.status(201).send({"message":results});
+                return res.status(201).send({"message":message});
             }
             else {
-                console.log("Flight addition Failed");
-                res.status(202).send({"message":results});
+                message="Flight addition Failed";
+                console.log(message);
+                res.status(202).send({"message":message});
             }
         }
     });
