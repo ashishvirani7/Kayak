@@ -48,25 +48,10 @@ class ProfileItem extends Component {
         });
       };
 
-      onSignupClick = () => {
-          this.handleRequestClose();
-          this.props.signupModalOpen();
-      }
-
-      onSigninClick = () => {
-        this.handleRequestClose();
-        this.props.loginModalOpen();
-      }
     
       onSignoutClick = () => {
-          API.doSignOut()
-          .then((res)=>{
-            if(res.status === 201){
-                this.props.logout();
-                this.handleRequestClose();
-                this.props.history.push('/');
-            }
-          });
+          this.props.logout();
+          this.props.history.push("/adminLogin");
       }
     render() {
 
@@ -86,37 +71,7 @@ class ProfileItem extends Component {
                             </div>
                         </div>
                     </div>
-                    {!(this.props.userData.loggedIn)?
-                    <Popover
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                    onRequestClose={this.handleRequestClose}
-                    >
-                    <Menu style  ={{ width:"220px",padding: "5px 15px 0px 15px"}}>
-                        <button style={SignUpStyle} 
-                            onClick={()=> this.onSignupClick()}
-                        >Sign Up</button>
-                        
-                        <button style={SignInStyle}
-                            onClick={()=> this.onSigninClick()}
-                        >Sign In</button>
-                
-
-                        <div className="row" style={{marginTop:"20px", cursor:"pointer", lineHeight: "46px"}}>
-                            <ListItem style={{height:"60px"}}>
-                                <div className="col-md-2">
-                                    <IconTrips width="24" height="24" color="black" style={{verticalAlign:"middle"}}/>
-                                </div>
-                                <div className="col-md-8" style={{marginTop:"4px"}}>
-                                    Trips
-                                </div>
-                            </ListItem>
-                        </div>
-                    </Menu>
-                    </Popover>
-                    :
+                    
                     <Popover
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
@@ -128,7 +83,7 @@ class ProfileItem extends Component {
                 
                         <div className="row" style={{marginTop:"0px", cursor:"pointer", lineHeight: "76px"}}>
                             <ListItem style={{height:"76px"}}  onClick={()=>{
-                                this.props.history.push('/account');
+                                this.props.history.push('/adminAccount');
                             }}>
                                 <div className="col-md-2" style={{marginLeft:'-15px',marginTop:'7px'}}>
                                     <IconPreferences width="32" height="32" color="black" style={{verticalAlign:"middle",align:'center'}}/>
@@ -139,17 +94,17 @@ class ProfileItem extends Component {
                                     Account Preferences
                                     </div>
                                     <div className="row" style={{marginTop:'10px',color:'#8b8b8e',textOverflow:'ellipsis'}}>
-                                    {this.props.userData.data.email}
+                                    {this.props.adminUserData.data.email}
                                     </div>
                                 </div>
                             </ListItem>
                         </div>
                         <button style={SignOutStyle}
-                        onClick={()=> this.onSignoutClick()}
+                            onClick={()=> this.onSignoutClick()}
                         >Sign out</button>
                     </Menu>
                     </Popover>
-                    }
+                    
             </div>
         );
     }
@@ -235,7 +190,7 @@ const SignOutStyle = {
 
 function mapStateToProps(state){
     return{
-        userData:state.userData
+        adminUserData:state.adminUserData
     };
 }
 

@@ -23,18 +23,18 @@ class AdminLogin extends Component{
             password:cipherVal.toString(),
         }
 
-        API.doLogin(adminLoginDetails)
+        API.doAdminLogin(adminLoginData)
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(admin => {
-                    //this.props.loginSuccess(user);
+                    this.props.adminLoginSuccess(admin.loginData);
                     NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                    this.props.adminLoginSuccess(admin);
                     this.props.history.push("/adminHome");
                 });
         
             } else if (res.status === 401) {
+                NotificationManager.error("Fail", "Login Failed", 2500, true);
                 // console.log("Fail");
                 // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
                 // this.props.history.push("/");

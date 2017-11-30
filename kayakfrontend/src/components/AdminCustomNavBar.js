@@ -7,7 +7,7 @@ import {adminSetCurrentItem} from '../actions/adminSetCurrent';
 import {adminSetActivePage} from '../actions/adminActivePage';
 import {withRouter} from 'react-router-dom';
 import logo from '../images/kayak.svg';
-import ProfileItem from './ProfileItem';
+import AdminProfileItem from './adminProfileItem';
 import CustomItem from './CustomItem';
 class AdminCustomNavbar extends Component
 {
@@ -50,7 +50,7 @@ class AdminCustomNavbar extends Component
                         <CustomItem name="Cars" />
                     </div>
                     <div className="col-md-3 col-md-offset-4">
-                        <ProfileItem />
+                        <AdminProfileItem />
                     </div>
                 </div>
                 {/* <div className="row" style={{marginTop:'-25px'}}>

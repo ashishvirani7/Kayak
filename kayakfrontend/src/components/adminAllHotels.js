@@ -19,29 +19,29 @@ import SelectField from 'material-ui/SelectField';
 import { ListItem } from 'material-ui/List';
 
 import {adminCurrentUpdate} from '../actions/adminCurrentUpdate';
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 class AdminAllHotels extends Component{
     
     getAllHotels(){
-        // API.adminShowAllHotels()
-        // .then((res) => {
-        //     if (res.status === 201) {
-        //         console.log("Success");
-        //         res.json().then(data => {
-        //             this.props.adminAllHotels(data.hotels)
-        //             //NotificationManager.success("Success", data.message, 2500, true);
-        //             // this.props.history.push("/logs");
-        //         });
+        API.adminGetAllHotels()
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    this.props.adminAllHotels(data)
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
         
-        //     } else if (res.status === 401) {
-        //         // console.log("Fail");
-        //         // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-        //         // this.props.history.push("/");
-        //     } 
-        // });
-        this.props.adminAllHotels([{"hotel_id":"1","hotel_name":"Taj","address":{"street":"201 S 4th","city":"San Jose","zip_code":"95112",
-            "state":"CA","country":"US"},"stars":5,"rooms":[{"room_id":"1","room_type":"Standard","room_price":1000}],"avg_rating":4,
-          "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
+            } else if (res.status === 401) {
+                
+                NotificationManager.error("Fail", "Fail", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
+        // this.props.adminAllHotels([{"hotel_id":"1","hotel_name":"Taj","address":{"street":"201 S 4th","city":"San Jose","zip_code":"95112",
+        //     "state":"CA","country":"US"},"stars":7,"rooms":[{"room_id":"1","room_type":"Standard","room_price":1000}],"avg_rating":4,
+        //   "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
     }
 
     componentWillMount(){

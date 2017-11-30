@@ -19,7 +19,7 @@ import {withRouter} from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
 
 import * as API from '../api/API';
 

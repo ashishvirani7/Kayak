@@ -23,7 +23,7 @@ export const doLogin = (payload) =>
 });
 
 export const doAdminLogin = (payload) =>
-fetch(`${api}/adminLogin`, {
+fetch(`${api}/loginAdmin`, {
     method: 'POST',
     headers: {
         ...headers,
@@ -233,9 +233,9 @@ export const updateCarAdmin = (payload) =>
 
 
 
-export const adminShowAllHotels = () =>
-fetch(`${api}/showHotels`, {
-    method: 'GET',
+export const adminGetAllHotels = () =>
+fetch(`${api}/getAllHotels`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
@@ -251,9 +251,9 @@ fetch(`${api}/showHotels`, {
 
 
 
-export const adminShowAllFlights = () =>
-fetch(`${api}/showFlights`, {
-    method: 'GET',
+export const adminGetAllFlights = () =>
+fetch(`${api}/getAllFlights`, {
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'
@@ -266,6 +266,23 @@ fetch(`${api}/showFlights`, {
         console.log("This is error");
         return error;
 });
+
+export const adminGetAllCars = () =>
+fetch(`${api}/getAllCars`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
@@ -283,25 +300,16 @@ fetch(`${api}/sessioncheck`, {
         return error;
 });
 
-export const adminShowAllCars = () =>
-fetch(`${api}/showCars`, {
-    method: 'GET',
-    headers: {
-        ...headers,
-        'Content-Type': 'application/json'
-    },
-    credentials:'include'
-}).then(res => {
-    return res;
-})
-    .catch(error => {
-        console.log("This is error");
-        return error;
-});
+<<<<<<< HEAD
 
+export const doHotelSearch = () =>
+fetch(`${api}/doHotelSearch`, {
+    method: 'GET',
+=======
 export const doHotelSearch = (payload) =>
 fetch(`${api}/hotels`, {
     method: 'POST',
+>>>>>>> 86871e8b11b1973b8d515917cc594e7928c74354
     headers: {
         ...headers,
         'Content-Type': 'application/json'
