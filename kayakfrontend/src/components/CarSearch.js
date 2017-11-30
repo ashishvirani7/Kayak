@@ -3,6 +3,14 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import * as API from '../api/API';
+import {withRouter} from 'react-router-dom';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeCarListing} from '../actions/carListingAction';
+import {changeCarSearch} from '../actions/carSearchAction';
+
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 class CarSearch extends Component{
 
@@ -34,22 +42,32 @@ class CarSearch extends Component{
                                 id="destbtn"
                                 hintText="Where"
                                 onClick={()=>{
+                                    var type = [];
+
                                     var data ={
                                         city:     document.getElementById('city').value,
                                         toDate:     document.getElementById('toDate').value,
                                         fromDate:   document.getElementById('fromDate').value,
+                                        pickuptime: '',
+                                        dropofftime: '',
+                                        order:'price_asc',
+                                        filter_prop :{type:type}
                                     }
                                     if(data.city && data.toDate && data.fromDate){
                                         console.log(data);
+                                        this.props.changeCarSearch(data);
                                         API.doCarSearch(data)
                                         .then((res)=>{
                                             if(res.status===201){
-
+                                                res.json().then(items=>{
+                                                    this.props.changeCarListing(items.data);
+                                                    this.props.history.push("/carResults");
+                                                });
                                             }
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
                                     }
                                     
                                 }}
@@ -99,4 +117,20 @@ const divstyle={
     marginLeft:'-20px',
     marginRight:'-2px'
 }
-export default CarSearch;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeCarListing,
+            changeCarSearch,
+        }
+        ,dispatch);
+  }
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(CarSearch));

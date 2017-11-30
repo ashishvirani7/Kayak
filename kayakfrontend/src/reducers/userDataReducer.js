@@ -70,6 +70,14 @@ export default function(state=initialState,action){
             };
         }
 
+        case "CHANGE_BILLING_DATA":
+        {
+            return{
+                ...state,
+                billing: action.billing
+            };
+        }
+
         case "persist/REHYDRATE":
         {
             var incoming = action.payload.userData

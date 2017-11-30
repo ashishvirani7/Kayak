@@ -116,7 +116,7 @@ class HotelSearch extends Component{
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
                                     }
                                 }}
                             >
