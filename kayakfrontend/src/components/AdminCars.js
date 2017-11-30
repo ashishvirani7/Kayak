@@ -96,6 +96,7 @@ class AdminCars extends Component{
         return(
             <div>
                 <h1 ><u>Add Car</u> </h1>
+                
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
