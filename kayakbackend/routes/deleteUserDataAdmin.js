@@ -6,7 +6,7 @@ var topic_name = "delete_user_data_admin_topic";
 router.post('/', (req,res,next)=>{
     var message="";
     var userDataObject = {
-        _id : req.body._id,
+        email : req.body.email,
     };
 
     kafka.make_request(topic_name, userDataObject, function(err,results){

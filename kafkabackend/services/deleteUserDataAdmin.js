@@ -12,7 +12,7 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    Users.findByIdAndRemove(msg._id, function(err, result) {
+    Users.findOneAndRemove({email: msg.email}, function(err, result) {
         if (err) {
             console.log("Some Error Happened while deleting User Data");
             res.code = "500";
@@ -26,6 +26,5 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
     });
-
 }
 exports.handle_request = handle_request;
