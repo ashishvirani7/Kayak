@@ -96,3 +96,15 @@ kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --pa
 
 
 
+searchHotelAdmin
+searchFlightAdmin
+searchCarAdmin
+
+deleteHotelAdmin
+deleteFlightAdmin
+deleteCarAdmin
+
+getAllUserDataAdmin
+searchUserDataAdmin---email
+updateUserDataAdmin---entire
+deleteUserDataAdmin---email

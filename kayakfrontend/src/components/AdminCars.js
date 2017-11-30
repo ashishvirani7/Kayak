@@ -18,26 +18,30 @@ import SelectField from 'material-ui/SelectField';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const Car_Types=[
+    
     {
-        "name":"Hatchback"
+        "name":"Small"
     },
     {
-        "name":"Sedan"
+        "name":"Medium"
     },
     {
-        "name":"MPV"
+        "name":"Large"
     },
     {
         "name":"SUV"
     },
     {
-        "name":"Crossover"
+        "name":"Luxury"
     },
     {
-        "name":"Coupe"
+        "name":"PickupTruck"
     },
     {
-        "name":"Convertible"
+        "name":"Van"
+    },
+    {
+        "name":"Commercial"
     }
 ];
 
@@ -76,7 +80,7 @@ class AdminCars extends Component{
             if (res.status === 201) {
                 console.log("Success");
                 res.json().then(data => {
-                    NotificationManager.success("Success", "Flight Added Successfully", 2500, true);
+                    NotificationManager.success("Success", "Car Added Successfully", 2500, true);
                     // this.props.history.push("/logs");
                 });
         
@@ -91,7 +95,8 @@ class AdminCars extends Component{
     render(){
         return(
             <div>
-                <h1 >Add Car </h1>
+                <h1 ><u>Add Car</u> </h1>
+                
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
@@ -124,12 +129,13 @@ class AdminCars extends Component{
                     />
                 </div>
                 <br/>
+                
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
                         onClick={()=>{this.submitCar()}}
                     >
-                    Submit
+                    Add Car
                     </button>
                 </div>
             </div>
@@ -171,7 +177,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }

@@ -9,8 +9,23 @@ function handle_request(msg, callback){
     var res = {};
     var message = "";
     var email = msg.email;
-    var first_name = msg.first_name;
-    var middle_name = msg.middle_name;
+    var userInfoObject = {
+        email : msg.email,
+        first_name : msg.first_name,
+        middle_name : msg.middle_name,
+        last_name : msg.last_name,
+        address : {
+            street: msg.street,
+            state : msg.state,
+            zip_code : msg.postalcode,
+            city : msg.city,
+            country: "US"
+        },
+        phone : msg.phone,
+    };
+
+
+
     console.log("In handle request:"+ JSON.stringify(msg));
 
     Users.count({email:email}, function (err, count) {
@@ -31,7 +46,7 @@ function handle_request(msg, callback){
                 email: email
             };
 
-            var updateCol = {$set: {"first_name": first_name, "middle_name": middle_name}};
+            var updateCol = {$set: userInfoObject};
             Users.update(condition, updateCol, {upsert: true}, function (err) {
 
                 if (err) {

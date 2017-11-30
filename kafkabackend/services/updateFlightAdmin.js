@@ -45,7 +45,7 @@ function handle_request(msg, callback) {
 
 
     var flightInstance = new flightListings(listingObj);
-    flightInstance.findByIdAndUpdate(msg._id, {$set: flightInstance}, function (err, flightDocument, numAffected) {
+    flightListings.findByIdAndUpdate(msg._id, {$set: listingObj}, function (err, flightDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while updating Flight Data");
             res.code = "500";

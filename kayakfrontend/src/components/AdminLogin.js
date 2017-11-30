@@ -6,9 +6,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeValueAdmin} from '../actions/adminLoginAction';
+import {adminLoginSuccess} from '../actions/adminLoginAction';
 
 import {withRouter} from 'react-router-dom';
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import * as API from '../api/API';
 
 class AdminLogin extends Component{
@@ -22,17 +23,18 @@ class AdminLogin extends Component{
             password:cipherVal.toString(),
         }
 
-        API.doLogin(adminLoginDetails)
+        API.doAdminLogin(adminLoginData)
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
-                res.json().then(user => {
-                    //this.props.loginSuccess(user);
-                    //NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                    this.props.history.push("/adminHome");
+                res.json().then(admin => {
+                    this.props.adminLoginSuccess(admin.loginData);
+                    NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                    this.props.history.push("/adminAccount");
                 });
         
             } else if (res.status === 401) {
+                NotificationManager.error("Fail", "Login Failed", 2500, true);
                 // console.log("Fail");
                 // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
                 // this.props.history.push("/");
@@ -43,7 +45,7 @@ class AdminLogin extends Component{
     render(){
         return(
             <div>
-                <h1 style={{color:"skyblue", marginLeft:"600px"}}>Admin Lives Here </h1>
+                <h1 style={{color:"skyblue", marginLeft:"650px"}}>Kayak Admin </h1>
                 <div className="loginMain" style={loginMainStyle}>    
                     <input id="cPwX-username" type="text" name="email"  placeholder="Email Address" style={emailStyle}
                         onChange={(event)=>
@@ -105,7 +107,9 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            changeValueAdmin
+            changeValueAdmin,
+            adminLoginSuccess,
+
         }
         ,dispatch);
   }

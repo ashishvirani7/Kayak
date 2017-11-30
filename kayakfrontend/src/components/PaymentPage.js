@@ -3,10 +3,41 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 import * as API from '../api/API';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {changeBillingData} from '../actions/billingDataAction.js';
+
 class PaymentPage extends Component
 {
     state={
         edit : false
+    }
+
+    componentWillMount(){
+        this.getBillingDetails();
+    }
+
+    getBillingDetails = () => {
+        console.log('hello');
+        API.getBillingDetails({email:this.props.userData.data.email})
+        .then((res)=>{
+            if (res.status === 201) {
+                console.log("Success");
+                console.log(res);
+                res.json().then(user => {
+                    console.log(user.cardObj);
+                    if(!user.cardObj.carddetails.credit_card_number)
+                    {
+                        console.log('emptyyyy');
+                    }
+                    this.props.changeBillingData(user.cardObj);
+                });
+        
+            } else if (res.status === 401) {
+                console.log("Fail");
+            }
+        })
     }
     render(){
         var color = (this.state.edit)?'#ff690f':'#00bcd4';
@@ -30,12 +61,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}</div>
                             :<input 
                                 id="name_on_card"
                                 type="text" 
                                 name="name_on_card" 
-                                defaultValue=""
+                                defaultValue={(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}
                                 placeholder="Name on Card"
                                 style={inputstyle}
                             />
@@ -48,12 +79,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}</div>
                             :<input 
                                 id="cnumber"
                                 type="text" 
                                 name="cnumber" 
-                                defaultValue=""
+                                defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
                                 placeholder="Credit Card Number"
                                 style={inputstyle}
                             />
@@ -66,9 +97,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>
+                            {this.props.userData.billing.carddetails.expiry_month?this.props.userData.billing.carddetails.expiry_month:''}
+                            -{this.props.userData.billing.carddetails.expiry_year?this.props.userData.billing.carddetails.expiry_year:''}
+                            </div>
                             :<div>
-                                <select id="expDateMonth" style={datestyle} name="expDateMonth" class="r9-dropdown-select" title="(01) Jan">
+                                <select id="expDateMonth" defaultValue={this.props.userData.billing.carddetails.expiry_month?this.props.userData.billing.carddetails.expiry_month:''} style={datestyle} name="expDateMonth" class="r9-dropdown-select" title="(01) Jan">
                                     <option value="01" title="(01) Jan">(01) Jan</option>
                                     <option value="02" title="(02) Feb">(02) Feb</option>
                                     <option value="03" title="(03) Mar">(03) Mar</option>
@@ -82,7 +116,7 @@ class PaymentPage extends Component
                                     <option value="11" title="(11) Nov">(11) Nov</option>
                                     <option value="12" title="(12) Dec">(12) Dec</option>
                                 </select>
-                                <select id="expDateYear" style={datestyle} name="expDateYear" class="r9-dropdown-select" title="2018">
+                                <select id="expDateYear" defaultValue={this.props.userData.billing.carddetails.expiry_year?this.props.userData.billing.carddetails.expiry_year:''} style={datestyle} name="expDateYear" class="r9-dropdown-select" title="2018">
                                     <option value="2017" title="2017">2017</option>
                                     <option value="2018" title="2018" selected="selected">2018</option>
                                     <option value="2019" title="2019">2019</option>
@@ -108,12 +142,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.billing.carddetails.street?this.props.userData.billing.carddetails.street:''}</div>
                             :<input 
                                 id="street"
                                 type="text" 
                                 name="Street" 
-                                defaultValue="street"
+                                defaultValue={this.props.userData.billing.carddetails.street?this.props.userData.billing.carddetails.street:''}
                                 style={inputstyle}
                             />
                         }
@@ -125,12 +159,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.billing.carddetails.city?this.props.userData.billing.carddetails.city:''}</div>
                             :<input 
                                 id="city"
                                 type="text" 
                                 name="City" 
-                                defaultValue="city"
+                                defaultValue={this.props.userData.billing.carddetails.city?this.props.userData.billing.carddetails.city:''}
                                 style={inputstyle}
                             />
                         }
@@ -142,8 +176,8 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
-                            :<select id="state" style={inputstyle} name="billing_state" class="r9-dropdown-select" title="State/Region"><option value="" title="State/Region" class="all">State/Region</option><option value="AA">APO Americas</option><option value="AE">APO Europe</option><option value="AP">APO Pacific</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
+                            ?<div>{this.props.userData.billing.carddetails.state?this.props.userData.billing.carddetails.state:''}</div>
+                            :<select id="state" defaultValue={this.props.userData.billing.carddetails.state?this.props.userData.billing.carddetails.state:''} style={inputstyle} name="billing_state" class="r9-dropdown-select" title="State/Region"><option value="" title="State/Region" class="all">State/Region</option><option value="AA">APO Americas</option><option value="AE">APO Europe</option><option value="AP">APO Pacific</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
                         }
                     </div>
                 </div>
@@ -153,12 +187,12 @@ class PaymentPage extends Component
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>Hello</div>
+                            ?<div>{this.props.userData.billing.carddetails.zip_code?this.props.userData.billing.carddetails.zip_code:''}</div>
                             :<input 
                                 id="postalcode"
                                 type="text" 
                                 name="postalcode" 
-                                defaultValue="postal code"
+                                defaultValue={this.props.userData.billing.carddetails.zip_code?this.props.userData.billing.carddetails.zip_code:''}
                                 style={inputstyle}
                             />
                         }
@@ -181,13 +215,15 @@ class PaymentPage extends Component
                         }
                         else{
                             var data = {
-                                name_on_card:   document.getElementById('name_on_card').value, 
-                                cnumber:        document.getElementById('cnumber').value,
-                                expDateMonth:   document.getElementById('expDateMonth').value,
-                                expDateYear:    document.getElementById('expDateYear').value,
+                                email:          this.props.userData.data.email,        
+                                card_name:   document.getElementById('name_on_card').value, 
+                                credit_card_number:        document.getElementById('cnumber').value,
+                                expiry_month:   document.getElementById('expDateMonth').value,
+                                expiry_year:    document.getElementById('expDateYear').value,
                                 street:         document.getElementById('street').value,
                                 city:           document.getElementById('city').value,
-                                postalcode:     document.getElementById('postalcode').value,
+                                zip_code:     document.getElementById('postalcode').value,
+                                country:        'USA',
                                 state:          document.getElementById('state').value,
                             }
                             console.log(data);
@@ -197,6 +233,7 @@ class PaymentPage extends Component
                                 {
                                     console.log("info changed");
                                     this.setState({edit:false});
+                                    this.getBillingDetails();
                                 }
                                 else{
 
@@ -253,4 +290,18 @@ const datestyle={
     height: '32px',
     marginRight: '20px'
 }
-export default PaymentPage;
+function mapStateToProps(state){
+    return{
+        userData:state.userData
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeBillingData,
+        }
+    ,dispatch);
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(PaymentPage);

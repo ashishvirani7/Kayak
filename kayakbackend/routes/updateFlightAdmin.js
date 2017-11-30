@@ -4,6 +4,7 @@ var kafka = require('./kafka/client');
 var topic_name = "update_flight_admin_topic";
 
 router.post('/', (req,res,next)=>{
+    console.log("id is:" +req.body._id);
     var message="";
     var flightObject = {
         _id : req.body._id,

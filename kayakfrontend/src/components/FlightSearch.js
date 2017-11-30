@@ -5,6 +5,14 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import * as API from '../api/API';
+import {withRouter} from 'react-router-dom';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import {changeFlightListing} from '../actions/flightListingAction';
+import {changeFlightSearch} from '../actions/flightSearchAction';
+
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class FlightSearch extends Component{
@@ -13,8 +21,8 @@ class FlightSearch extends Component{
         valueTraveler: 1
     }
 
-    handleChangeClass = (event, index, valueClass) => this.setState({...this.state,valueClass});
-    handleChangeTraveler = (event, index, valueTraveler) => this.setState({...this.state,valueTraveler});
+    handleChangeClass = (event, index, valueClass) => this.setState({...this.state,valueClass:valueClass});
+    handleChangeTraveler = (event, index, valueTraveler) => this.setState({...this.state,valueTraveler:valueTraveler});
     render() {
         return(
             <div className="col-md-12">
@@ -70,13 +78,13 @@ class FlightSearch extends Component{
                                         <MenuItem value={1} primaryText="1 traveler" />
                                         <MenuItem value={2} primaryText="2 travelers" />
                                         <MenuItem value={3} primaryText="3 travelers" />
-                                        <MenuItem value={2} primaryText="4 travelers" />
-                                        <MenuItem value={3} primaryText="5 travelers" />
-                                        <MenuItem value={2} primaryText="6 travelers" />
-                                        <MenuItem value={3} primaryText="7 travelers" />
-                                        <MenuItem value={2} primaryText="8 travelers" />
-                                        <MenuItem value={3} primaryText="9 travelers" />
-                                        <MenuItem value={2} primaryText="10 travelers" />
+                                        <MenuItem value={4} primaryText="4 travelers" />
+                                        <MenuItem value={5} primaryText="5 travelers" />
+                                        <MenuItem value={6} primaryText="6 travelers" />
+                                        <MenuItem value={7} primaryText="7 travelers" />
+                                        <MenuItem value={8} primaryText="8 travelers" />
+                                        <MenuItem value={9} primaryText="9 travelers" />
+                                        <MenuItem value={10} primaryText="10 travelers" />
                                     </SelectField>
                                 </div>
                             </div>
@@ -88,6 +96,11 @@ class FlightSearch extends Component{
                                 id="destbtn"
                                 hintText="Where"
                                 onClick={()=>{
+                                    var filter_prop = {
+                                        stops: [],
+                                        flight_name: []
+                                    }
+                                    var order = this.state.type+(this.state.sort?'_desc':'_asc');
                                     var data ={
                                         origin:     document.getElementById('source').value,
                                         destination:document.getElementById('destination').value,
@@ -95,18 +108,24 @@ class FlightSearch extends Component{
                                         departure_date:   document.getElementById('fromDate').value,
                                         class:      this.state.valueClass,
                                         no_of_traveler:this.state.valueTraveler,
+                                        order:'arrival_desc',
+                                        filter_prop
                                     }
                                     if(data.origin && data.destination && data.arrival_date && data.departure_date){
                                         console.log(data);
+                                        this.props.changeFlightSearch(data);
                                         API.doFlightSearch(data)
                                         .then((res)=>{
                                             if(res.status===201){
-
+                                                res.json().then(items=>{
+                                                    this.props.changeFlightListing(items.data);
+                                                    this.props.history.push("/flightResults");
+                                                });
                                             }
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
                                     }
                                     
                                 }}
@@ -153,4 +172,20 @@ const divstyle={
     marginLeft:'-20px',
     marginRight:'-2px'
 }
-export default FlightSearch;
+
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            changeFlightListing,
+            changeFlightSearch,
+        }
+    ,dispatch);
+}
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(FlightSearch));

@@ -101,7 +101,7 @@ class AdminFlights extends Component{
     render(){
         return(
             <div>
-                <h1 >Add Flight</h1>
+                <h1 ><u>Add Flight</u></h1>
 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -180,12 +180,13 @@ class AdminFlights extends Component{
                         onChange={this.handleFirstClassPriceChange}
                     />
                 </div>
+                <br/>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
                         onClick={()=>{this.submitFlight()}}
                     >
-                    Submit
+                    Add Flight
                     </button>
                 </div>
             </div>
@@ -226,7 +227,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }

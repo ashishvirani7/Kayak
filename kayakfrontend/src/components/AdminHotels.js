@@ -19,6 +19,8 @@ import {withRouter} from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import ReactStars from 'react-stars';
+
 import * as API from '../api/API';
 
 const US_States = [
@@ -294,6 +296,7 @@ class AdminHotels extends Component{
             city:"",
             state: "CA",
             zipcode:"",
+            stars:0,
             room_type_value1:"Standard",
             room_type_value2:"Standard",
             room_type_value3:"Standard",
@@ -337,11 +340,14 @@ class AdminHotels extends Component{
       handlePriceChange3 = (event, index, value) => {
         this.setState({...this.state,room_price_value3:event.target.value});
       };
+      handleRatingChange = (value) => {
+        this.setState({...this.state,stars:value});
+      };
       
 
       submitHotel(){
         //NotificationManager.success("Success", "lol", 2500, true);
-        const zip = this.state.zipcode;
+        const zip = this.state.zip_code;
         if(!(zip.match(zipregex))){
             NotificationManager.error("Invalid Zip code", "Zip error", 2500, true);
         }
@@ -370,7 +376,7 @@ class AdminHotels extends Component{
         return(
             <div>
                 
-                <h1>Add Hotel</h1>
+                <h1><u>Add Hotel</u></h1>
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -410,6 +416,22 @@ class AdminHotels extends Component{
                         hintText="Zip Code"
                         onChange={this.handleZipChange}
                     />
+                </div>
+                <br/>
+                <div className="row" >
+                    <div className="col-md-1">
+                        <h4>Stars: </h4>
+                    </div>
+                    <div className="col-md-8">
+                        <ReactStars
+                            count={7}
+                            onChange={this.handleRatingChange}
+                            size={24}
+                            color2={'#ffd700'} 
+                            value={this.state.stars}
+                        />
+                    </div>
+                    
                 </div>
 
                 {/* <div className="row" style={divstyle}>
@@ -487,14 +509,14 @@ class AdminHotels extends Component{
 
                 </div>
 
-
+                <br/>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"
                         hintText="Submit"
                         onClick={()=>{this.submitHotel()}}
                     >
-                    Submit
+                    Add Hotel
                     </button>
                 </div>
                 <NotificationContainer/>
@@ -537,7 +559,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }

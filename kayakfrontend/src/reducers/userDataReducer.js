@@ -1,7 +1,13 @@
 import {REHYDRATE} from 'redux-persist/constants';
 
 const initialState={
-    loggedIn: false
+    loggedIn: false,
+    data:
+    {first_name:"",middle_name:"",last_name:"",
+        email:"a",
+        address:{street:"",city:"",state:"",zip_code:""},
+        phone:""
+    }
 }
 
 export default function(state=initialState,action){
@@ -13,6 +19,62 @@ export default function(state=initialState,action){
                 ...state,
                 loggedIn: true,
                 data: action.data
+            };
+        }
+
+        case "CHANGE_HOTEL_LISTING":
+        {
+            return{
+                ...state,
+                hotels: action.hotels
+            };
+        }
+
+        case "CHANGE_HOTEL_SEARCH":
+        {
+            return{
+                ...state,
+                hotelSearch: action.hotelSearch
+            };
+        }
+
+        case "CHANGE_FLIGHT_LISTING":
+        {
+            return{
+                ...state,
+                flights: action.flights
+            };
+        }
+
+        case "CHANGE_FLIGHT_SEARCH":
+        {
+            return{
+                ...state,
+                flightSearch: action.flightSearch
+            };
+        }
+
+        case "CHANGE_CAR_LISTING":
+        {
+            return{
+                ...state,
+                cars: action.cars
+            };
+        }
+
+        case "CHANGE_CAR_SEARCH":
+        {
+            return{
+                ...state,
+                carSearch: action.carSearch
+            };
+        }
+
+        case "CHANGE_BILLING_DATA":
+        {
+            return{
+                ...state,
+                billing: action.billing
             };
         }
 

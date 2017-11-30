@@ -15,17 +15,38 @@ var expressSessions = require("express-session");
 var mongoStore = require("connect-mongo/es5")(expressSessions);
 
 var signup = require('./routes/signup');
+var signupAdmin = require('./routes/signupAdmin');
+
+
 var login = require('./routes/login');
 var loginAdmin = require('./routes/loginAdmin');
 
 var addHotelAdmin = require('./routes/addHotelAdmin');
+var getAllHotel = require('./routes/getAllHotel');
 var updateHotelAdmin = require('./routes/updateHotelAdmin');
+var searchHotelAdmin = require('./routes/searchHotelAdmin');
+var deleteHotelAdmin = require('./routes/deleteHotelAdmin');
 
 var addFlightAdmin = require('./routes/addFlightAdmin');
+var getAllFlight = require('./routes/getAllFlight');
 var updateFlightAdmin = require('./routes/updateFlightAdmin');
+var searchFlightAdmin = require('./routes/searchFlightAdmin');
+var deleteFlightAdmin = require('./routes/deleteFlightAdmin');
+
 
 var addCarAdmin = require('./routes/addCarAdmin');
+var getAllCar = require('./routes/getAllCar');
 var updateCarAdmin = require('./routes/updateCarAdmin');
+var searchCarAdmin = require('./routes/searchCarAdmin');
+var deleteCarAdmin = require('./routes/deleteCarAdmin');
+
+
+var getAllUserDataAdmin = require('./routes/getAllUserDataAdmin');
+var searchUserDataAdmin = require('./routes/searchUserDataAdmin');
+var updateUserDataAdmin = require('./routes/updateUserDataAdmin');
+var deleteUserDataAdmin = require('./routes/deleteUserDataAdmin');
+
+
 
 var sessioncheck = require('./routes/sessioncheck');
 var logout = require('./routes/logout');
@@ -44,6 +65,9 @@ var getActivity = require('./routes/getActivity');
 var share = require('./routes/share');
 var getSharedFiles = require('./routes/getSharedFiles');
 var updateUserInfo = require('./routes/updateUserInfo');
+var getUserDetails = require('./routes/getUserDetails');
+var updateCardDetails = require('./routes/updateCardDetails');
+var getCardDetails = require('./routes/getCardDetails');
 var hotels = require('./routes/hotels');
 var flights = require('./routes/flights');
 var cars = require('./routes/cars');
@@ -88,17 +112,40 @@ app.use('/', routes);
 
 app.use('/login', login);
 app.use('/loginAdmin', loginAdmin);
+
 app.use('/addHotelAdmin', addHotelAdmin);
+app.use('/getAllHotel', getAllHotel);
 app.use('/updateHotelAdmin', updateHotelAdmin);
+app.use('/searchHotelAdmin', searchHotelAdmin);
+app.use('/deleteHotelAdmin', deleteHotelAdmin);
+
+
 
 
 app.use('/addFlightAdmin', addFlightAdmin);
+app.use('/getAllFlight', getAllFlight);
 app.use('/updateFlightAdmin', updateFlightAdmin);
+app.use('/searchFlightAdmin', searchFlightAdmin);
+app.use('/deleteFlightAdmin', deleteFlightAdmin);
+
 
 app.use('/addCarAdmin', addCarAdmin);
+app.use('/getAllCar', getAllCar);
 app.use('/updateCarAdmin', updateCarAdmin);
+app.use('/searchCarAdmin', searchCarAdmin);
+app.use('/deleteCarAdmin', deleteCarAdmin);
+
+
+
+app.use('/getAllUserDataAdmin', getAllUserDataAdmin);
+app.use('/searchUserDataAdmin', searchUserDataAdmin);
+app.use('/updateUserDataAdmin', updateUserDataAdmin);
+app.use('/deleteUserDataAdmin', deleteUserDataAdmin);
+
 
 app.use('/signup',signup);
+app.use('/signupAdmin',signupAdmin);
+
 app.use('/sessioncheck',sessioncheck);
 app.use('/logout', logout);
 app.use('/getFiles',getFiles);
@@ -116,6 +163,9 @@ app.use('/getActivity',getActivity);
 app.use('/share',share);
 app.use('/getSharedFiles',getSharedFiles);
 app.use('/updateUserInfo',updateUserInfo);
+app.use('/getUserDetails',getUserDetails);
+app.use('/updateCardDetails',updateCardDetails);
+app.use('/getCardDetails',getCardDetails);
 app.use('/hotels', hotels);
 app.use('/flights', flights);
 app.use('/cars', cars);

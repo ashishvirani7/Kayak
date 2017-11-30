@@ -24,10 +24,10 @@ router.post('/', (req,res,next)=>{
         {
             if(results.code == 201){
                 console.log("Signup Successful");
-                return res.status(201).send({"message":"Signup Successful"});
+                return res.status(201).send({"message":results});
             }
             else {
-                res.status(202).send({"message":"User exists"});
+                res.status(202).send({"message":err});
                 console.log("Signup Failed");
             }
         }

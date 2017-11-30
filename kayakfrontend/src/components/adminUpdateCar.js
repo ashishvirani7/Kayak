@@ -18,29 +18,32 @@ import SelectField from 'material-ui/SelectField';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const Car_Types=[
+    
     {
-        "name":"Hatchback"
+        "name":"small"
     },
     {
-        "name":"Sedan"
+        "name":"Medium"
     },
     {
-        "name":"MPV"
+        "name":"Large"
     },
     {
         "name":"SUV"
     },
     {
-        "name":"Crossover"
+        "name":"Luxury"
     },
     {
-        "name":"Coupe"
+        "name":"PickupTruck"
     },
     {
-        "name":"Convertible"
+        "name":"Van"
+    },
+    {
+        "name":"Commercial"
     }
 ];
-
 const carTypes=[];
 Car_Types.map(type=>{
     carTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
@@ -50,6 +53,7 @@ class AdminUpdateCar extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            _id:this.props.adminUpdateCurrentData._id,
             car_name:this.props.adminUpdateCurrentData.car_name,
             car_type:this.props.adminUpdateCurrentData.car_type,
             model_name:this.props.adminUpdateCurrentData.model_name,
@@ -91,7 +95,7 @@ class AdminUpdateCar extends Component{
     render(){
         return(
             <div>
-                <h1 >Add Car </h1>
+                <h1 ><u>Update Car</u> </h1>
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
@@ -174,7 +178,7 @@ const btnstyle={
     fontSize:'16px',
     height:'50px',
     width:'100%',
-    backgroundColor:'green',
+    backgroundColor:'#ec7132',
     marginLeft:'5px',
     marginRight:'5px'
 }
