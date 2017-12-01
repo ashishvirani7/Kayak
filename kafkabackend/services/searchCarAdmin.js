@@ -12,7 +12,15 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    carListings.find({$and : [ { "car.car_name": {'$regex':"^"+msg.car_name+"+",$options:'m',$options:'i'}}, {"listing_type" : "Car"}]} , {car : 1} , function(err, carDocuments) {
+    if(msg.car_name == ""){
+        var cond={"listing_type" : "Car"};
+    }
+    else{
+        var cond = {$and : [ { "car.car_name": {'$regex':"^"+msg.car_name+"+",$options:'m',$options:'i'}}, {"listing_type" : "Car"}]};
+    }
+    
+
+    carListings.find(cond, {car : 1} , function(err, carDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Car Data");
             res.code = "500";
