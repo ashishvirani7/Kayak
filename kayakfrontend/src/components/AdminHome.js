@@ -16,6 +16,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AdminFlights from './AdminFlights';
 import AdminHotels from './AdminHotels';
 import AdminCars from './AdminCars';
+import AdminAllUsers from './adminAllUsers';
 
 import AdminAllHotels from './adminAllHotels';
 import AdminAllFlights from './adminAllFlights';
@@ -49,6 +50,9 @@ class AdminHome extends Component{
                             <NavLink to="/adminFlights" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
                             {this.props.adminCurrentItem=="Cars" &&
                             <NavLink to="/adminCars" style={lstyle} activeStyle={linkactive}>Add {this.props.adminCurrentItem}</NavLink>}
+
+                            {this.props.adminCurrentItem=="Users" &&
+                            <NavLink to="/adminShowUsers" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>}
                             
 
                         </div>
@@ -71,6 +75,7 @@ class AdminHome extends Component{
                         <Route exact path='/adminHotels' component={AdminHotels}/>
                         <Route exact path='/adminFlights' component={AdminFlights}/>
                         <Route exact path='/adminCars' component={AdminCars}/>
+                        <Route exact path='/adminShowUsers' component={AdminAllUsers}/>
                         <Route exact path="/adminShowHotels" component={AdminAllHotels}/>
                         <Route exact path="/adminShowFlights" component={AdminAllFlights}/>
                         <Route exact path="/adminShowCars" component={AdminAllCars}/>

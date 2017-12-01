@@ -1,12 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var kafka = require('./kafka/client');
-var topic_name = "get_all_car_topic";
+var topic_name = "search_car_admin_topic";
 
 router.post('/', (req,res,next)=>{
 
     var message="";
-    kafka.make_request(topic_name, {}, function(err,results){
+    var carObject = {
+        car_name : req.body.car_name
+    };
+
+    kafka.make_request(topic_name, carObject, function(err,results){
         console.log('in result');
         console.log(results);
         if(err){
@@ -15,13 +19,13 @@ router.post('/', (req,res,next)=>{
         else
         {
             if(results.code == 201){
-                message="Get All Cars executed Successfully";
+                message="Search Cars executed Successfully";
                 console.log(message);
                 console.log("Result"+results);
                 return res.status(201).send({"message":results});
             }
             else {
-                message="Failed to get All Cars";
+                message="Failed to get Car";
                 console.log(message);
                 res.status(202).send({"message":err});
             }

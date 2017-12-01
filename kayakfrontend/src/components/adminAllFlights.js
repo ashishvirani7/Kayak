@@ -68,7 +68,7 @@ class AdminAllFlights extends Component{
         this.props.history.push("/adminUpdateFlight");
     }
     deleteFlight(_id){
-        API.deleteFlightAdmin(_id)
+        API.deleteFlightAdmin({_id:_id})
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
@@ -110,7 +110,7 @@ class AdminAllFlights extends Component{
                     
                         <div className="col-md-1">
                                 <IconButton iconStyle={smallIcon} tooltip="Delete"
-                                    onClick={()=> this.deleteFlight(flight._id)}>
+                                    >
                             
                                     <Cancel backgroundColor={fullWhite} color={red300}
                                         style={small} 

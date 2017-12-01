@@ -12,7 +12,7 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    flightListings.find({"listing_type" : "Flight"} , {flight : 1} , function(err, flightDocuments) {
+    flightListings.find({$and : [ { "flight.flight_name": msg.car_name}, {"listing_type" : "Flight"}]} , {flight : 1} , function(err, flightDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Flight Data");
             res.code = "500";

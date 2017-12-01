@@ -17,20 +17,26 @@ class AdminCustomNavbar extends Component
         
     }
     redirectToHotels(){
-        this.props.adminSetActivePage("add");
+        
         this.props.adminSetCurrentItem("Hotels");
         this.props.history.push("/adminHotels");
     }
     redirectToFlights(){
-        this.props.adminSetActivePage("add");
+        
         this.props.adminSetCurrentItem("Flights");
         this.props.history.push("/adminFlights");
     }
     redirectToCars(){
-        this.props.adminSetActivePage("add");
+
         this.props.adminSetCurrentItem("Cars");
         this.props.history.push("/adminCars");
     }
+
+    redirectToUsers(){
+        this.props.adminSetCurrentItem("Users");
+        this.props.history.push("/adminShowUsers");
+    }
+
     render(){
         return(
             <div>
@@ -49,7 +55,10 @@ class AdminCustomNavbar extends Component
                     <div className="col-md-1" onClick={()=>this.redirectToCars()}>
                         <CustomItem name="Cars" />
                     </div>
-                    <div className="col-md-3 col-md-offset-4">
+                    <div className="col-md-1" onClick={()=>this.redirectToUsers()}>
+                        <CustomItem name="Users" />
+                    </div>
+                    <div className="col-md-3 col-md-offset-3">
                         <AdminProfileItem />
                     </div>
                 </div>

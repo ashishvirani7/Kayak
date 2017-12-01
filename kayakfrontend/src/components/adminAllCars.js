@@ -68,7 +68,7 @@ class AdminAllCars extends Component{
     }
 
     deleteCar(_id){
-        API.deleteCarAdmin(_id)
+        API.deleteCarAdmin({_id:_id})
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");
