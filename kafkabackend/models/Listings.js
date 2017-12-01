@@ -70,7 +70,7 @@ var Listings = new Schema({
 		{
 			no_of_passengers: Number,
 			luggage_capacity: Number,
-			ac: Boolean
+			ac: String
 		},
 		car_rental_price : Number	
 	}

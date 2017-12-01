@@ -75,7 +75,7 @@ class AdminCars extends Component{
             car_rental_price:"",
             no_of_passengers:"0",
             luggage_capacity:"0",
-            ac_type:"True"
+            ac:"True"
         
         };
       }
@@ -103,7 +103,7 @@ class AdminCars extends Component{
         this.setState({...this.state,luggage_capacity:event.target.value});
       };
       handleAcChange = (event, index, value) => {
-        this.setState({...this.state,ac_type:value});
+        this.setState({...this.state,ac:value});
       };
 
       submitCar(){
@@ -170,7 +170,7 @@ class AdminCars extends Component{
                 </div>
                 <div className="row">
                     <SelectField
-                            value={this.state.ac_type}
+                            value={this.state.ac}
                             onChange={this.handleAcChange}
                             floatingLabelText="AC"
                             maxHeight={200}  
