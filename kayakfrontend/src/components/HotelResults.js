@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import IconArrow from '../icons/IconArrow';
 import IconStar from '../icons/IconStar';
@@ -18,12 +19,14 @@ import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/price-alert_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
 
+import img4 from '../images/hotel1.jpg';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
 
+import ReactStars from 'react-stars';
 class HotelResults extends Component
 {
     state = {
@@ -48,7 +51,7 @@ class HotelResults extends Component
             checkOut:   document.getElementById('fromDate').value,
             noOfRoom:   this.props.userData.hotelSearch.noOfRoom,
             noOfGuest:  this.props.userData.hotelSearch.noOfGuest,
-            filter_props,
+            filter_prop:{ratings: this.state.valueStar},
             order:      this.state.sort?'price_desc':'price_asc',
         }
         console.log(data);
@@ -66,6 +69,66 @@ class HotelResults extends Component
         }
         else{
             //NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+        }
+    }
+
+    showHotels = () => {
+        if(this.props.userData.hotels !== undefined)
+        {
+            const hotels=this.props.userData.hotels;
+            console.log(hotels);
+            return hotels.map(hotel=>(
+                <div style={hotelstyle}>
+                    <div className="col-md-4" style={{padding:'0px'}}>
+                        <img src={img4}/>
+                    </div>
+                    <div className="col-md-8">
+                        <div className="row" style={{padding:'10px',height:'100%'}}>
+                            <div className="col-md-8">
+                                <div className="row" style={{fontSize:'19px',color:'#0f0f0f',lineHeight:'22px',fontWeight:'500px'}}>
+                                    {hotel.hotel.hotel_name.toUpperCase()}
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <ReactStars
+                                            count={7}
+                                            size={20}
+                                            color2={'#212121'} 
+                                            value={hotel.hotel.stars}
+                                        />
+                                    </div>
+                                    {(hotel.hotel.stars>=5) && <div className="col-md-5" style={{backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                                        Top Luxury Hotel
+                                    </div>}
+                                </div>
+                                <div className="row" style={{marginTop:'30px'}}>
+                                    <div className="col-md-2" style={{width:'50px',height:'40px',backgroundColor:'#558fe6',color:'white',fontSize:'15px',borderRadius:'5px',lineHeight:'40px'}}>
+                                        {'8.4'}
+                                    </div>
+                                    <div className="col-md-6">
+                                        {'Excellent'}
+                                        <br/>
+                                        {'1000 reviews'}
+                                    </div>
+                                </div>
+                                <div className="row" style={{marginTop:'20px',marginLeft:'0px'}}>
+                                    {hotel.hotel.address.street}
+                                    <br></br>
+                                    {hotel.hotel.address.city}
+                                </div>
+                            </div>
+                            <div className="col-md-4" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
+                               <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'50px'}}>
+                                    {'$'+hotel.hotel.rooms[0].room_price}
+                               </div>
+                               <div className="row" style={{marginTop:'20px'}}>
+                                    <RaisedButton backgroundColor="#ff690f">View Deal</RaisedButton>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))
         }
     }
 
@@ -223,8 +286,8 @@ class HotelResults extends Component
                     </div>
                     <div className="col-md-7">
                         <div class="row">
-                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px',height:'100px',backgroundColor:'white'}}>
-                                
+                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px'}}>
+                                {this.showHotels()}
                             </div>
                         </div>
                     </div>
@@ -251,6 +314,14 @@ class HotelResults extends Component
     }
 }
 
+const hotelstyle={
+    marginBottom:'10px',
+    backgroundColor:'#ffffff',
+    height:'209px',
+    width:'100%',
+    fontFamily:'"HelveticaNeue-Medium",Helvetica,Arial,sans-serif'
+}
+
 const starttitle={
     margin:'10px',
     color:'#0f0f0f',
@@ -267,6 +338,7 @@ const rstyle={
     height:'71px',
     width:'100%'
 }
+
 const btnstyle={
     border:'none',
     fontSize:'16px',

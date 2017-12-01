@@ -7,6 +7,8 @@ import CryptoJS from 'crypto-js';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import {signupModalOpen} from '../actions/signupModalAction';
 import {signupModalDone} from '../actions/signupModalAction';
 import {loginModalOpen} from '../actions/loginModalAction';
@@ -47,8 +49,10 @@ class signupModal extends React.Component {
             res.json().then(user => {
                 // this.props.loginSuccess(user);
                 // this.props.setPath("/home");
-                // NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                // this.props.history.push("/logs");
+                console.log(user);
+                this.props.signupModalDone();
+                NotificationManager.success("Welcome", "Sign Up Successful. Log Into YourAccount Now", 2500, true);
+                //this.props.history.push("/");
             });
     
         } else if (res.status === 401) {

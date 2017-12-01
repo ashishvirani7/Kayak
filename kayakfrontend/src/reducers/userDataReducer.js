@@ -7,6 +7,10 @@ const initialState={
         email:"a",
         address:{street:"",city:"",state:"",zip_code:""},
         phone:""
+    },
+    billing:
+    {
+        carddetails:{card_name:''}
     }
 }
 
