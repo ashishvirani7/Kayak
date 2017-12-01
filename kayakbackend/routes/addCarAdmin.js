@@ -10,7 +10,11 @@ router.post('/', (req,res,next)=>{
         car_name : req.body.car_name,
         car_type : req.body.car_type,
         model_name : req.body.model_name,
-        car_rental_price : req.body.car_rental_price
+        car_rental_price : req.body.car_rental_price,
+        city: req.body.city,
+        no_of_passengers:req.body.no_of_passengers,
+        luggage_capacity:req.body.luggage_capacity,
+        ac:req.body.ac
     };
 
     kafka.make_request(topic_name, carObject, function(err,results){

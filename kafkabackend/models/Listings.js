@@ -68,9 +68,9 @@ var Listings = new Schema({
         city : String,
 		specification :
 		{
-			color: String,
-			engine_capacity: String,
-			miles_used: Number
+			no_of_passengers: Number,
+			luggage_capacity: Number,
+			ac: Boolean
 		},
 		car_rental_price : Number	
 	}

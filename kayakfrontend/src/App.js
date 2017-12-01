@@ -41,6 +41,7 @@ const  App = () => {
         <Route exact path="/adminUpdateHotel" component={AdminHome}/>
         <Route exact path="/adminUpdateFlight" component={AdminHome}/>
         <Route exact path="/adminUpdateCar" component={AdminHome}/>
+        <Route exact path="/adminUpdateUser" component={AdminHome}/>
         <Route exact path="/adminAccount" component={AdminAccount}/>
 
         <Route exact path="/adminShowUsers" component={AdminHome}/>

@@ -59,9 +59,7 @@ class AdminAllUsers extends Component{
                 // this.props.history.push("/");
             } 
         });
-        // this.props.adminAllHotels([{"hotel_id":"1","hotel_name":"Taj","address":{"street":"201 S 4th","city":"San Jose","zip_code":"95112",
-        //     "state":"CA","country":"US"},"stars":7,"rooms":[{"room_id":"1","room_type":"Standard","room_price":1000}],"avg_rating":4,
-        //   "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
+        
     }
 
     componentWillMount(){
@@ -105,13 +103,13 @@ class AdminAllUsers extends Component{
                             <div className="col-md-2">
                                 {user.last_name}
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-2">
                                 {user.city}
                             </div>
                             <div className="col-md-1">
                                 {user.state}
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-1">
                                 {user.zip_code}
                             </div>
                                 
@@ -188,13 +186,13 @@ class AdminAllUsers extends Component{
                             <div className="col-md-2">
                                 Last
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-2">
                                 City
                             </div>
                             <div className="col-md-1">
                                 State
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-1">
                                 Zip
                             </div>
                         </div>

@@ -26,6 +26,7 @@ import AdminUpdateFlight from './adminUpdateFlight';
 import AdminUpdateCar from './adminUpdateCar';
 import {NavLink} from 'react-router-dom';
 import AdminCustomNavbar from './AdminCustomNavBar';
+import AdminUpdateUser from './AdminUpdateUser';
 
 import * as API from '../api/API';
 
@@ -82,6 +83,7 @@ class AdminHome extends Component{
                         <Route exact path="/adminUpdateHotel" component={AdminUpdateHotel}/>
                         <Route exact path="/adminUpdateFlight" component={AdminUpdateFlight}/>
                         <Route exact path="/adminUpdateCar" component={AdminUpdateCar}/>
+                        <Route exact path="/adminUpdateUser" component={AdminUpdateUser}/>
                     </div>
                     {/* <div className="col-md-3">
 
