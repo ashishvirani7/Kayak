@@ -20,7 +20,7 @@ import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/explore_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
 
-import AA from '../images/AA.png';
+import AA from '../images/DL.png';
 class FlightResults extends Component
 {
     state = {
@@ -31,7 +31,7 @@ class FlightResults extends Component
     }
 
     componentDidMount(){
-        this.getFlights();
+        //this.getFlights();
     }
 
     getFlights = () =>{
@@ -51,6 +51,7 @@ class FlightResults extends Component
         }
         if(data.origin && data.destination && data.arrival_date && data.departure_date){
             console.log(data);
+            this.props.changeFlightSearch(data);
             API.doFlightSearch(data)
             .then((res)=>{
                 if(res.status===201){
@@ -75,40 +76,48 @@ class FlightResults extends Component
                 <div style={flightstyle}>
                     <div className="col-md-9" style={{padding:'0px'}}>
                         <div className="row">
-                            <div className="col-md-2">
-                                <div className="row">
-                                    <img src={AA} />
+                            <div className="col-md-2 col-md-offset-1">
+                                <div className="row" style={{marginTop:'30px',marginLeft:'10px'}}>
+                                    <img src={AA} style={{width:'32px'}}/>
                                 </div>
-                                <div className="row">
+                                <div className="row" style={{marginTop:'20px'}}>
                                     {flight.flight.flight_operator_name}
                                 </div>
                             </div>
-                            <div className="col-md-3">
-                                <div className="row">
-                                    {flight.flight.departure_date.slice(10,16)}
+                            <div className="col-md-2">
+                                <div className="row" style={{marginTop:'40px'}}>
+                                    {flight.flight.departure_date.slice(11,16)}
                                 </div>
                                 <div className="row">
                                     {flight.flight.origin}
                                 </div>
                             </div>
                             <div className="col-md-2">
-                                   
-                            </div>
-                            <div className="col-md-3">
-                                <div className="row">
-                                    {flight.flight.arrival_date.slice(10,16)}  
+                            <div className="row" style={{marginTop:'40px'}}>
+                                    <span style={{width:'100%',height:'2px',display:'inline-block',background:'#717585',position:'relative',margin:'3px 0'}} />
                                 </div>
-                                <div className="row">
+                                <div className="row" style={{textAlign:'center'}}>
+                                    {'nonstop'}
+                                </div>  
+                            </div>
+                            <div className="col-md-2 col-md-offset-1">
+                                <div className="row" style={{marginTop:'40px'}}>
+                                    {flight.flight.arrival_date.slice(11,16)}  
+                                </div>
+                                <div className="row" >
                                     {flight.flight.destination}
                                 </div>
                             </div>
                             <div className="col-md-2">
-                                   
+                                <div className="row" style={{marginTop:'50px'}}>
+                                    {'21h 50m'}
+                                    {flight.flight.duration}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
-                        <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'50px'}}>
+                        <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'20px'}}>
                             {'$'+flight.flight.classes[0].class_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
@@ -301,7 +310,7 @@ const btnstyle1={
 const flightstyle={
     marginBottom:'10px',
     backgroundColor:'#ffffff',
-    height:'150px',
+    height:'130px',
     width:'100%',
 }
 
