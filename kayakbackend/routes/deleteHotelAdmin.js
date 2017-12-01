@@ -22,11 +22,7 @@ router.post('/', (req,res,next)=>{
             if(results.code == 201){
                 message="Hotel Deleted Successfully";
                 console.log(message);
-<<<<<<< HEAD
-                //console.log("ID--"+results.data._id);
-=======
               //  console.log("ID--"+results.data._id);
->>>>>>> cd72ae67e17d00da75cc9f4154d4010064475f75
                 return res.status(201).send({"message":message});
             }
             else {
