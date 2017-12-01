@@ -17,7 +17,13 @@ function handle_request(msg, callback) {
         car_name : msg.car_name,
         car_type : msg.car_type,
         model_name : msg.model_name,
-        car_rental_price : msg.car_rental_price
+        car_rental_price : msg.car_rental_price,
+        city: msg.city,
+        specification : {
+            no_of_passengers:msg.no_of_passengers,
+            luggage_capacity:msg.luggage_capacity,
+            ac:msg.ac
+        }
     };
 
 
