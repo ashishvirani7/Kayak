@@ -17,6 +17,7 @@ import IconArrow from '../icons/IconArrow';
 import SelectField from 'material-ui/SelectField';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+
 const Car_Types=[
     
     {
@@ -44,11 +45,24 @@ const Car_Types=[
         "name":"Commercial"
     }
 ];
+const Ac_Types = [
+    {
+        "name":"True"
+    },
+    {
+        "name":"False"
+    }
+]
 
 const carTypes=[];
 Car_Types.map(type=>{
     carTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
 })
+ 
+const acTypes = [];
+Ac_Types.map(type=>{
+    acTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
+}) 
 
 class AdminCars extends Component{
     constructor(props) {
@@ -56,8 +70,13 @@ class AdminCars extends Component{
         this.state = {
             car_name:"",
             car_type:"",
+            city:"",
             model_name:"",
-            car_rental_price:""
+            car_rental_price:"",
+            no_of_passengers:"0",
+            luggage_capacity:"0",
+            ac_type:"True"
+        
         };
       }
 
@@ -73,6 +92,20 @@ class AdminCars extends Component{
       handleRentalPriceChange = (event, index, value) => {
         this.setState({...this.state,car_rental_price:event.target.value});
       };
+      handleCityChange = (event, index, value) => {
+        this.setState({...this.state,city:event.target.value});
+      };
+      handleNoOfPassengersChange = (event, index, value) => {
+        this.setState({...this.state,no_of_passengers:event.target.value});
+      };
+      
+      handleLuggageCapacityChange = (event, index, value) => {
+        this.setState({...this.state,luggage_capacity:event.target.value});
+      };
+      handleAcChange = (event, index, value) => {
+        this.setState({...this.state,ac_type:value});
+      };
+
       submitCar(){
         console.log(this.state);
         API.addCarAdmin(this.state)
@@ -116,6 +149,13 @@ class AdminCars extends Component{
                 </div>
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
+                        id="city"
+                        hintText="City"
+                        onChange={this.handleCityChange}
+                    />
+                </div>
+                <div className="row" style={divstyle}>
+                    <TextField style={istyle}
                         id="model_name"
                         hintText="Model Name"
                         onChange={this.handleModalNameChange}
@@ -128,8 +168,39 @@ class AdminCars extends Component{
                         onChange={this.handleRentalPriceChange}
                     />
                 </div>
+                <div className="row">
+                    <SelectField
+                            value={this.state.ac_type}
+                            onChange={this.handleAcChange}
+                            floatingLabelText="AC"
+                            maxHeight={200}  
+                            style={{marginLeft:"22px"}}
+                        >
+                            {acTypes}
+                    </SelectField>
+                </div>
+                    
                 <br/>
-                
+                <div className="row">
+                    <div className="col-md-2">
+                        <h4>Specifications:</h4>
+                    </div>
+                    <div className="col-md-3">
+                        <TextField style={istyle}
+                            id="no_of_passengers"
+                            hintText="Number of Passengers"
+                            onChange={this.handleNoOfPassengersChange}
+                        />
+                    </div>
+                    <div className="col-md-3">
+                        <TextField style={istyle}
+                            id="luggage_capacity"
+                            hintText="Luggage Capacity"
+                            onChange={this.handleLuggageCapacityChange}
+                        />
+                    </div>
+                </div>
+                <br/>
                 <div className="row" style={divstyle}>
                     <button style={btnstyle}
                         id="destbtn"

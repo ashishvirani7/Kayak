@@ -12,7 +12,7 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
     
-    var cond = {$and : [ { "hotel.hotel_name": {'$regex':msg.hotel_name,$options:'i'}}, {"listing_type" : "Hotel"}]};
+    var cond = {$and : [ { "hotel.hotel_name": {'$regex':"^"+msg.hotel_name+"+",$options:'m',$options:'i'}}, {"listing_type" : "Hotel"}]};
 
     hotelListings.find(cond , {hotel : 1} , function(err, hotelDocuments) {
         if (err) {
