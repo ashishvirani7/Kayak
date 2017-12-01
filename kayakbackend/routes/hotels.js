@@ -19,6 +19,8 @@ router.post('/', (req, res, next)=>{
     var filter_prop = req.body.filter_prop;
     var key = "search";
     kafka.make_request(topic_name, {key, city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
+
+    console.log(filter_prop);
         if(err){
             done(err,{});
         }

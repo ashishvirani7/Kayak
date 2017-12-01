@@ -17,16 +17,18 @@ function handle_request(msg, callback) {
         first_name : msg.first_name,
         middle_name : msg.middle_name,
         last_name : msg.last_name,
-        street : msg.street,
-        city : msg.city,
-        state : msg.state,
-        zip_code : msg.zip_code,
-        country : msg.country,
+        address : {
+            street: msg.street,
+            state : msg.state,
+            zip_code : msg.zip_code,
+            city : msg.city,
+            country: "US"
+        },
         phone : msg.phone
     };
 
     var condition = {
-        email: email
+        email: msg.email
     };
     var updateCol = {$set: userObject};
 

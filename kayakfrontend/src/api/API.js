@@ -453,7 +453,7 @@ fetch(`${api}/getAllUserDataAdmin`, {
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
-    method: 'GET',
+    method: 'POST',
     headers: {
         ...headers,
         'Content-Type': 'application/json'

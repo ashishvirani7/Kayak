@@ -74,6 +74,26 @@ class CarResults extends Component
             NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
         }
     }
+
+    showcars = () => {
+        if(this.props.userData.cars !== undefined)
+        {
+            const cars=this.props.userData.cars;
+            console.log(cars);
+            return cars.map(car=>(
+                <div style={carstyle}>
+                    <div className="col-md-4" style={{padding:'0px'}}>
+                        
+                    </div>
+                    <div className="col-md-8">
+                        <div className="row" style={{padding:'10px'}}>
+                            Hello
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    }
     render(){
         return(
             <div>
@@ -210,8 +230,8 @@ class CarResults extends Component
                     </div>
                     <div className="col-md-7">
                         <div class="row">
-                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px',height:'100px',backgroundColor:'white'}}>
-                                
+                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px'}}>
+                                {this.showCars()}
                             </div>
                         </div>
                     </div>
@@ -236,6 +256,13 @@ class CarResults extends Component
             </div>
         )
     }
+}
+
+const carstyle={
+    marginBottom:'10px',
+    backgroundColor:'#ffffff',
+    height:'209px',
+    width:'100%',
 }
 
 const rstyle={

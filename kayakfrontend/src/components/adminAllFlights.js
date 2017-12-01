@@ -129,7 +129,7 @@ class AdminAllFlights extends Component{
 
     searchFlight(){
         console.log(this.state.flight_name);
-        API.searchFlightAdmin(this.state.flight_name)
+        API.searchFlightAdmin({flight_name:this.state.flight_name})
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");

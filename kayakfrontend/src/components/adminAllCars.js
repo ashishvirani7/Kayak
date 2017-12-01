@@ -122,7 +122,7 @@ class AdminAllCars extends Component{
 
     searchCar(){
         console.log(this.state.car_name);
-        API.searchCarAdmin(this.state.car_name)
+        API.searchCarAdmin({car_name:this.state.car_name})
         .then((res) => {
             if (res.status === 201) {
                 console.log("Success");

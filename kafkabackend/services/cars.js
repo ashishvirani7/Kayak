@@ -37,7 +37,7 @@ function handle_request(msg, callback) {
     else{
         Listings.find(
             {
-                "car.city":city,
+                "car.city":{'$regex':city,$options:'i'},
                 "car.car_type":{$nin:filter_prop.type},
             }, function(err, cars){
                 if(err){

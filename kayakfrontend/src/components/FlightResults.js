@@ -66,6 +66,26 @@ class FlightResults extends Component
         }
     }
 
+    showFlights = () => {
+        if(this.props.userData.flights !== undefined)
+        {
+            const flights=this.props.userData.flights;
+            console.log(flights);
+            return flights.map(flight=>(
+                <div style={flightstyle}>
+                    <div className="col-md-4" style={{padding:'0px'}}>
+                        
+                    </div>
+                    <div className="col-md-8">
+                        <div className="row" style={{padding:'10px'}}>
+                            Hello
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    }
+
     handleChangeClass = (event, index, valueClass) => this.setState({...this.state,valueClass});
     handleChangeTraveler = (event, index, valueTraveler) => this.setState({...this.state,valueTraveler});
 
@@ -206,8 +226,8 @@ class FlightResults extends Component
                     </div>
                     <div className="col-md-7">
                         <div className="row">
-                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px',height:'100px',backgroundColor:'white'}}>
-                                
+                            <div className="col-md-12" style={{margin:'10px',marginLeft:'20px'}}>
+                                {this.showFlights()}
                             </div>
                         </div>
                     </div>
@@ -232,6 +252,13 @@ class FlightResults extends Component
             </div>
         )
     }
+}
+
+const flightstyle={
+    marginBottom:'10px',
+    backgroundColor:'#ffffff',
+    height:'209px',
+    width:'100%',
 }
 
 const starttitle={

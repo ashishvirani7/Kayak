@@ -24,8 +24,8 @@ function handle_request(msg, callback) {
                 {
                     "flight.departure_date":departure_date,
                     "flight.arrival_date":arrival_date,
-                    "flight.origin":origin,
-                    "flight.destination":destination,
+                    "flight.origin":{'$regex':origin,$options:'i'},
+                    "flight.destination":{'$regex':destination,$options:'i'},
                     "flight.classes.class_type":flight_class,
                     "flight.stops":{$nin:filter_prop.stops},
                     "flight.flight_operator_name":{$nin:filter_prop.flight_name},
