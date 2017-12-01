@@ -18,6 +18,7 @@ class Preferences extends Component
 
     componentWillMount(){
         this.getUserDetails();
+        console.log(this.props.userData);
     }
 
     getUserDetails = () => {

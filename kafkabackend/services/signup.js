@@ -43,7 +43,48 @@ function handle_request(msg, callback){
                     if(!err) {
                         var userObject = {
                             email: email,
-                            password: hash
+                            password: hash,
+                            first_name: '',
+                            middle_name: '',
+                            last_name : '',
+                            birth_date : '',
+                            gender : '',
+                            home_airport : '',
+                            email_site: '',
+                            isEmailVerified: false,
+                            address :
+                            {
+                                street: '',
+                                state: '',
+                                city:'',
+                                zip_code:'',
+                                country:''
+                            },
+                            phone : '',
+                            social_connections:
+                            {
+                                isFacebookLinked: false, 
+                                isGoogleLinked: false
+                            },                            
+                            carddetails : {
+                                credit_card_number : '',
+                                card_name : '',
+                                cvv : '',
+                                expiry_date : '',
+                                street: '',
+                                state: '',
+                                city:'',
+                                zip_code:'',
+                                country:'',
+                                expiry_month : '',
+                                expiry_year : ''
+                            },
+                            profile_pic :  '',
+                            video :  '',
+                            user_type : '',
+                            user_status : '',
+                            avg_rating : '',
+                            active : true,
                         };
                         var user = new Users(userObject);
                         user.save(function (err, product, numAffected) {

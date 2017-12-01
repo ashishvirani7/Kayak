@@ -17,6 +17,7 @@ router.post('/', (req, res, next)=>{
     var noOfRoom = req.body.noOfRoom;
     var order = req.body.order;
     var filter_prop = req.body.filter_prop;
+    console.log(filter_prop);
 
     kafka.make_request(topic_name, {city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
         if(err){
