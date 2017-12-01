@@ -90,16 +90,14 @@ class HotelSearch extends Component{
                                 hintText="Where"
                                 type="submit"
                                 onClick={()=>{
-                                    var filter_props = {
-                                        ratings: this.state.valueStar,
-                                    }
+                                    
                                     var data ={
                                         city:document.getElementById('destination').value,
                                         checkIn:     document.getElementById('toDate').value,
                                         checkOut:   document.getElementById('fromDate').value,
                                         noOfRoom:   this.state.valueRoom,
                                         noOfGuest:  this.state.valueGuest,
-                                        filter_props,
+                                        filter_prop:{ratings: 0},
                                         order:'price_asc'
                                     }
                                     if(data.city && data.checkIn && data.checkOut){

@@ -18,7 +18,7 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
     if(order == "price_desc"){
         Listings.find({
-            "hotel.address.city":{'$regex':city,$options:'i'},
+            "hotel.address.city":{'$regex':'^'+city+'+',$options:'i'},
             "hotel.rooms.room_type":"Suite",
             "hotel.stars":{$gt:parseInt(filter_prop.ratings,10)}
         }, function(err, hotels){
@@ -42,7 +42,7 @@ function handle_request(msg, callback) {
     }
     else{
         Listings.find({
-            "hotel.address.city":{'$regex':city,$options:'i'}, 
+            "hotel.address.city":{'$regex':'^'+city+'+',$options:'i'}, 
             "hotel.rooms.room_type":"Suite",
             "hotel.stars":{$gt:parseInt(filter_prop.ratings,10)}
         }, function(err, hotels){
