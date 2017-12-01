@@ -11,8 +11,14 @@ function handle_request(msg, callback) {
     var res = {};
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
+
+    if(msg.hotel_name == ""){
+        var cond={"listing_type" : "Hotel"};
+    }
+    else{
+        var cond = {$and : [ { "hotel.hotel_name": {'$regex':"^"+msg.hotel_name+"+",$options:'m',$options:'i'}}, {"listing_type" : "Hotel"}]};
+    }
     
-    var cond = {$and : [ { "hotel.hotel_name": {'$regex':"^"+msg.hotel_name+"+",$options:'m',$options:'i'}}, {"listing_type" : "Hotel"}]};
 
     hotelListings.find(cond , {hotel : 1} , function(err, hotelDocuments) {
         if (err) {
@@ -22,7 +28,7 @@ function handle_request(msg, callback) {
             callback(null, res);
         }
         else {
-
+            console.log(hotelDocuments);
             var hotelFrontEnd = [];
             hotelDocuments.map(hotel=>{
                 var ob = {};

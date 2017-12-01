@@ -12,7 +12,14 @@ function handle_request(msg, callback) {
     var message = "";
     console.log("In handle request:"+ JSON.stringify(msg));
 
-    Users.find({email:{'$regex':"^"+msg.email+"+",$options:'m',$options:'i'}} , {} , function(err, userDocuments) {
+    if(msg.email == ""){
+        var cond={};
+    }
+    else{
+        var cond = {email:{'$regex':"^"+msg.email+"+",$options:'m',$options:'i'}} ;
+    }
+
+    Users.find(cond, {} , function(err, userDocuments) {
         if (err) {
             console.log("Some Error Happened while getting User Data");
             res.code = "500";
