@@ -20,7 +20,11 @@ import {changeCarSearch} from '../actions/carSearchAction';
 import img1 from '../images/price-alert_ad_white.png';
 import img3 from '../images/explore_ad_white.png';
 import img2 from '../images/kayak-app_ad_v1.jpg';
+import person from '../images/person.svg';
+import bag from '../images/bag.svg';
+import door from '../images/door.svg';
 
+import img4 from '../images/car1.png';
 class CarResults extends Component
 {
     state = {
@@ -75,19 +79,59 @@ class CarResults extends Component
         }
     }
 
-    showcars = () => {
+    showCars = () => {
         if(this.props.userData.cars !== undefined)
         {
             const cars=this.props.userData.cars;
             console.log(cars);
             return cars.map(car=>(
                 <div style={carstyle}>
-                    <div className="col-md-4" style={{padding:'0px'}}>
-                        
+                    <div className="col-md-6" style={{padding:'0px'}}>
+                        <div className="row" style={{fontSize:'15px',fontWeight:'500'}}>
+                            {(car.car.car_type==='Small' || car.car.car_type==='Medium') && 'Compact'}
+                            {(car.car.car_type==='Large' || car.car.car_type==='SUV') && 'Economy'}
+                            {(car.car.car_type==='Pickup Truck' || car.car.car_type==='Commercial') && 'Commercial'}
+                            {(car.car.car_type==='Luxury') && 'Luxury'}
+                            {(car.car.car_type==='Van') && 'Van'}
+                        </div>
+                        <div className="row" style={{fontSize:'5px', fontWeight:'900'}}>
+                            {car.car.model_name}
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                                <img src={person}/>
+                            </div>
+                            <div className="col-md-2">
+                                6
+                            </div>
+                            <div className="col-md-2">
+                                <img src={bag}/>
+                            </div>
+                            <div className="col-md-2">
+                                2
+                            </div>
+                            <div className="col-md-2">
+                                <img src={door}/>
+                            </div>
+                            <div className="col-md-2">
+                                4
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-8">
-                        <div className="row" style={{padding:'10px'}}>
-                            Hello
+                    <div className="col-md-3">
+                        <div className="row" style={{float:'right',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                            GREAT DEAL
+                        </div>
+                        <div className="row">
+                            <img src={img4}/>
+                        </div>
+                    </div>
+                    <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
+                        <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'50px'}}>
+                            {'$'+car.car.car_rental_price}
+                        </div>
+                        <div className="row" style={{marginTop:'20px'}}>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>View Deal</button>
                         </div>
                     </div>
                 </div>
@@ -256,6 +300,17 @@ class CarResults extends Component
             </div>
         )
     }
+}
+
+const btnstyle1={
+    border:'none',
+    fontSize:'16px',
+    height:'30px',
+    width:'70%',
+    marginLeft:'5px',
+    marginRight:'5px',
+    color:'white',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
 }
 
 const carstyle={
