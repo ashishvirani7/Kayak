@@ -39,9 +39,9 @@ class UserBooking extends Component{
     
     handleNext = () => {
         var {stepIndex} = this.state;
-        stepIndex++;
+        
         if(stepIndex==2){
-            
+            stepIndex++;
             var booking = this.props.userData.booking;
             if(booking.bookingType==='Car'){
                 API.doCarBooking()
@@ -81,6 +81,7 @@ class UserBooking extends Component{
             }
         }
         else{
+            stepIndex++;
             this.setState({
                 stepIndex: stepIndex,
                 finished: stepIndex >= 2,
