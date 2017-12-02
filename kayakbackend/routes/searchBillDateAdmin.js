@@ -10,6 +10,8 @@ router.post('/', (req,res,next)=>{
     var billObject = {
         date : req.body.date
     };
+    console.log("BillObject"+billObject);
+    console.log("BillObject"+JSON.stringify(billObject));
 
     kafka.make_request(topic_name, billObject, function(err,results){
         console.log('in result');
