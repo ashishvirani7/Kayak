@@ -224,7 +224,7 @@ class AdminAllHotelBill extends Component{
 
     searchBill() {
         if(this.state.current === "month"){
-            API.searchBillsMonthAdmin({month:this.state.month})
+            API.searchBillsMonthAdmin({month:this.state.month,year:this.state.year})
             .then((res) => {
                 if (res.status === 201) {
                     res.json().then(data => {
