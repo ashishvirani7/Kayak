@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 
 import {changeCarListing} from '../actions/carListingAction';
 import {changeCarSearch} from '../actions/carSearchAction';
-import {changeCarBooking} from '../actions/carBookingAction';
+import {changeBooking} from '../actions/bookingAction';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img3 from '../images/explore_ad_white.png';
@@ -146,7 +146,7 @@ class CarResults extends Component
                                     search: this.props.userData.carSearch,
                                 }
                                 console.log(data);
-                                this.props.changeCarBooking(data);
+                                this.props.changeBooking(data);
                                 this.props.history.push('/booking');
                             }}
                             >Book Now</button>
@@ -397,7 +397,7 @@ function matchDispatchToProps(dispatch){
         {
             changeCarListing,
             changeCarSearch,
-            changeCarBooking,
+            changeBooking,
         }
         ,dispatch);
   }

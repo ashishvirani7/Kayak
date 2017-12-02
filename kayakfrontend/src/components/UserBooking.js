@@ -15,6 +15,7 @@ import {withRouter} from 'react-router-dom';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import Paper from 'material-ui/Paper';
 
 
 class UserBooking extends Component{
@@ -43,7 +44,7 @@ class UserBooking extends Component{
         const {stepIndex} = this.state;
     
         return (
-          <div style={{margin: '12px 0'}}>
+          <div style={{margin: '12px 20px'}}>
             <RaisedButton
               label={stepIndex === 2 ? 'Finish' : 'Next'}
               disableTouchRipple={true}
@@ -66,15 +67,47 @@ class UserBooking extends Component{
     }
 
     showBookingDetails = () => {
+        return(
+            <Paper style={paperstyle} zDepth={3}>
+                {this.userData.booking.bookingType==="Hotel" && 
+                    <div className="row">
+                        <div className="col-md-6">
 
+                        </div>
+                    </div>
+                }
+                {this.userData.booking.bookingType==="Flight" && 
+                    <div className="row">
+                        <div className="col-md-6">
+
+                        </div>
+                    </div>
+                }
+                {this.userData.booking.bookingType==="Car" && 
+                    <div className="row">
+                        <div className="col-md-6">
+
+                        </div>
+                    </div>
+                }
+            </Paper>
+        )
     }
 
     showPaymentDetails = () => {
+        return(
+            <Paper style={paperstyle} zDepth={3}>
 
+            </Paper>
+        )
     }
 
     finalBooking = () => {
+        return(
+            <Paper style={paperstyle} zDepth={3}>
 
+            </Paper>
+        )
     }
     render(){
         const {finished, stepIndex} = this.state;
@@ -88,27 +121,27 @@ class UserBooking extends Component{
                     </div>
                 </div>
                 <div className="row" style={{margin:'20px -30px 0px 50px',height:'50px',fontSize:'30px',fontWeight:'500px'}}>
-                    Hotel Booking
+                    {this.props.userData.booking.bookingType} Booking
                 </div>
                 <div className="row" style={{marginRight:'-30px',height:'110vh'}}>
-                <div style={{maxWidth: 380, maxHeight: 400, margin: '20px 50px 50px 50px'}}>
+                <div style={{ margin: '20px 50px 50px 50px'}}>
                     <Stepper activeStep={stepIndex} orientation="vertical">
                     <Step>
-                        <StepLabel>Booking Details</StepLabel>
+                        <StepLabel style={{fontSize:'18px',color:'#00bcd4'}}>Booking Details</StepLabel>
                         <StepContent>
                         {this.showBookingDetails()}
                         {this.renderStepActions(0)}
                         </StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Confirm Your Payment</StepLabel>
+                        <StepLabel style={{fontSize:'18px',color:'#00bcd4'}}>Confirm Your Payment</StepLabel>
                         <StepContent>
                         {this.showPaymentDetails()}
                         {this.renderStepActions(1)}
                         </StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Confirm Your Booking</StepLabel>
+                        <StepLabel style={{fontSize:'px',color:'#00bcd4'}}>Confirm Your Booking</StepLabel>
                         <StepContent>
                         {this.finalBooking()}
                         {this.renderStepActions(2)}
@@ -129,6 +162,14 @@ const navstyle={
     marginLeft:'120px',
     marginRight:'120px'
 }
+
+const paperstyle = {
+    height: 200,
+    width: 700,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+  };
 
 function mapStateToProps(state){
     return{
