@@ -201,24 +201,31 @@ class AdminAllHotels extends Component{
     render(){
         return(
             <div>
-                <h1 ><u> All Hotels</u> </h1>
-                <div className="row" style={{marginLeft:"600px"}}>
-                        <div class="input-group">
-                        {/* <input type="text" class="form-control"
-                            placeholder="Search" id="inputGroup"
-                            onChange={this.hotelNameChange}
-                            /> */}
+                <span style={titlestyle}>
+                        Hotel List  
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
+                
+                <div className="row" style={{marginLeft:"390px"}}>
+                
+                    <div className="col-md-2 col-md-offset-4">
+                        <label style={{fontWeight:'bold',color: '#333',fontSize:'15px',marginTop:"15px"}}>Search :</label>
+                    </div>
 
+                    <div class="col-md-5 ">
+                    {/* <input type="text" class="form-control"
+                        placeholder="Search" id="inputGroup"
+                        onChange={this.carNameChange}
+                        /> */}
                         <AutoComplete
-                            hintText="Type anything"
+                            hintText="Hotel Name"
                             dataSource={this.state.dataSource}
                             onUpdateInput={this.hotelNameChange}
                             filter={AutoComplete.caseInsensitiveFilter}
-                            />
-                        <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchHotel()}>
-                            🔎
-                        </span>
-                        </div>
+                            maxSearchResults	= {5}
+                        />
+                    
+                    </div>
                 </div>
                 <br/>
                 <ListItem disabled={true} style={{height:"45px","backgroundColor":"#ec7132"}}>
@@ -251,6 +258,11 @@ class AdminAllHotels extends Component{
             </div>
         )
     }
+}
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 const smallIcon= {
     width: 20,

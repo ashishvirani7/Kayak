@@ -100,7 +100,7 @@ class AdminAllFlightBill extends Component{
         super(props);
         this.state={
             date:"",
-            month:"",
+            month:"1",
             year:"2017",
             current:"date"
         };
@@ -236,7 +236,11 @@ class AdminAllFlightBill extends Component{
     render(){
         return(
             <div>
-                <h1 ><u> Flight Bills</u> </h1>
+                <span style={titlestyle}>
+                        Flight Bill List 
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
+                
                 <div className="row">
 
                     <div className="col-md-2 col-md-offset-5" style={{marginTop:"10px"}}>
@@ -333,6 +337,12 @@ class AdminAllFlightBill extends Component{
             </div>
         )
     }
+}
+
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 const smallIcon= {
     width: 20,

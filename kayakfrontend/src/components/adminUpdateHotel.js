@@ -373,9 +373,10 @@ class AdminUpdateHotel extends Component{
     render(){
         return(
             <div>
-                
-                <h1><u>Update Hotel</u></h1>
-                
+                <span style={titlestyle}>
+                        Details of hotel  {<span><b>{this.state.hotel_name}</b></span>}
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>    
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="hotel_name"
@@ -530,6 +531,12 @@ class AdminUpdateHotel extends Component{
             </div>
         )
     }
+}
+
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 
 const rstyle={

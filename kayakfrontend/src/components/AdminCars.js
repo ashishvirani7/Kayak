@@ -128,7 +128,10 @@ class AdminCars extends Component{
     render(){
         return(
             <div>
-                <h1 ><u>Add Car</u> </h1>
+                <span style={titlestyle}>
+                        Add Car 
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -212,6 +215,12 @@ class AdminCars extends Component{
             </div>
         )
     }
+}
+
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 
 const rstyle={
