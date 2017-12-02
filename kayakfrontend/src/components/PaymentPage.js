@@ -8,15 +8,48 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {changeBillingData} from '../actions/billingDataAction.js';
 
+import visa from '../icons/Visa-icon.png'
+import master from '../icons/Master-Card-icon.png';
+import american from '../icons/American-Express-icon.png';
+
+const masterCardReg = "^5";
+const visaCardReg = "^4";
+const americanCardReg = "^3";
 class PaymentPage extends Component
 {
-    state={
-        edit : false
+    constructor(props){
+        super(props);
+        this.state = {
+            edit : false,
+            card: false
+        }
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillMount(){
         this.getBillingDetails();
     }
+    handleChange(event) {
+        var val= event.target.value;
+        if(val.match(masterCardReg)){
+            this.setState({...this.state,card:master})
+        }
+        else if(val.match(visaCardReg)){
+            this.setState({...this.state,card:visa})
+        }
+        else if(val.match(americanCardReg)){
+            this.setState({...this.state,card:american})
+        }
+        else{
+            this.setState({...this.state,card:false})
+        }
+    
+    }
+
+    // cardNumberChange(event)  {
+    //     var val = event.target.value;
+
+    
 
     getBillingDetails = () => {
         console.log('hello');
@@ -62,14 +95,20 @@ class PaymentPage extends Component
                     <div className="col-md-9">
                     {!this.state.edit
                             ?<div>{(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}</div>
-                            :<input 
-                                id="name_on_card"
-                                type="text" 
-                                name="name_on_card" 
-                                defaultValue={(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}
-                                placeholder="Name on Card"
-                                style={inputstyle}
-                            />
+                            :
+                            <div>
+                                
+                                    <input 
+                                        id="name_on_card"
+                                        type="text" 
+                                        name="name_on_card" 
+                                        defaultValue={(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}
+                                        placeholder="Name on Card"
+                                        
+                                        style={inputstyle}
+                                    />
+
+                            </div>
                         }
                     </div>
                 </div>
@@ -80,14 +119,28 @@ class PaymentPage extends Component
                     <div className="col-md-9">
                     {!this.state.edit
                             ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}</div>
-                            :<input 
-                                id="cnumber"
-                                type="text" 
-                                name="cnumber" 
-                                defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
-                                placeholder="Credit Card Number"
-                                style={inputstyle}
-                            />
+                            :
+                            <div className="row">
+                                <div className="col-md-5">
+                            
+                                    <input 
+                                        id="cnumber"
+                                        type="text" 
+                                        name="cnumber" 
+                                        defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
+                                        placeholder="Credit Card Number"
+                                        onChange={this.handleChange} 
+                                        style={inputstyle}
+                                    />
+                                </div>
+                                <div className="col-md-2">
+                                    {
+                                        this.state.card && 
+                                            <img src={this.state.card} style={{width:"40px",height:"40px"}} className="img-responsive" alt="logo"/>
+                                    }
+                                </div>
+                            </div>
+                                
                         }
                     </div>
                 </div>
