@@ -9,8 +9,8 @@ var Bill = new Schema({
 	email : String,
 	bill_amount:Number,
 	bill_status:String,
-	flights :
-	[{
+	flight :
+	{
 		flight_id : String,
 		flight_operator_name:String,
 		flight_start_date: Date,
@@ -21,22 +21,22 @@ var Bill = new Schema({
 		no_of_travelers : Number,
 		amount: Number,
 		Notes: String
-	}],
-	hotels :
-	[{
+	},
+	hotel :
+	{
 		hotel_id : String,
 		hotel_name : String,
 		city: String,
-		State:String,
+		state:String,
 		booking_start_date: Date,
 		booking_end_date: Date,
 		amount: Number,
 		no_of_guests : Number,
 		room_type:String,
 		Notes: String
-	}],
-	cars :
-	[{
+	},
+	car :
+	{
 		car_id : String,
 		booking_start_date: Date,
 		booking_end_date: Date,
@@ -46,7 +46,7 @@ var Bill = new Schema({
 		model_name : String,
         city : String,
 		Notes: String
-	}]
+	}
 	
 });
 

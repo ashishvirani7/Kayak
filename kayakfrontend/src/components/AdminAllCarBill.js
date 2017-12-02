@@ -87,29 +87,29 @@ class AdminAllFlightBill extends Component{
         this.radioButtonChange=this.radioButtonChange.bind(this);
     }
     getAllBilling(){
-        // API.adminGetAllBilling()
-        // .then((res) => {
-        //     if (res.status === 201) {
-        //         console.log("Success");
-        //         res.json().then(data => {
-        //             console.log(JSON.stringify(data))
-        //             this.props.adminAllBill(data.message.data);
-        //             //NotificationManager.success("Success", data.message, 2500, true);
-        //             // this.props.history.push("/logs");
-        //         });
+        API.adminGetAllBilling()
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(data => {
+                    console.log(JSON.stringify(data))
+                    this.props.adminAllBill(data.message.data);
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
         
-        //     } else if (res.status === 401) {
+            } else if (res.status === 401) {
                 
-        //         NotificationManager.error("Fail", "Fail", 2500, true);
-        //         // this.props.history.push("/");
-        //     } 
-        // });
+                NotificationManager.error("Fail", "Fail", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
         // this.props.adminAllHotels([{"hotel_id":"1","hotel_name":"Taj","address":{"street":"201 S 4th","city":"San Jose","zip_code":"95112",
         //     "state":"CA","country":"US"},"stars":7,"rooms":[{"room_id":"1","room_type":"Standard","room_price":1000}],"avg_rating":4,
         //   "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
 
         
-        this.props.adminAllBill([{"_id":"1","bill_type":"Car",car:{"car_name":"Taj"}}])
+        //this.props.adminAllBill([{"_id":"1","bill_type":"Car",car:{"car_name":"Taj"}}])
     }
     dateValueChange(event){
         this.setState({...this.state,date:event.target.value});

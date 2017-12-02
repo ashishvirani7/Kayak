@@ -452,7 +452,7 @@ fetch(`${api}/getAllUserDataAdmin`, {
 });
 
 export const adminGetAllBilling = () =>
-fetch(`${api}/getAllBillsAdmin`, {
+fetch(`${api}/getAllBillAdmin`, {
     method: 'POST',
     headers: {
         ...headers,
