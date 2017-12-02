@@ -86,18 +86,24 @@ class CarResults extends Component
             console.log(cars);
             return cars.map(car=>(
                 <div style={carstyle}>
-                    <div className="col-md-6" style={{padding:'0px'}}>
-                        <div className="row" style={{fontSize:'15px',fontWeight:'500'}}>
+                    <div className="col-md-6" style={{padding:'0px',marginTop:'10px'}}>
+                        <div className="row" style={{fontSize:'20px',fontWeight:'400'}}>
                             {(car.car.car_type==='Small' || car.car.car_type==='Medium') && 'Compact'}
                             {(car.car.car_type==='Large' || car.car.car_type==='SUV') && 'Economy'}
                             {(car.car.car_type==='Pickup Truck' || car.car.car_type==='Commercial') && 'Commercial'}
                             {(car.car.car_type==='Luxury') && 'Luxury'}
                             {(car.car.car_type==='Van') && 'Van'}
                         </div>
-                        <div className="row" style={{fontSize:'5px', fontWeight:'900'}}>
+                        <div className="row" style={{fontSize:'15px', fontWeight:'900',marginTop:'20px'}}>
+                            {car.car.car_name}
+                        </div>
+                        <div className="row" style={{fontSize:'13px', fontWeight:'500',marginTop:'20px'}}>
                             {car.car.model_name}
                         </div>
-                        <div className="row">
+                        <div className="row" style={{}}>
+                        <span style={{width:'100%',height:'1px',display:'inline-block',background:'#e4e5ea',position:'relative',margin:'3px 0'}} />
+                        </div>
+                        <div className="row" style={{fontWeight:'900',marginTop:'10px'}}>
                             <div className="col-md-2">
                                 <img src={person}/>
                             </div>
@@ -119,11 +125,11 @@ class CarResults extends Component
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="row" style={{float:'right',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                        <div className="row" style={{float:'right',padding:'5px',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
                             GREAT DEAL
                         </div>
                         <div className="row">
-                            <img src={img4}/>
+                            <img src={img4} style={{width:'150px',marginTop:'20px'}}/>
                         </div>
                     </div>
                     <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
@@ -131,7 +137,7 @@ class CarResults extends Component
                             {'$'+car.car.car_rental_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>View Deal</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -316,8 +322,9 @@ const btnstyle1={
 const carstyle={
     marginBottom:'10px',
     backgroundColor:'#ffffff',
-    height:'209px',
+    height:'190px',
     width:'100%',
+    padding:'10px 25px'
 }
 
 const rstyle={

@@ -123,7 +123,7 @@ class HotelResults extends Component
                                     {'$'+hotel.hotel.rooms[0].room_price}
                                </div>
                                <div className="row" style={{marginTop:'20px'}}>
-                                    <button style={btnstyle1} labelColor='white'>View Deal</button>
+                                    <button style={btnstyle1} labelColor='white'>Book Now</button>
                                </div>
                             </div>
                         </div>

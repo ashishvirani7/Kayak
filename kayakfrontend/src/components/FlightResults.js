@@ -121,7 +121,7 @@ class FlightResults extends Component
                             {'$'+flight.flight.classes[0].class_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>View Deal</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>Book Now</button>
                         </div>
                     </div>
                 </div>
