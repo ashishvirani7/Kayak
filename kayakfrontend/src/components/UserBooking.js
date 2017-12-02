@@ -2,9 +2,82 @@ import React,{Component} from 'react';
 import CustomNavbar from './CustomNavbar';
 import {Route} from 'react-router-dom';
 import HomeFooter from './HomeFooter';
+import {
+    Step,
+    Stepper,
+    StepLabel,
+    StepContent,
+} from 'material-ui/Stepper';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+
+import {withRouter} from 'react-router-dom';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 
 class UserBooking extends Component{
+
+    state = {
+        finished: false,
+        stepIndex: 0,
+      };
+    
+    handleNext = () => {
+        const {stepIndex} = this.state;
+        this.setState({
+          stepIndex: stepIndex + 1,
+          finished: stepIndex >= 2,
+        });
+    };
+    
+    handlePrev = () => {
+        const {stepIndex} = this.state;
+        if (stepIndex > 0) {
+          this.setState({stepIndex: stepIndex - 1});
+        }
+    };
+    
+      renderStepActions(step) {
+        const {stepIndex} = this.state;
+    
+        return (
+          <div style={{margin: '12px 0'}}>
+            <RaisedButton
+              label={stepIndex === 2 ? 'Finish' : 'Next'}
+              disableTouchRipple={true}
+              disableFocusRipple={true}
+              primary={true}
+              onClick={this.handleNext}
+              style={{marginRight: 12}}
+            />
+            {step > 0 && (
+              <FlatButton
+                label="Back"
+                disabled={stepIndex === 0}
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                onClick={this.handlePrev}
+              />
+            )}
+          </div>
+        );
+    }
+
+    showBookingDetails = () => {
+
+    }
+
+    showPaymentDetails = () => {
+
+    }
+
+    finalBooking = () => {
+
+    }
     render(){
+        const {finished, stepIndex} = this.state;
         return(
             <div>
                 <div className="row">
@@ -14,8 +87,35 @@ class UserBooking extends Component{
                         </div>
                     </div>
                 </div>
+                <div className="row" style={{margin:'20px -30px 0px 50px',height:'50px',fontSize:'30px',fontWeight:'500px'}}>
+                    Hotel Booking
+                </div>
                 <div className="row" style={{marginRight:'-30px',height:'110vh'}}>
-                    
+                <div style={{maxWidth: 380, maxHeight: 400, margin: '20px 50px 50px 50px'}}>
+                    <Stepper activeStep={stepIndex} orientation="vertical">
+                    <Step>
+                        <StepLabel>Booking Details</StepLabel>
+                        <StepContent>
+                        {this.showBookingDetails()}
+                        {this.renderStepActions(0)}
+                        </StepContent>
+                    </Step>
+                    <Step>
+                        <StepLabel>Confirm Your Payment</StepLabel>
+                        <StepContent>
+                        {this.showPaymentDetails()}
+                        {this.renderStepActions(1)}
+                        </StepContent>
+                    </Step>
+                    <Step>
+                        <StepLabel>Confirm Your Booking</StepLabel>
+                        <StepContent>
+                        {this.finalBooking()}
+                        {this.renderStepActions(2)}
+                        </StepContent>
+                    </Step>
+                    </Stepper>
+                </div>
                 </div>
                 <div className="row" >
                     <HomeFooter />
@@ -30,4 +130,18 @@ const navstyle={
     marginRight:'120px'
 }
 
-export default UserBooking;
+function mapStateToProps(state){
+    return{
+        userData:state.userData,
+    };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            
+        }
+    ,dispatch);
+}
+
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(UserBooking));
