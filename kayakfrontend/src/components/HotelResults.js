@@ -29,6 +29,10 @@ import {changeHotelSearch} from '../actions/hotelSearchAction';
 import {changeBooking} from '../actions/bookingAction';
 
 import ReactStars from 'react-stars';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
+
 class HotelResults extends Component
 {
     state = {
@@ -36,7 +40,8 @@ class HotelResults extends Component
         valueGuest:this.props.userData.hotelSearch.noOfGuest,
         valueStar:0,
         sort:0,
-        roomType:'Standard'
+        roomType:'Standard',
+        dataSource:cities.names
     }
 
     componentDidMount(){
@@ -175,22 +180,32 @@ class HotelResults extends Component
                 <div className="row" style={rstyle}>
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
+                            
+                            <AutoComplete style={istyle}
                                 id="destination"
-                                hintText="Where"
-                                defaultValue={this.props.userData.hotelSearch.city}
-                                required="required"
+                                hintText={this.props.userData.hotelSearch.city}
+                                dataSource={this.state.dataSource}
+                                filter={AutoComplete.caseInsensitiveFilter}
+                                maxSearchResults	= {5}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.hotelSearch.checkIn+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk />
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="fromDate" defaultDate={new Date(this.props.userData.hotelSearch.checkIn+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.hotelSearch.checkOut+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="toDate" defaultDate={new Date(this.props.userData.hotelSearch.checkOut+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-2">
@@ -198,6 +213,8 @@ class HotelResults extends Component
                             <SelectField
                                 value={this.state.valueRoom}
                                 onChange={this.handleChangeRoom}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                                 style={istyle}
                                 >
                                 <MenuItem value={1} primaryText="1 Room" />
@@ -214,6 +231,8 @@ class HotelResults extends Component
                             <SelectField
                                 value={this.state.valueGuest}
                                 onChange={this.handleChangeGuest}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                                 style={istyle}
                                 >
                                 <MenuItem value={1} primaryText="1 guest" />

@@ -59,10 +59,9 @@
 /home/niralkk/Downloads/kafka_2.11-1.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic response_topic
 
 
-zookeeper-server-start.bat ..\..\config\zookeeper.properties
+D:\kafka\kafka_2.11-0.11.0.1\bin\windows\zookeeper-server-start.bat D:\kafka\kafka_2.11-0.11.0.1\config\zookeeper.properties
 
-
-kafka-server-start.bat ..\..\config\server.properties
+D:\kafka\kafka_2.11-0.11.0.1\bin\windows\kafka-server-start.bat D:\kafka\kafka_2.11-0.11.0.1\config\server.properties
 
 kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
 kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic login

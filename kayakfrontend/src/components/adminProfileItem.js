@@ -51,6 +51,13 @@ class ProfileItem extends Component {
 
     
       onSignoutClick = () => {
+
+          API.doAdminSignOut()
+          .then(res =>{
+            if(res.status === 201){
+                NotificationManager.success("Bye","Logout Success",2500,true);
+            }
+          });        
           this.props.logout();
           this.props.history.push("/adminLogin");
           

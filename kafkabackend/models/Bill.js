@@ -21,7 +21,8 @@ var Bill = new Schema({
 		class_type:String,
 		no_of_travelers : Number,
 		amount: Number,
-		Notes: String
+		notes: String
+
 	},
 	hotel :
 	{
@@ -34,7 +35,7 @@ var Bill = new Schema({
 		amount: Number,
 		no_of_guests : Number,
 		room_type:String,
-		Notes: String
+		notes: String
 	},
 	car :
 	{
@@ -46,7 +47,7 @@ var Bill = new Schema({
 		car_type : String,
 		model_name : String,
         city : String,
-		Notes: String
+		notes: String
 	}
 	
 });

@@ -22,13 +22,17 @@ import img2 from '../images/explore_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
 
 import AA from '../images/DL.png';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 class FlightResults extends Component
 {
     state = {
         valueClass: this.props.userData.flightSearch.class,
         valueTraveler: this.props.userData.flightSearch.no_of_traveler,
         sort:0,
-        type:'arrival'
+        type:'arrival',
+        dataSource:cities.names
     }
 
     componentDidMount(){
@@ -151,19 +155,34 @@ class FlightResults extends Component
                 <div className="row" style={rstyle}>
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
+                            
+                            <AutoComplete style={istyle}
                                 id="source"
-                                hintText="From Where?"
-                                defaultValue={this.props.userData.flightSearch.origin}
+                                
+                                hintText={this.props.userData.flightSearch.origin}
+                                dataSource={this.state.dataSource}
+                                onUpdateInput={this.handleDestChange}
+                                filter={AutoComplete.caseInsensitiveFilter}
+                                maxSearchResults	= {5}
+                                fullWidth={true}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
+                            <AutoComplete style={istyle}
                                 id="destination"
-                                hintText="To Where?"
-                                defaultValue={this.props.userData.flightSearch.destination}
+                                
+                                hintText={this.props.userData.flightSearch.destination}
+                                dataSource={this.state.dataSource}
+                                onUpdateInput={this.handleDestChange}
+                                filter={AutoComplete.caseInsensitiveFilter}
+                                maxSearchResults	= {5}
+                                fullWidth={true}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
@@ -171,12 +190,18 @@ class FlightResults extends Component
                         <div className="row">
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
+                                    <DatePicker 
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
+                                    <DatePicker 
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
@@ -184,6 +209,8 @@ class FlightResults extends Component
                                     <SelectField
                                         value={this.state.valueClass}
                                         onChange={this.handleChangeClass}
+                                        underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                        underlineFocusStyle={{"borderColor":"#ec7132"}}
                                         style={istyle}
                                         >
                                         <MenuItem value={'Economy'} primaryText="Economy" />
@@ -197,6 +224,8 @@ class FlightResults extends Component
                                     <SelectField
                                         value={this.state.valueTraveler}
                                         onChange={this.handleChangeTraveler}
+                                        underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                        underlineFocusStyle={{"borderColor":"#ec7132"}}
                                         style={istyle}
                                         >
                                         <MenuItem value={1} primaryText="1 traveler" />

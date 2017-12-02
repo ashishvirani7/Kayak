@@ -70,6 +70,26 @@ import {
         "name":"12"
     },
 ]
+const years = [
+    {
+        "name":"2014"
+    },
+    {
+        "name":"2015"
+    },
+    {
+        "name":"2016"
+    },
+    {
+        "name":"2017"
+    },
+];
+
+const allYears = [];
+
+years.map(year=>{
+    allYears.push(<MenuItem value={year.name} key={year.name} primaryText={year.name} />)
+})
 const allMonths = [];
 months.map(type=>{
     allMonths.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
@@ -81,7 +101,8 @@ class AdminAllFlightBill extends Component{
         this.state={
             date:"",
             month:"",
-            current:"date"
+            current:"date",
+            year:"2017",
         };
         
         this.radioButtonChange=this.radioButtonChange.bind(this);
@@ -135,6 +156,9 @@ class AdminAllFlightBill extends Component{
     };
     handleMonthChange = (event, index, value) => {
         this.setState({...this.state,month:value});
+    };
+    handleYearChange = (event, index, value) => {
+        this.setState({...this.state,year:value});
     };
 
     createCarBillList(){
@@ -217,7 +241,7 @@ class AdminAllFlightBill extends Component{
                 <h1 ><u> Car Bills</u> </h1>
                 <div className="row">
 
-                    <div className="col-md-3 col-md-offset-5" >
+                    <div className="col-md-2 col-md-offset-5" >
                         <RadioButtonGroup  name="shipSpeed" defaultSelected="date" onChange={this.radioButtonChange}>
                             
                                 <RadioButton
@@ -245,15 +269,34 @@ class AdminAllFlightBill extends Component{
                             }
                             {
                                 this.state.current === "month" &&
-                                <SelectField
-                                value={this.state.month}
-                                onChange={this.handleMonthChange}
-                                floatingLabelText="Month"
-                                maxHeight={200}  
-                                
-                                >
-                                    {allMonths}
-                                </SelectField>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <SelectField
+                                        value={this.state.month}
+                                        onChange={this.handleMonthChange}
+                                        floatingLabelText="Month"
+                                        maxHeight={200}  
+                                        style={{width:100,height:'70px'}} 
+
+                                        >
+                                            {allMonths}
+                                        </SelectField>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <SelectField
+                                        value={this.state.year}
+                                        onChange={this.handleYearChange}
+                                        floatingLabelText="Year"
+                                        maxHeight={200}  
+                                        style={{width:100,height:'70px'}} 
+                                        >
+                                            {allYears}
+                                        </SelectField>
+                                    </div>
+                                    
+                                    
+                                </div>
+
                             }
                             </div>
                             <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchBill()}>

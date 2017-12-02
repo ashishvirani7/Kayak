@@ -26,6 +26,9 @@ import bag from '../images/bag.svg';
 import door from '../images/door.svg';
 
 import img4 from '../images/car1.png';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 class CarResults extends Component
 {
     state = {
@@ -38,6 +41,7 @@ class CarResults extends Component
         PickupTruck:true,
         Van:true,
         Commercial:true,
+        dataSource:cities.names
     }
 
     componentDidMount(){
@@ -162,21 +166,34 @@ class CarResults extends Component
                 <div className="row" style={rstyle}>
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="city"
-                                hintText="Where"
-                                defaultValue={this.props.userData.carSearch.city}
+                            
+                            <AutoComplete style={istyle}
+                            id="city"
+                            hintText={this.props.userData.carSearch.city}
+                            dataSource={this.state.dataSource}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            
                             />
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">

@@ -10,15 +10,60 @@ import {changeBillingData} from '../actions/billingDataAction.js';
 
 import ReactStars from 'react-stars';
 
+import visa from '../icons/Visa-icon.png'
+import master from '../icons/Master-Card-icon.png';
+import american from '../icons/American-Express-icon.png';
+
+const masterCardReg = "^5";
+const visaCardReg = "^4";
+const americanCardReg = "^3";
+var defaultCardVal=false;
 class PaymentPage extends Component
 {
-    state={
-        edit : false
+    constructor(props){
+        super(props);
+
+        if(this.props.userData.billing.carddetails.credit_card_number){
+            var defaultVal= this.props.userData.billing.carddetails.credit_card_number+"";
+            if(defaultVal.match(masterCardReg)){
+                defaultCardVal = master;
+            }
+            else if(defaultVal.match(visaCardReg)){
+                defaultCardVal = visa;
+            }
+            else if(defaultVal.match(americanCardReg)){
+                defaultCardVal = american;
+            }
+            
+        }
+        
+        this.state = {
+            edit : false,
+            defaultCard : defaultCardVal,
+            card: defaultCardVal
+        }
     }
 
     componentWillMount(){
         this.getBillingDetails();
     }
+    handleChange = (event) =>{
+        var val= event.target.value;
+        if(val.match(masterCardReg)){
+            this.setState({...this.state,card:master,defaultCard:master})
+        }
+        else if(val.match(visaCardReg)){
+            this.setState({...this.state,card:visa,defaultCard:visa})
+        }
+        else if(val.match(americanCardReg)){
+            this.setState({...this.state,card:american,defaultCard:american})
+        }
+        else{
+            this.setState({...this.state,card:false})
+        }
+    
+    }
+    
 
     getBillingDetails = () => {
         console.log('hello');
@@ -64,32 +109,64 @@ class PaymentPage extends Component
                     <div className="col-md-9">
                     {!this.state.edit
                             ?<div>{(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}</div>
-                            :<input 
-                                id="name_on_card"
-                                type="text" 
-                                name="name_on_card" 
-                                defaultValue={(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}
-                                placeholder="Name on Card"
-                                style={inputstyle}
-                            />
+                            :
+                            <div>
+                                
+                                    <input 
+                                        id="name_on_card"
+                                        type="text" 
+                                        name="name_on_card" 
+                                        defaultValue={(this.props.userData.billing.carddetails.card_name)?this.props.userData.billing.carddetails.card_name:''}
+                                        placeholder="Name on Card"
+                                        
+                                        style={inputstyle}
+                                    />
+
+                            </div>
                         }
                     </div>
                 </div>
                 <div className="row" style={itemstyle}>
-                    <div className="col-md-2" style={labelstyle}>
+                    <div className="col-md-2" style={{fontWeight:'bold',color: '#333',fontSize:'14px',marginTop:"10px"}}>
                         Card Number
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}</div>
-                            :<input 
-                                id="cnumber"
-                                type="text" 
-                                name="cnumber" 
-                                defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
-                                placeholder="Credit Card Number"
-                                style={inputstyle}
-                            />
+                            ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?
+                                <div className="row">
+                                    <div className="col-md-2" style={{marginTop:"10px"}}>
+                                        {this.props.userData.billing.carddetails.credit_card_number}
+                                    </div>
+                                    <div className="col-md-2">
+                                        {
+                                            this.state.defaultCard && 
+                                                <img src={this.state.defaultCard} style={{width:"40px",height:"40px"}} className="img-responsive" alt="logo"/>
+                                        }
+                                    </div>
+                                </div>    
+                                :''}</div>
+                            :
+                            <div className="row">
+                                <div className="col-md-5">
+                            
+                                    <input 
+                                        id="cnumber"
+                                        type="text" 
+                                        name="cnumber" 
+                                        defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
+                                        placeholder="Credit Card Number"
+                                        onChange={(event)=> this.handleChange(event)} 
+                                        style={inputstyle}
+                                    />
+                                </div>
+                                <div className="col-md-2">
+                                    {
+                                        this.state.card && 
+                                            <img src={this.state.card} style={{width:"40px",height:"40px"}} className="img-responsive" alt="logo"/>
+                                    }
+                                </div>
+                            </div>
+                                
                         }
                     </div>
                 </div>
