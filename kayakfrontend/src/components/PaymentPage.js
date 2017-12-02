@@ -15,40 +15,52 @@ import american from '../icons/American-Express-icon.png';
 const masterCardReg = "^5";
 const visaCardReg = "^4";
 const americanCardReg = "^3";
+var defaultCardVal;
 class PaymentPage extends Component
 {
     constructor(props){
         super(props);
+
+        if(this.props.userData.billing.carddetails.credit_card_number){
+            var defaultVal= this.props.userData.billing.carddetails.credit_card_number+"";
+            if(defaultVal.match(masterCardReg)){
+                defaultCardVal = master;
+            }
+            else if(defaultVal.match(visaCardReg)){
+                defaultCardVal = visa;
+            }
+            else if(defaultVal.match(americanCardReg)){
+                defaultCardVal = american;
+            }
+            
+        }
+        
         this.state = {
             edit : false,
+            defaultCard : defaultCardVal,
             card: false
         }
-        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillMount(){
         this.getBillingDetails();
     }
-    handleChange(event) {
+    handleChange = (event) =>{
         var val= event.target.value;
         if(val.match(masterCardReg)){
-            this.setState({...this.state,card:master})
+            this.setState({...this.state,card:master,defaultCard:master})
         }
         else if(val.match(visaCardReg)){
-            this.setState({...this.state,card:visa})
+            this.setState({...this.state,card:visa,defaultCard:visa})
         }
         else if(val.match(americanCardReg)){
-            this.setState({...this.state,card:american})
+            this.setState({...this.state,card:american,defaultCard:american})
         }
         else{
             this.setState({...this.state,card:false})
         }
     
     }
-
-    // cardNumberChange(event)  {
-    //     var val = event.target.value;
-
     
 
     getBillingDetails = () => {
@@ -113,12 +125,24 @@ class PaymentPage extends Component
                     </div>
                 </div>
                 <div className="row" style={itemstyle}>
-                    <div className="col-md-2" style={labelstyle}>
+                    <div className="col-md-2" style={{fontWeight:'bold',color: '#333',fontSize:'14px',marginTop:"10px"}}>
                         Card Number
                     </div>
                     <div className="col-md-9">
                     {!this.state.edit
-                            ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}</div>
+                            ?<div>{(this.props.userData.billing.carddetails.credit_card_number)?
+                                <div className="row">
+                                    <div className="col-md-2" style={{marginTop:"10px"}}>
+                                        {this.props.userData.billing.carddetails.credit_card_number}
+                                    </div>
+                                    <div className="col-md-2">
+                                        {
+                                            this.state.defaultCard && 
+                                                <img src={this.state.defaultCard} style={{width:"40px",height:"40px"}} className="img-responsive" alt="logo"/>
+                                        }
+                                    </div>
+                                </div>    
+                                :''}</div>
                             :
                             <div className="row">
                                 <div className="col-md-5">
@@ -129,7 +153,7 @@ class PaymentPage extends Component
                                         name="cnumber" 
                                         defaultValue={(this.props.userData.billing.carddetails.credit_card_number)?this.props.userData.billing.carddetails.credit_card_number:''}
                                         placeholder="Credit Card Number"
-                                        onChange={this.handleChange} 
+                                        onChange={(event)=> this.handleChange(event)} 
                                         style={inputstyle}
                                     />
                                 </div>
