@@ -147,19 +147,17 @@ class AdminAllFlightBill extends Component{
                             <div className="row" style={{height:"60px"}}> 
                                
                                 <div className="col-md-3">
-                                    Bill Date
+                                    {bill.bill_date}
                                 </div>
                                 <div className="col-md-3">
-                                    User email
+                                    {bill.email}
+                                </div>
+                                
+                                <div className="col-md-2">
+                                    {bill.flight.flight_operator_name}
                                 </div>
                                 <div className="col-md-2">
-                                    {bill.flight.flight_name}
-                                </div>
-                                <div className="col-md-2">
-                                    Flight Operator
-                                </div>
-                                <div className="col-md-2">
-                                    Amount
+                                    {bill.bill_amount}
                                 </div>
                                 
                                
@@ -274,9 +272,7 @@ class AdminAllFlightBill extends Component{
                             <div className="col-md-3">
                                 User email
                             </div>
-                            <div className="col-md-2">
-                                Flight Name
-                            </div>
+                            
                             <div className="col-md-2">
                                  Operator
                             </div>

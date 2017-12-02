@@ -156,13 +156,13 @@ class AdminAllHotelBill extends Component{
                                     {bill.hotel.hotel_name}
                                 </div>
                                 <div className="col-md-1">
-                                    City
+                                    {bill.hotel.city}
                                 </div>
                                 <div className="col-md-1">
-                                    Zip
+                                    {bill.hotel.state}
                                 </div>
                                 <div className="col-md-2" >
-                                    Amount
+                                    {bill.bill_amount}
                                 </div>
                                         
                                 

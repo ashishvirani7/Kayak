@@ -12,6 +12,7 @@ var Bill = new Schema({
 	flight :
 	{
 		flight_id : String,
+		flight_name : String,
 		flight_operator_name:String,
 		flight_start_date: Date,
 		flight_end_date: Date,

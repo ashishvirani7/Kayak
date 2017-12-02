@@ -469,7 +469,7 @@ class AdminUpdateHotel extends Component{
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.room_type}   
+                                        {this.props.adminUpdateCurrentData.bill.hotel.room_type}   
                                     </div>
                                        
                                     
