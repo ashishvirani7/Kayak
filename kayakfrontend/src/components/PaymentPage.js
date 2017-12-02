@@ -8,6 +8,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {changeBillingData} from '../actions/billingDataAction.js';
 
+import ReactStars from 'react-stars';
+
 import visa from '../icons/Visa-icon.png'
 import master from '../icons/Master-Card-icon.png';
 import american from '../icons/American-Express-icon.png';

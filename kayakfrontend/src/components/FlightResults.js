@@ -15,7 +15,7 @@ import {connect} from 'react-redux';
 
 import {changeFlightListing} from '../actions/flightListingAction';
 import {changeFlightSearch} from '../actions/flightSearchAction';
-import {changeFlightBooking} from '../actions/flightBookingAction';
+import {changeBooking} from '../actions/bookingAction';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/explore_ad_v1.jpg';
@@ -134,7 +134,7 @@ class FlightResults extends Component
                                     search: this.props.userData.flightSearch,
                                 }
                                 console.log(data);
-                                this.props.changeFlightBooking(data);
+                                this.props.changeBooking(data);
                                 this.props.history.push('/booking');
                             }}
                             >Book Now</button>
@@ -411,7 +411,7 @@ function matchDispatchToProps(dispatch){
         {
             changeFlightListing,
             changeFlightSearch,
-            changeFlightBooking,
+            changeBooking,
         }
     ,dispatch);
 }

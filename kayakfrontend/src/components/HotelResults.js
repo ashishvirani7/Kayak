@@ -26,7 +26,7 @@ import {connect} from 'react-redux';
 
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
-import {changeHotelBooking} from '../actions/hotelBookingAction';
+import {changeBooking} from '../actions/bookingAction';
 
 import ReactStars from 'react-stars';
 
@@ -147,7 +147,7 @@ class HotelResults extends Component
                                             roomType: this.state.roomType
                                         }
                                         console.log(data);
-                                        this.props.changeHotelBooking(data);
+                                        this.props.changeBooking(data);
                                         this.props.history.push('/booking');
                                     }}
                                     >Book Now</button>
@@ -442,7 +442,7 @@ function matchDispatchToProps(dispatch){
         {
             changeHotelListing,
             changeHotelSearch,
-            changeHotelBooking
+            changeBooking
         }
     ,dispatch);
 }
