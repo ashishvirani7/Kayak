@@ -44,12 +44,26 @@ const Car_Types=[
         "name":"Commercial"
     }
 ];
+const acs = [
+    {
+        "name":"True"
+    },
+    {
+        "name":"False"
+    }
+]
+
 const carTypes=[];
 Car_Types.map(type=>{
     carTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
 })
-
+const acTypes = [];
+acs.map(type=>{
+    acTypes.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
+}) 
 class AdminUpdateCar extends Component{
+
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +71,12 @@ class AdminUpdateCar extends Component{
             car_name:this.props.adminUpdateCurrentData.car_name,
             car_type:this.props.adminUpdateCurrentData.car_type,
             model_name:this.props.adminUpdateCurrentData.model_name,
-            car_rental_price:this.props.adminUpdateCurrentData.car_rental_price
+            car_rental_price:this.props.adminUpdateCurrentData.car_rental_price,
+            city:this.props.adminUpdateCurrentData.city,
+            no_of_passengers:this.props.adminUpdateCurrentData.no_of_passengers,
+            luggage_capacity:this.props.adminUpdateCurrentData.luggage_capacity,
+            ac:this.props.adminUpdateCurrentData.ac
+
         };
       }
 
@@ -72,6 +91,19 @@ class AdminUpdateCar extends Component{
       };
       handleRentalPriceChange = (event, index, value) => {
         this.setState({...this.state,car_rental_price:event.target.value});
+      };
+      handleCityChange = (event, index, value) => {
+        this.setState({...this.state,city:event.target.value});
+      };
+      handleNoOfPassengersChange = (event, index, value) => {
+        this.setState({...this.state,no_of_passengers:event.target.value});
+      };
+      
+      handleLuggageCapacityChange = (event, index, value) => {
+        this.setState({...this.state,luggage_capacity:event.target.value});
+      };
+      handleAcChange = (event, index, value) => {
+        this.setState({...this.state,ac:value});
       };
 
       updateCar(){
@@ -96,6 +128,7 @@ class AdminUpdateCar extends Component{
         return(
             <div>
                 <h1 ><u>Update Car</u> </h1>
+                
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
                         id="car_name"
@@ -109,10 +142,19 @@ class AdminUpdateCar extends Component{
                         value={this.state.car_type}
                         onChange={this.handleTypeChange}
                         floatingLabelText="Car Type"
-                        maxHeight={200}  
+                        maxHeight={200} 
+                        value = {this.state.car_type} 
                     >
                         {carTypes}
                     </SelectField>
+                </div>
+                <div className="row" style={divstyle}>
+                    <TextField style={istyle}
+                        id="city"
+                        hintText="City"
+                        onChange={this.handleCityChange}
+                        value={this.state.city}
+                    />
                 </div>
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -129,6 +171,40 @@ class AdminUpdateCar extends Component{
                         onChange={this.handleRentalPriceChange}
                         value={this.state.car_rental_price}
                     />
+                </div>
+                <div className="row">
+                    <SelectField
+                            value={this.state.ac}
+                            onChange={this.handleAcChange}
+                            floatingLabelText="AC"
+                            maxHeight={200}  
+                            style={{marginLeft:"22px"}}
+                        >
+                            {acTypes}
+                    </SelectField>
+                </div>
+                    
+                <br/>
+                <div className="row">
+                    <div className="col-md-2">
+                        <h4>Specifications:</h4>
+                    </div>
+                    <div className="col-md-3">
+                        <TextField style={istyle}
+                            id="no_of_passengers"
+                            hintText="Number of Passengers"
+                            onChange={this.handleNoOfPassengersChange}
+                            value={this.state.no_of_passengers}
+                        />
+                    </div>
+                    <div className="col-md-3">
+                        <TextField style={istyle}
+                            id="luggage_capacity"
+                            hintText="Luggage Capacity"
+                            onChange={this.handleLuggageCapacityChange}
+                            value={this.state.luggage_capacity}
+                        />
+                    </div>
                 </div>
                 <br/>
                 <div className="row" style={divstyle}>

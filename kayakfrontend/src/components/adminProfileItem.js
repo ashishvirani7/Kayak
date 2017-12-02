@@ -53,7 +53,7 @@ class ProfileItem extends Component {
       onSignoutClick = () => {
           this.props.logout();
           this.props.history.push("/adminLogin");
-          NotificationManager.success("Bye","Logout Successful",2500,true);
+          
       }
     render() {
 
@@ -69,7 +69,7 @@ class ProfileItem extends Component {
                             </div>
                         
                             <div className="col-md-8">
-                                <CustomItem name="My Account" />
+                                <CustomItem name="Admin Account" />
                             </div>
                         </div>
                     </div>
