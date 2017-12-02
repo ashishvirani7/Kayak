@@ -8,6 +8,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {changeBillingData} from '../actions/billingDataAction.js';
 
+import ReactStars from 'react-stars';
+
 class PaymentPage extends Component
 {
     state={

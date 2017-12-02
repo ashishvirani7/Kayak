@@ -19,20 +19,74 @@ import Paper from 'material-ui/Paper';
 import AA from '../images/DL.png';
 import PaymentPage from './PaymentPage';
 
+import img4 from '../images/car1.png';
+import img5 from '../images/hotel1.jpg';
+import ReactStars from 'react-stars';
+
+import person from '../images/person.svg';
+import bag from '../images/bag.svg';
+import door from '../images/door.svg';
+import { NotificationManager } from 'react-notifications';
+import * as API from '../api/API';
 
 class UserBooking extends Component{
 
     state = {
         finished: false,
         stepIndex: 0,
+        total: 0,
       };
     
     handleNext = () => {
-        const {stepIndex} = this.state;
-        this.setState({
-          stepIndex: stepIndex + 1,
-          finished: stepIndex >= 2,
-        });
+        var {stepIndex} = this.state;
+        stepIndex++;
+        if(stepIndex==2){
+            
+            var booking = this.props.userData.booking;
+            if(booking.bookingType==='Car'){
+                API.doCarBooking()
+                .then((res)=>{
+                    if(res.status===201){
+                        NotificationManager.success("Success", "Your Car Booking has been Confirmed", 2500, true);
+                        this.setState({
+                            stepIndex: stepIndex,
+                            finished: stepIndex >= 2,
+                        });
+                    }
+                });    
+            }
+            if(booking.bookingType==='Hotel'){
+                API.doHotelBooking()
+                .then((res)=>{
+                    if(res.status===201){
+                        NotificationManager.success("Success", "Your Hotel Booking has been Confirmed", 2500, true);
+                        this.setState({
+                            stepIndex: stepIndex,
+                            finished: stepIndex >= 2,
+                        });
+                    }
+                });
+            }
+            if(booking.bookingType==='Flight'){
+                API.doFlightBooking()
+                .then((res)=>{
+                    if(res.status===201){
+                        NotificationManager.success("Success", "Your Flight Booking has been Confirmed", 2500, true);
+                        this.setState({
+                            stepIndex: stepIndex,
+                            finished: stepIndex >= 2,
+                        });
+                    }
+                });
+            }
+        }
+        else{
+            this.setState({
+                stepIndex: stepIndex,
+                finished: stepIndex >= 2,
+            });
+        }
+        
     };
     
     handlePrev = () => {
@@ -68,14 +122,23 @@ class UserBooking extends Component{
         );
     }
 
-    showBookingDetails = () => {
+    showFlightBookingDetails = () => {
 
         var booking = this.props.userData.booking;
+        var classType= booking.search.class;
+        if(classType==="Business") var index=0;
+        if(classType==="Economy") var index=1;
+        if(classType==="First Class") var index=2;
+
+        var price = booking.flight.classes[index].class_price;
+        var total = price*booking.search.no_of_traveler;
+
+        //this.setState({...this.state,total:total});
+
         return(
             <div className="row">
                 <div className="col-md-7">
-                <Paper style={flightstyle} zDepth={3}>
-                    {booking.bookingType==="Flight" && 
+                <Paper style={flightstyle} zDepth={3}> 
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="row">
@@ -131,21 +194,6 @@ class UserBooking extends Component{
                                 </div>
                             </div>
                         </div>
-                    }
-                    {booking.bookingType==="Hotel" && 
-                        <div className="row">
-                            <div className="col-md-6">
-                                hello
-                            </div>
-                        </div>
-                    }
-                    {booking.bookingType==="Car" && 
-                        <div className="row">
-                            <div className="col-md-6">
-
-                            </div>
-                        </div>
-                    }
                 </Paper>
                 </div>
                 <div className="col-md-4">
@@ -158,14 +206,191 @@ class UserBooking extends Component{
                         No Of Travellers: {booking.search.no_of_traveler}
                         <br/>
                         price: 
-                        {(booking.flight.classes[0].class_type === booking.search.class) && booking.flight.classes[0].class_price}
+                        {price}
+                        {/* {(booking.flight.classes[0].class_type === booking.search.class) && booking.flight.classes[0].class_price}
                         {(booking.flight.classes[1].class_type === booking.search.class) && booking.flight.classes[1].class_price}
-                        {(booking.flight.classes[2].class_type === booking.search.class) && booking.flight.classes[2].class_price}
+                        {(booking.flight.classes[2].class_type === booking.search.class) && booking.flight.classes[2].class_price} */}
                         <br/>
                         Total: 
-                        {(booking.flight.classes[0].class_type === booking.search.class) && booking.flight.classes[0].class_price*booking.search.no_of_traveler}
+                        {total}
+                        {/* {(booking.flight.classes[0].class_type === booking.search.class) && booking.flight.classes[0].class_price*booking.search.no_of_traveler}
                         {(booking.flight.classes[1].class_type === booking.search.class) && booking.flight.classes[1].class_price*booking.search.no_of_traveler}
-                        {(booking.flight.classes[2].class_type === booking.search.class) && booking.flight.classes[2].class_price*booking.search.no_of_traveler}
+                        {(booking.flight.classes[2].class_type === booking.search.class) && booking.flight.classes[2].class_price*booking.search.no_of_traveler} */}
+                    </div>
+                </Paper>
+                </div>
+            </div>
+        )
+    }
+
+    showHotelBookingDetails = () => {
+
+        var booking = this.props.userData.booking;
+        var hotel = booking.hotel;
+        var roomType = booking.roomType;
+        if(roomType==="Standard") var index=0;
+        if(roomType==="Suite") var index=1;
+        if(roomType==="Delux") var index=2;
+        var price = hotel.rooms[index].room_price;
+        var total = price*booking.noOfGuest;
+        //this.setState({...this.state,total:total});
+        return(
+            <div className="row">
+                <div className="col-md-7">
+                <Paper style={flightstyle} zDepth={3}> 
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="row">
+                                <div className="col-md-4" style={{padding:'0px'}}>
+                                    <img src={img5} style={{marginLeft:'-25px',width:'200px'}}/>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="row" style={{padding:'10px',height:'100%'}}>
+                                        <div className="col-md-12">
+                                            <div className="row" style={{fontSize:'19px',color:'#0f0f0f',lineHeight:'22px',fontWeight:'500px'}}>
+                                                {hotel.hotel_name.toUpperCase()}
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <ReactStars
+                                                        count={7}
+                                                        size={20}
+                                                        color2={'#212121'} 
+                                                        value={hotel.stars}
+                                                        edit={false}
+                                                    />
+                                                </div>
+                                                {(hotel.stars>=5) && <div className="col-md-5" style={{backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                                                    Top Luxury Hotel
+                                                </div>}
+                                            </div>
+                                            <div className="row" style={{marginTop:'20px'}}>
+                                                <div className="col-md-2" style={{width:'50px',height:'40px',backgroundColor:'#558fe6',color:'white',fontSize:'15px',borderRadius:'5px',lineHeight:'40px'}}>
+                                                    {'8.4'}
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {'Excellent'}
+                                                    <br/>
+                                                    {'1000 reviews'}
+                                                </div>
+                                            </div>
+                                            <div className="row" style={{marginTop:'10px',marginLeft:'0px'}}>
+                                                {hotel.address.street}
+                                                <br></br>
+                                                {hotel.address.city}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="row">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                </Paper>
+                </div>
+                <div className="col-md-4">
+                <Paper style={{...flightstyle,width:'250px',marginLeft:'-100px'}} zDepth={3}>
+                    <div className="row">
+                        Name: {this.props.userData.data.first_name}
+                        <br/>
+                        Room Type: {booking.roomType}
+                        <br/>
+                        No Of Guests: {booking.noOfGuest}
+                        <br/>
+                        CheckIn Date: {booking.checkIn}
+                        <br/>
+                        CheckOut Date: {booking.checkOut}
+                        <br/>
+                        price: {price}
+                        
+                        <br/>
+                        Total: {total}
+                        
+                    </div>
+                </Paper>
+                </div>
+            </div>
+        )
+    }
+    showCarBookingDetails = () => {
+        var booking = this.props.userData.booking;
+        var car = booking.car;
+        var noOfDays = (new Date(booking.search.toDate)-new Date(booking.search.fromDate))/(60*60*24*1000);
+        var price = car.car_rental_price;
+        var total = price*noOfDays;
+        //this.setState({...this.state,total:total});
+        return(
+            <div className="row">
+                <div className="col-md-7">
+                <Paper style={flightstyle} zDepth={3}> 
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="row">
+                                <div className="col-md-8" style={{padding:'0px',marginTop:'10px'}}>
+                                    <div className="row" style={{fontSize:'20px',fontWeight:'400'}}>
+                                        {(car.car_type==='Small' || car.car_type==='Medium') && 'Compact'}
+                                        {(car.car_type==='Large' || car.car_type==='SUV') && 'Economy'}
+                                        {(car.car_type==='Pickup Truck' || car.car_type==='Commercial') && 'Commercial'}
+                                        {(car.car_type==='Luxury') && 'Luxury'}
+                                        {(car.car_type==='Van') && 'Van'}
+                                    </div>
+                                    <div className="row" style={{fontSize:'15px', fontWeight:'900',marginTop:'20px'}}>
+                                        {car.car_name}
+                                    </div>
+                                    <div className="row" style={{fontSize:'13px', fontWeight:'500',marginTop:'20px'}}>
+                                        {car.model_name}
+                                    </div>
+                                    <div className="row" style={{}}>
+                                    <span style={{width:'100%',height:'1px',display:'inline-block',background:'#e4e5ea',position:'relative',margin:'3px 0'}} />
+                                    </div>
+                                    <div className="row" style={{fontWeight:'900',marginTop:'10px'}}>
+                                        <div className="col-md-2">
+                                            <img src={person}/>
+                                        </div>
+                                        <div className="col-md-2">
+                                            {car.specification.no_of_passengers}
+                                        </div>
+                                        <div className="col-md-2">
+                                            <img src={bag}/>
+                                        </div>
+                                        <div className="col-md-2">
+                                            {car.specification.luggage_capacity}
+                                        </div>
+                                        <div className="col-md-2">
+                                            <img src={door}/>
+                                        </div>
+                                        <div className="col-md-2">
+                                            4
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="row" style={{padding:'5px',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                                        GREAT DEAL
+                                    </div>
+                                    <div className="row">
+                                        <img src={img4} style={{width:'150px',marginTop:'20px'}}/>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </Paper>
+                </div>
+                <div className="col-md-4">
+                <Paper style={{...flightstyle,width:'250px',marginLeft:'-100px'}} zDepth={3}>
+                    <div className="row">
+                        Name: {this.props.userData.data.first_name}
+                        <br/>
+                        No Of Days: {noOfDays}
+                        <br/>
+                        price: {price}
+                        <br/>
+                        Total: {total}
                     </div>
                 </Paper>
                 </div>
@@ -182,9 +407,36 @@ class UserBooking extends Component{
     }
 
     finalBooking = () => {
+        var booking = this.props.userData.booking;
+        var total = 0;
+        if(booking.bookingType==='Car'){
+            var car = booking.car;
+            var noOfDays = (new Date(booking.search.toDate)-new Date(booking.search.fromDate))/(60*60*24*1000);
+            var price = car.car_rental_price;
+            total = price*noOfDays;    
+        }
+        if(booking.bookingType==='Hotel'){
+            var hotel = booking.hotel;
+            var roomType = booking.roomType;
+            if(roomType==="Standard") var index=0;
+            if(roomType==="Suite") var index=1;
+            if(roomType==="Delux") var index=2;
+            var price = hotel.rooms[index].room_price;
+            total = price*booking.noOfGuest;
+        }
+        if(booking.bookingType==='Flight'){
+            var classType= booking.search.class;
+            if(classType==="Business") var index=0;
+            if(classType==="Economy") var index=1;
+            if(classType==="First Class") var index=2;
+    
+            var price = booking.flight.classes[index].class_price;
+            total = price*booking.search.no_of_traveler; 
+        }  
+
         return(
             <Paper style={paperstyle} zDepth={3}>
-
+                Total Amount: ${total}
             </Paper>
         )
     }
@@ -208,7 +460,9 @@ class UserBooking extends Component{
                     <Step>
                         <StepLabel style={{fontSize:'18px',color:'#00bcd4'}}>Booking Details</StepLabel>
                         <StepContent>
-                        {this.showBookingDetails()}
+                        {this.props.userData.booking.bookingType==="Flight" && this.showFlightBookingDetails()}
+                        {this.props.userData.booking.bookingType==="Hotel" && this.showHotelBookingDetails()}
+                        {this.props.userData.booking.bookingType==="Car" && this.showCarBookingDetails()}
                         {this.renderStepActions(0)}
                         </StepContent>
                     </Step>
@@ -220,7 +474,7 @@ class UserBooking extends Component{
                         </StepContent>
                     </Step>
                     <Step>
-                        <StepLabel style={{fontSize:'px',color:'#00bcd4'}}>Confirm Your Booking</StepLabel>
+                        <StepLabel style={{fontSize:'18px',color:'#00bcd4'}}>Confirm Your Booking</StepLabel>
                         <StepContent>
                         {this.finalBooking()}
                         {this.renderStepActions(2)}
@@ -243,9 +497,11 @@ const navstyle={
 }
 
 const paperstyle = {
-    height: 200,
-    width: 700,
+    height: 60,
+    width: 300,
     margin: 20,
+    fontSize:'30px',
+    fon:'900',
     display: 'inline-block',
     padding:'15px'
   };
