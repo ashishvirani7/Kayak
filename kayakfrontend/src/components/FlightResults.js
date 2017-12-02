@@ -24,7 +24,7 @@ import AA from '../images/DL.png';
 class FlightResults extends Component
 {
     state = {
-        valueClass: 'Economy',
+        valueClass: this.props.userData.flightSearch.classType,
         valueTraveler: 1,
         sort:0,
         type:'arrival'
@@ -121,7 +121,17 @@ class FlightResults extends Component
                             {'$'+flight.flight.classes[0].class_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>Book Now</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
+                            onClick={()=>{
+                                var data = {
+                                    bookingType: 'Flight',
+                                    flight: flight.flight,
+                                    search: this.props.userData.flightSearch,
+                                    classType: this.state.classType
+                                }
+                                console.log(data);
+                            }}
+                            >Book Now</button>
                         </div>
                     </div>
                 </div>
