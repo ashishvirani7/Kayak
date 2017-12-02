@@ -501,6 +501,23 @@ fetch(`${api}/searchBillMonthAdmin`, {
         return error;
 });
 
+export const searchCityNames = (payload) =>
+fetch(`${api}/searchCityAuto`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const checkAdminSession = () =>
 fetch(`${api}/adminSessioncheck`, {
     method: 'POST',
@@ -533,6 +550,8 @@ fetch(`${api}/adminLogout`, {
         console.log("This is error");
         return error;
 });
+
+
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {

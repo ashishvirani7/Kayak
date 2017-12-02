@@ -51,7 +51,6 @@ var searchBillDateAdmin = require('./routes/searchBillDateAdmin');
 var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 
 
-
 var sessioncheck = require('./routes/sessioncheck');
 var adminSessioncheck = require('./routes/adminSessioncheck');
 

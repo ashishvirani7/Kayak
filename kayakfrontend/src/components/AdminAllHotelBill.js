@@ -70,10 +70,29 @@ import {
         "name":"12"
     },
 ]
+
+const years = [
+    {
+        "name":"2014"
+    },
+    {
+        "name":"2015"
+    },
+    {
+        "name":"2016"
+    },
+    {
+        "name":"2017"
+    },
+];
 const allMonths = [];
-months.map(type=>{
-    allMonths.push(<MenuItem value={type.name} key={type.name} primaryText={type.name} />);
+const allYears = [];
+months.map(month=>{
+    allMonths.push(<MenuItem value={month.name} key={month.name} primaryText={month.name} />);
 }) 
+years.map(year=>{
+    allYears.push(<MenuItem value={year.name} key={year.name} primaryText={year.name} />)
+})
 class AdminAllHotelBill extends Component{
 
     constructor(props){
@@ -81,6 +100,7 @@ class AdminAllHotelBill extends Component{
         this.state={
             date:"",
             month:"",
+            year:"2017",
             current:"date"
         };
         
@@ -117,6 +137,7 @@ class AdminAllHotelBill extends Component{
     monthValueChange(event){
         this.setState({...this.state,month:event.target.value});
     }
+    
 
     componentWillMount(){
         this.getAllBilling();
@@ -135,6 +156,9 @@ class AdminAllHotelBill extends Component{
     };
     handleMonthChange = (event, index, value) => {
         this.setState({...this.state,month:value});
+    };
+    handleYearChange = (event, index, value) => {
+        this.setState({...this.state,year:value});
     };
 
     createHotelBillList(){
@@ -243,8 +267,8 @@ class AdminAllHotelBill extends Component{
                 <h1 ><u> Hotel Bills</u> </h1>
                 <div className="row">
 
-                    <div className="col-md-3 col-md-offset-5" >
-                        <RadioButtonGroup  name="shipSpeed" defaultSelected="date" onChange={this.radioButtonChange}>
+                    <div className="col-md-2 col-md-offset-5" style={{marginTop:"10px"}} >
+                        <RadioButtonGroup  name="picker" defaultSelected="date" onChange={this.radioButtonChange}>
                             
                                 <RadioButton
                                     value="date"
@@ -271,15 +295,33 @@ class AdminAllHotelBill extends Component{
                             }
                             {
                                 this.state.current === "month" &&
-                                <SelectField
-                                value={this.state.month}
-                                onChange={this.handleMonthChange}
-                                floatingLabelText="Month"
-                                maxHeight={200}  
-                                
-                                >
-                                    {allMonths}
-                                </SelectField>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <SelectField
+                                        value={this.state.month}
+                                        onChange={this.handleMonthChange}
+                                        floatingLabelText="Month"
+                                        maxHeight={200}  
+                                        style={{width:100}}                             
+                                        >
+                                            {allMonths}
+                                        </SelectField>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <SelectField
+                                        value={this.state.year}
+                                        onChange={this.handleYearChange}
+                                        floatingLabelText="Year"
+                                        maxHeight={200}  
+                                        style={{width:100}} 
+                                        >
+                                            {allYears}
+                                        </SelectField>
+                                    </div>
+                                    
+                                    
+                                </div>
+
                             }
                             </div>
                             <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchBill()}>

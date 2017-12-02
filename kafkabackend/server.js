@@ -35,6 +35,8 @@ var searchBillDateAdmin = require('./services/searchBillDateAdmin');
 var searchBillMonthAdmin = require('./services/searchBillMonthAdmin');
 
 
+
+
 var updateUserInfo = require('./services/updateUserInfo');
 var getUserDetails = require('./services/getUserDetails');
 var getCardDetails = require('./services/getCardDetails');
@@ -90,6 +92,8 @@ var getUserDetails_topic_name = "getUserDetails_topic";
 var updateCardDetails_topic_name = "updateCardDetails_topic";
 var getCardDetails_topic_name = "getCardDetails_topic";
 
+
+
 var delete_user_topic_name = "delete_user_topic";
 var hotels_topic = "hotels_topic";
 var flights_topic = "flights_topic";
@@ -110,7 +114,7 @@ producer.on('ready', function () {
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
             delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
-            search_bill_month_admin_topic_name,
+            search_bill_month_admin_topic_name
         ],
         false, function (err, data) {
         });
@@ -153,6 +157,7 @@ producer.on('ready', function () {
     var search_bill_date_admin_consumer = connection.getConsumer(search_bill_date_admin_topic_name);
     var search_bill_month_admin_consumer = connection.getConsumer(search_bill_month_admin_topic_name);
 
+    
 
     var signup_consumer = connection.getConsumer(signup_topic_name);
     var signup_admin_consumer = connection.getConsumer(signup_admin_topic_name);
@@ -1052,4 +1057,5 @@ producer.on('ready', function () {
         });
     });
 
+    
 });
