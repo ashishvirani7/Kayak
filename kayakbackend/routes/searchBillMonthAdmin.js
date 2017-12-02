@@ -8,7 +8,8 @@ var topic_name = "search_bill_month_admin_topic";
 router.post('/', (req,res,next)=>{
     var message="";
     var billObject = {
-        month : req.body.month
+        month : req.body.month,
+        year : req.body.year
     };
     console.log("BillObject"+billObject);
     console.log("BillObject"+JSON.stringify(billObject));
