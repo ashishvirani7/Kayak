@@ -53,6 +53,8 @@ var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 
 
 var sessioncheck = require('./routes/sessioncheck');
+var adminSessioncheck = require('./routes/adminSessioncheck');
+
 var logout = require('./routes/logout');
 var getFiles = require('./routes/getFiles');
 var uploadFile = require('./routes/uploadFile');
@@ -78,6 +80,7 @@ var cars = require('./routes/cars');
 var deleteAccount = require('./routes/deleteAccount');
 var bookings = require('./routes/getBookings');
 
+var adminLogout = require('./routes/adminLogout');
 
 
 var app = express();
@@ -158,6 +161,10 @@ app.use('/signup',signup);
 app.use('/signupAdmin',signupAdmin);
 
 app.use('/sessioncheck',sessioncheck);
+
+app.use('/adminSessioncheck',adminSessioncheck);
+app.use('/adminLogout', adminLogout);
+
 app.use('/logout', logout);
 app.use('/getFiles',getFiles);
 app.use('/uploadFile',uploadFile);
