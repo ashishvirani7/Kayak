@@ -32,7 +32,7 @@ class HotelResults extends Component
     state = {
         valueRoom:1,
         valueGuest:1,
-        valueStar:5,
+        valueStar:0,
         sort:0
     }
 
@@ -95,6 +95,7 @@ class HotelResults extends Component
                                             size={20}
                                             color2={'#212121'} 
                                             value={hotel.hotel.stars}
+                                            edit={false}
                                         />
                                     </div>
                                     {(hotel.hotel.stars>=5) && <div className="col-md-5" style={{backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
@@ -122,7 +123,7 @@ class HotelResults extends Component
                                     {'$'+hotel.hotel.rooms[0].room_price}
                                </div>
                                <div className="row" style={{marginTop:'20px'}}>
-                                    <RaisedButton backgroundColor="#ff690f">View Deal</RaisedButton>
+                                    <button style={btnstyle1} labelColor='white'>View Deal</button>
                                </div>
                             </div>
                         </div>
@@ -312,6 +313,17 @@ class HotelResults extends Component
             </div>
         )
     }
+}
+
+const btnstyle1={
+    border:'none',
+    fontSize:'16px',
+    height:'30px',
+    width:'70%',
+    marginLeft:'5px',
+    marginRight:'5px',
+    color:'white',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
 }
 
 const hotelstyle={

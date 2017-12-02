@@ -51,7 +51,7 @@ class CarSearch extends Component{
                                         pickuptime: '',
                                         dropofftime: '',
                                         order:'price_asc',
-                                        filter_prop :{type:type}
+                                        filter_prop :{type:[]}
                                     }
                                     if(data.city && data.toDate && data.fromDate){
                                         console.log(data);

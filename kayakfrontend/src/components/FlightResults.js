@@ -20,6 +20,7 @@ import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/explore_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
 
+import AA from '../images/DL.png';
 class FlightResults extends Component
 {
     state = {
@@ -30,14 +31,10 @@ class FlightResults extends Component
     }
 
     componentDidMount(){
-        this.getFlights();
+        //this.getFlights();
     }
 
     getFlights = () =>{
-        var filter_prop = {
-            stops: [],
-            flight_name: []
-        }
         var order = this.state.type+(this.state.sort?'_desc':'_asc');
         var data ={
             origin:     document.getElementById('source').value,
@@ -47,10 +44,14 @@ class FlightResults extends Component
             class:      this.state.valueClass,
             no_of_traveler:this.state.valueTraveler,
             order,
-            filter_prop
+            filter_prop:{
+                stops: [],
+                flight_name: []
+            }
         }
         if(data.origin && data.destination && data.arrival_date && data.departure_date){
             console.log(data);
+            this.props.changeFlightSearch(data);
             API.doFlightSearch(data)
             .then((res)=>{
                 if(res.status===201){
@@ -73,12 +74,54 @@ class FlightResults extends Component
             console.log(flights);
             return flights.map(flight=>(
                 <div style={flightstyle}>
-                    <div className="col-md-4" style={{padding:'0px'}}>
-                        
+                    <div className="col-md-9" style={{padding:'0px'}}>
+                        <div className="row">
+                            <div className="col-md-2 col-md-offset-1">
+                                <div className="row" style={{marginTop:'30px',marginLeft:'10px'}}>
+                                    <img src={AA} style={{width:'32px'}}/>
+                                </div>
+                                <div className="row" style={{marginTop:'20px'}}>
+                                    {flight.flight.flight_operator_name}
+                                </div>
+                            </div>
+                            <div className="col-md-2">
+                                <div className="row" style={{marginTop:'40px'}}>
+                                    {flight.flight.departure_date.slice(11,16)}
+                                </div>
+                                <div className="row">
+                                    {flight.flight.origin}
+                                </div>
+                            </div>
+                            <div className="col-md-2">
+                            <div className="row" style={{marginTop:'40px'}}>
+                                    <span style={{width:'100%',height:'2px',display:'inline-block',background:'#717585',position:'relative',margin:'3px 0'}} />
+                                </div>
+                                <div className="row" style={{textAlign:'center'}}>
+                                    {'nonstop'}
+                                </div>  
+                            </div>
+                            <div className="col-md-2 col-md-offset-1">
+                                <div className="row" style={{marginTop:'40px'}}>
+                                    {flight.flight.arrival_date.slice(11,16)}  
+                                </div>
+                                <div className="row" >
+                                    {flight.flight.destination}
+                                </div>
+                            </div>
+                            <div className="col-md-2">
+                                <div className="row" style={{marginTop:'50px'}}>
+                                    {'21h 50m'}
+                                    {flight.flight.duration}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-8">
-                        <div className="row" style={{padding:'10px'}}>
-                            Hello
+                    <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
+                        <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'20px'}}>
+                            {'$'+flight.flight.classes[0].class_price}
+                        </div>
+                        <div className="row" style={{marginTop:'20px'}}>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>View Deal</button>
                         </div>
                     </div>
                 </div>
@@ -253,11 +296,21 @@ class FlightResults extends Component
         )
     }
 }
+const btnstyle1={
+    border:'none',
+    fontSize:'16px',
+    height:'30px',
+    width:'70%',
+    marginLeft:'5px',
+    marginRight:'5px',
+    color:'white',
+    backgroundImage: 'linear-gradient(135deg,#ff690f 0%,#ff4f3a 100%)',
+}
 
 const flightstyle={
     marginBottom:'10px',
     backgroundColor:'#ffffff',
-    height:'209px',
+    height:'130px',
     width:'100%',
 }
 
