@@ -46,6 +46,10 @@ var searchUserDataAdmin = require('./routes/searchUserDataAdmin');
 var updateUserDataAdmin = require('./routes/updateUserDataAdmin');
 var deleteUserDataAdmin = require('./routes/deleteUserDataAdmin');
 
+var getAllBillAdmin = require('./routes/getAllBillAdmin');
+var searchBillDateAdmin = require('./routes/searchBillDateAdmin');
+var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
+
 
 
 var sessioncheck = require('./routes/sessioncheck');
@@ -73,6 +77,8 @@ var flights = require('./routes/flights');
 var cars = require('./routes/cars');
 var deleteAccount = require('./routes/deleteAccount');
 var bookings = require('./routes/getBookings');
+
+
 
 var app = express();
 
@@ -141,6 +147,11 @@ app.use('/getAllUserDataAdmin', getAllUserDataAdmin);
 app.use('/searchUserDataAdmin', searchUserDataAdmin);
 app.use('/updateUserDataAdmin', updateUserDataAdmin);
 app.use('/deleteUserDataAdmin', deleteUserDataAdmin);
+
+
+app.use('/getAllBillAdmin', getAllBillAdmin);
+app.use('/searchBillDateAdmin', searchBillDateAdmin);
+app.use('/searchBillMonthAdmin', searchBillMonthAdmin);
 
 
 app.use('/signup',signup);
