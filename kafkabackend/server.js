@@ -89,7 +89,7 @@ var search_user_data_admin_topic_name = "search_user_data_admin_topic";
 var update_user_data_admin_topic_name = "update_user_data_admin_topic";
 var delete_user_data_admin_topic_name = "delete_user_data_admin_topic";
 
-var get_all_bill_topic_name = "get_all_bill_topic";
+var get_all_bill_admin_topic_name = "get_all_bill_admin_topic";
 var search_bill_date_admin_topic_name = "search_bill_date_admin_topic";
 var search_bill_month_admin_topic_name = "search_bill_month_admin_topic";
 
@@ -141,7 +141,7 @@ producer.on('ready', function () {
             getCardDetails_topic_name, updateCardDetails_topic_name, search_hotel_admin_topic_name, search_flight_admin_topic_name,
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
-            delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_topic_name, search_bill_date_admin_topic_name,
+            delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
             search_bill_month_admin_topic_name,
         ],
         false, function (err, data) {
@@ -181,7 +181,7 @@ producer.on('ready', function () {
     var search_user_data_admin_consumer = connection.getConsumer(search_user_data_admin_topic_name);
     var delete_user_data_admin_consumer = connection.getConsumer(delete_user_data_admin_topic_name);
 
-    var get_all_bill_consumer = connection.getConsumer(get_all_bill_topic_name);
+    var get_all_bill_admin_consumer = connection.getConsumer(get_all_bill_admin_topic_name);
     var search_bill_date_admin_consumer = connection.getConsumer(search_bill_date_admin_topic_name);
     var search_bill_month_admin_consumer = connection.getConsumer(search_bill_month_admin_topic_name);
 
@@ -1351,7 +1351,7 @@ producer.on('ready', function () {
 
 
     console.log('get all bill admin server is running');
-    get_all_bill_consumer.on('message', function (message) {
+    get_all_bill_admin_consumer.on('message', function (message) {
         console.log('message received');
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
