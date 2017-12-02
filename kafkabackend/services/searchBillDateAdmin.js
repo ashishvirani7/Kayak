@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
 //mongoose.connect('localhost:27017/kayak');
 mongoose.connect('54.183.101.173:27017/kayak');
-var Users = require('../models/Users');
+var Bill = require('../models/Bill');
 
 
 function handle_request(msg, callback) {
@@ -19,7 +19,7 @@ function handle_request(msg, callback) {
         var cond = {email:{'$regex':"^"+msg.email+"+",$options:'m',$options:'i'}} ;
     }
 
-    Users.find(cond, {} , function(err, userDocuments) {
+    Bill.find(cond, {} , function(err, userDocuments) {
         if (err) {
             console.log("Some Error Happened while getting User Data");
             res.code = "500";

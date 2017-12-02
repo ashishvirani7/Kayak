@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 
 import {changeCarListing} from '../actions/carListingAction';
 import {changeCarSearch} from '../actions/carSearchAction';
+import {changeCarBooking} from '../actions/carBookingAction';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img3 from '../images/explore_ad_white.png';
@@ -137,7 +138,18 @@ class CarResults extends Component
                             {'$'+car.car.car_rental_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>Book Now</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
+                            onClick={()=>{
+                                var data = {
+                                    bookingType: 'Car',
+                                    car: car.car,
+                                    search: this.props.userData.carSearch,
+                                }
+                                console.log(data);
+                                this.props.changeCarBooking(data);
+                                this.props.history.push('/booking');
+                            }}
+                            >Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -159,12 +171,12 @@ class CarResults extends Component
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate)} style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate)} style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -385,6 +397,7 @@ function matchDispatchToProps(dispatch){
         {
             changeCarListing,
             changeCarSearch,
+            changeCarBooking,
         }
         ,dispatch);
   }

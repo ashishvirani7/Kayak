@@ -82,6 +82,30 @@ export default function(state=initialState,action){
             };
         }
 
+        case "CHANGE_HOTEL_BOOKING":
+        {
+            return{
+                ...state,
+                hotelBooking: action.hotelBooking
+            };
+        }
+
+        case "CHANGE_FLIGHT_BOOKING":
+        {
+            return{
+                ...state,
+                flightBooking: action.flightBooking
+            };
+        }
+
+        case "CHANGE_CAR_BOOKING":
+        {
+            return{
+                ...state,
+                carBooking: action.carBooking
+            };
+        }
+
         case "persist/REHYDRATE":
         {
             var incoming = action.payload.userData
