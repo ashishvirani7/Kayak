@@ -40,6 +40,15 @@ import * as API from '../api/API';
 
 class AdminHome extends Component{
 
+    componentWillMount(){
+        API.checkAdminSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.history.push("/adminLogin");
+            }
+        });
+    }
+
     render(){
         return(
             <div>
