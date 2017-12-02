@@ -75,8 +75,8 @@ function handle_booking(msg, callback){
     var billObject = {
         user_id:userId,
         bill_date:new Date(),
-        bill_type:"cars",
-        cars:cars,
+        bill_type:"Car",
+        car:cars,
     }
 
     var bill = new Bill(billObject);
