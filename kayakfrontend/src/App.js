@@ -46,6 +46,14 @@ const  App = () => {
 
         <Route exact path="/adminShowUsers" component={AdminHome}/>
 
+        <Route exact path="/adminShowBilling" component={AdminHome}/>
+        <Route exact path="/adminShowHotelBill" component={AdminHome}/>
+        <Route exact path="/adminShowFlightBill" component={AdminHome}/>
+        <Route exact path="/adminShowCarBill" component={AdminHome}/>
+
+        <Route exact path="/adminShowBill" component={AdminHome}/>
+        
+
         <NotificationContainer/>
       </div>);
 }
