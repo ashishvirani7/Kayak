@@ -30,6 +30,10 @@ var searchUserDataAdmin = require('./services/searchUserDataAdmin');
 var updateUserDataAdmin = require('./services/updateUserDataAdmin');
 var deleteUserDataAdmin = require('./services/deleteUserDataAdmin');
 
+var getAllBillAdmin = require('./services/getAllBillAdmin');
+var searchBillDateAdmin = require('./services/searchBillDateAdmin');
+var searchBillMonthAdmin = require('./services/searchBillMonthAdmin');
+
 
 var updateUserInfo = require('./services/updateUserInfo');
 var getUserDetails = require('./services/getUserDetails');
@@ -59,44 +63,47 @@ var flights = require('./services/flights');
 var cars = require('./services/cars');
 var getBookings = require('./services/getBookings');
 
-var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
-var get_all_hotel_topic_name = 'get_all_hotel_topic';
-var update_hotel_admin_topic_name = 'update_hotel_admin_topic';
-var search_hotel_admin_topic_name = 'search_hotel_admin_topic';
-var delete_hotel_admin_topic_name = 'delete_hotel_admin_topic';
+var add_hotel_admin_topic_name = "add_hotel_admin_topic";
+var get_all_hotel_topic_name = "get_all_hotel_topic";
+var update_hotel_admin_topic_name = "update_hotel_admin_topic";
+var search_hotel_admin_topic_name = "search_hotel_admin_topic";
+var delete_hotel_admin_topic_name = "delete_hotel_admin_topic";
 
 
-var add_flight_admin_topic_name = 'add_flight_admin_topic';
-var get_all_flight_topic_name = 'get_all_flight_topic';
-var update_flight_admin_topic_name = 'update_flight_admin_topic';
-var search_flight_admin_topic_name = 'search_flight_admin_topic';
-var delete_flight_admin_topic_name = 'delete_flight_admin_topic';
+var add_flight_admin_topic_name = "add_flight_admin_topic";
+var get_all_flight_topic_name = "get_all_flight_topic";
+var update_flight_admin_topic_name = "update_flight_admin_topic";
+var search_flight_admin_topic_name = "search_flight_admin_topic";
+var delete_flight_admin_topic_name = "delete_flight_admin_topic";
 
 
-var add_car_admin_topic_name = 'add_car_admin_topic';
-var get_all_car_topic_name = 'get_all_car_topic';
-var update_car_admin_topic_name = 'update_car_admin_topic';
-var search_car_admin_topic_name = 'search_car_admin_topic';
-var delete_car_admin_topic_name = 'delete_car_admin_topic';
+var add_car_admin_topic_name = "add_car_admin_topic";
+var get_all_car_topic_name = "get_all_car_topic";
+var update_car_admin_topic_name = "update_car_admin_topic";
+var search_car_admin_topic_name = "search_car_admin_topic";
+var delete_car_admin_topic_name = "delete_car_admin_topic";
 
 
-var get_all_user_data_topic_name = 'get_all_user_data_topic';
-var search_user_data_admin_topic_name = 'search_user_data_admin_topic';
-var update_user_data_admin_topic_name = 'update_user_data_admin_topic';
-var delete_user_data_admin_topic_name = 'delete_user_data_admin_topic';
+var get_all_user_data_topic_name = "get_all_user_data_topic";
+var search_user_data_admin_topic_name = "search_user_data_admin_topic";
+var update_user_data_admin_topic_name = "update_user_data_admin_topic";
+var delete_user_data_admin_topic_name = "delete_user_data_admin_topic";
 
+var get_all_bill_admin_topic_name = "get_all_bill_admin_topic";
+var search_bill_date_admin_topic_name = "search_bill_date_admin_topic";
+var search_bill_month_admin_topic_name = "search_bill_month_admin_topic";
 
-var login_topic_name = 'login_topic';
+var login_topic_name = "login_topic";
 var signup_topic_name = "signup_topic";
 
-var login_admin_topic_name = 'login_admin_topic';
+var login_admin_topic_name = "login_admin_topic";
 var signup_admin_topic_name = "signup_admin_topic";
 
 
-var updateUserInfo_topic_name = 'updateUserInfo_topic';
-var getUserDetails_topic_name = 'getUserDetails_topic';
-var updateCardDetails_topic_name = 'updateCardDetails_topic';
-var getCardDetails_topic_name = 'getCardDetails_topic';
+var updateUserInfo_topic_name = "updateUserInfo_topic";
+var getUserDetails_topic_name = "getUserDetails_topic";
+var updateCardDetails_topic_name = "updateCardDetails_topic";
+var getCardDetails_topic_name = "getCardDetails_topic";
 var create_folder_topic_name = "create_folder_topic";
 var delete_folder_topic_name = "delete_folder_topic";
 var upload_file_topic_name = "upload_file_topic";
@@ -134,7 +141,8 @@ producer.on('ready', function () {
             getCardDetails_topic_name, updateCardDetails_topic_name, search_hotel_admin_topic_name, search_flight_admin_topic_name,
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
-            delete_user_data_admin_topic_name, get_bookings_topic,
+            delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
+            search_bill_month_admin_topic_name,
         ],
         false, function (err, data) {
         });
@@ -172,6 +180,10 @@ producer.on('ready', function () {
     var update_user_data_admin_consumer = connection.getConsumer(update_user_data_admin_topic_name);
     var search_user_data_admin_consumer = connection.getConsumer(search_user_data_admin_topic_name);
     var delete_user_data_admin_consumer = connection.getConsumer(delete_user_data_admin_topic_name);
+
+    var get_all_bill_admin_consumer = connection.getConsumer(get_all_bill_admin_topic_name);
+    var search_bill_date_admin_consumer = connection.getConsumer(search_bill_date_admin_topic_name);
+    var search_bill_month_admin_consumer = connection.getConsumer(search_bill_month_admin_topic_name);
 
 
     var signup_consumer = connection.getConsumer(signup_topic_name);
@@ -1320,6 +1332,76 @@ producer.on('ready', function () {
         console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
         deleteUserDataAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+
+    console.log('get all bill admin server is running');
+    get_all_bill_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        getAllBillAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Search Bill Date admin server is running');
+    search_bill_date_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchBillDateAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Search Bill Month admin server is running');
+    search_bill_month_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchBillMonthAdmin.handle_request(data.data, function(err,res){
             console.log('after handle'+res);
             var payloads = [
                 { topic: data.replyTo,

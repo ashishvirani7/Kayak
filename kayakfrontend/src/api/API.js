@@ -451,6 +451,56 @@ fetch(`${api}/getAllUserDataAdmin`, {
         return error;
 });
 
+export const adminGetAllBilling = () =>
+fetch(`${api}/getAllBillAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include'
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const searchBillsDateAdmin = (payload) =>
+fetch(`${api}/searchBillDateAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const searchBillsMonthAdmin = (payload) =>
+fetch(`${api}/searchBillMonthAdmin`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
     method: 'POST',
