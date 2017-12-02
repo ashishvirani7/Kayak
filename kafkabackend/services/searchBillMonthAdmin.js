@@ -10,15 +10,36 @@ function handle_request(msg, callback) {
 
     var res = {};
     var message = "";
-    console.log("In handle request:"+ JSON.stringify(msg));
+    var nextMonth;
+    var nextYear;
 
-    if(msg.email == ""){
-        var cond={};
+    if(parseInt(msg.month) == 12){
+        nextMonth = 1;
+        nextYear = parseInt(msg.year)+1;
+        nextMonth = 0+""+nextMonth;
     }
     else{
-        var cond = {date:{'$regex':"^"+msg.email+"+",$options:'m',$options:'i'}} ;
+        nextMonth = parseInt(msg.month)+1;
+        if(nextMonth<10){
+            nextMonth = ""+0+nextMonth;
+        }
+        nextYear = parseInt(msg.year);
     }
+    console.log(nextYear+"-"+nextMonth+"-"+"01T00:00:00.000Z");
+    console.log("In handle request:"+ JSON.stringify(msg));
 
+    var cond={};
+    if(msg.email == ""){
+        cond={};
+    }
+    else{
+        cond = {
+            bill_date: {
+                $gte:new Date(msg.year+"-"+msg.month+"-"+"01T00:00:00.000Z"),
+                $lte:new Date(""+nextYear+"-"+nextMonth+"-"+"01T00:00:00.000Z")
+            }
+        };
+    }
     Bill.find(cond, {} , function(err, billDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Bill Data");

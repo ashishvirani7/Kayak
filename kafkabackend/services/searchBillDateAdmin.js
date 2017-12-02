@@ -15,13 +15,9 @@ function handle_request(msg, callback) {
     if(msg.date == ""){
         var cond={};
     }
-    else{
-        var cond = {bill_date:{$eq:msg.date}} ;
-        //var cond = {bill_date:{$eq:msg.date+"T00:00:00.000Z"}} ;
+    else {
+        var cond = {bill_date:{$gte:msg.date.substring(0,10)+"T00:00:00.000Z", $lte:msg.date.substring(0,10)+"T23:59:59.000Z"}};
     }
-
-//    "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-
     Bill.find(cond, {} , function(err, billDocuments) {
         if (err) {
             console.log("Some Error Happened while getting Bill Data");
