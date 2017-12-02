@@ -109,7 +109,7 @@ class AdminAllFlightBill extends Component{
         //   "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
 
         
-        this.props.adminAllBill([{"_id":"1","bill_type":"Car",car:{"flight_name":"Taj"}}])
+        this.props.adminAllBill([{"_id":"1","bill_type":"Car",car:{"car_name":"Taj"}}])
     }
     dateValueChange(event){
         this.setState({...this.state,date:event.target.value});
@@ -155,7 +155,7 @@ class AdminAllFlightBill extends Component{
                                 <div className="col-md-2">
                                     {bill.car.car_name}
                                 </div>
-                                <div className="col-md-1">
+                                <div className="col-md-2">
                                     Model Name
                                 </div>
                                 <div className="col-md-2">
@@ -277,7 +277,7 @@ class AdminAllFlightBill extends Component{
                             <div className="col-md-2">
                                 Car Name
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-2">
                                 Car Model
                             </div>
                             

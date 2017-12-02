@@ -109,7 +109,7 @@ class AdminAllFlightBill extends Component{
         //   "reviews":{"ratings":"3","feedback":"good","user_id":"1"}}])
 
         
-        this.props.adminAllBill([{"_id":"1","bill_type":"Flight",flight:{"flight_name":"Taj"}}])
+        this.props.adminAllBill([{"_id":"1","bill_type":"Flight","email":"av@gmail.com",bill_amount:"1000",flight:{"flight_name":"Taj","origin":"sj","destination":"amd"}}])
     }
     dateValueChange(event){
         this.setState({...this.state,date:event.target.value});
@@ -312,20 +312,7 @@ const istyle={
     barderSize:'1px',
     borderColor:'black', 
 }
-const titlestyle={
-    fontSize: '30px',
-    fontWeight: '200',
-    marginBottom:'20px'
-}
-const itemstyle={
-    height: '20px',
-    marginBottom:'35px'
-}
-const labelstyle={
-    fontWeight:'bold',
-    color: '#333',
-    fontSize:'14px',
-}
+
 
 function mapStateToProps(state){
     return{

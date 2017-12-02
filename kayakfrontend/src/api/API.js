@@ -468,7 +468,7 @@ fetch(`${api}/getAllBillsAdmin`, {
 });
 
 export const searchBillsDateAdmin = (payload) =>
-fetch(`${api}/searchBillsDateAdmin`, {
+fetch(`${api}/searchBillDateAdmin`, {
     method: 'POST',
     headers: {
         ...headers,
@@ -485,7 +485,7 @@ fetch(`${api}/searchBillsDateAdmin`, {
 });
 
 export const searchBillsMonthAdmin = (payload) =>
-fetch(`${api}/searchBillsMonthAdmin`, {
+fetch(`${api}/searchBillMonthAdmin`, {
     method: 'POST',
     headers: {
         ...headers,
