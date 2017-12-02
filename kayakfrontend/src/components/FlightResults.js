@@ -15,6 +15,7 @@ import {connect} from 'react-redux';
 
 import {changeFlightListing} from '../actions/flightListingAction';
 import {changeFlightSearch} from '../actions/flightSearchAction';
+import {changeFlightBooking} from '../actions/flightBookingAction';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/explore_ad_v1.jpg';
@@ -24,8 +25,8 @@ import AA from '../images/DL.png';
 class FlightResults extends Component
 {
     state = {
-        valueClass: 'Economy',
-        valueTraveler: 1,
+        valueClass: this.props.userData.flightSearch.class,
+        valueTraveler: this.props.userData.flightSearch.no_of_traveler,
         sort:0,
         type:'arrival'
     }
@@ -121,7 +122,18 @@ class FlightResults extends Component
                             {'$'+flight.flight.classes[0].class_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>Book Now</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
+                            onClick={()=>{
+                                var data = {
+                                    bookingType: 'Flight',
+                                    flight: flight.flight,
+                                    search: this.props.userData.flightSearch,
+                                }
+                                console.log(data);
+                                this.props.changeFlightBooking(data);
+                                this.props.history.push('/booking');
+                            }}
+                            >Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -159,18 +171,18 @@ class FlightResults extends Component
                         <div className="row">
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date)} style={istyle} hintText="From" container="inline" autoOk/>
+                                    <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date)} style={istyle} hintText="To" container="inline" autoOk/>
+                                    <DatePicker id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <SelectField
-                                        value={this.props.userData.flightSearch.class}
+                                        value={this.state.valueClass}
                                         onChange={this.handleChangeClass}
                                         style={istyle}
                                         >
@@ -183,7 +195,7 @@ class FlightResults extends Component
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <SelectField
-                                        value={this.props.userData.flightSearch.no_of_traveler}
+                                        value={this.state.valueTraveler}
                                         onChange={this.handleChangeTraveler}
                                         style={istyle}
                                         >
@@ -370,6 +382,7 @@ function matchDispatchToProps(dispatch){
         {
             changeFlightListing,
             changeFlightSearch,
+            changeFlightBooking,
         }
     ,dispatch);
 }

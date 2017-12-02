@@ -12,6 +12,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import {withRouter} from 'react-router-dom';
+import DropDownMenu from 'material-ui/DropDownMenu';
 
 import * as API from '../api/API';
 
@@ -25,15 +26,17 @@ import {connect} from 'react-redux';
 
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
+import {changeHotelBooking} from '../actions/hotelBookingAction';
 
 import ReactStars from 'react-stars';
 class HotelResults extends Component
 {
     state = {
-        valueRoom:1,
-        valueGuest:1,
+        valueRoom:this.props.userData.hotelSearch.noOfRoom,
+        valueGuest:this.props.userData.hotelSearch.noOfGuest,
         valueStar:0,
-        sort:0
+        sort:0,
+        roomType:'Standard'
     }
 
     componentDidMount(){
@@ -47,8 +50,8 @@ class HotelResults extends Component
         }
         var data ={
             city:       document.getElementById('destination').value,
-            checkIn:    document.getElementById('toDate').value,
-            checkOut:   document.getElementById('fromDate').value,
+            checkIn:    document.getElementById('fromDate').value,
+            checkOut:   document.getElementById('toDate').value,
             noOfRoom:   this.props.userData.hotelSearch.noOfRoom,
             noOfGuest:  this.props.userData.hotelSearch.noOfGuest,
             filter_prop:{ratings: this.state.valueStar},
@@ -72,6 +75,9 @@ class HotelResults extends Component
         }
     }
 
+    handleChangeRoomType = (event, index, roomType) => {
+        this.setState({...this.state,roomType:roomType});
+    }
     showHotels = () => {
         if(this.props.userData.hotels !== undefined)
         {
@@ -119,11 +125,38 @@ class HotelResults extends Component
                                 </div>
                             </div>
                             <div className="col-md-4" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
-                               <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'50px'}}>
+                                <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'30px'}}>
                                     {'$'+hotel.hotel.rooms[0].room_price}
-                               </div>
-                               <div className="row" style={{marginTop:'20px'}}>
-                                    <button style={btnstyle1} labelColor='white'>Book Now</button>
+                                </div>
+                                <div className="row" style={{marginTop:'20px'}}>
+                                    <button style={btnstyle1} labelColor='white'
+                                    onClick={()=>{
+                                        var data = {
+                                            bookingType: 'Hotel',
+                                            hotel: hotel.hotel,
+                                            city:       document.getElementById('destination').value,
+                                            checkIn:    document.getElementById('fromDate').value,
+                                            checkOut:   document.getElementById('toDate').value,
+                                            noOfRoom:   this.state.valueRoom,
+                                            noOfGuest:  this.state.valueGuest,
+                                            roomType: this.state.roomType
+                                        }
+                                        console.log(data);
+                                        this.props.changeHotelBooking(data);
+                                        this.props.history.push('/booking');
+                                    }}
+                                    >Book Now</button>
+                                </div>
+                                <div className="row" style={{marginTop:'20px'}}>
+                                <SelectField
+                                    value={"Standard"}
+                                    onChange={this.handleChangeRoomType}
+                                    style={{...istyle,width:'120px',fontSize:'14px'}}
+                                    >
+                                    <MenuItem value={"Standard"} primaryText="Standard" />
+                                    <MenuItem value={"Suite"} primaryText="Suite" />
+                                    <MenuItem value={"Delux"} primaryText="Delux" />
+                                </SelectField>
                                </div>
                             </div>
                         </div>
@@ -152,18 +185,18 @@ class HotelResults extends Component
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.hotelSearch.checkIn)} style={istyle} hintText="From" container="inline" autoOk />
+                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.hotelSearch.checkIn+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.hotelSearch.checkOut)} style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.hotelSearch.checkOut+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
                             <SelectField
-                                value={this.props.userData.hotelSearch.noOfRoom}
+                                value={this.state.valueRoom}
                                 onChange={this.handleChangeRoom}
                                 style={istyle}
                                 >
@@ -179,7 +212,7 @@ class HotelResults extends Component
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
                             <SelectField
-                                value={this.props.userData.hotelSearch.noOfGuest}
+                                value={this.state.valueGuest}
                                 onChange={this.handleChangeGuest}
                                 style={istyle}
                                 >
@@ -389,7 +422,8 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
             changeHotelListing,
-            changeHotelSearch
+            changeHotelSearch,
+            changeHotelBooking
         }
     ,dispatch);
 }

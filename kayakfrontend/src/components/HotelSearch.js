@@ -93,8 +93,8 @@ class HotelSearch extends Component{
                                     
                                     var data ={
                                         city:document.getElementById('destination').value,
-                                        checkIn:     document.getElementById('toDate').value,
-                                        checkOut:   document.getElementById('fromDate').value,
+                                        checkIn:     document.getElementById('fromDate').value,
+                                        checkOut:   document.getElementById('toDate').value,
                                         noOfRoom:   this.state.valueRoom,
                                         noOfGuest:  this.state.valueGuest,
                                         filter_prop:{ratings: 0},

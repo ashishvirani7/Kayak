@@ -374,7 +374,7 @@ class AdminUpdateHotel extends Component{
         return(
             <div>
                 {   
-                    this.props.adminUpdateCurrentData.type === "Hotel" &&
+                    this.props.adminUpdateCurrentData.type == "Hotel" &&
                     <div>
 
                         <div className="row">
@@ -394,25 +394,24 @@ class AdminUpdateHotel extends Component{
                                     </div>
                                        
                                  </div>   
+                                 <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
                             </div>
-
-                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
 
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    Hotel Name
+                                    Date
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.hotel.hotel_name}   
+                                        {this.props.adminUpdateCurrentData.bill.bill_date}   
                                     </div>
                                        
-                                    
+                                 </div>   
+                                 <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
                             </div>
-                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
 
-                            </div>
+                             
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
                                     City
@@ -445,21 +444,7 @@ class AdminUpdateHotel extends Component{
 
                             </div>
                         
-                            <div className="row" style={itemstyle}>
-                                <div className="col-md-2" style={labelstyle}>
-                                    Amount
-                                </div>
-                                <div className="col-md-9">
-                                    
-                                    <div>
-                                        {this.props.adminUpdateCurrentData.bill.bill_amount}   
-                                    </div>
-                                       
-                                    
-                            </div>
-                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
-
-                            </div>
+                            
 
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
@@ -484,7 +469,23 @@ class AdminUpdateHotel extends Component{
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.room_type}   
+                                        {this.props.adminUpdateCurrentData.bill.hotel.room_type}   
+                                    </div>
+                                       
+                                    
+                            </div>
+                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+
+                            </div>
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Amount
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.bill_amount}   
                                     </div>
                                        
                                     
@@ -515,18 +516,34 @@ class AdminUpdateHotel extends Component{
                                     </div>
                                        
                                  </div>   
+                                 <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
                             </div>
 
-                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+                             
 
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    Hotel Name
+                                    Date
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.hotel.hotel_name}   
+                                        {this.props.adminUpdateCurrentData.bill.bill_date}   
+                                    </div>
+                                    
+                                </div>   
+                                <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
+                            </div>
+
+                         
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Origin
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.flight.origin}   
                                     </div>
                                        
                                     
@@ -534,14 +551,15 @@ class AdminUpdateHotel extends Component{
                             <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
 
                             </div>
+
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    City
+                                    Destination
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.hotel.city}   
+                                        {this.props.adminUpdateCurrentData.bill.flight.destination}   
                                     </div>
                                        
                                     
@@ -552,12 +570,12 @@ class AdminUpdateHotel extends Component{
 
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    State
+                                    Number of Travellers
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.hotel.state}   
+                                        {this.props.adminUpdateCurrentData.bill.flight.no_of_travelers}   
                                     </div>
                                        
                                     
@@ -582,14 +600,54 @@ class AdminUpdateHotel extends Component{
 
                             </div>
 
+                            
+                    </div>
+                }
+                {   
+                    this.props.adminUpdateCurrentData.type === "Car" &&
+                    <div>
+                        <div className="row">
+                            <span style={titlestyle}>
+                                Details of hotel Bill of {this.props.adminUpdateCurrentData.bill.email}
+                            </span> 
+                            <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>       
+                            </div>
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    Number Of Guests
+                                    Car Name
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.hotel.no_of_guests}   
+                                        {this.props.adminUpdateCurrentData.bill.car.car_name}   
+                                    </div>
+                                       
+                                 </div>   
+                                 <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
+                            </div>
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Date
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.bill_date}   
+                                    </div>
+                                       
+                                 </div>   
+                                 <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/> 
+                            </div>
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Booking Start Date
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.car.booking_start_date}   
                                     </div>
                                        
                                     
@@ -600,12 +658,45 @@ class AdminUpdateHotel extends Component{
 
                             <div className="row" style={itemstyle}>
                                 <div className="col-md-2" style={labelstyle}>
-                                    Room Type
+                                    Booking End Date
                                 </div>
                                 <div className="col-md-9">
                                     
                                     <div>
-                                        {this.props.adminUpdateCurrentData.bill.room_type}   
+                                        {this.props.adminUpdateCurrentData.bill.car.booking_end_date}   
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+
+                            </div>
+
+                             
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    City
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.car.city}   
+                                    </div>
+                                       
+                                    
+                            </div>
+                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+
+                            </div>
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Car Type
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.car.car_type}   
                                     </div>
                                        
                                     
@@ -614,12 +705,41 @@ class AdminUpdateHotel extends Component{
 
                             </div>
                         
-                    </div>
-                }
-                {   
-                    this.props.adminUpdateCurrentData.type === "Car" &&
-                    <div>
-                        Car
+                            
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Model Name
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.car.model_name}   
+                                    </div>
+                                       
+                                    
+                            </div>
+                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+
+                            </div>
+
+                            
+
+                            <div className="row" style={itemstyle}>
+                                <div className="col-md-2" style={labelstyle}>
+                                    Amount
+                                </div>
+                                <div className="col-md-9">
+                                    
+                                    <div>
+                                        {this.props.adminUpdateCurrentData.bill.bill_amount}   
+                                    </div>
+                                       
+                                    
+                            </div>
+                            <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'85%',marginTop:'33px',marginLeft:'0px'}}/>  
+
+                            </div>
                     </div>
                 }
             </div>
