@@ -15,7 +15,7 @@ import american from '../icons/American-Express-icon.png';
 const masterCardReg = "^5";
 const visaCardReg = "^4";
 const americanCardReg = "^3";
-var defaultCardVal;
+var defaultCardVal=false;
 class PaymentPage extends Component
 {
     constructor(props){
@@ -38,7 +38,7 @@ class PaymentPage extends Component
         this.state = {
             edit : false,
             defaultCard : defaultCardVal,
-            card: false
+            card: defaultCardVal
         }
     }
 
