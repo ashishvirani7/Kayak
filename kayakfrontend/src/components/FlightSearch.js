@@ -14,11 +14,13 @@ import {changeFlightListing} from '../actions/flightListingAction';
 import {changeFlightSearch} from '../actions/flightSearchAction';
 
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 class FlightSearch extends Component{
     state = {
         valueClass: 'Economy',
-        valueTraveler: 1
+        valueTraveler: 1,
+        dataSource:cities.names
     }
 
     handleChangeClass = (event, index, valueClass) => this.setState({...this.state,valueClass:valueClass});
@@ -29,17 +31,33 @@ class FlightSearch extends Component{
                 <div className="row" style={rstyle}>
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="source"
-                                hintText="From Where?"
+                            
+                            <AutoComplete style={istyle}
+                            id="source"
+                            hintText="From Where?"
+                            dataSource={this.state.dataSource}
+                            onUpdateInput={this.handleDestChange}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="destination"
-                                hintText="To Where?"
+                            
+                            <AutoComplete style={istyle}
+                            id="destination"
+                            hintText="To Where?"
+                            dataSource={this.state.dataSource}
+                            onUpdateInput={this.handleDestChange}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
@@ -47,12 +65,18 @@ class FlightSearch extends Component{
                         <div className="row">
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
+                                    <DatePicker 
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
-                                    <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                                    <DatePicker
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
                             </div>
                             <div className="col-md-3">
@@ -60,6 +84,8 @@ class FlightSearch extends Component{
                                     <SelectField
                                         value={this.state.valueClass}
                                         onChange={this.handleChangeClass}
+                                        underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                        underlineFocusStyle={{"borderColor":"#ec7132"}}
                                         style={istyle}
                                         >
                                         <MenuItem value={'Economy'} primaryText="Economy" />
@@ -73,6 +99,8 @@ class FlightSearch extends Component{
                                     <SelectField
                                         value={this.state.valueTraveler}
                                         onChange={this.handleChangeTraveler}
+                                        underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                        underlineFocusStyle={{"borderColor":"#ec7132"}}
                                         style={istyle}
                                         >
                                         <MenuItem value={1} primaryText="1 traveler" />

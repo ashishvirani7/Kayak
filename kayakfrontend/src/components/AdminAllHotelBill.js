@@ -302,7 +302,8 @@ class AdminAllHotelBill extends Component{
                                         onChange={this.handleMonthChange}
                                         floatingLabelText="Month"
                                         maxHeight={200}  
-                                        style={{width:100}}                             
+                                        style={{width:100,height:'70px'}} 
+
                                         >
                                             {allMonths}
                                         </SelectField>
@@ -313,7 +314,7 @@ class AdminAllHotelBill extends Component{
                                         onChange={this.handleYearChange}
                                         floatingLabelText="Year"
                                         maxHeight={200}  
-                                        style={{width:100}} 
+                                        style={{width:100,height:'70px'}} 
                                         >
                                             {allYears}
                                         </SelectField>
