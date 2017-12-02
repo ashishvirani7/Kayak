@@ -6,7 +6,7 @@ var Bill = new Schema({
 	bill_id: String,
 	bill_date:Date,
 	bill_type:String,
-	user_id : String,
+	email : String,
 	bill_amount:Number,
 	bill_status:String,
 	flights :
