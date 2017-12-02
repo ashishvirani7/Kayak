@@ -59,44 +59,44 @@ var flights = require('./services/flights');
 var cars = require('./services/cars');
 var getBookings = require('./services/getBookings');
 
-var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
-var get_all_hotel_topic_name = 'get_all_hotel_topic';
-var update_hotel_admin_topic_name = 'update_hotel_admin_topic';
-var search_hotel_admin_topic_name = 'search_hotel_admin_topic';
-var delete_hotel_admin_topic_name = 'delete_hotel_admin_topic';
+var add_hotel_admin_topic_name = "add_hotel_admin_topic";
+var get_all_hotel_topic_name = "get_all_hotel_topic";
+var update_hotel_admin_topic_name = "update_hotel_admin_topic";
+var search_hotel_admin_topic_name = "search_hotel_admin_topic";
+var delete_hotel_admin_topic_name = "delete_hotel_admin_topic";
 
 
-var add_flight_admin_topic_name = 'add_flight_admin_topic';
-var get_all_flight_topic_name = 'get_all_flight_topic';
-var update_flight_admin_topic_name = 'update_flight_admin_topic';
-var search_flight_admin_topic_name = 'search_flight_admin_topic';
-var delete_flight_admin_topic_name = 'delete_flight_admin_topic';
+var add_flight_admin_topic_name = "add_flight_admin_topic";
+var get_all_flight_topic_name = "get_all_flight_topic";
+var update_flight_admin_topic_name = "update_flight_admin_topic";
+var search_flight_admin_topic_name = "search_flight_admin_topic";
+var delete_flight_admin_topic_name = "delete_flight_admin_topic";
 
 
-var add_car_admin_topic_name = 'add_car_admin_topic';
-var get_all_car_topic_name = 'get_all_car_topic';
-var update_car_admin_topic_name = 'update_car_admin_topic';
-var search_car_admin_topic_name = 'search_car_admin_topic';
-var delete_car_admin_topic_name = 'delete_car_admin_topic';
+var add_car_admin_topic_name = "add_car_admin_topic";
+var get_all_car_topic_name = "get_all_car_topic";
+var update_car_admin_topic_name = "update_car_admin_topic";
+var search_car_admin_topic_name = "search_car_admin_topic";
+var delete_car_admin_topic_name = "delete_car_admin_topic";
 
 
-var get_all_user_data_topic_name = 'get_all_user_data_topic';
-var search_user_data_admin_topic_name = 'search_user_data_admin_topic';
-var update_user_data_admin_topic_name = 'update_user_data_admin_topic';
-var delete_user_data_admin_topic_name = 'delete_user_data_admin_topic';
+var get_all_user_data_topic_name = "get_all_user_data_topic";
+var search_user_data_admin_topic_name = "search_user_data_admin_topic";
+var update_user_data_admin_topic_name = "update_user_data_admin_topic";
+var delete_user_data_admin_topic_name = "delete_user_data_admin_topic";
 
 
-var login_topic_name = 'login_topic';
+var login_topic_name = "login_topic";
 var signup_topic_name = "signup_topic";
 
-var login_admin_topic_name = 'login_admin_topic';
+var login_admin_topic_name = "login_admin_topic";
 var signup_admin_topic_name = "signup_admin_topic";
 
 
-var updateUserInfo_topic_name = 'updateUserInfo_topic';
-var getUserDetails_topic_name = 'getUserDetails_topic';
-var updateCardDetails_topic_name = 'updateCardDetails_topic';
-var getCardDetails_topic_name = 'getCardDetails_topic';
+var updateUserInfo_topic_name = "updateUserInfo_topic";
+var getUserDetails_topic_name = "getUserDetails_topic";
+var updateCardDetails_topic_name = "updateCardDetails_topic";
+var getCardDetails_topic_name = "getCardDetails_topic";
 var create_folder_topic_name = "create_folder_topic";
 var delete_folder_topic_name = "delete_folder_topic";
 var upload_file_topic_name = "upload_file_topic";
