@@ -5,9 +5,9 @@ var kafka = require('./kafka/client');
 var topic_name = "get_bookings_topic";
 
 router.post('/', (req, res, next)=>{
-    var userId = req.body.userId;
+    var email = req.body.email;
 
-    kafka.make_request(topic_name, {userId}, function(err, results){
+    kafka.make_request(topic_name, {email}, function(err, results){
         if(err){
             done(err,{});
         }

@@ -49,6 +49,7 @@ var hotels = require('./services/hotels');
 var flights = require('./services/flights');
 var cars = require('./services/cars');
 var getBookings = require('./services/getBookings');
+var getRevenue = require('./services/getRevenue');
 
 var add_hotel_admin_topic_name = "add_hotel_admin_topic";
 var get_all_hotel_topic_name = "get_all_hotel_topic";
@@ -99,6 +100,7 @@ var hotels_topic = "hotels_topic";
 var flights_topic = "flights_topic";
 var cars_topic = "cars_topic";
 var get_bookings_topic = "get_bookings_topic";
+var get_revenue_topic = "get_revenue_topic";
 var response_topic_name = "response_topic";
 
 var producer = connection.getProducer();
@@ -114,7 +116,7 @@ producer.on('ready', function () {
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
             delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
-            search_bill_month_admin_topic_name
+            search_bill_month_admin_topic_name, get_revenue_topic,
         ],
         false, function (err, data) {
         });
@@ -168,6 +170,7 @@ producer.on('ready', function () {
     var cars_topic_consumer = connection.getConsumer(cars_topic);
     var delete_user_topic_consumer = connection.getConsumer(delete_user_topic_name);
     var get_bookings_topic_consumer = connection.getConsumer(get_bookings_topic);
+    var get_revenue_topic_consumer = connection.getConsumer(get_revenue_topic);
 
 
     console.log('login server is running');
@@ -963,6 +966,122 @@ producer.on('ready', function () {
         });
     });
 
+    console.log('get revenue user data admin server is running');
+    get_revenue_topic_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        if(data.data.key == "hotels")
+        {
+            getRevenue.handle_hotels(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "flights"){
+            getRevenue.handle_flights(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "cars"){
+            getRevenue.handle_cars(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "tophotels"){
+            getRevenue.top_hotels(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "topflights"){
+            getRevenue.top_flights(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "topcars"){
+            getRevenue.top_cars(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+
+    });
 
     console.log('delete user data admin server is running');
     delete_user_data_admin_consumer.on('message', function (message) {

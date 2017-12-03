@@ -13,6 +13,7 @@
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
     "crypto-js": "^3.1.9-1",
+    "d3": "^4.12.0",
     "debug": "~2.6.3",
     "ejs": "~2.3.3",
     "express": "~4.15.2",
@@ -39,6 +40,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react-keyed-file-browser": "^1.0.1",
+    "redis": "^2.8.0",
     "rimraf": "^2.6.2",
     "serve-favicon": "^2.4.5"
   },
