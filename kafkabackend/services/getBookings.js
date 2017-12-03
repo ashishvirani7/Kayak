@@ -21,6 +21,8 @@ function handle_request(msg, callback) {
             }
             else
             {
+                console.log(new Date());
+                //console.log(eachBooking.flight.flight_start_date);
                 var len = bookings.length;
                 var bk = [];
                 j=0;
@@ -45,6 +47,7 @@ function handle_request(msg, callback) {
                         }
                     }
                     else if(eachBooking.bill_type == "Hotel"){
+                        console.log(eachBooking.hotel.booking_start_date);
                         if(eachBooking.hotel.booking_start_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};

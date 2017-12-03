@@ -90,6 +90,14 @@ export default function(state=initialState,action){
             };
         }
 
+        case "CHANGE_HISTORY":
+        {
+            return{
+                ...state,
+                history: action.history,
+            };
+        }
+
         case "persist/REHYDRATE":
         {
             var incoming = action.payload.userData

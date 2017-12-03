@@ -705,3 +705,20 @@ fetch(`${api}/flights/book`, {
         return error;
 });
 
+export const getAllBookings = (payload) =>
+fetch(`${api}/getBookings`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
