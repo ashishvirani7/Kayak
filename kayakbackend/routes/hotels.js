@@ -4,6 +4,9 @@ var router = express.Router();
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/kayak";
 var kafka = require('./kafka/client');
+//redis
+var redis = require('redis');
+var redisClient = redis.createClient({host : 'localhost', port : 6379});
 
 var topic_name = "hotels_topic";
 
@@ -18,24 +21,42 @@ router.post('/', (req, res, next)=>{
     var order = req.body.order;
     var filter_prop = req.body.filter_prop;
     var key = "search";
-    kafka.make_request(topic_name, {key, city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
 
-    console.log(filter_prop);
-        if(err){
-            done(err,{});
+
+    redisClient.get(city,function(err,reply) {
+        console.log(err);
+        console.log(JSON.parse(reply));
+        if(reply !== null){
+                console.log("Hotels found in Redis:")
+                return res.status(201).send(JSON.parse(reply));
         }
         else
         {
-            if(results.code == 201){
-                console.log("Hotels found:")
-                return res.status(201).send(results);
-            }
-            else if(results.code == 202){
-                console.log("No hotels found")
-                return res.status(202).send(results);
-            }
+            kafka.make_request(topic_name, {key, city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
+
+                console.log(filter_prop);
+                if(err){
+                    done(err,{});
+                }
+                else
+                {
+                    if(results.code == 201){
+                        console.log("Hotels found:")
+                        redisClient.set(city, JSON.stringify(results), function(err, reply){
+                            console.log(err);
+                            console.log(reply);
+                        })
+                        return res.status(201).send(results);
+                    }
+                    else if(results.code == 202){
+                        console.log("No hotels found")
+                        return res.status(202).send(results);
+                    }
+                }
+            })
         }
-    })
+    });
+
 })
 
 // router.post('/', (req,res,next)=>{
