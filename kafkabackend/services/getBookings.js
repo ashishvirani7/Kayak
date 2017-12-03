@@ -6,12 +6,12 @@ var Bill = require('../models/Bill');
 function handle_request(msg, callback) {
     var res = {};
     var message = "";
-    var userId = msg.userId;
+    var email = msg.email;
 
     console.log("In handle request:"+ JSON.stringify(msg));
 
         Bill.find({
-            "user_id":userId
+            "email":email
         }, function(err, bookings){
             if(err){
                 message="error"

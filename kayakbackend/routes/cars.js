@@ -41,17 +41,11 @@ router.post('/book', (req, res, next)=>{
     // var no_of_traveler = req.body.no_of_traveler;
     var key = "book";
 
-    /*flights:[{
-        flight_id:flightId,
-        flight_start_date:departure_date,
-        flight_end_date:arrival_date,
-        no_of_travelers:no_of_traveler,
-        amount:amount,
-    }]*/
+    var email = req.body.email;
+    var bill_amount = req.body.bill_amount;
+    var car = req.body.car;
 
-    var cars = req.body.cars;
-
-    kafka.make_request(topic_name, {key, userId, cars}, function(err, results){
+    kafka.make_request(topic_name, {key,email,bill_amount,car}, function(err, results){
         if(err){
             done(err,{});
         }

@@ -131,6 +131,7 @@ class FlightResults extends Component
                                 var data = {
                                     bookingType: 'Flight',
                                     flight: flight.flight,
+                                    flightid: flight._id,
                                     search: this.props.userData.flightSearch,
                                 }
                                 console.log(data);

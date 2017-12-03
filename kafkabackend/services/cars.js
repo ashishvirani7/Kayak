@@ -76,16 +76,18 @@ function handle_booking(msg, callback){
     // var flightId = msg.flightId;
     // var amount = msg.amount;
 
-    var cars = msg.cars;
-    var userId = msg.userId;
+    var email = msg.email;
+    var bill_amount = msg.bill_amount;
+    var car = msg.car;
 
     console.log("In handle request:"+ JSON.stringify(msg));
 
     var billObject = {
-        user_id:userId,
+        email:email,
         bill_date:new Date(),
+        bill_amount:bill_amount,
         bill_type:"Car",
-        car:cars,
+        car:car,
     }
 
     var bill = new Bill(billObject);
