@@ -131,7 +131,9 @@ class HotelResults extends Component
                             </div>
                             <div className="col-md-4" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
                                 <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'30px'}}>
-                                    {'$'+hotel.hotel.rooms[0].room_price}
+                                    {(this.state.roomType==='Standard') && '$'+hotel.hotel.rooms[0].room_price}
+                                    {(this.state.roomType==='Suite') && '$'+hotel.hotel.rooms[1].room_price}
+                                    {(this.state.roomType==='Delux') && '$'+hotel.hotel.rooms[2].room_price}
                                 </div>
                                 <div className="row" style={{marginTop:'20px'}}>
                                     <button style={btnstyle1} labelColor='white'
@@ -153,17 +155,6 @@ class HotelResults extends Component
                                     }}
                                     >Book Now</button>
                                 </div>
-                                <div className="row" style={{marginTop:'20px'}}>
-                                <SelectField
-                                    value={"Standard"}
-                                    onChange={this.handleChangeRoomType}
-                                    style={{...istyle,width:'120px',fontSize:'14px'}}
-                                    >
-                                    <MenuItem value={"Standard"} primaryText="Standard" />
-                                    <MenuItem value={"Suite"} primaryText="Suite" />
-                                    <MenuItem value={"Delux"} primaryText="Delux" />
-                                </SelectField>
-                               </div>
                             </div>
                         </div>
                     </div>
@@ -334,6 +325,34 @@ class HotelResults extends Component
                                     :<IconStarOut width="45" height='45' >1</IconStarOut>}
                                     </IconButton>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
+                                <div class="row" style={starttitle} >
+                                    <span style={{float:'left'}}>Room Type</span>
+                                    <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
+                                        //console.log('click');
+                                        this.setState({...this.state,roomType:'Standard'});
+                                        this.getHotels();
+                                    }}>RESET</span>
+                                </div>
+                                <div class="row" >
+                                    <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'83%',marginTop:'0px',marginLeft:'15px'}}/>
+                                </div>
+                                <div className="row" style={{marginLeft:'-30px'}}>
+                                <SelectField
+                                    value={this.state.roomType}
+                                    onChange={this.handleChangeRoomType}
+                                    style={{...istyle,width:'200px',fontSize:'14px',marginLeft:'30px',marginTop:'0px'}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    >
+                                    <MenuItem value={"Standard"} primaryText="Standard" />
+                                    <MenuItem value={"Suite"} primaryText="Suite" />
+                                    <MenuItem value={"Delux"} primaryText="Delux" />
+                                </SelectField>
                                 </div>
                             </div>
                         </div>

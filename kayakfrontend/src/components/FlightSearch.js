@@ -90,7 +90,7 @@ class FlightSearch extends Component{
                                         >
                                         <MenuItem value={'Economy'} primaryText="Economy" />
                                         <MenuItem value={'Business'} primaryText="Business" />
-                                        <MenuItem value={'First'} primaryText="First" />
+                                        <MenuItem value={'First Class'} primaryText="First Class" />
                                     </SelectField>
                                 </div>
                             </div>

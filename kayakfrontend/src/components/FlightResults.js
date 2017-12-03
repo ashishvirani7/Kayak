@@ -123,7 +123,9 @@ class FlightResults extends Component
                     </div>
                     <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
                         <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'20px'}}>
-                            {'$'+flight.flight.classes[0].class_price}
+                            {(this.state.valueClass==='Economy') && '$'+flight.flight.classes[1].class_price}
+                            {(this.state.valueClass==='Business') && '$'+flight.flight.classes[0].class_price}
+                            {(this.state.valueClass==='First Class') && '$'+flight.flight.classes[2].class_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
                             <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
@@ -132,6 +134,7 @@ class FlightResults extends Component
                                     bookingType: 'Flight',
                                     flight: flight.flight,
                                     flightid: flight._id,
+                                    class: this.state.valueClass,
                                     search: this.props.userData.flightSearch,
                                 }
                                 console.log(data);
@@ -216,7 +219,7 @@ class FlightResults extends Component
                                         >
                                         <MenuItem value={'Economy'} primaryText="Economy" />
                                         <MenuItem value={'Business'} primaryText="Business" />
-                                        <MenuItem value={'First'} primaryText="First" />
+                                        <MenuItem value={'First Class'} primaryText="First Class" />
                                     </SelectField>
                                 </div>
                             </div>
