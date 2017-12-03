@@ -116,7 +116,7 @@ producer.on('ready', function () {
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
             delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
-            search_bill_month_admin_topic_name,get_revenue_topic,
+            search_bill_month_admin_topic_name, get_revenue_topic,
         ],
         false, function (err, data) {
         });
@@ -1010,6 +1010,60 @@ producer.on('ready', function () {
         }
         else if(data.data.key == "cars"){
             getRevenue.handle_cars(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "tophotels"){
+            getRevenue.top_hotels(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "topflights"){
+            getRevenue.top_flights(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
+        else if(data.data.key == "topcars"){
+            getRevenue.top_cars(data.data, function(err,res){
                 console.log('after handle'+res);
                 var payloads = [
                     { topic: data.replyTo,
