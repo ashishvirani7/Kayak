@@ -65,6 +65,10 @@ var flights = require('./routes/flights');
 var cars = require('./routes/cars');
 var deleteAccount = require('./routes/deleteAccount');
 var bookings = require('./routes/getBookings');
+var topTenCar = require('./routes/topTenCar');
+var topTenFlight = require('./routes/topTenFlight');
+var topTenHotel = require('./routes/topTenHotel');
+
 var getRevenue = require('./routes/getRevenue');
 var adminLogout = require('./routes/adminLogout');
 
@@ -172,6 +176,9 @@ app.use('/flights', flights);
 app.use('/cars', cars);
 app.use('/getbookings', bookings);
 app.use('/deleteAccount', deleteAccount);
+app.use('/topTenCar', topTenCar);
+app.use('/topTenFlight', topTenFlight);
+app.use('/topTenHotel', topTenHotel);
 app.use('/getRevenue', getRevenue);
 
 module.exports = app;
