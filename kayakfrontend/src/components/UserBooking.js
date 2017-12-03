@@ -74,6 +74,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.history.push('/cars');
                     }
                 });    
             }
@@ -111,6 +112,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.history.push('/hotels');
                     }
                 });
             }
@@ -150,6 +152,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.history.push('/flights');
                     }
                 });
             }
