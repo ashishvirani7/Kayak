@@ -146,7 +146,7 @@ function top_hotels(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -167,6 +167,7 @@ function top_hotels(msg, callback){
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
                     if(j==(len -1)){
+
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)
@@ -217,7 +218,7 @@ function top_flights(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -237,7 +238,7 @@ function top_flights(msg, callback){
                 hotels.forEach(eachHotel=>{
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
-                    if(j==(len -1)){
+                    if(j==(len-1 )){
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)
@@ -288,7 +289,7 @@ function top_cars(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -308,7 +309,7 @@ function top_cars(msg, callback){
                 hotels.forEach(eachHotel=>{
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
-                    if(j==(len -1)){
+                    if(j==(len - 1)){
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)

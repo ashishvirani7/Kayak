@@ -138,4 +138,8 @@ router.post('/topcars', (req, res, next)=>{
         }
     })
 });
+
+router.post('/topintown', function(req, res, next){
+    console.log("mes:", req.body.name)
+})
 module.exports = router;
