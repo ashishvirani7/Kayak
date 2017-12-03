@@ -41,22 +41,22 @@ router.post('/', (req, res, next)=>{
         else
         {
 
-            if(results.code == 201){
-                console.log("Hotels found:")
-/*                fs.writeFile(path.join(__dirname, '../../') + 'hotel_log.csv', ' ' +`/${req.body.city} ` +  new Date(dt.now()), function (err) {
-                    if (err) throw err;
-                });*/
+//             if(results.code == 201){
+//                 console.log("Hotels found:")
+// /*                fs.writeFile(path.join(__dirname, '../../') + 'hotel_log.csv', ' ' +`/${req.body.city} ` +  new Date(dt.now()), function (err) {
+//                     if (err) throw err;
+//                 });*/
 
-                var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
-                    flags: 'a'
-                })
-                logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
-                return res.status(201).send(results);
-            }
-            else if(results.code == 202){
-                console.log("No hotels found")
-                return res.status(202).send(results);
-            }
+//                 var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
+//                     flags: 'a'
+//                 })
+//                 logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
+//                 return res.status(201).send(results);
+//             }
+//             else if(results.code == 202){
+//                 console.log("No hotels found")
+//                 return res.status(202).send(results);
+//             }
 
             kafka.make_request(topic_name, {key, city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
 

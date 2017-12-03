@@ -52,6 +52,7 @@ class signupModal extends React.Component {
                 console.log(user);
                 this.props.signupModalDone();
                 NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
+                this.props.loginModalOpen();
                 //this.props.history.push("/");
             });
     

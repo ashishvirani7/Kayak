@@ -12,13 +12,13 @@ const initialState={
     {
         carddetails:{card_name:''}
     },
-    hotels:{},
-    flights:{},
-    cars:{},
+    hotels:[],
+    flights:[],
+    cars:[],
     hotelSearch:{},
     flightSearch:{},
     carSearch:{},
-    history:{},
+    history:[],
     booking:{}
 }
 

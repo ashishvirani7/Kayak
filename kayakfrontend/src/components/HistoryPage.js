@@ -39,6 +39,7 @@ class HistoryPage extends Component
     
     showHistory = () => {
         var history = this.props.userData.history;
+        console.log(history);
         var result =[];
         if(this.state.filter==='All'){result=history.filter(booking=>(booking.time=='past' || booking.time=='future'));}
         if(this.state.filter==='Past'){result=history.filter(booking=>(booking.time=='past'));}
