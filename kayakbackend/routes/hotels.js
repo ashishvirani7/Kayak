@@ -64,25 +64,14 @@ router.post('/', (req, res, next)=>{
 // });
 
 router.post('/book', (req, res, next)=>{
-    // var flightId = req.body.flightId;
-    var userId = req.body.userId;
-    // var amount = req.body.amount;
-    // var departure_date = req.body.departure_date;
-    // var arrival_date = req.body.arrival_date;
-    // var no_of_traveler = req.body.no_of_traveler;
+    
     var key = "book";
 
-    /*flights:[{
-        flight_id:flightId,
-        flight_start_date:departure_date,
-        flight_end_date:arrival_date,
-        no_of_travelers:no_of_traveler,
-        amount:amount,
-    }]*/
+    var email = req.body.email;
+    var bill_amount = req.body.bill_amount;
+    var hotel = req.body.hotel;
 
-    var hotels = req.body.hotels;
-
-    kafka.make_request(topic_name, {key, userId, hotels}, function(err, results){
+    kafka.make_request(topic_name, {key, email, bill_amount, hotel}, function(err, results){
         if(err){
             done(err,{});
         }

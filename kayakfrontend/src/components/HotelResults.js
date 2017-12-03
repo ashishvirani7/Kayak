@@ -139,6 +139,7 @@ class HotelResults extends Component
                                         var data = {
                                             bookingType: 'Hotel',
                                             hotel: hotel.hotel,
+                                            hotelid: hotel._id,
                                             city:       document.getElementById('destination').value,
                                             checkIn:    document.getElementById('fromDate').value,
                                             checkOut:   document.getElementById('toDate').value,

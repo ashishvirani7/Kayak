@@ -20,19 +20,6 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
 
     if(msg.order == "price_desc"){
-            
-var cond = {
-                    "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                    "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
-                    "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
-                    "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
-                    "flight.classes.class_type":flight_class,
-                    "flight.stops":{$nin:filter_prop.stops},
-                    "flight.flight_operator_name":{$nin:filter_prop.flight_name},
-
-                };
-
-                console.log("cflighth ondition"+JSON.stringify(cond));
             Listings.find(
                 {
                     "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
@@ -147,22 +134,19 @@ var cond = {
 function handle_booking(msg, callback){
     var res = {};
     var message = "";
-    // var departure_date = msg.departure_date;
-    // var arrival_date = msg.arrival_date;
-    // var no_of_traveler = msg.no_of_traveler;
-    // var flightId = msg.flightId;
-    // var amount = msg.amount;
 
-    var flights = msg.flights;
-    var userId = msg.userId;
+    var email = msg.email;
+    var bill_amount = msg.bill_amount;
+    var flight = msg.flight;
 
     console.log("In handle request:"+ JSON.stringify(msg));
 
     var billObject = {
-        user_id:userId,
+        email:email,
         bill_date:new Date(),
         bill_type:"Flight",
-        flights:flights,
+        bill_amount:bill_amount,
+        flight:flight,
     }
 
     var bill = new Bill(billObject);

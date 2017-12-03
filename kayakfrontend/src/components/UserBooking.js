@@ -44,7 +44,29 @@ class UserBooking extends Component{
             stepIndex++;
             var booking = this.props.userData.booking;
             if(booking.bookingType==='Car'){
-                API.doCarBooking()
+                var car = booking.car;
+                var noOfDays = (new Date(booking.search.toDate)-new Date(booking.search.fromDate))/(60*60*24*1000);
+                var price = car.car_rental_price;
+                var total = price*noOfDays;
+
+                var data = {
+                    booking_type: 'Car',
+                    email: this.props.userData.data.email,
+                    bill_amount: total,
+                    car:{
+                        car_id : booking.carid,
+                        booking_start_date: booking.search.fromDate,
+                        booking_end_date: booking.search.toDate,
+                        amount: total,
+                        car_name : car.car_name,
+                        car_type : car.car_type,
+                        model_name : car.model_name,
+                        city : car.city,
+                        notes: ""
+                    }
+                }
+                console.log(data);
+                API.doCarBooking(data)
                 .then((res)=>{
                     if(res.status===201){
                         NotificationManager.success("Success", "Your Car Booking has been Confirmed", 2500, true);
@@ -56,7 +78,32 @@ class UserBooking extends Component{
                 });    
             }
             if(booking.bookingType==='Hotel'){
-                API.doHotelBooking()
+                var hotel = booking.hotel;
+                var roomType = booking.roomType;
+                if(roomType==="Standard") var index=0;
+                if(roomType==="Suite") var index=1;
+                if(roomType==="Delux") var index=2;
+                var price = hotel.rooms[index].room_price;
+                total = price*booking.noOfGuest;
+                var data = {
+                    booking_type: 'Hotel',
+                    email: this.props.userData.data.email,
+                    bill_amount: total,
+                    hotel:{
+                        hotel_id : booking.hotelid,
+                        hotel_name : hotel.hotel_name,
+                        city: hotel.address.city,
+                        state: hotel.address.state,
+                        booking_start_date: booking.checkIn,
+                        booking_end_date: booking.checkOut,
+                        amount: total,
+                        no_of_guests : booking.noOfGuest,
+                        room_type:booking.roomType,
+                        notes: ""
+                    } 
+                }
+                console.log(data);
+                API.doHotelBooking(data)
                 .then((res)=>{
                     if(res.status===201){
                         NotificationManager.success("Success", "Your Hotel Booking has been Confirmed", 2500, true);
@@ -68,7 +115,34 @@ class UserBooking extends Component{
                 });
             }
             if(booking.bookingType==='Flight'){
-                API.doFlightBooking()
+                var classType= booking.search.class;
+                if(classType==="Business") var index=0;
+                if(classType==="Economy") var index=1;
+                if(classType==="First Class") var index=2;
+        
+                var price = booking.flight.classes[index].class_price;
+                total = price*booking.search.no_of_traveler;
+
+                var data = {
+                    booking_type: 'Flight',
+                    email: this.props.userData.data.email,
+                    bill_amount: total,
+                    flight:{
+                        flight_id : booking.flightid,
+                        flight_name : booking.flight.flight_name,
+                        flight_operator_name:booking.flight.flight_operator_name,
+                        flight_start_date: booking.flight.departure_date,
+                        flight_end_date: booking.flight.arrival_date,
+                        origin:booking.flight.origin,
+                        destination:booking.flight.destination,
+                        class_type:booking.search.class,
+                        no_of_travelers : booking.search.no_of_traveler,
+                        amount: total,
+                        notes: ""
+                    }
+                }
+                console.log(data);
+                API.doFlightBooking(data)
                 .then((res)=>{
                     if(res.status===201){
                         NotificationManager.success("Success", "Your Flight Booking has been Confirmed", 2500, true);
