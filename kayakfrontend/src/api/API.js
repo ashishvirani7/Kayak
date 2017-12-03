@@ -551,6 +551,57 @@ fetch(`${api}/adminLogout`, {
         return error;
 });
 
+export const doAdminAnalysisRevenueHotel = (payload) =>
+fetch(`${api}/getRevenue/tophotels`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const doAdminAnalysisRevenueFlight = (payload) =>
+fetch(`${api}/getRevenue/topflights`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const doAdminAnalysisRevenueCar = (payload) =>
+fetch(`${api}/getRevenue/cars`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 
 
 export const checkSession = () =>

@@ -4,6 +4,10 @@ var router = express.Router();
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/kayak";
 var kafka = require('./kafka/client');
+var fs = require('fs');
+var path = require('path');
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
 
 var topic_name = "flights_topic";
 
@@ -28,6 +32,10 @@ router.post('/', (req, res, next)=>{
         {
             if(results.code == 201){
                 console.log("Flights found")
+                var logger = fs.createWriteStream(path.join(__dirname, '../') + 'flight_log.csv', {
+                    flags: 'a'
+                })
+                logger.write(`\r\n${req.body.origin}` + ','+`${req.body.destination}`+','+new Date(dt.now())+','+'1');
                 return res.status(201).send(results);
             }
             else if(results.code == 202){

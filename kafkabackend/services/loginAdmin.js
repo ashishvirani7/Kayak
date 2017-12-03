@@ -12,8 +12,8 @@ function handle_request(msg, callback) {
 
     var email = msg.email;
     var password = msg.password;
-    // var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
-    // password = bytes.toString(CryptoJS.enc.Utf8);
+    var bytes  = CryptoJS.AES.decrypt(password.toString(), "kayak");
+    password = bytes.toString(CryptoJS.enc.Utf8);
 
     Admin.findOne({"email":email}, function(err, loginData) {
         if(err)
