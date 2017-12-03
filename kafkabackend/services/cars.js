@@ -26,7 +26,7 @@ function handle_request(msg, callback) {
             {
                 "listing_type":"Car",
                 "car.city":{'$regex':'^'+city+'+',$options:'i'},
-                "car.car_type":{$nin:"'"+filter_prop.type+"'"},
+                "car.car_type":{$in:filter_prop.type},
             }, function(err, cars){
                 if(err){
                     message="error"
@@ -47,7 +47,7 @@ function handle_request(msg, callback) {
         Listings.find(
             {
                 "car.city":{'$regex':'^'+city+'+',$options:'i'},
-                "car.car_type":{$nin:"'"+filter_prop.type+"'"},
+                "car.car_type":{$in:filter_prop.type},
             }, function(err, cars){
                 if(err){
                     message="error"
