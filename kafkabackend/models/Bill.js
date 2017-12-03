@@ -6,12 +6,13 @@ var Bill = new Schema({
     bill_id: String,
     bill_date:Date,
     bill_type:String,
-    user_id : String,
+    email : String,
     bill_amount:Number,
     bill_status:String,
     flight :
         {
             flight_id : String,
+            flight_name : String,
             flight_operator_name:String,
             flight_start_date: Date,
             flight_end_date: Date,
@@ -20,7 +21,8 @@ var Bill = new Schema({
             class_type:String,
             no_of_travelers : Number,
             amount: Number,
-            Notes: String
+            notes: String
+
         },
     hotel :
         {
@@ -45,7 +47,7 @@ var Bill = new Schema({
             car_type : String,
             model_name : String,
             city : String,
-            Notes: String
+            notes: String
         }
 
 });

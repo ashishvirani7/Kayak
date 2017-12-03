@@ -46,24 +46,16 @@ var searchUserDataAdmin = require('./routes/searchUserDataAdmin');
 var updateUserDataAdmin = require('./routes/updateUserDataAdmin');
 var deleteUserDataAdmin = require('./routes/deleteUserDataAdmin');
 
+var getAllBillAdmin = require('./routes/getAllBillAdmin');
+var searchBillDateAdmin = require('./routes/searchBillDateAdmin');
+var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 
 
 var sessioncheck = require('./routes/sessioncheck');
+var adminSessioncheck = require('./routes/adminSessioncheck');
+
 var logout = require('./routes/logout');
-var getFiles = require('./routes/getFiles');
-var uploadFile = require('./routes/uploadFile');
-var downloadFile = require('./routes/downloadFile');
-var createFolder = require('./routes/createFolder');
-var getFolders = require('./routes/getFolders');
-var deleteFile = require('./routes/deleteFile');
-var deleteFolder = require('./routes/deleteFolder');
-var starFile = require('./routes/starFile');
-var unStarFile = require('./routes/unStarFile');
-var starFolder = require('./routes/starFolder');
-var unStarFolder =require('./routes/unStarFolder');
-var getActivity = require('./routes/getActivity');
-var share = require('./routes/share');
-var getSharedFiles = require('./routes/getSharedFiles');
+
 var updateUserInfo = require('./routes/updateUserInfo');
 var getUserDetails = require('./routes/getUserDetails');
 var updateCardDetails = require('./routes/updateCardDetails');
@@ -74,6 +66,8 @@ var cars = require('./routes/cars');
 var deleteAccount = require('./routes/deleteAccount');
 var bookings = require('./routes/getBookings');
 var getRevenue = require('./routes/getRevenue');
+var adminLogout = require('./routes/adminLogout');
+
 var app = express();
 
 //redis
@@ -155,25 +149,20 @@ app.use('/updateUserDataAdmin', updateUserDataAdmin);
 app.use('/deleteUserDataAdmin', deleteUserDataAdmin);
 
 
+app.use('/getAllBillAdmin', getAllBillAdmin);
+app.use('/searchBillDateAdmin', searchBillDateAdmin);
+app.use('/searchBillMonthAdmin', searchBillMonthAdmin);
+
+
 app.use('/signup',signup);
 app.use('/signupAdmin',signupAdmin);
 
 app.use('/sessioncheck',sessioncheck);
+
+app.use('/adminSessioncheck',adminSessioncheck);
+app.use('/adminLogout', adminLogout);
+
 app.use('/logout', logout);
-app.use('/getFiles',getFiles);
-app.use('/uploadFile',uploadFile);
-app.use('/downloadFile',downloadFile);
-app.use('/createFolder',createFolder);
-app.use('/getFolders',getFolders);
-app.use('/deleteFile',deleteFile);
-app.use('/deleteFolder',deleteFolder);
-app.use('/starFile',starFile);
-app.use('/unStarFile',unStarFile);
-app.use('/starFolder',starFolder);
-app.use('/unStarFolder',unStarFolder);
-app.use('/getActivity',getActivity);
-app.use('/share',share);
-app.use('/getSharedFiles',getSharedFiles);
 app.use('/updateUserInfo',updateUserInfo);
 app.use('/getUserDetails',getUserDetails);
 app.use('/updateCardDetails',updateCardDetails);

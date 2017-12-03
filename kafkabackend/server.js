@@ -30,6 +30,12 @@ var searchUserDataAdmin = require('./services/searchUserDataAdmin');
 var updateUserDataAdmin = require('./services/updateUserDataAdmin');
 var deleteUserDataAdmin = require('./services/deleteUserDataAdmin');
 
+var getAllBillAdmin = require('./services/getAllBillAdmin');
+var searchBillDateAdmin = require('./services/searchBillDateAdmin');
+var searchBillMonthAdmin = require('./services/searchBillMonthAdmin');
+
+
+
 
 var updateUserInfo = require('./services/updateUserInfo');
 var getUserDetails = require('./services/getUserDetails');
@@ -38,21 +44,6 @@ var updateCardDetails = require('./services/updateCardDetails');
 
 var signup = require('./services/signup');
 
-var create_folder = require('./services/createFolder');
-var delete_folder = require('./services/deleteFolder');
-var upload_file = require('./services/uploadFile');
-var delete_file = require('./services/deleteFile');
-var download_file = require('./services/downloadFile');
-var get_files = require('./services/getFiles');
-var get_folders = require('./services/getFolders');
-var star_file = require('./services/starFile');
-var unstar_file = require('./services/unStarFile');
-var star_folder = require('./services/starFolder');
-var unstar_folder = require('./services/unStarFolder');
-var get_activity = require('./services/getActivity');
-var share = require('./services/share');
-var get_shared_files = require('./services/getSharedFiles');
-var delete_user = require('./services/deleteUser')
 
 var hotels = require('./services/hotels');
 var flights = require('./services/flights');
@@ -60,58 +51,49 @@ var cars = require('./services/cars');
 var getBookings = require('./services/getBookings');
 var getRevenue = require('./services/getRevenue');
 
-var add_hotel_admin_topic_name = 'add_hotel_admin_topic';
-var get_all_hotel_topic_name = 'get_all_hotel_topic';
-var update_hotel_admin_topic_name = 'update_hotel_admin_topic';
-var search_hotel_admin_topic_name = 'search_hotel_admin_topic';
-var delete_hotel_admin_topic_name = 'delete_hotel_admin_topic';
+var add_hotel_admin_topic_name = "add_hotel_admin_topic";
+var get_all_hotel_topic_name = "get_all_hotel_topic";
+var update_hotel_admin_topic_name = "update_hotel_admin_topic";
+var search_hotel_admin_topic_name = "search_hotel_admin_topic";
+var delete_hotel_admin_topic_name = "delete_hotel_admin_topic";
 
 
-var add_flight_admin_topic_name = 'add_flight_admin_topic';
-var get_all_flight_topic_name = 'get_all_flight_topic';
-var update_flight_admin_topic_name = 'update_flight_admin_topic';
-var search_flight_admin_topic_name = 'search_flight_admin_topic';
-var delete_flight_admin_topic_name = 'delete_flight_admin_topic';
+var add_flight_admin_topic_name = "add_flight_admin_topic";
+var get_all_flight_topic_name = "get_all_flight_topic";
+var update_flight_admin_topic_name = "update_flight_admin_topic";
+var search_flight_admin_topic_name = "search_flight_admin_topic";
+var delete_flight_admin_topic_name = "delete_flight_admin_topic";
 
 
-var add_car_admin_topic_name = 'add_car_admin_topic';
-var get_all_car_topic_name = 'get_all_car_topic';
-var update_car_admin_topic_name = 'update_car_admin_topic';
-var search_car_admin_topic_name = 'search_car_admin_topic';
-var delete_car_admin_topic_name = 'delete_car_admin_topic';
+var add_car_admin_topic_name = "add_car_admin_topic";
+var get_all_car_topic_name = "get_all_car_topic";
+var update_car_admin_topic_name = "update_car_admin_topic";
+var search_car_admin_topic_name = "search_car_admin_topic";
+var delete_car_admin_topic_name = "delete_car_admin_topic";
 
 
-var get_all_user_data_topic_name = 'get_all_user_data_topic';
-var search_user_data_admin_topic_name = 'search_user_data_admin_topic';
-var update_user_data_admin_topic_name = 'update_user_data_admin_topic';
-var delete_user_data_admin_topic_name = 'delete_user_data_admin_topic';
+var get_all_user_data_topic_name = "get_all_user_data_topic";
+var search_user_data_admin_topic_name = "search_user_data_admin_topic";
+var update_user_data_admin_topic_name = "update_user_data_admin_topic";
+var delete_user_data_admin_topic_name = "delete_user_data_admin_topic";
 
+var get_all_bill_admin_topic_name = "get_all_bill_admin_topic";
+var search_bill_date_admin_topic_name = "search_bill_date_admin_topic";
+var search_bill_month_admin_topic_name = "search_bill_month_admin_topic";
 
-var login_topic_name = 'login_topic';
+var login_topic_name = "login_topic";
 var signup_topic_name = "signup_topic";
 
-var login_admin_topic_name = 'login_admin_topic';
+var login_admin_topic_name = "login_admin_topic";
 var signup_admin_topic_name = "signup_admin_topic";
 
 
-var updateUserInfo_topic_name = 'updateUserInfo_topic';
-var getUserDetails_topic_name = 'getUserDetails_topic';
-var updateCardDetails_topic_name = 'updateCardDetails_topic';
-var getCardDetails_topic_name = 'getCardDetails_topic';
-var create_folder_topic_name = "create_folder_topic";
-var delete_folder_topic_name = "delete_folder_topic";
-var upload_file_topic_name = "upload_file_topic";
-var delete_file_topic_name = "delete_file_topic";
-var download_file_topic_name = "download_file_topic";
-var get_files_topic_name = "get_files_topic";
-var get_folders_topic_name = "get_folders_topic";
-var star_file_topic_name = "star_file_topic";
-var unstar_file_topic_name = "unstar_file_topic";
-var star_folder_topic_name = "star_folder_topic";
-var unstar_folder_topic_name = "unstar_folder_topic";
-var get_activity_topic_name = "get_activity_topic";
-var share_topic_name = "share_topic";
-var get_shared_files_topic_name = "get_shared_files_topic";
+var updateUserInfo_topic_name = "updateUserInfo_topic";
+var getUserDetails_topic_name = "getUserDetails_topic";
+var updateCardDetails_topic_name = "updateCardDetails_topic";
+var getCardDetails_topic_name = "getCardDetails_topic";
+
+
 
 var delete_user_topic_name = "delete_user_topic";
 var hotels_topic = "hotels_topic";
@@ -124,11 +106,8 @@ var response_topic_name = "response_topic";
 var producer = connection.getProducer();
 
 producer.on('ready', function () {
-    producer.createTopics([login_topic_name,signup_topic_name,create_folder_topic_name, delete_folder_topic_name,
-            upload_file_topic_name, delete_file_topic_name, download_file_topic_name, get_files_topic_name,
-            get_folders_topic_name, response_topic_name, star_file_topic_name, unstar_file_topic_name,
-            star_folder_topic_name, unstar_folder_topic_name, get_activity_topic_name, share_topic_name,
-            get_shared_files_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
+    producer.createTopics([login_topic_name,signup_topic_name,
+            response_topic_name, updateUserInfo_topic_name, hotels_topic, flights_topic, cars_topic,
             delete_user_topic_name, add_hotel_admin_topic_name, update_hotel_admin_topic_name,
             add_flight_admin_topic_name, update_flight_admin_topic_name, add_car_admin_topic_name,
             update_car_admin_topic_name, login_admin_topic_name, signup_admin_topic_name,
@@ -136,7 +115,8 @@ producer.on('ready', function () {
             getCardDetails_topic_name, updateCardDetails_topic_name, search_hotel_admin_topic_name, search_flight_admin_topic_name,
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
-            delete_user_data_admin_topic_name, get_bookings_topic, get_revenue_topic,
+            delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
+            search_bill_month_admin_topic_name
         ],
         false, function (err, data) {
         });
@@ -175,24 +155,16 @@ producer.on('ready', function () {
     var search_user_data_admin_consumer = connection.getConsumer(search_user_data_admin_topic_name);
     var delete_user_data_admin_consumer = connection.getConsumer(delete_user_data_admin_topic_name);
 
+    var get_all_bill_admin_consumer = connection.getConsumer(get_all_bill_admin_topic_name);
+    var search_bill_date_admin_consumer = connection.getConsumer(search_bill_date_admin_topic_name);
+    var search_bill_month_admin_consumer = connection.getConsumer(search_bill_month_admin_topic_name);
+
+    
 
     var signup_consumer = connection.getConsumer(signup_topic_name);
     var signup_admin_consumer = connection.getConsumer(signup_admin_topic_name);
 
-    var create_folder_consumer = connection.getConsumer(create_folder_topic_name);
-    var delete_folder_consumer = connection.getConsumer(delete_folder_topic_name);
-    var upload_file_consumer =  connection.getConsumer(upload_file_topic_name);
-    var delete_file_consumer = connection.getConsumer(delete_file_topic_name);
-    var download_file_consumer = connection.getConsumer(download_file_topic_name);
-    var get_files_consumer = connection.getConsumer(get_files_topic_name);
-    var get_folders_consumer = connection.getConsumer(get_folders_topic_name);
-    var star_file_consumer =connection.getConsumer(star_file_topic_name);
-    var unstar_file_consumer = connection.getConsumer(unstar_file_topic_name);
-    var star_folder_consumer =connection.getConsumer(star_folder_topic_name);
-    var unstar_folder_consumer = connection.getConsumer(unstar_folder_topic_name);
-    var get_activity_consumer = connection.getConsumer(get_activity_topic_name);
-    var share_consumer = connection.getConsumer(share_topic_name);
-    var get_shared_files_consumer = connection.getConsumer(get_shared_files_topic_name);
+   
     var hotels_topic_consumer = connection.getConsumer(hotels_topic);
     var flights_topic_consumer = connection.getConsumer(flights_topic);
     var cars_topic_consumer = connection.getConsumer(cars_topic);
@@ -390,329 +362,7 @@ producer.on('ready', function () {
     });
 
 
-    console.log('create folder server is running');
-    create_folder_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        create_folder.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('delete folder server is running');
-    delete_folder_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        delete_folder.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('upload file server is running');
-    upload_file_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        upload_file.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('delete file server is running');
-    delete_file_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        delete_file.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('download file server is running');
-    download_file_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        download_file.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('get files server is running');
-    get_files_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        get_files.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('get folders server is running');
-    get_folders_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        get_folders.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('star file server is running');
-    star_file_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        star_file.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('unstar file server is running');
-    unstar_file_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        unstar_file.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('star folder server is running');
-    star_folder_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        star_folder.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('unstar folder server is running');
-    unstar_folder_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        unstar_folder.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('get activity server is running');
-    get_activity_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        get_activity.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('share server is running');
-    share_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        share.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-    console.log('share server is running');
-    get_shared_files_consumer.on('message', function (message) {
-        console.log('message received');
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
-        get_shared_files.handle_request(data.data, function(err,res){
-            console.log('after handle'+res);
-            var payloads = [
-                { topic: data.replyTo,
-                    messages:JSON.stringify({
-                        correlationId:data.correlationId,
-                        data : res
-                    }),
-                    partition : 0
-                }
-            ];
-            producer.send(payloads, function(err, data){
-                console.log(data);
-            });
-            return;
-        });
-    });
-
-
+    
     console.log('Add Hotel server is running');
     add_hotel_admin_consumer.on('message', function (message) {
         console.log('message received');
@@ -1402,4 +1052,75 @@ producer.on('ready', function () {
         });
     });
 
+
+    console.log('get all bill admin server is running');
+    get_all_bill_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        getAllBillAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Search Bill Date admin server is running');
+    search_bill_date_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchBillDateAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    console.log('Search Bill Month admin server is running');
+    search_bill_month_admin_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        searchBillMonthAdmin.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
+
+    
 });

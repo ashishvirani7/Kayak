@@ -82,6 +82,14 @@ export default function(state=initialState,action){
             };
         }
 
+        case "CHANGE_BOOKING":
+        {
+            return{
+                ...state,
+                booking: action.booking,
+            };
+        }
+
         case "persist/REHYDRATE":
         {
             var incoming = action.payload.userData

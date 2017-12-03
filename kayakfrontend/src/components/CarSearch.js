@@ -12,7 +12,13 @@ import {changeCarListing} from '../actions/carListingAction';
 import {changeCarSearch} from '../actions/carSearchAction';
 
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 class CarSearch extends Component{
+
+    state = {
+        dataSource:cities.names
+    }
 
     render() {
         return(
@@ -20,20 +26,37 @@ class CarSearch extends Component{
                 <div className="row" style={rstyle}>
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="city"
-                                hintText="Where"
+                            
+                            <AutoComplete style={istyle}
+                            id="city"
+                            hintText="Where?"
+                            dataSource={this.state.dataSource}
+                            onUpdateInput={this.handleDestChange}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            
                             />
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker 
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker 
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -101,7 +124,8 @@ const istyle={
     marginLeft:'5px',
     marginRight:'5px',
     barderSize:'1px',
-    borderColor:'black'
+    borderColor:'black',
+    
 }
 
 const btnstyle={
@@ -115,7 +139,8 @@ const btnstyle={
 }
 const divstyle={
     marginLeft:'-20px',
-    marginRight:'-2px'
+    marginRight:'-2px',
+    
 }
 
 function mapStateToProps(state){

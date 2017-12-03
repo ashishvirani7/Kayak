@@ -13,6 +13,8 @@ import SearchResults from './components/SearchResults';
 import AuthorizedRoute from './components/AuthorizedRoute';
 import UnAuthorizedRoute from './components/UnAuthorizedRoute';
 import AdminAccount from './components/adminAccountPage';
+import UserBooking from './components/UserBooking';
+
 const  App = () => {
     return(
       <div>
@@ -45,6 +47,15 @@ const  App = () => {
         <Route exact path="/adminAccount" component={AdminAccount}/>
 
         <Route exact path="/adminShowUsers" component={AdminHome}/>
+
+        <Route exact path="/booking" component={UserBooking}/>
+        <Route exact path="/adminShowBilling" component={AdminHome}/>
+        <Route exact path="/adminShowHotelBill" component={AdminHome}/>
+        <Route exact path="/adminShowFlightBill" component={AdminHome}/>
+        <Route exact path="/adminShowCarBill" component={AdminHome}/>
+
+        <Route exact path="/adminShowBill" component={AdminHome}/>
+        
 
         <NotificationContainer/>
       </div>);

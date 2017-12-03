@@ -28,9 +28,26 @@ import {NavLink} from 'react-router-dom';
 import AdminCustomNavbar from './AdminCustomNavBar';
 import AdminUpdateUser from './AdminUpdateUser';
 
+import AdminAllBilling from './AdminAllBilling';
+import AdminBill from './AdminBill';
+import AdminAllHotelBill from './AdminAllHotelBill';
+import AdminAllFlightBill from './AdminAllFlightBill';
+import AdminAllCarBill from './AdminAllCarBill';
+
+import adminShowBill from './adminShowBill';
+
 import * as API from '../api/API';
 
 class AdminHome extends Component{
+
+    componentWillMount(){
+        API.checkAdminSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.history.push("/adminLogin");
+            }
+        });
+    }
 
     render(){
         return(
@@ -54,6 +71,9 @@ class AdminHome extends Component{
 
                             {this.props.adminCurrentItem=="Users" &&
                             <NavLink to="/adminShowUsers" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>}
+
+                            {this.props.adminCurrentItem=="Billing" &&
+                            <NavLink to="/adminShowHotelBill" style={lstyle} activeStyle={linkactive}> Hotel Bills</NavLink>}
                             
 
                         </div>
@@ -68,11 +88,17 @@ class AdminHome extends Component{
                             {this.props.adminCurrentItem=="Cars" &&
                             <NavLink to="/adminshowCars" style={lstyle} activeStyle={linkactive}>Show All {this.props.adminCurrentItem}</NavLink>
                             }
+                            {this.props.adminCurrentItem=="Billing" &&
+                            <NavLink to="/adminShowFlightBill" style={lstyle} activeStyle={linkactive}> Flight Bills</NavLink>}
+                        </div>
+                        <div className="row" style ={linkStyle}>
+                        {this.props.adminCurrentItem=="Billing" &&
+                            <NavLink to="/adminShowCarBill" style={lstyle} activeStyle={linkactive}> Car Bills</NavLink>}
                         </div>
 
                     </div>   
                 
-                    <div className="col-md-7 " style={{marginTop:"20px"}}>
+                    <div className="col-md-8 " style={{marginTop:"20px"}}>
                         <Route exact path='/adminHotels' component={AdminHotels}/>
                         <Route exact path='/adminFlights' component={AdminFlights}/>
                         <Route exact path='/adminCars' component={AdminCars}/>
@@ -84,6 +110,11 @@ class AdminHome extends Component{
                         <Route exact path="/adminUpdateFlight" component={AdminUpdateFlight}/>
                         <Route exact path="/adminUpdateCar" component={AdminUpdateCar}/>
                         <Route exact path="/adminUpdateUser" component={AdminUpdateUser}/>
+                        <Route exact path="/adminShowBilling" component={AdminAllBilling}/>
+                        <Route exact path="/adminShowHotelBill" component={AdminAllHotelBill}/>
+                        <Route exact path="/adminShowFlightBill" component={AdminAllFlightBill}/>
+                        <Route exact path="/adminShowCarBill" component={AdminAllCarBill}/>
+                        <Route exact path="/adminShowBill" component={adminShowBill}/>
                     </div>
                     {/* <div className="col-md-3">
 

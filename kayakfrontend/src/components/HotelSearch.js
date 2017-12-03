@@ -12,17 +12,25 @@ import {connect} from 'react-redux';
 
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
+
 import * as API from '../api/API';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 
 class HotelSearch extends Component{
 
+    
     state = {
         valueRoom:1,
         valueGuest:1,
-    }
+        dataSource:cities.names
+        }
 
     handleChangeRoom = (event, index, valueRoom) => this.setState({...this.state,valueRoom:valueRoom});
     handleChangeGuest = (event, index, valueGuest) => this.setState({...this.state,valueGuest:valueGuest});
+
+    
 
     render() {
         return(
@@ -30,21 +38,34 @@ class HotelSearch extends Component{
                 <div className="row" style={rstyle}>
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="destination"
-                                hintText="Where"
-                                required="required"
+                            
+                            <AutoComplete style={istyle}
+                            id="destination"
+                            hintText="Where"
+                            required="required"
+                            dataSource={this.state.dataSource}
+                            onUpdateInput={this.handleDestChange}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
                             />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" style={istyle} hintText="From" container="inline" autoOk />
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="fromDate" style={istyle} hintText="From" container="inline" autoOk />
                         </div>
                     </div>
                     <div className="col-md-2">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-2">
@@ -52,6 +73,8 @@ class HotelSearch extends Component{
                             <SelectField
                                 value={this.state.valueRoom}
                                 onChange={this.handleChangeRoom}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                                 style={istyle}
                                 >
                                 <MenuItem value={1} primaryText="1 Room" />
@@ -68,6 +91,8 @@ class HotelSearch extends Component{
                             <SelectField
                                 value={this.state.valueGuest}
                                 onChange={this.handleChangeGuest}
+                                underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                underlineFocusStyle={{"borderColor":"#ec7132"}}
                                 style={istyle}
                                 >
                                 <MenuItem value={1} primaryText="1 guest" />
@@ -93,8 +118,8 @@ class HotelSearch extends Component{
                                     
                                     var data ={
                                         city:document.getElementById('destination').value,
-                                        checkIn:     document.getElementById('toDate').value,
-                                        checkOut:   document.getElementById('fromDate').value,
+                                        checkIn:     document.getElementById('fromDate').value,
+                                        checkOut:   document.getElementById('toDate').value,
                                         noOfRoom:   this.state.valueRoom,
                                         noOfGuest:  this.state.valueGuest,
                                         filter_prop:{ratings: 0},

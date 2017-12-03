@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 
 import {changeCarListing} from '../actions/carListingAction';
 import {changeCarSearch} from '../actions/carSearchAction';
+import {changeBooking} from '../actions/bookingAction';
 
 import img1 from '../images/price-alert_ad_white.png';
 import img3 from '../images/explore_ad_white.png';
@@ -25,6 +26,9 @@ import bag from '../images/bag.svg';
 import door from '../images/door.svg';
 
 import img4 from '../images/car1.png';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import cities from '../data/cities';
 class CarResults extends Component
 {
     state = {
@@ -37,6 +41,7 @@ class CarResults extends Component
         PickupTruck:true,
         Van:true,
         Commercial:true,
+        dataSource:cities.names
     }
 
     componentDidMount(){
@@ -86,18 +91,24 @@ class CarResults extends Component
             console.log(cars);
             return cars.map(car=>(
                 <div style={carstyle}>
-                    <div className="col-md-6" style={{padding:'0px'}}>
-                        <div className="row" style={{fontSize:'15px',fontWeight:'500'}}>
+                    <div className="col-md-6" style={{padding:'0px',marginTop:'10px'}}>
+                        <div className="row" style={{fontSize:'20px',fontWeight:'400'}}>
                             {(car.car.car_type==='Small' || car.car.car_type==='Medium') && 'Compact'}
                             {(car.car.car_type==='Large' || car.car.car_type==='SUV') && 'Economy'}
                             {(car.car.car_type==='Pickup Truck' || car.car.car_type==='Commercial') && 'Commercial'}
                             {(car.car.car_type==='Luxury') && 'Luxury'}
                             {(car.car.car_type==='Van') && 'Van'}
                         </div>
-                        <div className="row" style={{fontSize:'5px', fontWeight:'900'}}>
+                        <div className="row" style={{fontSize:'15px', fontWeight:'900',marginTop:'20px'}}>
+                            {car.car.car_name}
+                        </div>
+                        <div className="row" style={{fontSize:'13px', fontWeight:'500',marginTop:'20px'}}>
                             {car.car.model_name}
                         </div>
-                        <div className="row">
+                        <div className="row" style={{}}>
+                        <span style={{width:'100%',height:'1px',display:'inline-block',background:'#e4e5ea',position:'relative',margin:'3px 0'}} />
+                        </div>
+                        <div className="row" style={{fontWeight:'900',marginTop:'10px'}}>
                             <div className="col-md-2">
                                 <img src={person}/>
                             </div>
@@ -119,11 +130,11 @@ class CarResults extends Component
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="row" style={{float:'right',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
+                        <div className="row" style={{float:'right',padding:'5px',backgroundColor:'#8b8b8e',marginTop:'7px',color:'white',borderRadius:'4px',textAlign:'center',fontSize:'11px'}}>
                             GREAT DEAL
                         </div>
                         <div className="row">
-                            <img src={img4}/>
+                            <img src={img4} style={{width:'150px',marginTop:'20px'}}/>
                         </div>
                     </div>
                     <div className="col-md-3" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
@@ -131,7 +142,18 @@ class CarResults extends Component
                             {'$'+car.car.car_rental_price}
                         </div>
                         <div className="row" style={{marginTop:'20px'}}>
-                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'>View Deal</button>
+                            <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
+                            onClick={()=>{
+                                var data = {
+                                    bookingType: 'Car',
+                                    car: car.car,
+                                    search: this.props.userData.carSearch,
+                                }
+                                console.log(data);
+                                this.props.changeBooking(data);
+                                this.props.history.push('/booking');
+                            }}
+                            >Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -144,21 +166,34 @@ class CarResults extends Component
                 <div className="row" style={rstyle}>
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
-                            <TextField style={istyle}
-                                id="city"
-                                hintText="Where"
-                                defaultValue={this.props.userData.carSearch.city}
+                            
+                            <AutoComplete style={istyle}
+                            id="city"
+                            hintText={this.props.userData.carSearch.city}
+                            dataSource={this.state.dataSource}
+                            filter={AutoComplete.caseInsensitiveFilter}
+                            maxSearchResults	= {5}
+                            fullWidth={true}
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            
                             />
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate)} style={istyle} hintText="From" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="fromDate" defaultDate={new Date(this.props.userData.carSearch.fromDate+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="row" style={divstyle}>
-                            <DatePicker id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate)} style={istyle} hintText="To" container="inline" autoOk/>
+                            <DatePicker 
+                            underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                            underlineFocusStyle={{"borderColor":"#ec7132"}}
+                            id="toDate" defaultDate={new Date(this.props.userData.carSearch.toDate+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                         </div>
                     </div>
                     <div className="col-md-1">
@@ -316,8 +351,9 @@ const btnstyle1={
 const carstyle={
     marginBottom:'10px',
     backgroundColor:'#ffffff',
-    height:'209px',
+    height:'190px',
     width:'100%',
+    padding:'10px 25px'
 }
 
 const rstyle={
@@ -378,6 +414,7 @@ function matchDispatchToProps(dispatch){
         {
             changeCarListing,
             changeCarSearch,
+            changeBooking,
         }
         ,dispatch);
   }

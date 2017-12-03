@@ -39,7 +39,7 @@ class AdminUpdateUser extends Component
             <div>
                 <div className="row">
                     <span style={titlestyle}>
-                        Preferences
+                        Details of user with email {<span><b>{this.state.email}</b></span>}
                     </span> 
                     <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>       
                 </div>

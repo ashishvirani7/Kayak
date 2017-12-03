@@ -28,7 +28,11 @@ function handle_request(msg, callback) {
                     car_name : car.car.car_name,
                     car_type : car.car.car_type,
                     model_name : car.car.model_name,
-                    car_rental_price : car.car.car_rental_price
+                    car_rental_price : car.car.car_rental_price,
+                    city : car.car.city,
+                    no_of_passengers:car.car.specification.no_of_passengers,
+                    luggage_capacity:car.car.specification.luggage_capacity,
+                    ac:car.car.specification.ac
                 };
                 carFrontEnd.push(ob);
             });
