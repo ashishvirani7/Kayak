@@ -29,6 +29,8 @@ import door from '../images/door.svg';
 import { NotificationManager } from 'react-notifications';
 import * as API from '../api/API';
 
+import {removeBooking} from '../actions/removeBookingAction';
+
 class UserBooking extends Component{
 
     state = {
@@ -74,6 +76,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.removeBooking();
                         this.props.history.push('/cars');
                     }
                 });    
@@ -114,6 +117,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.removeBooking();
                         this.props.history.push('/hotels');
                     }
                 });
@@ -154,6 +158,7 @@ class UserBooking extends Component{
                             stepIndex: stepIndex,
                             finished: stepIndex >= 2,
                         });
+                        this.props.removeBooking();
                         this.props.history.push('/flights');
                     }
                 });
@@ -615,7 +620,7 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            
+            removeBooking,
         }
     ,dispatch);
 }

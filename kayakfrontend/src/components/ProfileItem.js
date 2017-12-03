@@ -63,8 +63,8 @@ class ProfileItem extends Component {
           .then((res)=>{
             if(res.status === 201){
                 this.handleRequestClose();
-                this.props.logout();
                 NotificationManager.success("Bye","Logout Successful",2500,true);
+                this.props.logout();
                 this.props.history.push('/');
             }
           });

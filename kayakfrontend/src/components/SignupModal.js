@@ -51,7 +51,8 @@ class signupModal extends React.Component {
                 // this.props.setPath("/home");
                 console.log(user);
                 this.props.signupModalDone();
-                NotificationManager.success("Welcome", "Sign Up Successful. Log Into YourAccount Now", 2500, true);
+                NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
+                this.props.loginModalOpen();
                 //this.props.history.push("/");
             });
     
@@ -59,7 +60,12 @@ class signupModal extends React.Component {
             // console.log("Fail");
             // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
             // this.props.history.push("/");
-        } 
+        } else
+        {
+            console.log("Fail");
+            // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+            // this.props.history.push("/");
+        }
     });
   }
 
