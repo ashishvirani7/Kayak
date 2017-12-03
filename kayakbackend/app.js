@@ -52,7 +52,7 @@ var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 
 
 var sessioncheck = require('./routes/sessioncheck');
-var adminSessioncheck = require('./routes/adminSessioncheck');
+var adminSessioncheck = require('./routes/adminSessionCheck');
 
 var logout = require('./routes/logout');
 
