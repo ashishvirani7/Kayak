@@ -4,10 +4,15 @@ var router = express.Router();
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/kayak";
 var kafka = require('./kafka/client');
+var fs = require('fs');
+var path = require('path');
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
 
 var topic_name = "hotels_topic";
 
 router.post('/', (req, res, next)=>{
+
     var city = req.body.city;
     var checkin = req.body.checkIn;
     var checkout = req.body.checkOut;
@@ -28,6 +33,14 @@ router.post('/', (req, res, next)=>{
         {
             if(results.code == 201){
                 console.log("Hotels found:")
+/*                fs.writeFile(path.join(__dirname, '../../') + 'hotel_log.csv', ' ' +`/${req.body.city} ` +  new Date(dt.now()), function (err) {
+                    if (err) throw err;
+                });*/
+
+                var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
+                    flags: 'a'
+                })
+                logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
                 return res.status(201).send(results);
             }
             else if(results.code == 202){
