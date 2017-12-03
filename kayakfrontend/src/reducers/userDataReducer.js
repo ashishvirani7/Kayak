@@ -11,7 +11,15 @@ const initialState={
     billing:
     {
         carddetails:{card_name:''}
-    }
+    },
+    hotels:{},
+    flights:{},
+    cars:{},
+    hotelSearch:{},
+    flightSearch:{},
+    carSearch:{},
+    history:{},
+    booking:{}
 }
 
 export default function(state=initialState,action){
@@ -88,6 +96,14 @@ export default function(state=initialState,action){
                 ...state,
                 booking: action.booking,
             };
+        }
+
+        case "REMOVE_BOOKING":
+        {
+            return{
+                ...state,
+                booking:{}
+            }
         }
 
         case "CHANGE_HISTORY":

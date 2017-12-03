@@ -7,6 +7,11 @@ import {changeHistoryData} from '../actions/historyAction.js';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 import * as API from '../api/API';
+import Paper from 'material-ui/Paper';
+
+import IconHotel from '../icons/IconHotel';
+import IconFlight from '../icons/IconFlight';
+import IconCar from '../icons/IconCar';
 
 class HistoryPage extends Component
 {
@@ -14,7 +19,7 @@ class HistoryPage extends Component
         filter: 'Current'
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.getAllBookings();
     }
 
@@ -27,14 +32,48 @@ class HistoryPage extends Component
                     console.log(history);
                     this.props.changeHistoryData(history.data);
                 });
-                
             }
         });
     }
 
+    
     showHistory = () => {
-
+        var history = this.props.userData.history;
+        var result =[];
+        if(this.state.filter==='All'){result=history.filter(booking=>(booking.time=='past' || booking.time=='future'));}
+        if(this.state.filter==='Past'){result=history.filter(booking=>(booking.time=='past'));}
+        if(this.state.filter==='Current'){result=history.filter(booking=>(booking.time=='future'));}
+        console.log(result);
+        return result.map(booking=>(
+            <div>
+                <Paper style={style} zDepth={1}>
+                    <div className="row" style={{marginTop:'13px'}}>
+                        <div className="col-md-1">
+                            {booking.bill_type==='Car' && <IconCar width="24" height="24" color="#000000"/>}
+                            {booking.bill_type==='Hotel' && <IconHotel width="24" height="24" color="#000000"/>}
+                            {booking.bill_type==='Flight' && <IconFlight width="24" height="24" color="#000000"/>}
+                        </div>
+                        <div className="col-md-3">
+                            {booking.bill_type==='Car' && booking.car.city}
+                            {booking.bill_type==='Hotel' && booking.hotel.city}
+                            {booking.bill_type==='Flight' && booking.flight.origin+"-"+booking.flight.destination}
+                        </div>
+                        <div className="col-md-6">
+                            {booking.bill_type==='Car' && booking.car.booking_start_date.slice(0,10)+" to "+booking.car.booking_end_date.slice(0,10)}
+                            {booking.bill_type==='Hotel' && booking.hotel.booking_start_date.slice(0,10)+" to "+booking.hotel.booking_end_date.slice(0,10)}
+                            {booking.bill_type==='Flight' && booking.flight.flight_start_date.slice(0,10)+" to "+booking.flight.flight_end_date.slice(0,10)}
+                        </div>
+                        <div className="col-md-2">
+                            {booking.bill_type==='Car' && '$'+booking.bill_amount}
+                            {booking.bill_type==='Hotel' && '$'+booking.bill_amount}
+                            {booking.bill_type==='Flight' && '$'+booking.bill_amount}
+                        </div>
+                    </div>
+                </Paper>
+            </div>
+        ))
     }
+
     handleSelect = (event,value) => this.setState({...this.state,filter:value})
     render(){
         return(
@@ -76,6 +115,14 @@ class HistoryPage extends Component
         )
     }
 }
+
+const style = {
+    height: 40,
+    width: 740,
+    margin: 5,
+    textAlign: 'center',
+    display: 'inline-block',
+};
 
 const styles = {
     block: {
