@@ -20,31 +20,31 @@ function handle_request(msg, callback) {
     console.log("In handle request:"+ JSON.stringify(msg));
 
     if(msg.order == "price_desc"){
-            Listings.find(
-                {
-                    "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                    "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
-                    "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
-                    "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
-                    "flight.classes.class_type":flight_class,
-                    "flight.stops":{$nin:filter_prop.stops},
-                    "flight.flight_operator_name":{$nin:filter_prop.flight_name},
+        Listings.find(
+            {
+                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
+                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
+                "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                "flight.classes.class_type":flight_class,
+                "flight.stops":{$nin:filter_prop.stops},
+                "flight.flight_operator_name":{$nin:filter_prop.flight_name},
 
-                }, function(err, flights){
-                    if(err){
-                        message=err
-                        res.code = "202"
-                        res.data = message;
-                        callback(null, res)
-                    }
-                    else
-                    {
-                        message=flights;
-                        res.code = "201"
-                        res.data = message;
-                        callback(null, res);
-                    }
-                }).sort([['flight.classes.class_price',-1]])
+            }, function(err, flights){
+                if(err){
+                    message=err
+                    res.code = "202"
+                    res.data = message;
+                    callback(null, res)
+                }
+                else
+                {
+                    message=flights;
+                    res.code = "201"
+                    res.data = message;
+                    callback(null, res);
+                }
+            }).sort([['flight.classes.class_price',-1]])
     }
     else if(msg.order == "departure_desc"){
         Listings.find(

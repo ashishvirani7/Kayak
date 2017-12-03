@@ -99,7 +99,7 @@ class AdminAllHotelBill extends Component{
         super(props);
         this.state={
             date:"",
-            month:"",
+            month:"1",
             year:"2017",
             current:"date"
         };
@@ -179,12 +179,10 @@ class AdminAllHotelBill extends Component{
                                 <div className="col-md-2">
                                     {bill.hotel.hotel_name}
                                 </div>
-                                <div className="col-md-1">
+                                <div className="col-md-2">
                                     {bill.hotel.city}
                                 </div>
-                                <div className="col-md-1">
-                                    {bill.hotel.state}
-                                </div>
+                                
                                 <div className="col-md-2" >
                                     {bill.bill_amount}
                                 </div>
@@ -264,7 +262,12 @@ class AdminAllHotelBill extends Component{
     render(){
         return(
             <div>
-                <h1 ><u> Hotel Bills</u> </h1>
+                <span style={titlestyle}>
+                        Hotel Bill List 
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
+                
+                
                 <div className="row">
 
                     <div className="col-md-2 col-md-offset-5" style={{marginTop:"10px"}} >
@@ -346,12 +349,10 @@ class AdminAllHotelBill extends Component{
                             <div className="col-md-2">
                                 Hotel Name
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-2">
                                 City
                             </div>
-                            <div className="col-md-1">
-                                Zip
-                            </div>
+                            
                             <div className="col-md-2" >
                                 Amount
                             </div>
@@ -365,6 +366,11 @@ class AdminAllHotelBill extends Component{
             </div>
         )
     }
+}
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 const smallIcon= {
     width: 20,

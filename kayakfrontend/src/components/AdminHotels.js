@@ -376,7 +376,11 @@ class AdminHotels extends Component{
         return(
             <div>
                 
-                <h1><u>Add Hotel</u></h1>
+                <span style={titlestyle}>
+                        Add Hotel
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
+                
                 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -524,7 +528,11 @@ class AdminHotels extends Component{
         )
     }
 }
-
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
+}
 const rstyle={
     marginTop:'50px',
     marginRight:'15px',

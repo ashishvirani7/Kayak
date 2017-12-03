@@ -22,6 +22,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import Cancel from 'material-ui/svg-icons/navigation/cancel';
 import IconButton from 'material-ui/IconButton';
+import AutoComplete from 'material-ui/AutoComplete';
 import {
     
     red300,
@@ -33,7 +34,8 @@ class AdminAllCars extends Component{
     constructor(props){
         super(props);
         this.state={
-            car_name:""
+            car_name:"",
+            dataSource: []
         }
        this.carNameChange = this.carNameChange.bind(this);
     }
@@ -116,8 +118,30 @@ class AdminAllCars extends Component{
             )
         });
     }
-    carNameChange(event){
-        this.setState({car_name:event.target.value});
+    carNameChange(value){
+        this.setState({car_name:value});
+        API.searchCarAdmin({car_name:value})
+        .then((res) => {
+            if (res.status === 201) {
+                res.json().then(data => {
+                    console.log(JSON.stringify(data))
+                    this.props.adminAllCars(data.message.data);
+                    var src=[];
+                    var respo = data.message.data;
+                    respo.map(car=>{
+                        src.push(car.car_name);
+                    });
+                    this.setState({...this.state,dataSource:src})
+                    //NotificationManager.success("Success", data.message, 2500, true);
+                    // this.props.history.push("/logs");
+                });
+                
+            } else if (res.status === 401) {
+                console.log("Fail");
+                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } 
+        });
     }
 
     searchCar(){
@@ -143,17 +167,31 @@ class AdminAllCars extends Component{
     render(){
         return(
             <div>
-                <h1 ><u> All Cars</u> </h1>
-                <div className="row" style={{marginLeft:"600px"}}>
-                        <div class="input-group">
-                        <input type="text" class="form-control"
+                <span style={titlestyle}>
+                        Car List 
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'100%',marginTop:'7px',marginLeft:'0px'}}/>  
+                
+                <div className="row" style={{marginLeft:"390px"}}>
+
+                        <div className="col-md-2 col-md-offset-4">
+                            <label style={{fontWeight:'bold',color: '#333',fontSize:'15px',marginTop:"15px"}}>Search :</label>
+                        </div>
+
+                        <div class="col-md-5 ">
+                        {/* <input type="text" class="form-control"
                             placeholder="Search" id="inputGroup"
                             onChange={this.carNameChange}
+                            /> */}
+                            <AutoComplete
+                                hintText="Car Name"
+                                dataSource={this.state.dataSource}
+                                onUpdateInput={this.carNameChange}
+                                filter={AutoComplete.caseInsensitiveFilter}
+                                maxSearchResults	= {5}
                             />
-                        <span class="input-group-addon" style={{cursor:"pointer"}} onClick={()=>this.searchCar()}>
-                            🔎
-                        </span>
-                    </div>
+                        
+                        </div>
                 </div>
                 <br/>
                     
@@ -183,6 +221,12 @@ class AdminAllCars extends Component{
             </div>
         )
     }
+}
+
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
 }
 
 const smallIcon= {

@@ -13,6 +13,9 @@ import ReactStars from 'react-stars';
 import visa from '../icons/Visa-icon.png'
 import master from '../icons/Master-Card-icon.png';
 import american from '../icons/American-Express-icon.png';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+const zipregex = /(^\d{5}$)|(^\d{5}-\d{4}$)/ ;
 
 const masterCardReg = "^5";
 const visaCardReg = "^4";
@@ -306,18 +309,25 @@ class PaymentPage extends Component
                                 state:          document.getElementById('state').value,
                             }
                             console.log(data);
-                            API.updateUserBilling(data)
-                            .then((data)=>{
-                                if(data.status===201)
-                                {
-                                    console.log("info changed");
-                                    this.setState({edit:false});
-                                    this.getBillingDetails();
-                                }
-                                else{
-
-                                }
-                            });
+                            const zip = data.zip_code;
+                            if(!(zip.match(zipregex))){
+                                NotificationManager.error("Invalid Zip code", "Zip error", 2500, true);
+                            }
+                            else{
+                                API.updateUserBilling(data)
+                                .then((data)=>{
+                                    if(data.status===201)
+                                    {
+                                        console.log("info changed");
+                                        this.setState({edit:false});
+                                        this.getBillingDetails();
+                                    }
+                                    else{
+    
+                                    }
+                                });
+                            }
+                            
                             
                         }
                     }}>

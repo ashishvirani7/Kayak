@@ -594,7 +594,7 @@ const flightstyle = {
 
 const paymentstyle = {
     height: 750,
-    width: 600,
+    width: 1100,
     margin: 20,
     display: 'inline-block',
     padding:'15px 20px 15px 50px'

@@ -104,7 +104,10 @@ class AdminUpdateFlight extends Component{
     render(){
         return(
             <div>
-                <h1><u>Update Flight</u></h1>
+                <span style={titlestyle}>
+                        Details of flight  {<span><b>{this.state.flight_name}</b></span>}
+                </span> 
+                <hr style={{borderTop:'2px solid rgba(0,0,0,0.1)',width:'90%',marginTop:'7px',marginLeft:'0px'}}/>  
 
                 <div className="row" style={divstyle}>
                     <TextField style={istyle}
@@ -208,6 +211,14 @@ class AdminUpdateFlight extends Component{
         )
     }
 }
+
+const titlestyle={
+    fontSize: '30px',
+    fontWeight: '200',
+    marginBottom:'20px'
+}
+
+
 const rstyle={
     marginTop:'50px',
     marginRight:'15px',

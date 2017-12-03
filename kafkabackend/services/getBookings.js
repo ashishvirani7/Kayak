@@ -21,7 +21,6 @@ function handle_request(msg, callback) {
             }
             else
             {
-
                 var len = bookings.length;
                 var bk = [];
                 j=0;
@@ -86,22 +85,6 @@ function handle_request(msg, callback) {
                             bk.push(newData);
                         }
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     j++;
                     if(j == len){
                         message=bk;
