@@ -146,7 +146,7 @@ function top_hotels(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -217,7 +217,7 @@ function top_flights(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -288,7 +288,7 @@ function top_cars(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
