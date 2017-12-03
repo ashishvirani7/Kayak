@@ -34,6 +34,7 @@ var Bill = new Schema({
             booking_end_date: Date,
             amount: Number,
             no_of_guests : Number,
+            no_of_rooms: Number,
             room_type:String,
             notes: String
         },

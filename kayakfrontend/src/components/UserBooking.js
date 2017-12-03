@@ -85,7 +85,8 @@ class UserBooking extends Component{
                 if(roomType==="Suite") var index=1;
                 if(roomType==="Delux") var index=2;
                 var price = hotel.rooms[index].room_price;
-                total = price*booking.noOfGuest;
+                var noOfDays = (new Date(booking.checkOut)-new Date(booking.checkIn))/(60*60*24*1000);
+                total = price*booking.noOfRoom*noOfDays;
                 var data = {
                     booking_type: 'Hotel',
                     email: this.props.userData.data.email,
@@ -99,6 +100,7 @@ class UserBooking extends Component{
                         booking_end_date: booking.checkOut,
                         amount: total,
                         no_of_guests : booking.noOfGuest,
+                        no_of_rooms : booking.noOfRoom,
                         room_type:booking.roomType,
                         notes: ""
                     } 
@@ -310,7 +312,8 @@ class UserBooking extends Component{
         if(roomType==="Suite") var index=1;
         if(roomType==="Delux") var index=2;
         var price = hotel.rooms[index].room_price;
-        var total = price*booking.noOfGuest;
+        var noOfDays = (new Date(booking.checkOut)-new Date(booking.checkIn))/(60*60*24*1000);
+        var total = price*booking.noOfRoom*noOfDays;
         //this.setState({...this.state,total:total});
         return(
             <div className="row">
@@ -378,6 +381,8 @@ class UserBooking extends Component{
                         Room Type: {booking.roomType}
                         <br/>
                         No Of Guests: {booking.noOfGuest}
+                        <br/>
+                        No Of Rooms: {booking.noOfRoom}
                         <br/>
                         CheckIn Date: {booking.checkIn}
                         <br/>
@@ -500,7 +505,8 @@ class UserBooking extends Component{
             if(roomType==="Suite") var index=1;
             if(roomType==="Delux") var index=2;
             var price = hotel.rooms[index].room_price;
-            total = price*booking.noOfGuest;
+            var noOfDays = (new Date(booking.checkOut)-new Date(booking.checkIn))/(60*60*24*1000);
+            total = price*booking.noOfRoom*noOfDays;
         }
         if(booking.bookingType==='Flight'){
             var classType= booking.search.class;
@@ -576,7 +582,7 @@ const navstyle={
 
 const paperstyle = {
     height: 60,
-    width: 300,
+    width: 600,
     margin: 20,
     fontSize:'30px',
     fon:'900',
