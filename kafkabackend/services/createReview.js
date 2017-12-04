@@ -9,14 +9,14 @@ function handle_request(msg, callback) {
 
     var res = {};
     var message = "";
-    console.log("In handle request:"+ JSON.stringify(msg.data));
+    console.log("In handle request:"+ JSON.stringify(msg));
     var hotelListingObject = {
     };
 
     var reviewObj = {
     };
 
-    var reviewInstance = new Reviews(msg.data);
+    var reviewInstance = new Reviews(msg);
     reviewInstance.save(function (err, reviewDocument, numAffected) {
         if (err) {
             console.log("Some Error Happened while Inserting Review Data");

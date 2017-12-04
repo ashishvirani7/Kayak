@@ -73,9 +73,9 @@ class HistoryPage extends Component
                             {booking.bill_type==='Flight' && '$'+booking.bill_amount}
                         </div>
                         <div className="col-md-1">
-                            {booking.bill_type==='Car' && booking.time==='past' && <IconCar width="24" height="24" color="#000000"/>}
-                            {booking.bill_type==='Hotel' &&  <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
-                            {booking.bill_type==='Flight'  && <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
+                            {booking.bill_type==='Car' && booking.time=='past' && <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
+                            {booking.bill_type==='Hotel' &&  booking.time=='past' && <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
+                            {booking.bill_type==='Flight'  && booking.time=='past' && <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
                         </div>
                     </div>
                 </Paper>

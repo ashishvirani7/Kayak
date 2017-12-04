@@ -4,7 +4,8 @@ var kafka = require('./kafka/client');
 var topic_name = "create_review_topic";
 
 router.post('/', (req,res,next)=>{
-    console.log("id is:" +req.body._id);
+    console.log("id is:" +req.body.data);
+    console.log("id is:" +JSON.stringify(req.body.data));
     var message="";
     kafka.make_request(topic_name, req.body.data, function(err,results){
         console.log('in result'+results);
