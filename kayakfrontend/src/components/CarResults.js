@@ -14,6 +14,11 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+import {loginModalOpen} from '../actions/loginModalAction';
+import {signupModalOpen} from '../actions/signupModalAction';
+
 import {changeCarListing} from '../actions/carListingAction';
 import {changeCarSearch} from '../actions/carSearchAction';
 import {changeBooking} from '../actions/bookingAction';
@@ -144,15 +149,21 @@ class CarResults extends Component
                         <div className="row" style={{marginTop:'20px'}}>
                             <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
                             onClick={()=>{
-                                var data = {
-                                    bookingType: 'Car',
-                                    car: car.car,
-                                    carid: car._id,
-                                    search: this.props.userData.carSearch,
+                                if((!this.props.userData.loggedIn)){
+                                    this.props.loginModalOpen();
                                 }
-                                console.log(data);
-                                this.props.changeBooking(data);
-                                this.props.history.push('/booking');
+                                else{
+                                    var data = {
+                                        bookingType: 'Car',
+                                        car: car.car,
+                                        carid: car._id,
+                                        search: this.props.userData.carSearch,
+                                    }
+                                    console.log(data);
+                                    this.props.changeBooking(data);
+                                    this.props.history.push('/booking');
+                                }
+                                
                             }}
                             >Book Now</button>
                         </div>
@@ -165,9 +176,11 @@ class CarResults extends Component
         return(
             <div>
                 <div className="row" style={rstyle}>
+
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
-                            
+                            {this.props.loginModal.isOpen && <LoginModal/>}
+                            {this.props.signupModal.isOpen && <SignupModal/>}
                             <TextField style={istyle}
                             id="city"
                             defaultValue={this.props.userData.carSearch.city}
@@ -408,6 +421,8 @@ const starttitle={
 function mapStateToProps(state){
     return{
         userData:state.userData,
+        loginModal:state.loginModal,
+        signupModal:state.signupModal
     };
 }
 
@@ -417,6 +432,8 @@ function matchDispatchToProps(dispatch){
             changeCarListing,
             changeCarSearch,
             changeBooking,
+            loginModalOpen,
+            signupModalOpen
         }
         ,dispatch);
   }

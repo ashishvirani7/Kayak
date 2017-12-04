@@ -16,6 +16,11 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 
 import * as API from '../api/API';
 
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+import {loginModalOpen} from '../actions/loginModalAction';
+import {signupModalOpen} from '../actions/signupModalAction';
+
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/price-alert_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
@@ -139,20 +144,26 @@ class HotelResults extends Component
                                 <div className="row" style={{marginTop:'20px'}}>
                                     <button style={btnstyle1} labelColor='white'
                                     onClick={()=>{
-                                        var data = {
-                                            bookingType: 'Hotel',
-                                            hotel: hotel.hotel,
-                                            hotelid: hotel._id,
-                                            city:       document.getElementById('destination').value,
-                                            checkIn:    document.getElementById('fromDate').value,
-                                            checkOut:   document.getElementById('toDate').value,
-                                            noOfRoom:   this.state.valueRoom,
-                                            noOfGuest:  this.state.valueGuest,
-                                            roomType: this.state.roomType
+
+                                        if((!this.props.userData.loggedIn)){
+                                            this.props.loginModalOpen();
                                         }
-                                        console.log(data);
-                                        this.props.changeBooking(data);
-                                        this.props.history.push('/booking');
+                                        else{
+                                            var data = {
+                                                bookingType: 'Hotel',
+                                                hotel: hotel.hotel,
+                                                hotelid: hotel._id,
+                                                city:       document.getElementById('destination').value,
+                                                checkIn:    document.getElementById('fromDate').value,
+                                                checkOut:   document.getElementById('toDate').value,
+                                                noOfRoom:   this.state.valueRoom,
+                                                noOfGuest:  this.state.valueGuest,
+                                                roomType: this.state.roomType
+                                            }
+                                            console.log(data);
+                                            this.props.changeBooking(data);
+                                            this.props.history.push('/booking');
+                                        }
                                     }}
                                     >Book Now</button>
                                 </div>
@@ -171,6 +182,8 @@ class HotelResults extends Component
         return(
             <div>
                 <div className="row" style={rstyle}>
+                    {this.props.loginModal.isOpen && <LoginModal/>}
+                    {this.props.signupModal.isOpen && <SignupModal/>}
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
                             
@@ -456,6 +469,8 @@ const divstyle={
 function mapStateToProps(state){
     return{
         userData:state.userData,
+        loginModal:state.loginModal,
+        signupModal:state.signupModal
     };
 }
 
@@ -464,7 +479,9 @@ function matchDispatchToProps(dispatch){
         {
             changeHotelListing,
             changeHotelSearch,
-            changeBooking
+            changeBooking,
+            loginModalOpen,
+            signupModalOpen
         }
     ,dispatch);
 }

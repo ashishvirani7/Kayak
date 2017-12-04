@@ -10,6 +10,12 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import {withRouter} from 'react-router-dom';
 
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+import {loginModalOpen} from '../actions/loginModalAction';
+import {signupModalOpen} from '../actions/signupModalAction';
+
+
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -130,16 +136,22 @@ class FlightResults extends Component
                         <div className="row" style={{marginTop:'20px'}}>
                             <button style={btnstyle1} backgroundColor="#ff690f" labelColor='white'
                             onClick={()=>{
-                                var data = {
-                                    bookingType: 'Flight',
-                                    flight: flight.flight,
-                                    flightid: flight._id,
-                                    class: this.state.valueClass,
-                                    search: this.props.userData.flightSearch,
+                                if((!this.props.userData.loggedIn)){
+                                    this.props.loginModalOpen();
                                 }
-                                console.log(data);
-                                this.props.changeBooking(data);
-                                this.props.history.push('/booking');
+                                else{
+                                    var data = {
+                                        bookingType: 'Flight',
+                                        flight: flight.flight,
+                                        flightid: flight._id,
+                                        class: this.state.valueClass,
+                                        search: this.props.userData.flightSearch,
+                                    }
+                                    console.log(data);
+                                    this.props.changeBooking(data);
+                                    this.props.history.push('/booking');
+                                }
+                                
                             }}
                             >Book Now</button>
                         </div>
@@ -157,6 +169,8 @@ class FlightResults extends Component
         return(
             <div>
                 <div className="row" style={rstyle}>
+                    {this.props.loginModal.isOpen && <LoginModal/>}
+                    {this.props.signupModal.isOpen && <SignupModal/>}
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
                             
@@ -407,6 +421,8 @@ const divstyle={
 function mapStateToProps(state){
     return{
         userData:state.userData,
+        loginModal:state.loginModal,
+        signupModal:state.signupModal
     };
 }
 
@@ -416,6 +432,8 @@ function matchDispatchToProps(dispatch){
             changeFlightListing,
             changeFlightSearch,
             changeBooking,
+            loginModalOpen,
+            signupModalOpen
         }
     ,dispatch);
 }

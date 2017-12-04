@@ -10,6 +10,8 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+
+
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
 
@@ -35,6 +37,7 @@ class HotelSearch extends Component{
     render() {
         return(
             <div className="col-md-12">
+                
                 <div className="row" style={rstyle}>
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
