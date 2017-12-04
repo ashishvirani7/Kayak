@@ -44,7 +44,34 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['flight.classes.class_price',-1]])
+            }).sort({'flight.classes.class_price': 1})
+    }
+    else if(msg.order == "price_asc"){
+        Listings.find(
+            {
+                "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
+                "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
+                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                "flight.classes.class_type":flight_class,
+                "flight.stops":{$nin:filter_prop.stops},
+                "flight.flight_operator_name":{$nin:filter_prop.flight_name},
+
+            }, function(err, flights){
+                if(err){
+                    message=err
+                    res.code = "202"
+                    res.data = message;
+                    callback(null, res)
+                }
+                else
+                {
+                    message=flights;
+                    res.code = "201"
+                    res.data = message;
+                    callback(null, res);
+                }
+            }).sort({'flight.classes.class_price': -1})
     }
     else if(msg.order == "departure_desc"){
         Listings.find(
@@ -71,19 +98,19 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['flight.departure_date',-1]])
+            }).sort({'flight.departure_date': 1})
     }
-    else if(msg.order == "duration_asc"){
+    else if(msg.order == "departure_asc"){
         Listings.find(
             {
-
-                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
+                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},
+
             }, function(err, flights){
                 if(err){
                     message=err
@@ -98,21 +125,20 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['flight.duration',1]])
+            }).sort({'flight.departure_date': -1})
     }
-    else{
+    else if(msg.order == "arrival_desc"){
         Listings.find(
             {
-
-                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
+                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},
-            },
-            function(err, flights){
+
+            }, function(err, flights){
                 if(err){
                     message=err
                     res.code = "202"
@@ -126,7 +152,34 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['flight.classes.class_price',1]])
+            }).sort({'flight.arrival_date': 1})
+    }
+    else if(msg.order == "arrival_asc"){
+        Listings.find(
+            {
+                "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
+                "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
+                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                "flight.classes.class_type":flight_class,
+                "flight.stops":{$nin:filter_prop.stops},
+                "flight.flight_operator_name":{$nin:filter_prop.flight_name},
+
+            }, function(err, flights){
+                if(err){
+                    message=err
+                    res.code = "202"
+                    res.data = message;
+                    callback(null, res)
+                }
+                else
+                {
+                    message=flights;
+                    res.code = "201"
+                    res.data = message;
+                    callback(null, res);
+                }
+            }).sort({'flight.arrival_date': -1})
     }
 
 }
