@@ -16,7 +16,7 @@ import {loginModalDone} from '../actions/loginModalAction';
 import {changeValue} from '../actions/signupAction.js';
 
 import * as API from '../api/API';
-
+const emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
 class signupModal extends React.Component {
 
   handleOpen = () => {
@@ -36,42 +36,49 @@ class signupModal extends React.Component {
 
     var cipherVal=CryptoJS.AES.encrypt(signupData.password,"kayak");
 
-    if(signupData.email === "" || signupData.password ===""){
-        NotificationManager.error("Fail", "Fill out all fields", 2500, true);
+    if(signupData.email.match(emailRegex)){
+        
+        if((signupData.password).toString().length > 4 ){
+            var signupDetails={
+                email:signupData.email,
+                password:cipherVal.toString(),
+            }
+        
+        
+            API.doSignup(signupDetails)
+            .then((res) => {
+                if (res.status === 201) {
+                    console.log("Success");
+                    res.json().then(user => {
+                        // this.props.loginSuccess(user);
+                        // this.props.setPath("/home");
+                        console.log(user);
+                        this.props.signupModalDone();
+                        NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
+                        this.props.loginModalOpen();
+                        //this.props.history.push("/");
+                    });
+            
+                } else if (res.status === 202) {
+                    NotificationManager.error("Fail", "User Exists", 2500, true);
+                    // console.log("Fail");
+                    // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                    // this.props.history.push("/");
+                } else
+                {
+                    console.log("Fail");
+                    // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                    // this.props.history.push("/");
+                }
+            });
+        }
+        else{
+            NotificationManager.error("Password length must be greater than 4", "Signup Failed", 2500, true);
+        }
     }
     else{
-        var signupDetails={
-            email:signupData.email,
-            password:cipherVal.toString(),
-        }
-    
-    
-        API.doSignup(signupDetails)
-        .then((res) => {
-            if (res.status === 201) {
-                console.log("Success");
-                res.json().then(user => {
-                    // this.props.loginSuccess(user);
-                    // this.props.setPath("/home");
-                    console.log(user);
-                    this.props.signupModalDone();
-                    NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
-                    this.props.loginModalOpen();
-                    //this.props.history.push("/");
-                });
+        NotificationManager.error("Enter valid email", "Signup Failed", 2500, true);
         
-            } else if (res.status === 202) {
-                NotificationManager.error("Fail", "User Exists", 2500, true);
-                // console.log("Fail");
-                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-                // this.props.history.push("/");
-            } else
-            {
-                console.log("Fail");
-                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-                // this.props.history.push("/");
-            }
-        });
     }
     
   }
