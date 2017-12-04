@@ -35,38 +35,45 @@ class signupModal extends React.Component {
   handleSignup = (signupData) => {
 
     var cipherVal=CryptoJS.AES.encrypt(signupData.password,"kayak");
-    
-    var signupDetails={
-        email:signupData.email,
-        password:cipherVal.toString(),
+
+    if(signupData.email === "" || signupData.password ===""){
+        NotificationManager.error("Fail", "Fill out all fields", 2500, true);
     }
-
-
-    API.doSignup(signupDetails)
-    .then((res) => {
-        if (res.status === 201) {
-            console.log("Success");
-            res.json().then(user => {
-                // this.props.loginSuccess(user);
-                // this.props.setPath("/home");
-                console.log(user);
-                this.props.signupModalDone();
-                NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
-                this.props.loginModalOpen();
-                //this.props.history.push("/");
-            });
-    
-        } else if (res.status === 401) {
-            // console.log("Fail");
-            // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-            // this.props.history.push("/");
-        } else
-        {
-            console.log("Fail");
-            // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-            // this.props.history.push("/");
+    else{
+        var signupDetails={
+            email:signupData.email,
+            password:cipherVal.toString(),
         }
-    });
+    
+    
+        API.doSignup(signupDetails)
+        .then((res) => {
+            if (res.status === 201) {
+                console.log("Success");
+                res.json().then(user => {
+                    // this.props.loginSuccess(user);
+                    // this.props.setPath("/home");
+                    console.log(user);
+                    this.props.signupModalDone();
+                    NotificationManager.success("Welcome", "Sign Up Successful. Log Into Your Account Now", 2500, true);
+                    this.props.loginModalOpen();
+                    //this.props.history.push("/");
+                });
+        
+            } else if (res.status === 202) {
+                NotificationManager.error("Fail", "User Exists", 2500, true);
+                // console.log("Fail");
+                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            } else
+            {
+                console.log("Fail");
+                // NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                // this.props.history.push("/");
+            }
+        });
+    }
+    
   }
 
   
