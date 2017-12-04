@@ -11,15 +11,14 @@ import {Doughnut} from 'react-chartjs-2';
 import AdminCustomNavbar from './AdminCustomNavBar';
 
 var data;
-class AdminAnalysis extends Component {
+class AdminUserTracking extends Component {
   constructor(){
     super();
     this.state = {
       chartHotelData:{},
       chartFlightData:{},
       chartCrData:{},
-      current:"hotel",
-      open:true
+      current:"hotel"
     }
   }
 
@@ -31,7 +30,6 @@ class AdminAnalysis extends Component {
             this.props.history.push("/adminLogin");
         }
     });
-
     this.getHotelData();
     this.getFlightData();
     this.getCarData();
@@ -46,19 +44,30 @@ class AdminAnalysis extends Component {
   getHotelData(){
     var self = this;
     console.log("ashish");
-    axios.post('http://localhost:3001/getRevenue/tophotels',{
+    axios.post('http://localhost:3001/topTenHotel',{
       "year":"2017"
     })
     .then(function (response) {
-      console.log(response.data.data.label);
+      //console.log(response.data.data.label);
+      var labels = [];
+      var resData=[];
+      console.log(JSON.stringify(response.data));
+      if(response.data.message){
+        response.data.message.map(item=>{
+            labels.push(item.name);
+            resData.push(item.value);
+        })
+      }
+      
+      
       self.setState({
         chartHotelData:{
-          labels: response.data.data.label,
+          labels: labels,
           //labels:response.data.data.label,
           datasets:[
             {
-              label:'Revenue',
-              data:response.data.data.values,
+              label:'Hotel',
+              data:resData,
               backgroundColor:[
                 'rgba(54, 162, 235, 0.6)',
                 'rgba(255, 206, 86, 0.6)',
@@ -78,50 +87,30 @@ class AdminAnalysis extends Component {
   getFlightData(){
     var self = this;
     
-    axios.post('http://localhost:3001/getRevenue/topflights',{
+    axios.post('http://localhost:3001/topTenFlight',{
       "year":"2017"
     })
     .then(function (response) {
-      console.log(response.data.data.label);
-      self.setState({
-        chartFlightData:{
-          labels: response.data.data.label,
-          //labels:response.data.data.label,
-          datasets:[
-            {
-              label:'Revenue',
-              data:response.data.data.values,
-              backgroundColor:[
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(255, 159, 64, 0.6)',
-                'rgba(255, 99, 132, 0.6)'
-              ]
-            }
-          ]
+        //console.log(response.data.data.label);
+        var labels = [];
+        var resData=[];
+        console.log(JSON.stringify(response.data));
+        if(response.data.message){
+          response.data.message.map(item=>{
+              labels.push(item.name);
+              resData.push(item.value);
+          })
         }
-      });
-    });
-  }
-
-    getCarData(){
-      var self = this;
-      
-      axios.post('http://localhost:3001/getRevenue/topcars',{
-        "year":"2017"
-      })
-      .then(function (response) {
-        console.log(response.data.data.label);
+        
+        
         self.setState({
-          chartCarData:{
-            labels: response.data.data.label,
+          chartFlightData:{
+            labels: labels,
             //labels:response.data.data.label,
             datasets:[
               {
-                label:'Revenue',
-                data:response.data.data.values,
+                label:'Flight',
+                data:resData,
                 backgroundColor:[
                   'rgba(54, 162, 235, 0.6)',
                   'rgba(255, 206, 86, 0.6)',
@@ -135,7 +124,48 @@ class AdminAnalysis extends Component {
           }
         });
       });
+  }
+
+    getCarData(){
+      var self = this;
       
+      axios.post('http://localhost:3001/topTenCar',{
+        "year":"2017"
+      })
+      .then(function (response) {
+        //console.log(response.data.data.label);
+        var labels = [];
+        var resData=[];
+        console.log(JSON.stringify(response.data));
+        if(response.data.message){
+          response.data.message.map(item=>{
+              labels.push(item.name);
+              resData.push(item.value);
+          })
+        }
+        
+        
+        self.setState({
+          chartCarData:{
+            labels: labels,
+            //labels:response.data.data.label,
+            datasets:[
+              {
+                label:'Car',
+                data:resData,
+                backgroundColor:[
+                  'rgba(54, 162, 235, 0.6)',
+                  'rgba(255, 206, 86, 0.6)',
+                  'rgba(75, 192, 192, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(255, 159, 64, 0.6)',
+                  'rgba(255, 99, 132, 0.6)'
+                ]
+              }
+            ]
+          }
+        });
+      });
   }
 
   handleHotelClick(){
@@ -148,36 +178,33 @@ class AdminAnalysis extends Component {
     this.setState({...this.state,current:"car"})
   } 
 
-  handleAppClick(){
-    this.setState({...this.state,open:false})
-  }
-
   render() {
     return (
       <div className="App">
         <div className="row">
-                    <div className="col-md-12" style={{backgroundColor:'black',height:'46px'}}>
-                        <div className="row" style={navstyle}>
-                            <AdminCustomNavbar />
-                        </div>
-                    </div>
-                </div>
+        <div className="col-md-12" style={{backgroundColor:'black',height:'46px'}}>
+            <div className="row" style={navstyle}>
+                <AdminCustomNavbar />
+            </div>
+        </div>
+        </div>
         <div className="row">
-          <div className="col-md-2 col-sm-2">
+          <div className="col-md-3 col-sm-3">
             <Drawer
               docked={true}
               width={300}
               open={true}
-              //onRequestChange={(open) => this.setState({open})}
+              onRequestChange={(open) => this.setState({open})}
+              
               >
-              <AppBar title="Analysis" onLeftIconButtonTouchTap={()=>{this.handleAppClick()}}/>
-              <MenuItem onClick={()=>this.handleHotelClick()}>Top 10 Hotel</MenuItem>
-              <MenuItem onClick={()=>this.handleFlightClick()}>Top 10 Flight</MenuItem>
-              <MenuItem onClick={()=>this.handleCarClick()}>Top 10 Car</MenuItem>
+              <AppBar title="User Tracking" />
+              <MenuItem onClick={()=>this.handleHotelClick()}>Top 10 Cities for Hotel Search</MenuItem>
+              <MenuItem onClick={()=>this.handleFlightClick()}>Top 10 Cities for Flight Search</MenuItem>
+              <MenuItem onClick={()=>this.handleCarClick()}>Top 10 cities for Car Search</MenuItem>
           </Drawer>
 
           </div>
-          <div className="col-md-10 col-sm-2" style={{marginTop:"80px"}}>
+          <div className="col-md-9 col-sm-9" style={{marginTop:"80px"}}>
             {
               this.state.current === "hotel" &&
               <div>
@@ -276,10 +303,9 @@ class AdminAnalysis extends Component {
     );
   }
 }
-
 const navstyle={
-  marginLeft:'320px',
-  marginRight:'70px'
-}
+    marginLeft:'320px',
+    marginRight:'70px'
+  }
 
-export default AdminAnalysis;
+export default AdminUserTracking;

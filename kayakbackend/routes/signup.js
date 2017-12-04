@@ -3,16 +3,23 @@ var autoIncrement = require("mongodb-autoincrement");
 var router = express.Router();
 var mongo = require("./mongo");
 var mongoURL = "mongodb://54.183.101.173:27017/kayak";
-
 var kafka = require('./kafka/client');
-
 var topic_name = "signup_topic";
+
+var fs = require('fs');
+var path = require('path');
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
 
 router.post('/', (req,res,next)=>{
 
     var email=req.body.email;
     var password=req.body.password;
 
+    var logger = fs.createWriteStream(path.join(__dirname, '../') + 'signup_log.csv', {
+        flags: 'a'
+    })
+    logger.write(`\r\n${req.body.email}` + ','+new Date(dt.now())+','+'1');
 
     kafka.make_request(topic_name, {email, password}, function(err,results){
         console.log('in result');

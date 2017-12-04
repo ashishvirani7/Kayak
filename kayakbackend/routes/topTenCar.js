@@ -3,12 +3,14 @@ var router = express.Router();
 var kafka = require('./kafka/client');
 var fs = require('fs');
 var csv = require("fast-csv");
-var stream = fs.createReadStream("car_log.csv");
+
+var stream;
 
 router.post('/', (req,res,next)=>{
 
     var dict = {};
     var array = [];
+    var sorted;
     var csvStream = csv()
         .on("data", function(data){
             if(data[0] in dict)
@@ -31,18 +33,21 @@ router.post('/', (req,res,next)=>{
                 });
             }
 
-            var sorted = array.sort(function(a, b) {
+           sorted = array.sort(function(a, b) {
                 return (a.value > b.value) ? -1 : ((b.value > a.value) ? 1 : 0)
             });
             console.log("Sorted"+JSON.stringify(sorted.slice(0,10)));
+            var message="Get Top Ten Car..!!";
+            console.log(message);
+
+            //console.log("ID--"+results.data._id);
+            stream.unpipe(csvStream);
+            return res.status(201).send({"message":sorted.slice(0,10)});
 
         });
-    stream.pipe(csvStream);
+        stream = fs.createReadStream("car_log.csv");
+        stream.pipe(csvStream);
 
-    var message="Get Top Ten Car..!!";
-    console.log(message);
-    //console.log("ID--"+results.data._id);
-    return res.status(201).send({"message":sorted.slice(0,10)});
 });
 
 module.exports = router;
