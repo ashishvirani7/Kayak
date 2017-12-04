@@ -27,7 +27,7 @@ class CityListItem extends Component{
                 </div>
             </CardActions>
             <CardText expandable={true}>
-                Hello
+                Search Above For More Details 
             </CardText>
         </Card>
         )

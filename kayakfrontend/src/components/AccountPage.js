@@ -9,8 +9,20 @@ import PaymentPage from './PaymentPage'
 
 import HomeFooter from './HomeFooter';
 import WriteReview from './WriteReview';
+import * as API from '../api/API';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 class AccountPage extends Component
 {
+    componentWillMount(){
+        API.checkSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.history.push("/");
+                NotificationManager.warning('Not a member of Kayak?','Please Login To Continue',5000);
+            }
+        });
+    }
     render(){
         return(
             <div>

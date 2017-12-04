@@ -50,7 +50,7 @@ class FlightResults extends Component
         var data ={
             origin:     document.getElementById('source').value,
             destination:document.getElementById('destination').value,
-            arrival_date:     document.getElementById('toDate').value,
+            //arrival_date:     document.getElementById('toDate').value,
             departure_date:   document.getElementById('fromDate').value,
             class:      this.state.valueClass,
             no_of_traveler:this.state.valueTraveler,
@@ -61,7 +61,7 @@ class FlightResults extends Component
             }
         }
         console.log(data);
-        if(data.origin && data.destination && data.arrival_date && data.departure_date && (new Date(data.arrival_date)-new Date(data.departure_date)>0) && (new Date(data.departure_date) > new Date())){
+        if(data.origin && data.destination && data.departure_date && (new Date(data.departure_date) > new Date())){
             console.log(data);
             this.props.changeFlightSearch(data);
             API.doFlightSearch(data)
@@ -207,7 +207,7 @@ class FlightResults extends Component
                     </div>
                     <div className="col-md-7">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-5">
                                 <div className="row" style={divstyle}>
                                     <DatePicker 
                                     underlineStyle={{"borderColor":"white",marginTop:"40px"}}
@@ -215,15 +215,15 @@ class FlightResults extends Component
                                     id="fromDate" defaultDate={new Date(this.props.userData.flightSearch.departure_date+"T08:00:00Z")} style={istyle} hintText="From" container="inline" autoOk/>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            {/* <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <DatePicker 
                                     underlineStyle={{"borderColor":"white",marginTop:"40px"}}
                                     underlineFocusStyle={{"borderColor":"#ec7132"}}
                                     id="toDate" defaultDate={new Date(this.props.userData.flightSearch.arrival_date+"T08:00:00Z")} style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
-                            </div>
-                            <div className="col-md-3">
+                            </div> */}
+                            <div className="col-md-4">
                                 <div className="row" style={divstyle}>
                                     <SelectField
                                         value={this.state.valueClass}

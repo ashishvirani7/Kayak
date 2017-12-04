@@ -63,22 +63,22 @@ class FlightSearch extends Component{
                     </div>
                     <div className="col-md-7">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-6">
                                 <div className="row" style={divstyle}>
                                     <DatePicker 
                                     underlineStyle={{"borderColor":"white",marginTop:"40px"}}
                                     underlineFocusStyle={{"borderColor":"#ec7132"}}
-                                    id="fromDate" style={istyle} hintText="From" container="inline" autoOk/>
+                                    id="fromDate" style={istyle} hintText="Departure" container="inline" autoOk/>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            {/* <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <DatePicker
                                     underlineStyle={{"borderColor":"white",marginTop:"40px"}}
                                     underlineFocusStyle={{"borderColor":"#ec7132"}}
                                     id="toDate" style={istyle} hintText="To" container="inline" autoOk/>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="col-md-3">
                                 <div className="row" style={divstyle}>
                                     <SelectField
@@ -132,14 +132,14 @@ class FlightSearch extends Component{
                                     var data ={
                                         origin:     document.getElementById('source').value,
                                         destination:document.getElementById('destination').value,
-                                        arrival_date:     document.getElementById('toDate').value,
+                                        //arrival_date:     document.getElementById('toDate').value,
                                         departure_date:   document.getElementById('fromDate').value,
                                         class:      this.state.valueClass,
                                         no_of_traveler:this.state.valueTraveler,
                                         order:'arrival_desc',
                                         filter_prop
                                     }
-                                    if(data.origin && data.destination && data.arrival_date && data.departure_date && (new Date(data.arrival_date)-new Date(data.departure_date)>0) && (new Date(data.departure_date) > new Date())){
+                                    if(data.origin && data.destination && data.departure_date && (new Date(data.departure_date) > new Date())){
                                         console.log(data);
                                         this.props.changeFlightSearch(data);
                                         API.doFlightSearch(data)
