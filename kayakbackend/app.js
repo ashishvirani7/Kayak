@@ -54,6 +54,7 @@ var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 var sessioncheck = require('./routes/sessioncheck');
 var adminSessioncheck = require('./routes/adminSessionCheck');
 var logout = require('./routes/logout');
+var getcount = require('./routes/getcount');
 
 var updateUserInfo = require('./routes/updateUserInfo');
 var getUserDetails = require('./routes/getUserDetails');
@@ -175,5 +176,5 @@ app.use('/topTenFlight', topTenFlight);
 app.use('/topTenHotel', topTenHotel);
 app.use('/getRevenue', getRevenue);
 app.use('/createReview', createReview);
-
+app.use('/getcount',getcount);
 module.exports = app;

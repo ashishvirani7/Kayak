@@ -51,6 +51,7 @@ class LoginModal extends React.Component {
                 }
                 API.doLogin(loginDetails)
                 .then((res) => {
+                    console.log(res.status);
                     if (res.status === 201) {
                         console.log("Success");
                         console.log(res);

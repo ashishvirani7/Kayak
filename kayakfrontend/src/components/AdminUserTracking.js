@@ -18,7 +18,11 @@ class AdminUserTracking extends Component {
       chartHotelData:{},
       chartFlightData:{},
       chartCrData:{},
-      current:"hotel"
+      current:"hotel",
+      users:0,
+      hotels:0,
+      flights:0,
+      cars:0
     }
   }
 
@@ -30,6 +34,16 @@ class AdminUserTracking extends Component {
             this.props.history.push("/adminLogin");
         }
     });
+    API.getCount()
+    .then((res)=>{
+      if(res.status==201){
+        res.json().then(data=>{
+          console.log(data.message.data);
+          var count = data.message.data;
+          this.setState({...this.state,users:count.users,flights:count.flights,hotels:count.hotels,cars:count.cars})
+        })
+      }
+    })
     this.getHotelData();
     this.getFlightData();
     this.getCarData();
@@ -205,6 +219,21 @@ class AdminUserTracking extends Component {
 
           </div>
           <div className="col-md-9 col-sm-9" style={{marginTop:"80px"}}>
+            <div className="row" style={{marginBottom:'20px',fontSize:'20px',fontWeight:'400'}}>
+                <div className="col-md-3 col-sm-3">
+                    Users:{this.state.users}
+                </div>
+                <div className="col-md-3 col-sm-3">
+                    Hotels:{this.state.hotels}
+                </div>
+                <div className="col-md-3 col-sm-3">
+                    Flights:{this.state.flights}
+                </div>
+                <div className="col-md-3 col-sm-3">
+                    Cars:{this.state.cars}
+                </div>
+            </div>
+            <div className="row">
             {
               this.state.current === "hotel" &&
               <div>
@@ -262,6 +291,8 @@ class AdminUserTracking extends Component {
               />
             </div>
             }
+            </div>
+            
           </div>
         </div>
         
