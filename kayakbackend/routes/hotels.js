@@ -30,6 +30,10 @@ router.post('/', (req, res, next)=>{
     var filter_prop = req.body.filter_prop;
     var key = "search";
 
+    var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
+        flags: 'a'
+    })
+    logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
 
     redisClient.get(city,function(err,reply) {
         console.log(err);
@@ -55,10 +59,6 @@ router.post('/', (req, res, next)=>{
                             console.log(err);
                             console.log(reply);
                         })
-                        var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
-                            flags: 'a'
-                        })
-                        logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
                         return res.status(201).send(results);
                     }
                     else if(results.code == 202){

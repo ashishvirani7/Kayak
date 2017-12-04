@@ -18,6 +18,13 @@ router.post('/', (req, res, next)=>{
     var order = req.body.order;
     var filter_prop = req.body.filter_prop;
     var key = "search";
+
+
+    var logger = fs.createWriteStream(path.join(__dirname, '../') + 'car_log.csv', {
+    flags: 'a'
+    })
+    logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
+
 kafka.make_request(topic_name, {key, city, pickuptime, dropofftime, order, filter_prop}, function(err, results){
     if(err){
         done(err,{});
@@ -26,10 +33,6 @@ kafka.make_request(topic_name, {key, city, pickuptime, dropofftime, order, filte
     {
         if(results.code == 201){
             console.log("Cars found")
-            var logger = fs.createWriteStream(path.join(__dirname, '../') + 'car_log.csv', {
-                flags: 'a'
-            })
-            logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
             return res.status(201).send(results);
         }
         else if(results.code == 202){
