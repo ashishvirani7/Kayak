@@ -60,6 +60,7 @@ class FlightResults extends Component
                 flight_name: []
             }
         }
+        console.log(data);
         if(data.origin && data.destination && data.arrival_date && data.departure_date && (new Date(data.arrival_date)-new Date(data.departure_date)>0) && (new Date(data.departure_date) > new Date())){
             console.log(data);
             this.props.changeFlightSearch(data);

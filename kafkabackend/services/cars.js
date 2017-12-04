@@ -41,7 +41,7 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort({'car.car_rental_price': -1})
+            }).sort({'car.car_rental_price': 1})
         //sort([['car.car_rental_price',-1]])
     }
     else{
@@ -64,7 +64,7 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort({'car.car_rental_price': 1})
+            }).sort({'car.car_rental_price': -1})
         //sort([['car.car_rental_price',1]])
     }
 

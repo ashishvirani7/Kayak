@@ -28,7 +28,7 @@ function handle_request(msg, callback) {
                 j=0;
                 bookings.forEach(eachBooking =>{
                     if(eachBooking.bill_type == "Flight"){
-                        if(eachBooking.flight.flight_start_date < new Date()){
+                        if(eachBooking.flight.flight_end_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};
                             var retriveObj = eb;
@@ -47,7 +47,7 @@ function handle_request(msg, callback) {
                         }
                     }
                     else if(eachBooking.bill_type == "Hotel"){
-                        console.log(eachBooking.hotel.booking_start_date);
+                        console.log(eachBooking.hotel.booking_end_date);
                         if(eachBooking.hotel.booking_start_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};
@@ -68,7 +68,7 @@ function handle_request(msg, callback) {
                         }
                     }
                     else if(eachBooking.bill_type == "Car"){
-                        if(eachBooking.car.booking_start_date < new Date()){
+                        if(eachBooking.car.booking_end_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};
                             var retriveObj = eb;
