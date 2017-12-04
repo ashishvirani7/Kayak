@@ -53,7 +53,6 @@ var searchBillMonthAdmin = require('./routes/searchBillMonthAdmin');
 
 var sessioncheck = require('./routes/sessioncheck');
 var adminSessioncheck = require('./routes/adminSessionCheck');
-
 var logout = require('./routes/logout');
 
 var updateUserInfo = require('./routes/updateUserInfo');
@@ -68,6 +67,7 @@ var bookings = require('./routes/getBookings');
 var topTenCar = require('./routes/topTenCar');
 var topTenFlight = require('./routes/topTenFlight');
 var topTenHotel = require('./routes/topTenHotel');
+var createReview = require('./routes/createReview');
 
 var getRevenue = require('./routes/getRevenue');
 var adminLogout = require('./routes/adminLogout');
@@ -129,9 +129,6 @@ app.use('/updateHotelAdmin', updateHotelAdmin);
 app.use('/searchHotelAdmin', searchHotelAdmin);
 app.use('/deleteHotelAdmin', deleteHotelAdmin);
 
-
-
-
 app.use('/addFlightAdmin', addFlightAdmin);
 app.use('/getAllFlight', getAllFlight);
 app.use('/updateFlightAdmin', updateFlightAdmin);
@@ -145,13 +142,10 @@ app.use('/updateCarAdmin', updateCarAdmin);
 app.use('/searchCarAdmin', searchCarAdmin);
 app.use('/deleteCarAdmin', deleteCarAdmin);
 
-
-
 app.use('/getAllUserDataAdmin', getAllUserDataAdmin);
 app.use('/searchUserDataAdmin', searchUserDataAdmin);
 app.use('/updateUserDataAdmin', updateUserDataAdmin);
 app.use('/deleteUserDataAdmin', deleteUserDataAdmin);
-
 
 app.use('/getAllBillAdmin', getAllBillAdmin);
 app.use('/searchBillDateAdmin', searchBillDateAdmin);
@@ -180,5 +174,6 @@ app.use('/topTenCar', topTenCar);
 app.use('/topTenFlight', topTenFlight);
 app.use('/topTenHotel', topTenHotel);
 app.use('/getRevenue', getRevenue);
+app.use('/createReview', createReview);
 
 module.exports = app;

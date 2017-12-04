@@ -2,7 +2,20 @@ var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var CryptoJS = require("crypto-js");
 //mongoose.connect('localhost:27017/kayak');
-mongoose.connect('54.183.101.173:27017/kayak');
+var options = {
+    useMongoClient: true,
+    autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 40, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0
+};
+
+mongoose.connect('mongodb://54.183.101.173:27017/kayak', options);
+
+//mongoose.connect('mongodb://54.183.101.173:27017/kayak');
+
 var Bill = require('../models/Bill');
 
 
