@@ -23,7 +23,7 @@ function handle_request(msg, callback) {
         Listings.find(
             {
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                //"flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.classes.class_type":flight_class,
@@ -50,7 +50,7 @@ function handle_request(msg, callback) {
         Listings.find(
             {
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
-                "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
+                //"flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
                 "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
@@ -79,7 +79,7 @@ function handle_request(msg, callback) {
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                //"flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},
@@ -106,7 +106,7 @@ function handle_request(msg, callback) {
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                //"flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},
@@ -133,7 +133,7 @@ function handle_request(msg, callback) {
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                //"flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},
@@ -160,7 +160,7 @@ function handle_request(msg, callback) {
                 "flight.origin":{'$regex':'^'+origin+'+',$options:'i'},
                 "flight.destination":{'$regex':'^'+destination+'+',$options:'i'},
                 "flight.departure_date":{$gte:departure_date+"T00:00:00.000Z", $lte:departure_date+"T23:59:59.000Z"},
-                "flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
+                //"flight.arrival_date":{$gte:arrival_date+"T00:00:00.000Z", $lte:arrival_date+"T23:59:59.000Z"},
                 "flight.classes.class_type":flight_class,
                 "flight.stops":{$nin:filter_prop.stops},
                 "flight.flight_operator_name":{$nin:filter_prop.flight_name},

@@ -115,7 +115,7 @@ class HotelSearch extends Component{
                         <div className="row" style={divstyle}>
                             <button style={btnstyle}
                                 id="destbtn"
-                                hintText="Where"
+                                hintText="    Where"
                                 type="submit"
                                 onClick={()=>{
                                     
