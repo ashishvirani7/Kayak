@@ -24,6 +24,11 @@ router.post('/', (req, res, next)=>{
     var flight_class = req.body.class;
     var no_of_traveler = req.body.no_of_traveler;
     var key = "search"
+
+    var logger = fs.createWriteStream(path.join(__dirname, '../') + 'flight_log.csv', {
+        flags: 'a'
+    })
+    logger.write(`\r\n${req.body.origin}` + ','+`${req.body.destination}`+','+new Date(dt.now())+','+'1');
     kafka.make_request(topic_name, {key, origin, destination, departure_date, arrival_date, traveler_info, order, filter_prop, flight_class, no_of_traveler}, function(err, results){
         if(err){
             done(err,{});
@@ -32,10 +37,6 @@ router.post('/', (req, res, next)=>{
         {
             if(results.code == 201){
                 console.log("Flights found")
-                var logger = fs.createWriteStream(path.join(__dirname, '../') + 'flight_log.csv', {
-                    flags: 'a'
-                })
-                logger.write(`\r\n${req.body.origin}` + ','+`${req.body.destination}`+','+new Date(dt.now())+','+'1');
                 return res.status(201).send(results);
             }
             else if(results.code == 202){
