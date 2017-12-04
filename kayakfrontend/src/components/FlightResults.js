@@ -174,9 +174,9 @@ class FlightResults extends Component
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
                             
-                            <AutoComplete style={istyle}
+                            <TextField style={istyle}
                                 id="source"
-                                
+                                defaultValue={this.props.userData.flightSearch.origin}
                                 hintText={this.props.userData.flightSearch.origin}
                                 dataSource={this.state.dataSource}
                                 onUpdateInput={this.handleDestChange}
@@ -190,9 +190,9 @@ class FlightResults extends Component
                     </div>
                     <div className="col-md-2" >
                         <div className="row" style={divstyle}>
-                            <AutoComplete style={istyle}
+                            <TextField style={istyle}
                                 id="destination"
-                                
+                                defaultValue={this.props.userData.flightSearch.destination}
                                 hintText={this.props.userData.flightSearch.destination}
                                 dataSource={this.state.dataSource}
                                 onUpdateInput={this.handleDestChange}
