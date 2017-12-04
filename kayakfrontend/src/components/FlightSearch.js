@@ -139,7 +139,7 @@ class FlightSearch extends Component{
                                         order:'arrival_desc',
                                         filter_prop
                                     }
-                                    if(data.origin && data.destination && data.arrival_date && data.departure_date){
+                                    if(data.origin && data.destination && data.arrival_date && data.departure_date && (new Date(data.arrival_date)-new Date(data.departure_date)>0) && (new Date(data.departure_date) > new Date())){
                                         console.log(data);
                                         this.props.changeFlightSearch(data);
                                         API.doFlightSearch(data)
@@ -153,7 +153,7 @@ class FlightSearch extends Component{
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
                                     }
                                     
                                 }}

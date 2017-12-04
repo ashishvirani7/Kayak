@@ -125,7 +125,7 @@ class HotelSearch extends Component{
                                         filter_prop:{ratings: 0},
                                         order:'price_asc'
                                     }
-                                    if(data.city && data.checkIn && data.checkOut){
+                                    if(data.city && data.checkIn && data.checkOut && (new Date(data.checkOut)-new Date(data.checkIn)>0) && (new Date(data.checkIn) > new Date())){
                                         console.log(data);
                                         this.props.changeHotelSearch(data);
                                         API.doHotelSearch(data)
@@ -139,7 +139,7 @@ class HotelSearch extends Component{
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
                                     }
                                 }}
                             >

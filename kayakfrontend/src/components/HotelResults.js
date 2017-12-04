@@ -63,20 +63,21 @@ class HotelResults extends Component
             order:      this.state.sort?'price_desc':'price_asc',
         }
         console.log(data);
-        if(data.city && data.checkIn && data.checkOut){
+        if(data.city && data.checkIn && data.checkOut && (new Date(data.checkOut)-new Date(data.checkIn)>0) && (new Date(data.checkIn) > new Date())){
             //console.log(data);
             this.props.changeHotelSearch(data);
             API.doHotelSearch(data)
             .then((res)=>{
                 if(res.status===201){
                     res.json().then(items=>{
+                        console.log(items.data);
                         this.props.changeHotelListing(items.data);
                     });
                 }
             });
         }
         else{
-            //NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+            NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
         }
     }
 
@@ -173,7 +174,8 @@ class HotelResults extends Component
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
                             
-                            <AutoComplete style={istyle}
+                            <TextField style={istyle}
+                                defaultValue={this.props.userData.hotelSearch.city}
                                 id="destination"
                                 hintText={this.props.userData.hotelSearch.city}
                                 dataSource={this.state.dataSource}

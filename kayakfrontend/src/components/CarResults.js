@@ -66,7 +66,7 @@ class CarResults extends Component
             order:this.state.sort?'price_desc':'price_asc',
             filter_prop :{type:type}
         }
-        if(data.city && data.toDate && data.fromDate){
+        if(data.city && data.toDate && data.fromDate && (new Date(data.toDate)-new Date(data.fromDate)>0) && (new Date(data.fromDate) > new Date())){
             //console.log(data);
             this.props.changeCarSearch(data);
             API.doCarSearch(data)
@@ -80,7 +80,7 @@ class CarResults extends Component
             });
         }
         else{
-            NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+            NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
         }
     }
 
