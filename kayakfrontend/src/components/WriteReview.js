@@ -17,6 +17,8 @@ import ReviewIcon from '../icons/review.svg';
 import {withRouter} from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import ReactStars from 'react-stars';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import {
     blue500,
@@ -38,13 +40,55 @@ class WriteReview extends Component
         this.setState({...this.state,stars:value});
     };
 
-    handleCommentChange = (value) => {
-        this.setState({...this.state,comment:value});
+    handleCommentChange = (event) => {
+        this.setState({...this.state,comment:event.target.value});
     }
 
     writeReview(){
         var ob = {...this.props.userData.review,stars:this.state.stars,comment:this.state.comment};
-        //console.log(ob.comment);
+        console.log(JSON.stringify(ob));
+        var send={};
+        if(ob.bill_type === "Hotel"){
+            send={
+                bill_id : ob._id,
+                email: ob.email,
+                rating : ob.stars,
+                comment : ob.comment,
+                booking_type : "Hotel",
+                hotel_id : ob.hotel.hotel_id,
+            };
+        }
+        else if(ob.bill_type === "Flight"){
+            send={
+                bill_id : ob._id,
+                email: ob.email,
+                rating : ob.stars,
+                comment : ob.comment,
+                booking_type : "Flight",
+                flight_id : ob.flight.flight_id,
+            };
+        }
+        else{
+            send={
+                bill_id : ob._id,
+                email: ob.email,
+                rating : ob.stars,
+                comment : ob.comment,
+                booking_type : "Car",
+                car_id : ob.car.car_id,
+            };
+        }
+        console.log(JSON.stringify(send));
+
+        API.createReview({data:send})
+        .then(res=>{
+            if(res.status === 201){
+                NotificationManager.success("Review Added","Success",2500,true);
+                this.props.history.push("/history");
+            }
+        })
+        
+        
     }
 
     backPressed(){
@@ -67,7 +111,7 @@ class WriteReview extends Component
                         multiLine={true}
                         rows={1}
                         rowsMax={5}
-                        onChange={()=>this.handleCommentChange()}
+                        onChange={this.handleCommentChange}
                         style ={{width:"800px"}}
                         />
                 <br />
