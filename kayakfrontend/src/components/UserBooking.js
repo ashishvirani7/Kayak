@@ -31,14 +31,24 @@ import * as API from '../api/API';
 
 import {removeBooking} from '../actions/removeBookingAction';
 
+
 class UserBooking extends Component{
 
     state = {
         finished: false,
         stepIndex: 0,
         total: 0,
-      };
+    };
     
+    componentWillMount(){
+        API.checkSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.history.push("/");
+                NotificationManager.warning('Not a member of Kayak?','Please Login To Continue',5000);
+            }
+        });
+    }
     handleNext = () => {
         var {stepIndex} = this.state;
         

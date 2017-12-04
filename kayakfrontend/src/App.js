@@ -23,7 +23,7 @@ const  App = () => {
         <Route exact path="/hotels" component={HomePage}/>
         <Route exact path="/cars" component={HomePage}/>
         <Route exact path="/flights" component={HomePage}/>
-        <Route exact path="/account" component={AccountPage}/>
+        <AuthorizedRoute exact path="/account" component={AccountPage}/>
         <Route exact path="/history" component={AccountPage}/>
         <Route exact path="/payment-methods" component={AccountPage}/>
         <Route exact path="/adminLogin" component={AdminLogin}/>
@@ -49,7 +49,7 @@ const  App = () => {
 
         <Route exact path="/adminShowUsers" component={AdminHome}/>
 
-        <Route exact path="/booking" component={UserBooking}/>
+        <AuthorizedRoute exact path="/booking" component={UserBooking}/>
         <Route exact path="/adminShowBilling" component={AdminHome}/>
         <Route exact path="/adminShowHotelBill" component={AdminHome}/>
         <Route exact path="/adminShowFlightBill" component={AdminHome}/>
