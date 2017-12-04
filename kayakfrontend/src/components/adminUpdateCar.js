@@ -20,7 +20,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 const Car_Types=[
     
     {
-        "name":"small"
+        "name":"Small"
     },
     {
         "name":"Medium"
