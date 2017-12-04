@@ -23,7 +23,8 @@ const initialState={
     flightSearch:{},
     carSearch:{},
     history:[],
-    booking:{}
+    booking:{},
+    review:{}
 }
 
 export default function(state=initialState,action){
@@ -142,6 +143,14 @@ export default function(state=initialState,action){
             return{
                 ...state,
                 history: action.history,
+            };
+        }
+
+        case "SET_REVIEW_DATA":
+        {
+            return{
+                ...state,
+                review:action.data
             };
         }
 
