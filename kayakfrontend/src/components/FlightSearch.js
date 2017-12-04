@@ -139,7 +139,7 @@ class FlightSearch extends Component{
                                         order:'arrival_desc',
                                         filter_prop
                                     }
-                                    if(data.origin && data.destination && data.departure_date && (new Date(data.departure_date) > new Date())){
+                                    if(data.origin && data.destination && !(data.origin===data.destination) && data.departure_date && (new Date(data.departure_date) > new Date())){
                                         console.log(data);
                                         this.props.changeFlightSearch(data);
                                         API.doFlightSearch(data)
