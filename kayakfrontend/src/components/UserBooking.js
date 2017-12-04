@@ -208,12 +208,13 @@ class UserBooking extends Component{
     }
 
     showFlightBookingDetails = () => {
-
+        
         var booking = this.props.userData.booking;
-        var classType= booking.search.class;
+        var classType= booking.class;
         if(classType==="Business") var index=0;
         if(classType==="Economy") var index=1;
         if(classType==="First Class") var index=2;
+        console.log(index);
 
         var price = booking.flight.classes[index].class_price;
         var total = price*booking.search.no_of_traveler;
@@ -286,11 +287,11 @@ class UserBooking extends Component{
                     <div className="row">
                         Name: {this.props.userData.data.first_name}
                         <br/>
-                        Class: {booking.search.class}
+                        Class: {booking.class}
                         <br/>
                         No Of Travellers: {booking.search.no_of_traveler}
                         <br/>
-                        price: 
+                        Price: 
                         {price}
                         {/* {(booking.flight.classes[0].class_type === booking.search.class) && booking.flight.classes[0].class_price}
                         {(booking.flight.classes[1].class_type === booking.search.class) && booking.flight.classes[1].class_price}
@@ -393,7 +394,7 @@ class UserBooking extends Component{
                         <br/>
                         CheckOut Date: {booking.checkOut}
                         <br/>
-                        price: {price}
+                        Price: {price}
                         
                         <br/>
                         Total: {total}
@@ -476,7 +477,7 @@ class UserBooking extends Component{
                         <br/>
                         No Of Days: {noOfDays}
                         <br/>
-                        price: {price}
+                        Price: {price}
                         <br/>
                         Total: {total}
                     </div>
