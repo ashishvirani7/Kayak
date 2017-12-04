@@ -13,6 +13,9 @@ import IconHotel from '../icons/IconHotel';
 import IconFlight from '../icons/IconFlight';
 import IconCar from '../icons/IconCar';
 
+import ReviewIcon from '../icons/review.svg';
+import {withRouter} from 'react-router-dom';
+import {setReviewData} from '../actions/reviewAction';
 class HistoryPage extends Component
 {
     state = {
@@ -54,25 +57,36 @@ class HistoryPage extends Component
                             {booking.bill_type==='Hotel' && <IconHotel width="24" height="24" color="#000000"/>}
                             {booking.bill_type==='Flight' && <IconFlight width="24" height="24" color="#000000"/>}
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-4">
                             {booking.bill_type==='Car' && booking.car.city}
                             {booking.bill_type==='Hotel' && booking.hotel.city}
                             {booking.bill_type==='Flight' && booking.flight.origin+"-"+booking.flight.destination}
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-5">
                             {booking.bill_type==='Car' && booking.car.booking_start_date.slice(0,10)+" to "+booking.car.booking_end_date.slice(0,10)}
                             {booking.bill_type==='Hotel' && booking.hotel.booking_start_date.slice(0,10)+" to "+booking.hotel.booking_end_date.slice(0,10)}
                             {booking.bill_type==='Flight' && booking.flight.flight_start_date.slice(0,10)+" to "+booking.flight.flight_end_date.slice(0,10)}
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-1">
                             {booking.bill_type==='Car' && '$'+booking.bill_amount}
                             {booking.bill_type==='Hotel' && '$'+booking.bill_amount}
                             {booking.bill_type==='Flight' && '$'+booking.bill_amount}
+                        </div>
+                        <div className="col-md-1">
+                            {booking.bill_type==='Car' && booking.time==='past' && <IconCar width="24" height="24" color="#000000"/>}
+                            {booking.bill_type==='Hotel' &&  <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
+                            {booking.bill_type==='Flight'  && <img src={ReviewIcon} width="24" height="24" color="#000000" style={{cursor:"pointer"}} onClick={()=>this.redirectToReview(booking)}/>}
                         </div>
                     </div>
                 </Paper>
             </div>
         ))
+    }
+
+    redirectToReview(booking){
+        console.log(JSON.stringify(booking));
+        this.props.setReviewData(booking);
+        this.props.history.push("/write-review");
     }
 
     handleSelect = (event,value) => this.setState({...this.state,filter:value})
@@ -149,8 +163,9 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
             changeHistoryData,
+            setReviewData
         }
     ,dispatch);
 }
 
-export default connect(mapStateToProps,matchDispatchToProps)(HistoryPage);
+export default withRouter(connect(mapStateToProps,matchDispatchToProps)(HistoryPage));

@@ -48,7 +48,7 @@ function handle_request(msg, callback) {
                     }
                     else if(eachBooking.bill_type == "Hotel"){
                         console.log(eachBooking.hotel.booking_end_date);
-                        if(eachBooking.hotel.booking_start_date < new Date()){
+                        if(eachBooking.hotel.booking_end_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};
                             var retriveObj = eb;

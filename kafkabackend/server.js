@@ -34,8 +34,7 @@ var getAllBillAdmin = require('./services/getAllBillAdmin');
 var searchBillDateAdmin = require('./services/searchBillDateAdmin');
 var searchBillMonthAdmin = require('./services/searchBillMonthAdmin');
 
-
-
+var createReview = require('./services/createReview');
 
 var updateUserInfo = require('./services/updateUserInfo');
 var getUserDetails = require('./services/getUserDetails');
@@ -81,6 +80,8 @@ var get_all_bill_admin_topic_name = "get_all_bill_admin_topic";
 var search_bill_date_admin_topic_name = "search_bill_date_admin_topic";
 var search_bill_month_admin_topic_name = "search_bill_month_admin_topic";
 
+var create_review_topic_name = "create_review_topic";
+
 var login_topic_name = "login_topic";
 var signup_topic_name = "signup_topic";
 
@@ -116,7 +117,7 @@ producer.on('ready', function () {
             search_car_admin_topic_name, delete_hotel_admin_topic_name, delete_flight_admin_topic_name, delete_car_admin_topic_name,
             get_all_user_data_topic_name, search_user_data_admin_topic_name, update_user_data_admin_topic_name,
             delete_user_data_admin_topic_name, get_bookings_topic, get_all_bill_admin_topic_name, search_bill_date_admin_topic_name,
-            search_bill_month_admin_topic_name, get_revenue_topic,
+            search_bill_month_admin_topic_name, get_revenue_topic, create_review_topic_name,
         ],
         false, function (err, data) {
         });
@@ -159,12 +160,10 @@ producer.on('ready', function () {
     var search_bill_date_admin_consumer = connection.getConsumer(search_bill_date_admin_topic_name);
     var search_bill_month_admin_consumer = connection.getConsumer(search_bill_month_admin_topic_name);
 
-    
-
+    var create_review_consumer = connection.getConsumer(create_review_topic_name);
     var signup_consumer = connection.getConsumer(signup_topic_name);
     var signup_admin_consumer = connection.getConsumer(signup_admin_topic_name);
 
-   
     var hotels_topic_consumer = connection.getConsumer(hotels_topic);
     var flights_topic_consumer = connection.getConsumer(flights_topic);
     var cars_topic_consumer = connection.getConsumer(cars_topic);
@@ -172,6 +171,28 @@ producer.on('ready', function () {
     var get_bookings_topic_consumer = connection.getConsumer(get_bookings_topic);
     var get_revenue_topic_consumer = connection.getConsumer(get_revenue_topic);
 
+    console.log('create review server is running');
+    create_review_consumer.on('message', function (message) {
+        console.log('message received');
+        console.log(JSON.stringify(message.value));
+        var data = JSON.parse(message.value);
+        createReview.handle_request(data.data, function(err,res){
+            console.log('after handle'+res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+    });
 
     console.log('login server is running');
     login_consumer.on('message', function (message) {
