@@ -77,9 +77,6 @@ router.post('/', (req, res, next)=>{
                             console.log(err);
                             console.log(reply);
                         })
-                        
-
-                        console.log("hotel logs");
                         return res.status(201).send(results);
                     }
                     else if(results.code == 202){

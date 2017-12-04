@@ -3,7 +3,7 @@ var router = express.Router();
 var kafka = require('./kafka/client');
 var fs = require('fs');
 var csv = require("fast-csv");
-var stream = fs.createReadStream("hotel_log.csv");
+var stream;
 
 router.post('/', (req,res,next)=>{
 
