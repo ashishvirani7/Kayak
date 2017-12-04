@@ -54,12 +54,12 @@ class HistoryPage extends Component
                             {booking.bill_type==='Hotel' && <IconHotel width="24" height="24" color="#000000"/>}
                             {booking.bill_type==='Flight' && <IconFlight width="24" height="24" color="#000000"/>}
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             {booking.bill_type==='Car' && booking.car.city}
                             {booking.bill_type==='Hotel' && booking.hotel.city}
                             {booking.bill_type==='Flight' && booking.flight.origin+"-"+booking.flight.destination}
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-5">
                             {booking.bill_type==='Car' && booking.car.booking_start_date.slice(0,10)+" to "+booking.car.booking_end_date.slice(0,10)}
                             {booking.bill_type==='Hotel' && booking.hotel.booking_start_date.slice(0,10)+" to "+booking.hotel.booking_end_date.slice(0,10)}
                             {booking.bill_type==='Flight' && booking.flight.flight_start_date.slice(0,10)+" to "+booking.flight.flight_end_date.slice(0,10)}
@@ -68,6 +68,11 @@ class HistoryPage extends Component
                             {booking.bill_type==='Car' && '$'+booking.bill_amount}
                             {booking.bill_type==='Hotel' && '$'+booking.bill_amount}
                             {booking.bill_type==='Flight' && '$'+booking.bill_amount}
+                        </div>
+                        <div className="col-md-2">
+                            {booking.bill_type==='Car' && booking.time==='past' && '$'+booking.bill_amount}
+                            {booking.bill_type==='Hotel' && booking.time==='past' &&'$'+booking.bill_amount}
+                            {booking.bill_type==='Flight' &&  booking.time==='past' && '$'+booking.bill_amount}
                         </div>
                     </div>
                 </Paper>
