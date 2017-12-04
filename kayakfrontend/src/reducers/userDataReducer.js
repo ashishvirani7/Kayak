@@ -1,4 +1,8 @@
 import {REHYDRATE} from 'redux-persist/constants';
+import * as API from '../api/API';
+import {changeCarListing} from '../actions/carListingAction';
+import {changeFlightListing} from '../actions/flightListingAction';
+import {changeHotelListing} from '../actions/hotelListingAction';
 
 const initialState={
     loggedIn: false,
@@ -44,6 +48,14 @@ export default function(state=initialState,action){
 
         case "CHANGE_HOTEL_SEARCH":
         {
+            API.doHotelSearch(action.hotelSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        changeHotelListing(items.data);
+                    });
+                }
+            });
             return{
                 ...state,
                 hotelSearch: action.hotelSearch
@@ -60,6 +72,15 @@ export default function(state=initialState,action){
 
         case "CHANGE_FLIGHT_SEARCH":
         {
+            API.doFlightSearch(action.flightSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        changeFlightListing(items.data);
+                    });
+                }
+            });
             return{
                 ...state,
                 flightSearch: action.flightSearch
@@ -76,6 +97,16 @@ export default function(state=initialState,action){
 
         case "CHANGE_CAR_SEARCH":
         {
+            API.doCarSearch(action.carSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        changeCarListing(items.data);    
+                    });
+                }
+            });
+            console.log(action.carSearch);
             return{
                 ...state,
                 carSearch: action.carSearch

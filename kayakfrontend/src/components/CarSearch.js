@@ -74,7 +74,9 @@ class CarSearch extends Component{
                                         pickuptime: '',
                                         dropofftime: '',
                                         order:'price_asc',
-                                        filter_prop :{type:[]}
+                                        filter_prop :{type:[
+                                            "Small","Medium","Large","SUV","Luxury","PickupTruck","Van","Commercial"
+                                        ]}
                                     }
                                     if(data.city && data.toDate && data.fromDate){
                                         console.log(data);

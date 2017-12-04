@@ -67,13 +67,13 @@ class CarResults extends Component
             filter_prop :{type:type}
         }
         if(data.city && data.toDate && data.fromDate){
-            console.log(data);
+            //console.log(data);
             this.props.changeCarSearch(data);
             API.doCarSearch(data)
             .then((res)=>{
                 if(res.status===201){
                     res.json().then(items=>{
-                        console.log(items.data);
+                        //console.log(items.data);
                         this.props.changeCarListing(items.data);    
                     });
                 }
@@ -168,8 +168,9 @@ class CarResults extends Component
                     <div className="col-md-5" >
                         <div className="row" style={divstyle}>
                             
-                            <AutoComplete style={istyle}
+                            <TextField style={istyle}
                             id="city"
+                            defaultValue={this.props.userData.carSearch.city}
                             hintText={this.props.userData.carSearch.city}
                             dataSource={this.state.dataSource}
                             filter={AutoComplete.caseInsensitiveFilter}
