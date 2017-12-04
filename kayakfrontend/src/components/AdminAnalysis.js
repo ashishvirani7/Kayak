@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Bar, Line, Pie} from 'react-chartjs-2';
 
-import Chart from './AdminChart';
 import * as API from '../api/API';
 import axios from 'axios';
 import Drawer from 'material-ui/Drawer';
@@ -9,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import {Doughnut} from 'react-chartjs-2';
+import AdminCustomNavbar from './AdminCustomNavBar';
 
 var data;
 class AdminAnalysis extends Component {
@@ -18,11 +18,20 @@ class AdminAnalysis extends Component {
       chartHotelData:{},
       chartFlightData:{},
       chartCrData:{},
-      current:"hotel"
+      current:"hotel",
+      open:true
     }
   }
 
 	componentWillMount() {
+
+    API.checkAdminSession()
+    .then(res => {
+        if(res.status == 202){
+            this.props.history.push("/adminLogin");
+        }
+    });
+
     this.getHotelData();
     this.getFlightData();
     this.getCarData();
@@ -139,29 +148,36 @@ class AdminAnalysis extends Component {
     this.setState({...this.state,current:"car"})
   } 
 
+  handleAppClick(){
+    this.setState({...this.state,open:false})
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Graph</h2>
-        </div>
+        <div className="row">
+                    <div className="col-md-12" style={{backgroundColor:'black',height:'46px'}}>
+                        <div className="row" style={navstyle}>
+                            <AdminCustomNavbar />
+                        </div>
+                    </div>
+                </div>
         <div className="row">
           <div className="col-md-2 col-sm-2">
             <Drawer
               docked={true}
               width={300}
               open={true}
-              onRequestChange={(open) => this.setState({open})}
-              
+              //onRequestChange={(open) => this.setState({open})}
               >
-              <AppBar title="Analysis" />
+              <AppBar title="Analysis" onLeftIconButtonTouchTap={()=>{this.handleAppClick()}}/>
               <MenuItem onClick={()=>this.handleHotelClick()}>Top 10 Hotel</MenuItem>
               <MenuItem onClick={()=>this.handleFlightClick()}>Top 10 Flight</MenuItem>
               <MenuItem onClick={()=>this.handleCarClick()}>Top 10 Car</MenuItem>
           </Drawer>
 
           </div>
-          <div className="col-md-10 col-sm-2">
+          <div className="col-md-10 col-sm-2" style={{marginTop:"80px"}}>
             {
               this.state.current === "hotel" &&
               <div>
@@ -259,6 +275,11 @@ class AdminAnalysis extends Component {
   </div>
     );
   }
+}
+
+const navstyle={
+  marginLeft:'320px',
+  marginRight:'70px'
 }
 
 export default AdminAnalysis;

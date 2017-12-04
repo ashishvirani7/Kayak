@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Bar, Line, Pie} from 'react-chartjs-2';
 
-import Chart from './AdminChart';
 import * as API from '../api/API';
 import axios from 'axios';
 import Drawer from 'material-ui/Drawer';
@@ -9,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import {Doughnut} from 'react-chartjs-2';
+import AdminCustomNavbar from './AdminCustomNavBar';
 
 var data;
 class AdminUserTracking extends Component {
@@ -23,14 +23,21 @@ class AdminUserTracking extends Component {
   }
 
 	componentWillMount() {
+
+    API.checkAdminSession()
+    .then(res => {
+        if(res.status == 202){
+            this.props.history.push("/adminLogin");
+        }
+    });
     this.getHotelData();
     this.getFlightData();
     this.getCarData();
-	// 	setInterval(() => {
-    //   this.getHotelData();
-    //   this.getFlightData();
-    //   this.getCarData();
-	// 	}, 2000);
+		setInterval(() => {
+      this.getHotelData();
+      this.getFlightData();
+      this.getCarData();
+		}, 2000);
 	}
 
 
@@ -174,8 +181,12 @@ class AdminUserTracking extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Graph</h2>
+        <div className="row">
+        <div className="col-md-12" style={{backgroundColor:'black',height:'46px'}}>
+            <div className="row" style={navstyle}>
+                <AdminCustomNavbar />
+            </div>
+        </div>
         </div>
         <div className="row">
           <div className="col-md-3 col-sm-3">
@@ -193,7 +204,7 @@ class AdminUserTracking extends Component {
           </Drawer>
 
           </div>
-          <div className="col-md-9 col-sm-9">
+          <div className="col-md-9 col-sm-9" style={{marginTop:"80px"}}>
             {
               this.state.current === "hotel" &&
               <div>
@@ -292,5 +303,9 @@ class AdminUserTracking extends Component {
     );
   }
 }
+const navstyle={
+    marginLeft:'320px',
+    marginRight:'70px'
+  }
 
 export default AdminUserTracking;

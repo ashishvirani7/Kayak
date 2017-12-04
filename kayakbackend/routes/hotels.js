@@ -30,16 +30,38 @@ router.post('/', (req, res, next)=>{
     var filter_prop = req.body.filter_prop;
     var key = "search";
 
+    var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
+        flags: 'a'
+    })
+    logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
 
     redisClient.get(city,function(err,reply) {
         console.log(err);
         console.log(JSON.parse(reply));
         if(reply !== null){
                 console.log("Hotels found in Redis:")
+                console.log()
                 return res.status(201).send(JSON.parse(reply));
         }
         else
         {
+
+//             if(results.code == 201){
+//                 console.log("Hotels found:")
+// /*                fs.writeFile(path.join(__dirname, '../../') + 'hotel_log.csv', ' ' +`/${req.body.city} ` +  new Date(dt.now()), function (err) {
+//                     if (err) throw err;
+//                 });*/
+
+//                 var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
+//                     flags: 'a'
+//                 })
+//                 logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
+//                 return res.status(201).send(results);
+//             }
+//             else if(results.code == 202){
+//                 console.log("No hotels found")
+//                 return res.status(202).send(results);
+//             }
 
             kafka.make_request(topic_name, {key, city, checkin, checkout, guest, noOfGuest, noOfRoom, order, filter_prop}, function(err, results){
 
@@ -55,10 +77,9 @@ router.post('/', (req, res, next)=>{
                             console.log(err);
                             console.log(reply);
                         })
-                        var logger = fs.createWriteStream(path.join(__dirname, '../') + 'hotel_log.csv', {
-                            flags: 'a'
-                        })
-                        logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
+                        
+
+                        console.log("hotel logs");
                         return res.status(201).send(results);
                     }
                     else if(results.code == 202){

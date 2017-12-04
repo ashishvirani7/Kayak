@@ -42,6 +42,14 @@ class AdminCustomNavbar extends Component
         this.props.history.push("/adminShowHotelBill");
     }
 
+    redirectToAnalysis(){
+        this.props.history.push("/adminAnalysis");
+    }
+
+    redirectToUserTracking(){
+        this.props.history.push("/adminUserTracking");
+    }
+
     render(){
         return(
             <div>
@@ -66,7 +74,13 @@ class AdminCustomNavbar extends Component
                     <div className="col-md-1" onClick={()=>this.redirectToBilling()}>
                         <CustomItem name="Billing" />
                     </div>
-                    <div className="col-md-3 col-md-offset-2">
+                    <div className="col-md-1" onClick={()=>this.redirectToAnalysis()}>
+                        <CustomItem name="Analysis" />
+                    </div>
+                    <div className="col-md-1" onClick={()=>this.redirectToUserTracking()}>
+                        <CustomItem name="Tracking" />
+                    </div>
+                    <div className="col-md-3">
                         <AdminProfileItem />
                     </div>
                 </div>

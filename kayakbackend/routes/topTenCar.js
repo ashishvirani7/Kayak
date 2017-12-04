@@ -3,7 +3,7 @@ var router = express.Router();
 var kafka = require('./kafka/client');
 var fs = require('fs');
 var csv = require("fast-csv");
-var stream = fs.createReadStream("car_log.csv");
+var stream ;
 
 router.post('/', (req,res,next)=>{
 
@@ -39,10 +39,13 @@ router.post('/', (req,res,next)=>{
             var message="Get Top Ten Car..!!";
             console.log(message);
             //console.log("ID--"+results.data._id);
+            stream.unpipe(csvStream);
             return res.status(201).send({"message":sorted.slice(0,10)});
 
         });
-    stream.pipe(csvStream);
+        stream = fs.createReadStream("car_log.csv");
+        stream.pipe(csvStream);
+    
 });
 
 module.exports = router;

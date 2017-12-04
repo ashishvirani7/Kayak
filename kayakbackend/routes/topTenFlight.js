@@ -40,8 +40,10 @@ router.post('/', (req,res,next)=>{
             var message="Get Top Ten Flight..!!";
             console.log(message);
             //console.log("ID--"+results.data._id);
+            stream.unpipe(csvStream);
             return res.status(201).send({"message":sorted.slice(0,10)});
         });
+        stream = fs.createReadStream("flight_log.csv");
     stream.pipe(csvStream);
 
     
