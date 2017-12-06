@@ -149,7 +149,7 @@ function top_hotels(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -170,6 +170,7 @@ function top_hotels(msg, callback){
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
                     if(j==(len -1)){
+
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)
@@ -220,7 +221,7 @@ function top_flights(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -240,7 +241,7 @@ function top_flights(msg, callback){
                 hotels.forEach(eachHotel=>{
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
-                    if(j==(len -1)){
+                    if(j==(len-1 )){
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)
@@ -291,7 +292,7 @@ function top_cars(msg, callback){
                 $sort:{total:-1}
             },
             {
-                $limit:10
+                $limit:5
             }
         ]
 
@@ -311,7 +312,7 @@ function top_cars(msg, callback){
                 hotels.forEach(eachHotel=>{
                     arrName.push(eachHotel._id)
                     arrAmount.push(eachHotel.total)
-                    if(j==(len -1)){
+                    if(j==(len - 1)){
                         res.data.label = arrName;
                         res.data.values = arrAmount;
                         console.log("names", arrName)
@@ -324,6 +325,69 @@ function top_cars(msg, callback){
         })
 }
 
+function citywise_revenue(msg, callback){
+    var res = {data :{}};
+
+    var message = "";
+    var year = msg.year;
+    var month = msg.month;
+    var arrName = [];
+    var arrAmount = [];
+    console.log("In handle request:" + JSON.stringify(msg));
+    Bill.aggregate(
+        [
+            {
+                $project: {name: "$hotel.city", bill_date:"$bill_date", amount:"$hotel.amount"}
+
+
+            },
+            {
+                $match: {
+                    "bill_date": {$gte: new Date(msg.year+"-01-01T00:00:00.000Z"), $lte: new Date(msg.year+"-12-31T23:59:59.000Z")},
+                    //"bill_type": "Hotel"
+                }
+            },
+            {
+                $group:{_id:"$name", total:{$sum:"$amount"}}
+            },
+            {
+                $sort:{total:-1}
+            },
+            {
+                $limit:5
+            }
+        ]
+
+        , function(err, hotels){
+            if(err){
+                message="error"
+                res.code = "202"
+                res.data = message;
+                callback(null, res)
+            }
+            else{
+                res.code = "201"
+                //res.data = hotels;
+                //console.log(hotels);
+                var j = 0;
+                var len = hotels.length
+                hotels.forEach(eachHotel=>{
+                    arrName.push(eachHotel._id)
+                    arrAmount.push(eachHotel.total)
+                    if(j==(len - 1)){
+                        res.data.label = arrName;
+                        res.data.values = arrAmount;
+                        console.log("names", arrName)
+
+                        callback(null, res);
+                    }
+                    j++;
+                })
+            }
+        })
+}
+
+exports.citywise_revenue = citywise_revenue;
 exports.handle_hotels = handle_hotels;
 exports.handle_flights = handle_flights;
 exports.handle_cars = handle_cars;

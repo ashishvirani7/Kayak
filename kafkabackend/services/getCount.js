@@ -7,7 +7,7 @@ function handle_hotels(msg, callback){
     var res = {data :{}};
 
     var message = "";
-    console.log("In handle request:" + JSON.stringify(msg));
+    console.log("In handle request:" + JSONcstringify(msg));
     
     Listings.count({'listing_type':'Hotel'}
         

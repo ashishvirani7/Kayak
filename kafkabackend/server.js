@@ -1105,6 +1105,24 @@ producer.on('ready', function () {
                 return;
             });
         }
+        else if(data.data.key == "citywise"){
+            getRevenue.citywise_revenue(data.data, function(err,res){
+                console.log('after handle'+res);
+                var payloads = [
+                    { topic: data.replyTo,
+                        messages:JSON.stringify({
+                            correlationId:data.correlationId,
+                            data : res
+                        }),
+                        partition : 0
+                    }
+                ];
+                producer.send(payloads, function(err, data){
+                    console.log(data);
+                });
+                return;
+            });
+        }
 
     });
 
