@@ -133,6 +133,60 @@ function handle_getuserrecord(msg, callback){
     }).sort({'timespent': 1})
 
 }
+
+function handle_usergraph(msg, callback){
+    var res = {data :{}};
+
+    var message = "";
+    console.log("In handle request:" + JSON.stringify(msg));
+    var userid = msg.userid;
+    
+    Record.find({"userid":userid}
+    
+    , function(err, results){
+        console.log(results);
+        if(err){
+            message="error"
+            res.code = "202"
+            res.data = message;
+            callback(null, res)
+        }
+        else{
+
+            res.code = "201";
+            res.data = results;
+            callback(null, res);
+        }
+    }).sort({'timespent': 1})
+
+}
+
+function handle_allusergraph(msg, callback){
+    var res = {data :{}};
+
+    var message = "";
+    console.log("In handle request:" + JSON.stringify(msg));
+    var userid = msg.userid;
+    
+    Record.find({"userid":userid}
+    
+    , function(err, results){
+        console.log(results);
+        if(err){
+            message="error"
+            res.code = "202"
+            res.data = message;
+            callback(null, res)
+        }
+        else{
+
+            res.code = "201";
+            res.data = results;
+            callback(null, res);
+        }
+    }).sort({'timespent': 1})
+
+}
 function handle_users(msg, callback){
     var res = {data :{}};
 
@@ -218,3 +272,5 @@ exports.handle_cars = handle_cars;
 exports.handle_users = handle_users;
 exports.handle_record = handle_record;
 exports.handle_getuserrecord = handle_getuserrecord;
+exports.handle_usergraph = handle_usergraph;
+exports.handle_allusergraph = handle_allusergraph;
