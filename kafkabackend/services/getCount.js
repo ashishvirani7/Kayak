@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 mongoose.connect('54.183.101.173:27017/kayak');
 var Users = require('../models/Users');
 var Listings = require('../models/Listings');
+var Record = require('../models/Record');
 
 function handle_hotels(msg, callback){
     var res = {data :{}};
@@ -78,10 +79,36 @@ function handle_cars(msg, callback){
                 callback(null, res);
             }
         })
-
-
 }
 
+
+
+function handle_getuserrecord(msg, callback){
+    var res = {data :{}};
+
+    var message = "";
+    console.log("In handle request:" + JSON.stringify(msg));
+    var userid = msg.userid;
+    
+    Record.find({"userid":userid}
+    
+    , function(err, results){
+        console.log(results);
+        if(err){
+            message="error"
+            res.code = "202"
+            res.data = message;
+            callback(null, res)
+        }
+        else{
+
+            res.code = "201";
+            res.data = results;
+            callback(null, res);
+        }
+    }).sort({'timespent': 1})
+
+}
 function handle_users(msg, callback){
     var res = {data :{}};
 
@@ -165,4 +192,5 @@ exports.handle_hotels = handle_hotels;
 exports.handle_flights = handle_flights;
 exports.handle_cars = handle_cars;
 exports.handle_users = handle_users;
+exports.handle_record = handle_record;
 
