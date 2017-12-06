@@ -34,6 +34,8 @@ import img4 from '../images/car1.png';
 
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
+
+var R,S;
 class CarResults extends Component
 {
     state = {
@@ -47,6 +49,22 @@ class CarResults extends Component
         Van:true,
         Commercial:true,
         dataSource:cities.names
+    }
+
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: this.props.userData.carSearch.city +" Car Search",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Car Results"
+        }})
     }
 
     componentDidMount(){
