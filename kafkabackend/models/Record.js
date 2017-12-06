@@ -5,6 +5,6 @@ var Record = new Schema({
     userid: String,
     activity: String,
     timeSpent: Number,
-    timenow: Date
+    timenow: Number
 });
 module.exports = mongoose.model("Record",Record);
