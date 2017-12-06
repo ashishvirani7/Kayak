@@ -130,7 +130,7 @@ function handle_getuserrecord(msg, callback){
             res.data = results;
             callback(null, res);
         }
-    }).sort({'timespent': 1})
+    }).sort({'timespent': 1}).limit(10)
 
 }
 
@@ -141,7 +141,13 @@ function handle_usergraph(msg, callback){
     console.log("In handle request:" + JSON.stringify(msg));
     var userid = msg.userid;
     
-    Record.find({"userid":userid}
+    Record.aggregate([{
+            $match:{"userid":userid}
+        },
+        {
+            $group:{_id:"$type",total:{$sum:"$timeSpent"}}
+        }
+    ]
     
     , function(err, results){
         console.log(results);
@@ -157,7 +163,7 @@ function handle_usergraph(msg, callback){
             res.data = results;
             callback(null, res);
         }
-    }).sort({'timespent': 1})
+    })
 
 }
 
@@ -168,8 +174,11 @@ function handle_allusergraph(msg, callback){
     console.log("In handle request:" + JSON.stringify(msg));
     var userid = msg.userid;
     
-    Record.find({"userid":userid}
-    
+    Record.aggregate([
+        {
+            $group:{_id:"$type",total:{$sum:"$timeSpent"}}
+        }
+    ]
     , function(err, results){
         console.log(results);
         if(err){
@@ -184,7 +193,7 @@ function handle_allusergraph(msg, callback){
             res.data = results;
             callback(null, res);
         }
-    }).sort({'timespent': 1})
+    })
 
 }
 function handle_users(msg, callback){
