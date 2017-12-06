@@ -133,7 +133,7 @@ function handle_users(msg, callback){
                                 res.code = "201";
                                 data.flights = results;
                                 
-                                Listings.count({'listing_type':'Hotel'}
+                                Listings.count({'listing_type':'Car'}
         
                                 , function(err, results){
                                     console.log(results);
