@@ -26,6 +26,7 @@ function handle_request(msg, callback) {
                 var len = bookings.length;
                 var bk = [];
                 j=0;
+                console.log("booking :", bookings);
                 bookings.forEach(eachBooking =>{
                     if(eachBooking.bill_type == "Flight"){
                         if(eachBooking.flight.flight_end_date < new Date()){
@@ -68,7 +69,8 @@ function handle_request(msg, callback) {
                         }
                     }
                     else if(eachBooking.bill_type == "Car"){
-                        if(eachBooking.car.booking_end_date < new Date()){
+                        console.log("each",eachBooking.car.booking_start_date)
+                        if(eachBooking.car.booking_start_date < new Date()){
                             var eb = JSON.stringify(eachBooking);
                             var obj = {time : "past"};
                             var retriveObj = eb;

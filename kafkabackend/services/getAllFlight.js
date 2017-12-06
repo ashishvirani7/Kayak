@@ -45,6 +45,6 @@ function handle_request(msg, callback) {
             res.data = flightFrontEnd;
             callback(null, res);
         }
-    });
+    }).limit(100);
 }
 exports.handle_request = handle_request;

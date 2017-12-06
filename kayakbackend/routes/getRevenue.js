@@ -138,4 +138,31 @@ router.post('/topcars', (req, res, next)=>{
         }
     })
 });
+
+router.post('/citywise', (req, res, next)=>{
+    var hotelName = req.body.hotelName;
+    var year = req.body.year;
+    var month = req.body.month;
+    var key = "citywise";
+    kafka.make_request(topic_name, {key, hotelName, year, month}, function(err, results){
+        if(err){
+            done(err,{});
+        }
+        else
+        {
+            if(results.code == 201){
+                console.log("Hotel Revenue found")
+                return res.status(201).send(results);
+            }
+            else if(results.code == 202){
+                console.log("Hotel Revenue not found")
+                return res.status(202).send(results);
+            }
+        }
+    })
+});
+
+router.post('/topintown', function(req, res, next){
+    console.log("mes:", req.body.name)
+})
 module.exports = router;

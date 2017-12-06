@@ -44,7 +44,7 @@ function handle_request(msg, callback) {
             res.data = carFrontEnd;
             callback(null, res);
         }
-    });
+    }).limit(100);
 
 }
 exports.handle_request = handle_request;

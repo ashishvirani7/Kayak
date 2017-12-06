@@ -69,6 +69,9 @@ class LoginModal extends React.Component {
                         NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
                         // this.props.history.push("/");
                     } 
+                    else{
+                        NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                    }
                 });
             }
             else{

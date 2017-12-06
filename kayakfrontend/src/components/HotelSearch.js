@@ -20,8 +20,19 @@ import * as API from '../api/API';
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
 
+var S;
+var R;
 class HotelSearch extends Component{
 
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+    }
     
     state = {
         valueRoom:1,

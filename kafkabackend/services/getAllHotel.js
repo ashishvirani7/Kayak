@@ -50,7 +50,7 @@ function handle_request(msg, callback) {
             res.data = hotelFrontEnd;
             callback(null, res);
         }
-    });
+    }).limit(100);
 
 }
 exports.handle_request = handle_request;
