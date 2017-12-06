@@ -83,6 +83,30 @@ function handle_cars(msg, callback){
 
 
 
+function handle_record(msg, callback){
+    var res = {data :{}};
+
+    var message = "";
+    console.log("In handle request:" + JSON.stringify(msg));
+    var record = new Record(msg.record);
+    record.save({},function(err, product, numAffected){
+        if (err) {
+            console.log("Some Error Happened while Inserting record");
+            res.code = "500";
+            res.data = message;
+            callback(null, res);
+        }
+        else {
+            message = numAffected + " rows added into record\n" + product;
+            console.log(message);
+            res.code = "201";
+            res.data = "record inserted";
+            callback(null, res);
+        }
+    });
+
+}
+
 function handle_getuserrecord(msg, callback){
     var res = {data :{}};
 
@@ -193,4 +217,4 @@ exports.handle_flights = handle_flights;
 exports.handle_cars = handle_cars;
 exports.handle_users = handle_users;
 exports.handle_record = handle_record;
-
+exports.handle_getuserrecord = handle_getuserrecord;
