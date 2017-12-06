@@ -14,7 +14,8 @@ import AuthorizedRoute from './components/AuthorizedRoute';
 import UnAuthorizedRoute from './components/UnAuthorizedRoute';
 import AdminAccount from './components/adminAccountPage';
 import UserBooking from './components/UserBooking';
-
+import AdminAnalysis from './components/AdminAnalysis';
+import AdminUserTracking from './components/AdminUserTracking';
 const  App = () => {
     return(
       <div>
@@ -24,6 +25,7 @@ const  App = () => {
         <Route exact path="/flights" component={HomePage}/>
         <Route exact path="/account" component={AccountPage}/>
         <Route exact path="/history" component={AccountPage}/>
+        <Route exact path="/write-review" component={AccountPage}/>
         <Route exact path="/payment-methods" component={AccountPage}/>
         <Route exact path="/adminLogin" component={AdminLogin}/>
         <Route exact path="/adminHome" component={AdminHome}/>
@@ -55,7 +57,8 @@ const  App = () => {
         <Route exact path="/adminShowCarBill" component={AdminHome}/>
 
         <Route exact path="/adminShowBill" component={AdminHome}/>
-        
+        <Route exact path="/adminAnalysis" component={AdminAnalysis}/>
+        <Route exact path="/adminUserTracking" component={AdminUserTracking}/>
 
         <NotificationContainer/>
       </div>);

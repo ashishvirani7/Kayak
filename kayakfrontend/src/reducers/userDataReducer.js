@@ -1,4 +1,8 @@
 import {REHYDRATE} from 'redux-persist/constants';
+import * as API from '../api/API';
+import {changeCarListing} from '../actions/carListingAction';
+import {changeFlightListing} from '../actions/flightListingAction';
+import {changeHotelListing} from '../actions/hotelListingAction';
 
 const initialState={
     loggedIn: false,
@@ -11,7 +15,16 @@ const initialState={
     billing:
     {
         carddetails:{card_name:''}
-    }
+    },
+    hotels:[],
+    flights:[],
+    cars:[],
+    hotelSearch:{},
+    flightSearch:{},
+    carSearch:{},
+    history:[],
+    booking:{},
+    review:{}
 }
 
 export default function(state=initialState,action){
@@ -36,6 +49,14 @@ export default function(state=initialState,action){
 
         case "CHANGE_HOTEL_SEARCH":
         {
+            API.doHotelSearch(action.hotelSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        changeHotelListing(items.data);
+                    });
+                }
+            });
             return{
                 ...state,
                 hotelSearch: action.hotelSearch
@@ -52,6 +73,15 @@ export default function(state=initialState,action){
 
         case "CHANGE_FLIGHT_SEARCH":
         {
+            API.doFlightSearch(action.flightSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        changeFlightListing(items.data);
+                    });
+                }
+            });
             return{
                 ...state,
                 flightSearch: action.flightSearch
@@ -68,6 +98,16 @@ export default function(state=initialState,action){
 
         case "CHANGE_CAR_SEARCH":
         {
+            API.doCarSearch(action.carSearch)
+            .then((res)=>{
+                if(res.status===201){
+                    res.json().then(items=>{
+                        console.log(items.data);
+                        changeCarListing(items.data);    
+                    });
+                }
+            });
+            console.log(action.carSearch);
             return{
                 ...state,
                 carSearch: action.carSearch
@@ -87,6 +127,30 @@ export default function(state=initialState,action){
             return{
                 ...state,
                 booking: action.booking,
+            };
+        }
+
+        case "REMOVE_BOOKING":
+        {
+            return{
+                ...state,
+                booking:{}
+            }
+        }
+
+        case "CHANGE_HISTORY":
+        {
+            return{
+                ...state,
+                history: action.history,
+            };
+        }
+
+        case "SET_REVIEW_DATA":
+        {
+            return{
+                ...state,
+                review:action.data
             };
         }
 

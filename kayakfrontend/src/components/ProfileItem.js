@@ -31,8 +31,20 @@ class ProfileItem extends Component {
         this.state = {
           open: false,
         };
-      }
-      handleTouchTap = (event) => {
+    }
+
+    componentWillMount(){
+        API.checkSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.logout();
+                this.props.history.push("/");
+                NotificationManager.warning('Not a member of Kayak?','Please Register To Continue',5000);
+            }
+        });
+    }
+    
+    handleTouchTap = (event) => {
         // This prevents ghost click.
         event.preventDefault();
     
@@ -63,8 +75,8 @@ class ProfileItem extends Component {
           .then((res)=>{
             if(res.status === 201){
                 this.handleRequestClose();
-                this.props.logout();
                 NotificationManager.success("Bye","Logout Successful",2500,true);
+                this.props.logout();
                 this.props.history.push('/');
             }
           });

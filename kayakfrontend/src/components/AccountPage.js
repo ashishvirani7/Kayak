@@ -8,9 +8,21 @@ import HistoryPage from './HistoryPage';
 import PaymentPage from './PaymentPage'
 
 import HomeFooter from './HomeFooter';
+import WriteReview from './WriteReview';
+import * as API from '../api/API';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AccountPage extends Component
 {
+    componentWillMount(){
+        API.checkSession()
+        .then(res => {
+            if(res.status == 202){
+                this.props.history.push("/");
+                NotificationManager.warning('Not a member of Kayak?','Please Login To Continue',5000);
+            }
+        });
+    }
     render(){
         return(
             <div>
@@ -39,6 +51,7 @@ class AccountPage extends Component
                             <Route exact path="/account" component={Preferences}/>
                             <Route exact path="/history" component={HistoryPage}/>
                             <Route exact path="/payment-methods" component={PaymentPage}/>
+                            <Route exact path="/write-review" component={WriteReview}/>
                     </div>
                 </div>
                 <div className="row" style={{marginTop:'60px'}}>

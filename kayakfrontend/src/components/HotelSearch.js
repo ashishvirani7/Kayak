@@ -10,6 +10,8 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+
+
 import {changeHotelListing} from '../actions/hotelListingAction';
 import {changeHotelSearch} from '../actions/hotelSearchAction';
 
@@ -35,6 +37,7 @@ class HotelSearch extends Component{
     render() {
         return(
             <div className="col-md-12">
+                
                 <div className="row" style={rstyle}>
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
@@ -112,7 +115,7 @@ class HotelSearch extends Component{
                         <div className="row" style={divstyle}>
                             <button style={btnstyle}
                                 id="destbtn"
-                                hintText="Where"
+                                hintText="    Where"
                                 type="submit"
                                 onClick={()=>{
                                     
@@ -125,7 +128,7 @@ class HotelSearch extends Component{
                                         filter_prop:{ratings: 0},
                                         order:'price_asc'
                                     }
-                                    if(data.city && data.checkIn && data.checkOut){
+                                    if(data.city && data.checkIn && data.checkOut && (new Date(data.checkOut)-new Date(data.checkIn)>0) && (new Date(data.checkIn) > new Date())){
                                         console.log(data);
                                         this.props.changeHotelSearch(data);
                                         API.doHotelSearch(data)
@@ -139,7 +142,7 @@ class HotelSearch extends Component{
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
                                     }
                                 }}
                             >

@@ -3,6 +3,9 @@ var router = express.Router();
 var kafka = require('./kafka/client');
 var topic_name = "update_hotel_admin_topic";
 
+var redis = require('redis');
+var redisClient = redis.createClient({host : 'localhost', port : 6379});
+
 router.post('/', (req,res,next)=>{
     var message="";
     var hotelObject = {
@@ -24,13 +27,14 @@ router.post('/', (req,res,next)=>{
     kafka.make_request(topic_name, hotelObject, function(err,results){
         console.log('in result');
         console.log(hotelObject);
-        console.log(results);
+        console.log(" I got this:"+JSON.stringify(results));
         if(err){
             done(err,{});
         }
         else
         {
             if(results.code == 201){
+                
                 message="Hotel Updated Successfully";
                 console.log(message);
                 console.log("ID--"+results.data._id);

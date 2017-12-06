@@ -18,8 +18,13 @@ import {changeUserData} from '../actions/userDataAction.js';
 import * as API from '../api/API';
 
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
+const emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"; 
 class LoginModal extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = { errorEmailText: '',errorPasswordText:''}
+    }
 
   handleOpen = () => {
     this.props.loginModalOpen();
@@ -37,32 +42,45 @@ class LoginModal extends React.Component {
   handleLogin = (loginData) => {
 
     var cipherVal=CryptoJS.AES.encrypt(loginData.password,"kayak");
+
+        if(loginData.email.match(emailRegex)){
+            if((loginData.password).toString().length > 0 ){
+                var loginDetails={
+                    email:loginData.email,
+                    password:cipherVal.toString(),
+                }
+                API.doLogin(loginDetails)
+                .then((res) => {
+                    console.log(res.status);
+                    if (res.status === 201) {
+                        console.log("Success");
+                        console.log(res);
+                        res.json().then(user => {
+                            console.log(user.loginData);
+                            this.props.changeUserData(user.loginData);
+                            // this.props.loginSuccess(user);
+                            // this.props.setPath("/home");
+                            NotificationManager.success("Welcome", "Login Successful", 2500, true);
+                            this.props.loginModalDone();
+                        });
+                
+                    } else if (res.status === 401) {
+                        console.log("Fail");
+                        NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                        // this.props.history.push("/");
+                    } 
+                });
+            }
+            else{
+                NotificationManager.error("Please enter a password", "Login Failed", 2500, true);
+            }
+        }
+        else{
+            NotificationManager.error("Enter valid email", "Login Failed", 2500, true);
+        }
     
-    var loginDetails={
-        email:loginData.email,
-        password:cipherVal.toString(),
-    }
-    API.doLogin(loginDetails)
-    .then((res) => {
-        if (res.status === 201) {
-            console.log("Success");
-            console.log(res);
-            res.json().then(user => {
-                console.log(user.loginData);
-                this.props.changeUserData(user.loginData);
-                // this.props.loginSuccess(user);
-                // this.props.setPath("/home");
-                NotificationManager.success("Welcome", "Login Successful", 2500, true);
-                this.props.loginModalDone();
-            });
-    
-        } else if (res.status === 401) {
-            console.log("Fail");
-            NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-            // this.props.history.push("/");
-        } 
-    });
   }
+
 
   render() {
     
@@ -106,15 +124,19 @@ class LoginModal extends React.Component {
         <br/>
         <div class="loginMain" style={loginMainStyle}>    
             <input id="cPwX-username" type="text" name="email"  placeholder="Email Address" style={emailStyle}
+                errorText={this.state.errorEmailText}
                 onChange={(event)=>
                 {event.persist();
                 this.props.changeValue(event);
+                
                 }}
             />      
             <input id="cPwX-password" type="password" name="password"  placeholder="Password" style={emailStyle}
+                errorText={this.state.errorPasswordText}
                 onChange={(event)=>
                 {event.persist();
                 this.props.changeValue(event);
+                
                 }}
             />
             <button id="cPwX-submit"  type="submit" style={buttonStyle} onClick={()=> this.handleLogin(this.props.loginData)}>

@@ -26,7 +26,7 @@ function handle_request(msg, callback) {
             {
                 "listing_type":"Car",
                 "car.city":{'$regex':'^'+city+'+',$options:'i'},
-                "car.car_type":{$nin:"'"+filter_prop.type+"'"},
+                "car.car_type":{$in:filter_prop.type},
             }, function(err, cars){
                 if(err){
                     message="error"
@@ -41,13 +41,15 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['car.car_rental_price',-1]])
+            }).sort({'car.car_rental_price': 1})
+        //sort([['car.car_rental_price',-1]])
     }
     else{
         Listings.find(
             {
+                "listing_type":"Car",
                 "car.city":{'$regex':'^'+city+'+',$options:'i'},
-                "car.car_type":{$nin:"'"+filter_prop.type+"'"},
+                "car.car_type":{$in:filter_prop.type},
             }, function(err, cars){
                 if(err){
                     message="error"
@@ -62,7 +64,8 @@ function handle_request(msg, callback) {
                     res.data = message;
                     callback(null, res);
                 }
-            }).sort([['car.car_rental_price',-1]])
+            }).sort({'car.car_rental_price': -1})
+        //sort([['car.car_rental_price',1]])
     }
 
 }

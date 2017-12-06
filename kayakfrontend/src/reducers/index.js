@@ -17,6 +17,7 @@ import adminUserData from './adminDataReducer';
 import adminAllUsersData from './adminAllUsers';
 import adminBill from './adminAllBill';
 
+
 const allReducers = combineReducers({
     loginModal,
     loginData,
@@ -34,7 +35,8 @@ const allReducers = combineReducers({
     adminUpdateCurrentData,
     adminUserData,
     adminAllUsersData,
-    adminBill
+    adminBill,
+
  });
  
  export default allReducers;

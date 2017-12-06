@@ -74,9 +74,11 @@ class CarSearch extends Component{
                                         pickuptime: '',
                                         dropofftime: '',
                                         order:'price_asc',
-                                        filter_prop :{type:[]}
+                                        filter_prop :{type:[
+                                            "Small","Medium","Large","SUV","Luxury","PickupTruck","Van","Commercial"
+                                        ]}
                                     }
-                                    if(data.city && data.toDate && data.fromDate){
+                                    if(data.city && data.toDate && data.fromDate && (new Date(data.toDate)-new Date(data.fromDate)>0) && (new Date(data.fromDate) > new Date())){
                                         console.log(data);
                                         this.props.changeCarSearch(data);
                                         API.doCarSearch(data)
@@ -90,7 +92,7 @@ class CarSearch extends Component{
                                         });
                                     }
                                     else{
-                                        NotificationManager.warning('Enter Search Details','Search Fields are Empty',2500);
+                                        NotificationManager.warning('Enter Valid Details','Search Fields Are Invalid',2500);
                                     }
                                     
                                 }}

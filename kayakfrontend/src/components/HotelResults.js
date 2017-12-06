@@ -16,6 +16,11 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 
 import * as API from '../api/API';
 
+import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
+import {loginModalOpen} from '../actions/loginModalAction';
+import {signupModalOpen} from '../actions/signupModalAction';
+
 import img1 from '../images/price-alert_ad_white.png';
 import img2 from '../images/price-alert_ad_v1.jpg';
 import img3 from '../images/explore_ad_white.png';
@@ -63,20 +68,21 @@ class HotelResults extends Component
             order:      this.state.sort?'price_desc':'price_asc',
         }
         console.log(data);
-        if(data.city && data.checkIn && data.checkOut){
+        if(data.city && data.checkIn && data.checkOut && (new Date(data.checkOut)-new Date(data.checkIn)>0) && (new Date(data.checkIn) > new Date())){
             //console.log(data);
             this.props.changeHotelSearch(data);
             API.doHotelSearch(data)
             .then((res)=>{
                 if(res.status===201){
                     res.json().then(items=>{
+                        console.log(items.data);
                         this.props.changeHotelListing(items.data);
                     });
                 }
             });
         }
         else{
-            //NotificationManager.warning('Enter Searh Details','Search Fields are Empty',2500);
+            NotificationManager.warning('Enter Valid Details','Search Fields are Invalid',2500);
         }
     }
 
@@ -131,39 +137,36 @@ class HotelResults extends Component
                             </div>
                             <div className="col-md-4" style={{borderLeft:'100px',borderLeftColor:'#ebebed',height:'100%',textAlign:'center'}}>
                                 <div className="row" style={{fontSize:'25px',fontWeight:'500',marginTop:'30px'}}>
-                                    {'$'+hotel.hotel.rooms[0].room_price}
+                                    {(this.state.roomType==='Standard') && '$'+hotel.hotel.rooms[0].room_price}
+                                    {(this.state.roomType==='Suite') && '$'+hotel.hotel.rooms[1].room_price}
+                                    {(this.state.roomType==='Delux') && '$'+hotel.hotel.rooms[2].room_price}
                                 </div>
                                 <div className="row" style={{marginTop:'20px'}}>
                                     <button style={btnstyle1} labelColor='white'
                                     onClick={()=>{
-                                        var data = {
-                                            bookingType: 'Hotel',
-                                            hotel: hotel.hotel,
-                                            hotelid: hotel._id,
-                                            city:       document.getElementById('destination').value,
-                                            checkIn:    document.getElementById('fromDate').value,
-                                            checkOut:   document.getElementById('toDate').value,
-                                            noOfRoom:   this.state.valueRoom,
-                                            noOfGuest:  this.state.valueGuest,
-                                            roomType: this.state.roomType
+
+                                        if((!this.props.userData.loggedIn)){
+                                            this.props.loginModalOpen();
                                         }
-                                        console.log(data);
-                                        this.props.changeBooking(data);
-                                        this.props.history.push('/booking');
+                                        else{
+                                            var data = {
+                                                bookingType: 'Hotel',
+                                                hotel: hotel.hotel,
+                                                hotelid: hotel._id,
+                                                city:       document.getElementById('destination').value,
+                                                checkIn:    document.getElementById('fromDate').value,
+                                                checkOut:   document.getElementById('toDate').value,
+                                                noOfRoom:   this.state.valueRoom,
+                                                noOfGuest:  this.state.valueGuest,
+                                                roomType: this.state.roomType
+                                            }
+                                            console.log(data);
+                                            this.props.changeBooking(data);
+                                            this.props.history.push('/booking');
+                                        }
                                     }}
                                     >Book Now</button>
                                 </div>
-                                <div className="row" style={{marginTop:'20px'}}>
-                                <SelectField
-                                    value={"Standard"}
-                                    onChange={this.handleChangeRoomType}
-                                    style={{...istyle,width:'120px',fontSize:'14px'}}
-                                    >
-                                    <MenuItem value={"Standard"} primaryText="Standard" />
-                                    <MenuItem value={"Suite"} primaryText="Suite" />
-                                    <MenuItem value={"Delux"} primaryText="Delux" />
-                                </SelectField>
-                               </div>
                             </div>
                         </div>
                     </div>
@@ -179,10 +182,13 @@ class HotelResults extends Component
         return(
             <div>
                 <div className="row" style={rstyle}>
+                    {this.props.loginModal.isOpen && <LoginModal/>}
+                    {this.props.signupModal.isOpen && <SignupModal/>}
                     <div className="col-md-3" >
                         <div className="row" style={divstyle}>
                             
-                            <AutoComplete style={istyle}
+                            <TextField style={istyle}
+                                defaultValue={this.props.userData.hotelSearch.city}
                                 id="destination"
                                 hintText={this.props.userData.hotelSearch.city}
                                 dataSource={this.state.dataSource}
@@ -337,6 +343,34 @@ class HotelResults extends Component
                                 </div>
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="col-md-12" style={{margin:'10px',marginTop:'0px',backgroundColor:'white'}}>
+                                <div class="row" style={starttitle} >
+                                    <span style={{float:'left'}}>Room Type</span>
+                                    <span style={{float:'right',marginTop:'5px',color:'#558fe6',fontWeight:'100',fontSize:'12px',width:'fit-content'}} hoverColor="white" onClick={()=>{
+                                        //console.log('click');
+                                        this.setState({...this.state,roomType:'Standard'});
+                                        this.getHotels();
+                                    }}>RESET</span>
+                                </div>
+                                <div class="row" >
+                                    <hr style={{borderTop:'1px solid rgba(0,0,0,0.1)',width:'83%',marginTop:'0px',marginLeft:'15px'}}/>
+                                </div>
+                                <div className="row" style={{marginLeft:'-30px'}}>
+                                <SelectField
+                                    value={this.state.roomType}
+                                    onChange={this.handleChangeRoomType}
+                                    style={{...istyle,width:'200px',fontSize:'14px',marginLeft:'30px',marginTop:'0px'}}
+                                    underlineFocusStyle={{"borderColor":"#ec7132"}}
+                                    underlineStyle={{"borderColor":"white",marginTop:"40px"}}
+                                    >
+                                    <MenuItem value={"Standard"} primaryText="Standard" />
+                                    <MenuItem value={"Suite"} primaryText="Suite" />
+                                    <MenuItem value={"Delux"} primaryText="Delux" />
+                                </SelectField>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-7">
                         <div class="row">
@@ -435,6 +469,8 @@ const divstyle={
 function mapStateToProps(state){
     return{
         userData:state.userData,
+        loginModal:state.loginModal,
+        signupModal:state.signupModal
     };
 }
 
@@ -443,7 +479,9 @@ function matchDispatchToProps(dispatch){
         {
             changeHotelListing,
             changeHotelSearch,
-            changeBooking
+            changeBooking,
+            loginModalOpen,
+            signupModalOpen
         }
     ,dispatch);
 }

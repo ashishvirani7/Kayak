@@ -551,7 +551,73 @@ fetch(`${api}/adminLogout`, {
         return error;
 });
 
+export const doAdminAnalysisRevenueHotel = (payload) =>
+fetch(`${api}/getRevenue/tophotels`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
 
+export const doAdminAnalysisRevenueFlight = (payload) =>
+fetch(`${api}/getRevenue/topflights`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const doAdminAnalysisRevenueCar = (payload) =>
+fetch(`${api}/getRevenue/cars`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const createReview = (payload) =>
+fetch(`${api}/createReview`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+    });
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {
@@ -697,6 +763,39 @@ fetch(`${api}/flights/book`, {
     },
     credentials:'include',
     body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const getAllBookings = (payload) =>
+fetch(`${api}/getBookings`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
+export const getCount = () =>
+fetch(`${api}/getcount/users`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
 }).then(res => {
     return res;
 })
