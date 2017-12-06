@@ -33,16 +33,16 @@ class ProfileItem extends Component {
         };
     }
 
-    componentWillMount(){
-        API.checkSession()
-        .then(res => {
-            if(res.status == 202){
-                this.props.logout();
-                this.props.history.push("/");
-                NotificationManager.warning('Not a member of Kayak?','Please Register To Continue',5000);
-            }
-        });
-    }
+    // componentWillMount(){
+    //     API.checkSession()
+    //     .then(res => {
+    //         if(res.status == 202){
+    //             this.props.logout();
+    //             this.props.history.push("/");
+    //             NotificationManager.warning('Not a member of Kayak?','Please Register To Continue',5000);
+    //         }
+    //     });
+    // }
     
     handleTouchTap = (event) => {
         // This prevents ghost click.

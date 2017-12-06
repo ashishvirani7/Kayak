@@ -107,13 +107,13 @@ class AdminAllHotels extends Component{
                                 <div className="col-md-2">
                                     {hotel.hotel_name}
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-2">
                                     {hotel.street}
                                 </div>
                                 <div className="col-md-2">
                                     {hotel.city}
                                 </div>
-                                <div className="col-md-1">
+                                <div className="col-md-2">
                                     {hotel.state}
                                 </div>
                                 <div className="col-md-1">
@@ -179,22 +179,26 @@ class AdminAllHotels extends Component{
 
     searchHotel(){
         console.log(this.state.hotel_name);
-        API.searchHotelAdmin({hotel_name:this.state.hotel_name})
-        .then((res) => {
-            if (res.status === 201) {
-                res.json().then(data => {
-                    console.log(JSON.stringify(data))
-                    this.props.adminAllHotels(data.message.data);
-                    //NotificationManager.success("Success", data.message, 2500, true);
-                    // this.props.history.push("/logs");
-                });
-                
-            } else if (res.status === 401) {
-                console.log("Fail");
-                //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
-                // this.props.history.push("/");
-            } 
-        });
+
+        if((this.state.hotel_name).length >2){
+            API.searchHotelAdmin({hotel_name:this.state.hotel_name})
+            .then((res) => {
+                if (res.status === 201) {
+                    res.json().then(data => {
+                        console.log(JSON.stringify(data))
+                        this.props.adminAllHotels(data.message.data);
+                        //NotificationManager.success("Success", data.message, 2500, true);
+                        // this.props.history.push("/logs");
+                    });
+                    
+                } else if (res.status === 401) {
+                    console.log("Fail");
+                    //NotificationManager.error("Invalid username and password", "Login Failed", 2500, true);
+                    // this.props.history.push("/");
+                } 
+            });
+        }
+        
         
     }
 
@@ -234,13 +238,13 @@ class AdminAllHotels extends Component{
                             <div className="col-md-2">
                                 Hotel
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                                 Street
                             </div>
                             <div className="col-md-2">
                                 City
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-2">
                                 State
                             </div>
                             <div className="col-md-1">

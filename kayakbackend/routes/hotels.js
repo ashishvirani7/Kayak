@@ -35,16 +35,16 @@ router.post('/', (req, res, next)=>{
     })
     logger.write(`\r\n${req.body.city}` + ','+new Date(dt.now())+','+'1');
 
-    redisClient.get(city,function(err,reply) {
-        console.log(err);
-        console.log(JSON.parse(reply));
-        if(reply !== null){
-                console.log("Hotels found in Redis:")
-                console.log()
-                return res.status(201).send(JSON.parse(reply));
-        }
-        else
-        {
+    // redisClient.get(city,function(err,reply) {
+    //     console.log(err);
+    //     console.log(JSON.parse(reply));
+    //     if(reply !== null){
+    //             console.log("Hotels found in Redis:")
+    //             console.log()
+    //             return res.status(201).send(JSON.parse(reply));
+    //     }
+    //     else
+    //     {
 
 //             if(results.code == 201){
 //                 console.log("Hotels found:")
@@ -85,8 +85,8 @@ router.post('/', (req, res, next)=>{
                     }
                 }
             })
-        }
-    });
+    //     }
+    // });
 
 })
 

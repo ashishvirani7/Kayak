@@ -11,6 +11,17 @@ import {Doughnut} from 'react-chartjs-2';
 import AdminCustomNavbar from './AdminCustomNavBar';
 
 var data;
+
+const TraceData = {
+  labels: ['Hotel HomePage','San Jose Hotel', 'Flight HomePage', 'Car HomePage', 'Flight HomePage','San Jose-New York Flight'],
+  datasets: [
+    {
+      label: 'User Trace',
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      data: [65, 59, 80, 81, 56,91]
+    }
+  ]
+};
 class AdminUserTracking extends Component {
   constructor(){
     super();
@@ -182,6 +193,8 @@ class AdminUserTracking extends Component {
       });
   }
 
+  
+
   handleHotelClick(){
     this.setState({...this.state,current:"hotel"})
   }
@@ -191,6 +204,10 @@ class AdminUserTracking extends Component {
   handleCarClick(){
     this.setState({...this.state,current:"car"})
   } 
+
+  handleUserTrack(){
+    this.setState({...this.state,current:"trace"})
+  }
 
   render() {
     return (
@@ -215,10 +232,11 @@ class AdminUserTracking extends Component {
               <MenuItem onClick={()=>this.handleHotelClick()}>Top 10 Cities for Hotel Search</MenuItem>
               <MenuItem onClick={()=>this.handleFlightClick()}>Top 10 Cities for Flight Search</MenuItem>
               <MenuItem onClick={()=>this.handleCarClick()}>Top 10 cities for Car Search</MenuItem>
+              <MenuItem onClick={()=>this.handleUserTrack()}>User Trace</MenuItem>
           </Drawer>
 
           </div>
-          <div className="col-md-9 col-sm-9" style={{marginTop:"80px"}}>
+          <div className="col-md-8 col-sm-8" style={{marginTop:"80px"}}>
             <div className="row" style={{marginBottom:'20px',fontSize:'20px',fontWeight:'400'}}>
                 <div className="col-md-3 col-sm-3">
                     Users:{this.state.users}
@@ -290,6 +308,14 @@ class AdminUserTracking extends Component {
                 }}
               />
             </div>
+            }
+            {
+              this.state.current === "trace" &&
+              <div>
+                <Line data={TraceData}
+                  
+                />
+              </div>
             }
             </div>
             

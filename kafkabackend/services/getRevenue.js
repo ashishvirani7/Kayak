@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
-mongoose.connect('54.183.101.173:27017/kayak');
+
+
+
+mongoose.connect('mongodb://54.183.101.173:27017/kayak');
 var Bill = require('../models/Bill');
 
 function handle_hotels(msg, callback){

@@ -163,7 +163,7 @@ class AdminAnalysis extends Component {
                     </div>
                 </div>
         <div className="row">
-          <div className="col-md-2 col-sm-2">
+          <div className="col-md-3 col-sm-3">
             <Drawer
               docked={true}
               width={300}
@@ -177,7 +177,7 @@ class AdminAnalysis extends Component {
           </Drawer>
 
           </div>
-          <div className="col-md-10 col-sm-2" style={{marginTop:"80px"}}>
+          <div className="col-md-9 col-sm-9" style={{marginTop:"80px"}}>
             {
               this.state.current === "hotel" &&
               <div>
