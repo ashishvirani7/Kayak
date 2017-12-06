@@ -172,7 +172,6 @@ function handle_allusergraph(msg, callback){
 
     var message = "";
     console.log("In handle request:" + JSON.stringify(msg));
-    var userid = msg.userid;
     
     Record.aggregate([
         {

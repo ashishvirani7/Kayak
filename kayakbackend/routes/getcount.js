@@ -187,8 +187,7 @@ router.post('/getAllUserGraph', (req,res,next)=>{
     
         var message="";
         var key = "allusergraph";
-        var userid = req.body.userid;
-        kafka.make_request(topic_name, {key,userid}, function(err,results){
+        kafka.make_request(topic_name, {key}, function(err,results){
             console.log('in result');
             console.log(results);
             if(err){
