@@ -139,8 +139,8 @@ router.post('/getRecord', (req,res,next)=>{
 
     var message="";
     var key = "userrecord10";
-    var userid = req.body.userid;
-    kafka.make_request(topic_name, {key,userid}, function(err,results){
+    var userid = req.body.email;
+    kafka.make_request(topic_name, {key,email}, function(err,results){
         console.log('in result');
         console.log(results);
         if(err){
@@ -163,8 +163,8 @@ router.post('/getUserGraph', (req,res,next)=>{
     
         var message="";
         var key = "usergraph";
-        var userid = req.body.userid;
-        kafka.make_request(topic_name, {key,userid}, function(err,results){
+        var email = req.body.email;
+        kafka.make_request(topic_name, {key,email}, function(err,results){
             console.log('in result');
             console.log(results);
             if(err){

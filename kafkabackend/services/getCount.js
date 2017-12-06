@@ -112,9 +112,9 @@ function handle_getuserrecord(msg, callback){
 
     var message = "";
     console.log("In handle request:" + JSON.stringify(msg));
-    var userid = msg.userid;
+    var email = msg.email;
     
-    Record.find({"userid":userid}
+    Record.find({"email":email}
     
     , function(err, results){
         console.log(results);
@@ -139,10 +139,10 @@ function handle_usergraph(msg, callback){
 
     var message = "";
     console.log("In handle request:" + JSON.stringify(msg));
-    var userid = msg.userid;
+    var eamil = msg.eamil;
     
     Record.aggregate([{
-            $match:{"userid":userid}
+            $match:{"email":email}
         },
         {
             $group:{_id:"$type",total:{$sum:"$timeSpent"}}
