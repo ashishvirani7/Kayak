@@ -139,7 +139,7 @@ function handle_usergraph(msg, callback){
 
     var message = "";
     console.log("In handle request:" + JSON.stringify(msg));
-    var eamil = msg.eamil;
+    var email = msg.eamil;
     
     Record.aggregate([{
             $match:{"email":email}
