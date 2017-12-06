@@ -31,6 +31,7 @@ import AA from '../images/DL.png';
 
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
+var R,S;
 class FlightResults extends Component
 {
     state = {
@@ -39,6 +40,22 @@ class FlightResults extends Component
         sort:0,
         type:'arrival',
         dataSource:cities.names
+    }
+
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: this.props.userData.flightSearch.origin + "-" + this.props.userData.flightSearch.destination +" Flight Search",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Flight Results"
+        }})
     }
 
     componentDidMount(){

@@ -16,7 +16,26 @@ import {changeFlightSearch} from '../actions/flightSearchAction';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
+var R,S;
 class FlightSearch extends Component{
+
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: "Flight Homepage",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Hotel HomePage"
+        }})
+    }
+    
+
     state = {
         valueClass: 'Economy',
         valueTraveler: 1,

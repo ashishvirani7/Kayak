@@ -17,7 +17,8 @@ class AdminAnalysis extends Component {
     this.state = {
       chartHotelData:{},
       chartFlightData:{},
-      chartCrData:{},
+      chartCarData:{},
+      chartCityData:{},
       current:"hotel",
       open:true
     }
@@ -35,10 +36,12 @@ class AdminAnalysis extends Component {
     this.getHotelData();
     this.getFlightData();
     this.getCarData();
+    this.getCityData();
 		setInterval(() => {
       this.getHotelData();
       this.getFlightData();
       this.getCarData();
+      this.getCityData();
 		}, 2000);
 	}
 
@@ -138,6 +141,40 @@ class AdminAnalysis extends Component {
       
   }
 
+  getCityData(){
+    var self = this;
+    
+    axios.post('http://localhost:3001/getRevenue/citywise',{
+      "year":"2017"
+    })
+    .then(function (response) {
+      console.log(response.data.data.label);
+      self.setState({
+        chartCityData:{
+          labels: response.data.data.label,
+          //labels:response.data.data.label,
+          datasets:[
+            {
+              label:'Revenue',
+              data:response.data.data.values,
+              backgroundColor:[
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+              ]
+            }
+          ]
+        }
+      });
+    });
+    
+}
+
+
+
   handleHotelClick(){
     this.setState({...this.state,current:"hotel"})
   }
@@ -150,6 +187,10 @@ class AdminAnalysis extends Component {
 
   handleAppClick(){
     this.setState({...this.state,open:false})
+  }
+
+  handleCityClick(){
+    this.setState({...this.state,current:"city"})
   }
 
   render() {
@@ -174,6 +215,7 @@ class AdminAnalysis extends Component {
               <MenuItem onClick={()=>this.handleHotelClick()}>Top 10 Hotel</MenuItem>
               <MenuItem onClick={()=>this.handleFlightClick()}>Top 10 Flight</MenuItem>
               <MenuItem onClick={()=>this.handleCarClick()}>Top 10 Car</MenuItem>
+              <MenuItem onClick={()=>this.handleCityClick()}>Top 10 Cities</MenuItem>
           </Drawer>
 
           </div>
@@ -234,6 +276,25 @@ class AdminAnalysis extends Component {
                 }}
               />
             </div>
+            }
+            {
+              this.state.current === "city" &&
+              <div>
+                <Bar
+                  data={this.state.chartCityData}
+                  options={{
+                    title:{
+                      display:this.props.displayTitle,
+                      text:' '+this.props.location,
+                      fontSize:25
+                    },
+                    legend:{
+                      display:this.props.displayLegend,
+                      position:this.props.legendPosition
+                    }
+                  }}
+                />
+              </div>
             }
           </div>
         </div>

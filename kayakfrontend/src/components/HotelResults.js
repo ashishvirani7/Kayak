@@ -37,9 +37,25 @@ import ReactStars from 'react-stars';
 
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
-
+var R,S;
 class HotelResults extends Component
 {
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: this.props.userData.hotelSearch.city +" Hotel Search",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Hotel Search"
+        }})
+    }
+    
     state = {
         valueRoom:this.props.userData.hotelSearch.noOfRoom,
         valueGuest:this.props.userData.hotelSearch.noOfGuest,

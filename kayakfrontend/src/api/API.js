@@ -602,6 +602,23 @@ fetch(`${api}/getRevenue/cars`, {
         return error;
 });
 
+export const doAdminAnalysisRevenueCity = (payload) =>
+fetch(`${api}/getRevenue/citywise`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    credentials:'include',
+    body: JSON.stringify(payload)
+}).then(res => {
+    return res;
+})
+    .catch(error => {
+        console.log("This is error");
+        return error;
+});
+
 export const createReview = (payload) =>
 fetch(`${api}/createReview`, {
     method: 'POST',
@@ -618,6 +635,7 @@ fetch(`${api}/createReview`, {
         console.log("This is error");
         return error;
     });
+
 
 export const checkSession = () =>
 fetch(`${api}/sessioncheck`, {

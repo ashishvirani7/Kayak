@@ -14,7 +14,25 @@ import {changeCarSearch} from '../actions/carSearchAction';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import AutoComplete from 'material-ui/AutoComplete';
 import cities from '../data/cities';
+var R,S;
 class CarSearch extends Component{
+
+    componentWillMount(){
+        console.log(Date.now());
+        S=Date.now();
+    }
+
+    componentWillUnmount(){
+        R=Date.now();
+        console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: "Car Homepage",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Car Search"
+        }})
+    }
+    
 
     state = {
         dataSource:cities.names

@@ -32,6 +32,12 @@ class HotelSearch extends Component{
     componentWillUnmount(){
         R=Date.now();
         console.log(R-S);
+        API.saveRecord({record:{userid: this.props.userData.data._id,
+            activity: "Hotel Homepage",
+            timeSpent: R-S,
+            timenow: Date.now(),
+            type:"Hotel HomePage"
+        }})
     }
     
     state = {
