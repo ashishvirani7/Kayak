@@ -110,4 +110,60 @@ router.post('/cars', (req,res,next)=>{
         }
     });
 });
+
+router.post('/saveRecord', (req,res,next)=>{
+
+    var message="";
+    var key = "record";
+    var record = req.body.record;
+    kafka.make_request(topic_name, {key,record}, function(err,results){
+        console.log('in result');
+        console.log(results);
+        if(err){
+            done(err,{});
+        }
+        else
+        {
+            if(results.code == 201){
+                message="Get All Cars executed Successfully";
+                console.log(message);
+                console.log("Result"+results);
+                return res.status(201).send({"message":results});
+            }
+            else {
+                message="Failed to get All Cars";
+                console.log(message);
+                res.status(202).send({"message":err});
+            }
+        }
+    });
+});
+
+router.post('/getRecord', (req,res,next)=>{
+
+    var message="";
+    var key = "userrecord10";
+    var userid = req.body.userid;
+    kafka.make_request(topic_name, {key,userid}, function(err,results){
+        console.log('in result');
+        console.log(results);
+        if(err){
+            done(err,{});
+        }
+        else
+        {
+            if(results.code == 201){
+                message="Get All Cars executed Successfully";
+                console.log(message);
+                console.log("Result"+results);
+                return res.status(201).send({"message":results});
+            }
+            else {
+                message="Failed to get All Cars";
+                console.log(message);
+                res.status(202).send({"message":err});
+            }
+        }
+    });
+});
 module.exports = router;
